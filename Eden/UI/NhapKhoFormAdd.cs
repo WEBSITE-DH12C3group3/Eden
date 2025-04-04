@@ -14,6 +14,7 @@ namespace Eden
             InitializeComponent();
             phieuNhapBLL = new PHIEUNHAPBLL();
             this.Text = "Thêm Phiếu Nhập";
+            LoadNhapKho();
         }
 
         // Constructor cho Sửa phiếu nhập
@@ -43,7 +44,31 @@ namespace Eden
                 MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
             }
         }
+        private void LoadNhapKho()
+        {
+            try
+            {
+                // Gọi BLL để lấy danh sách nhà cung cấp
+                var phieuNhapBLL = new PHIEUNHAPBLL();
+                var listNCC = phieuNhapBLL.GetAll();
 
+                if (listNCC.Count > 0)
+                {
+                    // Gán dữ liệu cho ComboBox
+                    cmbNhaCungCap.DataSource = listNCC;
+                    cmbNhaCungCap.DisplayMember = "TenNhaCungCap"; // Hiển thị tên nhà cung cấp
+                    cmbNhaCungCap.ValueMember = "MaNhaCungCap"; // Lưu mã nhà cung cấp
+                }
+                else
+                {
+                    MessageBox.Show("Không có nhà cung cấp nào trong hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải danh sách nhà cung cấp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         // Sự kiện Lưu (Thêm hoặc Sửa)
         private void btnSave_Click(object sender, EventArgs e)
         {

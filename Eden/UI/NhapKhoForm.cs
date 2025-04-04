@@ -125,5 +125,10 @@ namespace Eden
         private TextBox txtSearch;
         private Button btnSearch;
         private Button btnRefresh;
+
+        private void dgvPhieuNhap_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

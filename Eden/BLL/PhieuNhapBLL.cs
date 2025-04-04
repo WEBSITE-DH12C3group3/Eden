@@ -13,6 +13,11 @@ namespace Eden
         }
 
         // Lấy tất cả phiếu nhập
+
+        public List<NHACUNGCAP> GetAllNHACUNGCAP()
+        {
+            return dal.GetAllNHACUNGCAP();
+        }
         public List<PHIEUNHAP> GetAll()
         {
             return dal.GetAll();

@@ -10,6 +10,11 @@ namespace Eden
         private readonly QLBanHoaEntities db = new QLBanHoaEntities();
 
         // Lấy tất cả phiếu nhập cùng thông tin nhà cung cấp và người dùng
+        public List<NHACUNGCAP> GetAllNHACUNGCAP()
+        {
+            return db.NHACUNGCAPs.OrderBy(ncc => ncc.TenNhaCungCap).ToList();
+        }
+
         public List<PHIEUNHAP> GetAll()
         {
             return db.PHIEUNHAPs
