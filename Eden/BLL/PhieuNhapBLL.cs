@@ -117,7 +117,7 @@ namespace Eden
         // Cập nhật chi tiết phiếu nhập
         public bool UpdateChiTiet(CHITIETPHIEUNHAP c)
         {
-            if (c == null || c.idChiTietPhieuNhap <= 0)
+            if (c == null || c.idPhieuNhap <= 0)
                 throw new ArgumentException("Dữ liệu chi tiết phiếu nhập không hợp lệ!");
 
             try
