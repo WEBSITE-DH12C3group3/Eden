@@ -57,7 +57,8 @@ GO
 CREATE TABLE NHACUNGCAP (
     id INT IDENTITY(1,1) PRIMARY KEY,
     MaNhaCungCap AS ('NCC' + RIGHT('000' + CAST(id AS VARCHAR(3)), 3)) PERSISTED,
-    DiaChi NVARCHAR(MAX),
+	TenNhaCungCap NVARCHAR(255) NOT NULL,
+	DiaChi NVARCHAR(MAX),
     SoDienThoai NVARCHAR(20),
     Email NVARCHAR(255)
 );
@@ -228,9 +229,39 @@ GO
 -- Thêm dữ liệu vào bảng HOADON
 INSERT INTO HOADON (NgayLap, idKhachHang, idNguoiDung, TongTien)
 VALUES 
-    ('2023-10-05', 1, 2, 150000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
-    ('2023-10-06', 2, 2, 200000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
-    ('2023-10-07', 3, 2, 250000); -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-05', 1, 1, 100000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-06', 2, 1, 200000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-07', 3, 1, 300000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-01', 1, 2, 50000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 2
+    ('2025-04-08', 2, 2, 100000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 2
+    ('2025-04-09', 3, 2, 200000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 2
+    ('2025-04-10', 1, 2, 300000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 2
+    ('2025-04-11', 2, 2, 400000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 2
+    ('2025-04-12', 3, 2, 500000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 2
+    ('2025-04-13', 1, 2, 600000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 2
+    ('2025-04-14', 2, 2, 700000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 2
+    ('2025-04-15', 3, 2, 800000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 2
+    ('2025-04-03', 1, 1, 100000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-02', 2, 1, 200000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-01', 3, 1, 300000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-05', 1, 2, 100000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-06', 2, 2, 200000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-07', 3, 2, 300000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-04', 1, 2, 100000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-03', 2, 2, 200000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-02', 3, 2, 300000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-01', 1, 2, 100000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-08', 2, 2, 200000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-09', 3, 2, 300000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-10', 1, 2, 400000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-11', 2, 2, 500000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-12', 3, 2, 600000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-13', 1, 2, 700000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-14', 2, 2, 800000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-15', 3, 2,900000), -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
+    ('2025-04-04', 1, 2, 150000), -- Hóa đơn của khách hàng A, lập bởi nhân viên 1
+    ('2025-04-03', 2, 2, 200000), -- Hóa đơn của khách hàng B, lập bởi nhân viên 1
+    ('2025-04-02', 3, 2, 250000); -- Hóa đơn của khách hàng C, lập bởi nhân viên 1
 GO
 
 -- Thêm dữ liệu vào bảng CHITIETHOADON
@@ -239,7 +270,19 @@ VALUES
     (1, 1, 2, 50000, 100000), -- Hóa đơn 1, sản phẩm 1
     (1, 2, 1, 30000, 30000),  -- Hóa đơn 1, sản phẩm 2
     (2, 3, 3, 70000, 210000), -- Hóa đơn 2, sản phẩm 3
-    (3, 4, 4, 60000, 240000); -- Hóa đơn 3, sản phẩm 4
+    (3, 4, 4, 60000, 240000), -- Hóa đơn 3, sản phẩm 4
+    (4, 1, 5, 50000, 250000), -- Hóa đơn 4, sản phẩm 1
+    (5, 2, 6, 30000, 180000), -- Hóa đơn 5, sản phẩm 2
+    (6, 3, 7, 70000, 490000), -- Hóa đơn 6, sản phẩm 3
+    (7, 4, 8, 60000, 480000), -- Hóa đơn 7, sản phẩm 4
+    (8, 1, 9, 50000, 450000), -- Hóa đơn 8, sản phẩm 1
+    (9, 2, 10, 30000, 300000), -- Hóa đơn 9, sản phẩm 2
+    (10, 3, 11, 70000,770000), -- Hóa đơn10,sản phẩm3
+    (11,4 ,12 ,60000 ,720000), -- Hóa đơn11,sản phẩm4
+    (12 ,1 ,13 ,50000 ,650000), -- Hóa đơn12,sản phẩm1
+    (13 ,2 ,14 ,30000 ,420000), -- Hóa đơn13,sản phẩm2
+    (14 ,3 ,15 ,70000 ,1050000), -- Hóa đơn14,sản phẩm3
+    (15 ,4 ,16 ,60000 ,960000); -- Hóa đơn15,sản phẩm4
 GO
 
 -- Thêm dữ liệu vào bảng PHIEUNHAP
