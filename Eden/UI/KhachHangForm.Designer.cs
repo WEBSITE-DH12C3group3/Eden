@@ -1,4 +1,7 @@
-﻿namespace Eden
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace Eden
 {
     partial class KhachHangForm
     {
@@ -28,10 +31,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addkhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.suakhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.xoakhachhang = new Guna.UI2.WinForms.Guna2Button();
-            this.dgkhachhang = new System.Windows.Forms.DataGridView();
+            this.dgkhachhang = new Guna.UI2.WinForms.Guna2DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgkhachhang)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,14 +88,56 @@
             // 
             // dgkhachhang
             // 
-            this.dgkhachhang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgkhachhang.Location = new System.Drawing.Point(0, 0);
-            this.dgkhachhang.Name = "dgkhachhang";
-            this.dgkhachhang.RowHeadersWidth = 51;
-            this.dgkhachhang.RowTemplate.Height = 24;
-            this.dgkhachhang.Size = new System.Drawing.Size(1284, 449);
-            this.dgkhachhang.TabIndex = 4;
-            // 
+            dgkhachhang.AllowUserToAddRows = false;
+            dgkhachhang.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.AliceBlue;
+            dgkhachhang.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgkhachhang.BorderStyle = BorderStyle.Fixed3D;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgkhachhang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgkhachhang.ColumnHeadersHeight = 29;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.LightBlue;
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgkhachhang.DefaultCellStyle = dataGridViewCellStyle3;
+            dgkhachhang.GridColor = Color.FromArgb(231, 229, 255);
+            dgkhachhang.Location = new Point(20, 120);
+            dgkhachhang.Name = "dgkhachhang";
+            dgkhachhang.ReadOnly = true;
+            dgkhachhang.RowHeadersVisible = false;
+            dgkhachhang.RowHeadersWidth = 51;
+            dgkhachhang.Size = new Size(912, 350);
+            dgkhachhang.TabIndex = 3;
+            dgkhachhang.ThemeStyle.AlternatingRowsStyle.BackColor = Color.AliceBlue;
+            dgkhachhang.ThemeStyle.AlternatingRowsStyle.Font = null;
+            dgkhachhang.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
+            dgkhachhang.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
+            dgkhachhang.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            dgkhachhang.ThemeStyle.BackColor = Color.White;
+            dgkhachhang.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            dgkhachhang.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
+            dgkhachhang.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgkhachhang.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
+            dgkhachhang.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            dgkhachhang.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgkhachhang.ThemeStyle.HeaderStyle.Height = 29;
+            dgkhachhang.ThemeStyle.ReadOnly = true;
+            dgkhachhang.ThemeStyle.RowsStyle.BackColor = Color.White;
+            dgkhachhang.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgkhachhang.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
+            dgkhachhang.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
+            dgkhachhang.ThemeStyle.RowsStyle.Height = 29; dgkhachhang.ThemeStyle.RowsStyle.SelectionBackColor = Color.LightBlue;
+            dgkhachhang.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             // KhachHangForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -110,6 +158,6 @@
         private Guna.UI2.WinForms.Guna2Button addkhachhang;
         private Guna.UI2.WinForms.Guna2Button suakhachhang;
         private Guna.UI2.WinForms.Guna2Button xoakhachhang;
-        private System.Windows.Forms.DataGridView dgkhachhang;
+        private Guna.UI2.WinForms.Guna2DataGridView dgkhachhang;
     }
 }
