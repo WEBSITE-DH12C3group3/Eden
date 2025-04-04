@@ -23,29 +23,32 @@ namespace Eden.UI
         private void GenerateSupplierID()
         {
             var nhaCungCapList = nhaCungCapBLL.GetAll();
+
             if (nhaCungCapList.Count > 0)
             {
                 var lastNhaCungCap = nhaCungCapList
-                    .Where(n => n.MaNhaCungCap.StartsWith("NCC")) // Chỉ lấy mã hợp lệ
-                    .OrderByDescending(n => n.MaNhaCungCap)
+                    .Where(n => n.MaNhaCungCap.StartsWith("NCC") && int.TryParse(n.MaNhaCungCap.Substring(3), out _))
+                    .OrderByDescending(n => int.Parse(n.MaNhaCungCap.Substring(3)))
                     .FirstOrDefault();
 
                 if (lastNhaCungCap != null)
                 {
-                    int lastNumber = int.Parse(lastNhaCungCap.MaNhaCungCap.Substring(3)); // Lấy số từ NCCxxx
-                    guna2TextBox1.Text = $"NCC{(lastNumber + 1):D3}"; // NCC001, NCC002...
+                    int lastNumber = int.Parse(lastNhaCungCap.MaNhaCungCap.Substring(3));
+                    guna2TextBox1.Text = $"NCC{(lastNumber + 1):D3}";
                 }
                 else
                 {
-                    guna2TextBox1.Text = "NCC001"; // Nếu không có mã hợp lệ
+                    guna2TextBox1.Text = "NCC001";
                 }
             }
             else
             {
-                guna2TextBox1.Text = "NCC001"; // Nếu chưa có nhà cung cấp nào
+                guna2TextBox1.Text = "NCC001";
             }
-            guna2TextBox1.ReadOnly = true; // Không cho phép chỉnh sửa mã
+
+            guna2TextBox1.ReadOnly = true;
         }
+
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {

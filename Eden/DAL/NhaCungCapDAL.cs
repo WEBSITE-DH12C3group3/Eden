@@ -24,7 +24,25 @@ namespace Eden
                 existingNCC.Email = entity.Email;
 
                 Console.WriteLine("Dữ liệu cập nhật: " + existingNCC.TenNhaCungCap);
-                db.SaveChanges();
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                {
+                    string errorMsg = "";
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            errorMsg += $"Thuộc tính: {validationError.PropertyName} - Lỗi: {validationError.ErrorMessage}\n";
+                        }
+                    }
+
+                    Console.WriteLine(errorMsg);
+                    throw new Exception("Lỗi khi cập nhật dữ liệu:\n" + errorMsg);
+                }
             }
             else
             {
