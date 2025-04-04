@@ -56,7 +56,7 @@ GO
 -- Bảng Nhà Cung Cấp
 CREATE TABLE NHACUNGCAP (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    MaNhaCungCap AS ('NCC' + RIGHT('000' + CAST(id AS VARCHAR(3)), 3)) PERSISTED;
+    MaNhaCungCap AS ('NCC' + RIGHT('000' + CAST(id AS VARCHAR(3)), 3)) PERSISTED,
     DiaChi NVARCHAR(MAX),
     SoDienThoai NVARCHAR(20),
     Email NVARCHAR(255)
