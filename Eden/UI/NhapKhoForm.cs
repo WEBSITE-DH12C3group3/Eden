@@ -117,8 +117,6 @@ namespace Eden
                 MessageBox.Show("Phiếu nhập không tồn tại.");
             }
         }
-
-        private DataGridView dgvPhieuNhap;
         private Button btnAdd;
         private Button btnEdit;
         private Button btnDelete;
@@ -126,7 +124,29 @@ namespace Eden
         private Button btnSearch;
         private Button btnRefresh;
 
+
         private void dgvPhieuNhap_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            try
+            {
+                var phieuNhaps = phieuNhapBLL.GetAll();
+                dgvPhieuNhap.DataSource = phieuNhaps.Select(p => new
+                {
+                    p.MaPhieuNhap,
+                    p.NgayNhap,
+                    NhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
+                    NguoiDung = p.NGUOIDUNG.TenNguoiDung
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu phiếu nhập: " + ex.Message);
+            }
+
+        }
+
+        private void NhapKhoForm_Load(object sender, EventArgs e)
         {
 
         }
