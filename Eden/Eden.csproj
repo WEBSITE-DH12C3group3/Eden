@@ -305,6 +305,9 @@
     <EmbeddedResource Include="UI\NhapKhoFormAdd.resx">
       <DependentUpon>NhapKhoFormAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\NhomNguoiDungForm.resx">
+      <DependentUpon>NhomNguoiDungForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\PhanLoaiForm.resx">
       <DependentUpon>PhanLoaiForm.cs</DependentUpon>
     </EmbeddedResource>
