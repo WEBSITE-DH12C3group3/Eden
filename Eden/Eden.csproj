@@ -143,6 +143,18 @@
     <Compile Include="THAMSO.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="UI\AddEditNguoiDungForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddEditNguoiDungForm.Designer.cs">
+      <DependentUpon>AddEditNguoiDungForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AddEditNhomNguoiDungForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AddEditNhomNguoiDungForm.Designer.cs">
+      <DependentUpon>AddEditNhomNguoiDungForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\HoaDonForm.cs">
       <SubType>Form</SubType>
     </Compile>

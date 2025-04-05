@@ -1,204 +1,166 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.Collections.Generic;
 using Guna.UI2.WinForms;
 
 namespace Eden
 {
     public partial class NguoiDungForm : Form
     {
-        private NGUOIDUNGBLL nguoiDungBLL = new NGUOIDUNGBLL();
-        private NHOMNGUOIDUNGBLL nhomBLL = new NHOMNGUOIDUNGBLL();
-        private List<NGUOIDUNG> allUsers; // Lưu toàn bộ danh sách người dùng
-        private int pageSize = 5;
+        private NGUOIDUNGBLL bll = new NGUOIDUNGBLL();
+        private List<NGUOIDUNG> allNguoiDung;
         private int currentPage = 1;
-
-        // Enum cho phân quyền (tương tự NhomNguoiDungForm)
-        public enum UserRole
-        {
-            Admin,  // Có toàn quyền
-            Editor, // Có thể thêm, sửa, nhưng không xóa
-            Viewer  // Chỉ xem
-        }
-        private UserRole currentUserRole = UserRole.Admin; // Giả lập vai trò (có thể thay đổi)
+        private int pageSize = 10;
+        private UserRole currentUserRole = UserRole.Viewer;
 
         public NguoiDungForm()
         {
             InitializeComponent();
-            ApplyPermissions(); // Áp dụng phân quyền
-            LoadComboBox();
-            LoadUsers();
+            currentUserRole = UserRole.Admin; // Giả lập vai trò, bạn có thể thay đổi
+            ApplyPermissions();
+            ConfigureDataGridView();
+            LoadData();
+        }
+
+        private void ConfigureDataGridView()
+        {
+            dgvNguoiDung.AutoGenerateColumns = false;
+            if (dgvNguoiDung.Columns.Count == 0)
+            {
+                dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "id",
+                    HeaderText = "ID",
+                    Name = "id"
+                });
+                dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "TenDangNhap",
+                    HeaderText = "Tên Đăng Nhập",
+                    Name = "TenDangNhap"
+                });
+                dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "MatKhau",
+                    HeaderText = "Mật Khẩu",
+                    Name = "MatKhau"
+                });
+                dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "idNhomNguoiDung",
+                    HeaderText = "ID Nhóm",
+                    Name = "idNhomNguoiDung"
+                });
+            }
         }
 
         private void ApplyPermissions()
         {
-            // Áp dụng phân quyền dựa trên vai trò người dùng
             switch (currentUserRole)
             {
                 case UserRole.Admin:
-                    btnAdd.Enabled = true;
-                    btnEdit.Enabled = true;
-                    btnDelete.Enabled = true;
+                    btnThem.Enabled = true;
+                    btnSua.Enabled = true;
+                    btnXoa.Enabled = true;
                     break;
                 case UserRole.Editor:
-                    btnAdd.Enabled = true;
-                    btnEdit.Enabled = true;
-                    btnDelete.Enabled = false;
+                    btnThem.Enabled = true;
+                    btnSua.Enabled = true;
+                    btnXoa.Enabled = false;
                     break;
                 case UserRole.Viewer:
-                    btnAdd.Enabled = false;
-                    btnEdit.Enabled = false;
-                    btnDelete.Enabled = false;
+                    btnThem.Enabled = false;
+                    btnSua.Enabled = false;
+                    btnXoa.Enabled = false;
                     break;
             }
         }
 
-        private void LoadComboBox()
+        private void LoadData()
         {
             try
             {
-                var groups = nhomBLL.GetAll();
-                cbUserGroup.DataSource = groups;
-                cbUserGroup.DisplayMember = "TenNhomNguoiDung"; // Sửa từ "TenNhom" thành "TenNhomNguoiDung" để khớp với bảng
-                cbUserGroup.ValueMember = "id";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi tải danh sách nhóm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LoadUsers()
-        {
-            try
-            {
-                // Lấy toàn bộ danh sách người dùng
-                allUsers = nguoiDungBLL.GetAll();
-
-                // Lọc theo từ khóa tìm kiếm (nếu có)
-                var filteredList = allUsers;
+                allNguoiDung = bll.GetAll();
+                var filteredList = allNguoiDung;
                 if (!string.IsNullOrWhiteSpace(txtSearch.Text))
                 {
                     string keyword = txtSearch.Text.ToLower();
-                    filteredList = allUsers
-                        .Where(x => x.MaNguoiDung.ToLower().Contains(keyword) ||
-                                    x.TenNguoiDung.ToLower().Contains(keyword) ||
-                                    x.TenDangNhap.ToLower().Contains(keyword))
+                    filteredList = allNguoiDung
+                        .Where(n => n.TenDangNhap.ToLower().Contains(keyword))
                         .ToList();
                 }
 
-                // Tính toán phân trang
                 int totalRecords = filteredList.Count;
                 int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
                 lblPageInfo.Text = $"Trang {currentPage}/{totalPages}";
 
-                // Hiển thị dữ liệu cho trang hiện tại
                 var pagedList = filteredList
                     .Skip((currentPage - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(u => new
-                    {
-                        u.id,
-                        u.MaNguoiDung,
-                        u.TenNguoiDung,
-                        u.TenDangNhap,
-                        u.MatKhau,
-                        TenNhomNguoiDung = nhomBLL.GetAll().FirstOrDefault(g => g.id == u.idNhomNguoiDung)?.TenNhomNguoiDung
-                    })
                     .ToList();
-                dgvUsers.DataSource = pagedList;
+                dgvNguoiDung.DataSource = pagedList;
 
-                // Cập nhật trạng thái nút điều hướng
-                btnPrev.Enabled = currentPage > 1;
+                btnPrevious.Enabled = currentPage > 1;
                 btnNext.Enabled = currentPage < totalPages;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private string GenerateMaNguoiDung()
+        private void btnThem_Click(object sender, EventArgs e)
         {
-            // Lấy số lượng người dùng hiện có để sinh mã
-            int count = nguoiDungBLL.GetAll().Count + 1;
-            return $"ND{count:D4}"; // Định dạng NDxxxx (ví dụ: ND0001, ND0002)
-        }
-
-        private void BtnAdd_Click(object sender, EventArgs e)
-        {
-            // Kiểm tra dữ liệu đầu vào
-            if (string.IsNullOrWhiteSpace(txtUserName.Text) ||
-                string.IsNullOrWhiteSpace(txtLogin.Text) ||
-                string.IsNullOrWhiteSpace(txtPassword.Text) ||
-                cbUserGroup.SelectedValue == null)
+            using (var form = new AddEditNguoiDungForm())
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                var user = new NGUOIDUNG
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    MaNguoiDung = GenerateMaNguoiDung(), // Tự động sinh mã
-                    TenNguoiDung = txtUserName.Text,
-                    TenDangNhap = txtLogin.Text,
-                    MatKhau = txtPassword.Text,
-                    idNhomNguoiDung = Convert.ToInt32(cbUserGroup.SelectedValue)
-                };
-                nguoiDungBLL.Add(user);
-                LoadUsers();
-                MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi thêm người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        var nd = form.NguoiDung;
+                        bll.Add(nd);
+                        LoadData();
+                        MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi thêm người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
-        private void BtnEdit_Click(object sender, EventArgs e)
+        private void btnSua_Click(object sender, EventArgs e)
         {
-            if (dgvUsers.CurrentRow == null)
+            if (dgvNguoiDung.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một người dùng để sửa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtUserName.Text) ||
-                string.IsNullOrWhiteSpace(txtLogin.Text) ||
-                string.IsNullOrWhiteSpace(txtPassword.Text) ||
-                cbUserGroup.SelectedValue == null)
+            var nd = dgvNguoiDung.CurrentRow.DataBoundItem as NGUOIDUNG;
+            using (var form = new AddEditNguoiDungForm(nd))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                var selected = (dynamic)dgvUsers.CurrentRow.DataBoundItem;
-                var user = nguoiDungBLL.GetAll().FirstOrDefault(u => u.id == selected.id);
-                if (user != null)
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    user.TenNguoiDung = txtUserName.Text;
-                    user.TenDangNhap = txtLogin.Text;
-                    user.MatKhau = txtPassword.Text;
-                    user.idNhomNguoiDung = Convert.ToInt32(cbUserGroup.SelectedValue);
-                    nguoiDungBLL.Update(user);
-                    LoadUsers();
-                    MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    try
+                    {
+                        bll.Update(form.NguoiDung);
+                        LoadData();
+                        MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi sửa người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi sửa người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e)
+        private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (dgvUsers.CurrentRow == null)
+            if (dgvNguoiDung.CurrentRow == null)
             {
                 MessageBox.Show("Vui lòng chọn một người dùng để xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -210,12 +172,11 @@ namespace Eden
 
             try
             {
-                var selected = (dynamic)dgvUsers.CurrentRow.DataBoundItem;
-                var user = nguoiDungBLL.GetAll().FirstOrDefault(u => u.id == selected.id);
-                if (user != null)
+                var nd = dgvNguoiDung.CurrentRow.DataBoundItem as NGUOIDUNG;
+                if (nd != null)
                 {
-                    nguoiDungBLL.Delete(user);
-                    LoadUsers();
+                    bll.Delete(nd);
+                    LoadData();
                     MessageBox.Show("Xóa người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -225,29 +186,29 @@ namespace Eden
             }
         }
 
-        private void BtnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-            currentPage = 1; // Reset về trang đầu khi tìm kiếm
-            LoadUsers();
+            currentPage = 1;
+            LoadData();
         }
 
-        private void BtnPrev_Click(object sender, EventArgs e)
+        private void btnPrevious_Click(object sender, EventArgs e)
         {
             if (currentPage > 1)
             {
                 currentPage--;
-                LoadUsers();
+                LoadData();
             }
         }
 
-        private void BtnNext_Click(object sender, EventArgs e)
+        private void btnNext_Click(object sender, EventArgs e)
         {
-            int totalRecords = allUsers.Count;
+            int totalRecords = allNguoiDung.Count;
             int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
             if (currentPage < totalPages)
             {
                 currentPage++;
-                LoadUsers();
+                LoadData();
             }
         }
     }

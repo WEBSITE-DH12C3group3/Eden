@@ -13,7 +13,7 @@ namespace Eden
         Viewer
     }
 
-    public partial class NhomNguoiDungForm : Form // Chuyển từ UserControl thành Form
+    public partial class NhomNguoiDungForm : Form
     {
         private NHOMNGUOIDUNGBLL bll = new NHOMNGUOIDUNGBLL();
         private List<NHOMNGUOIDUNG> allNhomNguoiDung;
@@ -37,7 +37,7 @@ namespace Eden
             {
                 dgvNhomNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
                 {
-                    DataPropertyName = "id", // Sửa Id thành id
+                    DataPropertyName = "id",
                     HeaderText = "ID",
                     Name = "id"
                 });
@@ -114,27 +114,22 @@ namespace Eden
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaNhom.Text) || string.IsNullOrWhiteSpace(txtTenNhom.Text))
+            using (var form = new AddEditNhomNguoiDungForm())
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ Mã Nhóm và Tên Nhóm!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                var nnd = new NHOMNGUOIDUNG
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    MaNhomNguoiDung = txtMaNhom.Text,
-                    TenNhomNguoiDung = txtTenNhom.Text
-                };
-                bll.Add(nnd);
-                LoadData();
-                MessageBox.Show("Thêm nhóm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearInputs();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi thêm nhóm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        var nnd = form.NhomNguoiDung;
+                        bll.Add(nnd);
+                        LoadData();
+                        MessageBox.Show("Thêm nhóm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi thêm nhóm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
@@ -146,28 +141,22 @@ namespace Eden
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtMaNhom.Text) || string.IsNullOrWhiteSpace(txtTenNhom.Text))
+            var nnd = dgvNhomNguoiDung.CurrentRow.DataBoundItem as NHOMNGUOIDUNG;
+            using (var form = new AddEditNhomNguoiDungForm(nnd))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ Mã Nhóm và Tên Nhóm!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                var nnd = dgvNhomNguoiDung.CurrentRow.DataBoundItem as NHOMNGUOIDUNG;
-                if (nnd != null)
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    nnd.MaNhomNguoiDung = txtMaNhom.Text;
-                    nnd.TenNhomNguoiDung = txtTenNhom.Text;
-                    bll.Update(nnd);
-                    LoadData();
-                    MessageBox.Show("Cập nhật nhóm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearInputs();
+                    try
+                    {
+                        bll.Update(form.NhomNguoiDung);
+                        LoadData();
+                        MessageBox.Show("Cập nhật nhóm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi sửa nhóm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi sửa nhóm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -191,7 +180,6 @@ namespace Eden
                     bll.Delete(nnd);
                     LoadData();
                     MessageBox.Show("Xóa nhóm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ClearInputs();
                 }
             }
             catch (Exception ex)
@@ -202,15 +190,7 @@ namespace Eden
 
         private void dgvNhomNguoiDung_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvNhomNguoiDung.CurrentRow != null)
-            {
-                var nnd = dgvNhomNguoiDung.CurrentRow.DataBoundItem as NHOMNGUOIDUNG;
-                if (nnd != null)
-                {
-                    txtMaNhom.Text = nnd.MaNhomNguoiDung;
-                    txtTenNhom.Text = nnd.TenNhomNguoiDung;
-                }
-            }
+            // Không cần hiển thị dữ liệu lên ô nhập liệu nữa vì đã dùng form con
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -237,13 +217,6 @@ namespace Eden
                 currentPage++;
                 LoadData();
             }
-        }
-
-        private void ClearInputs()
-        {
-            txtMaNhom.Text = string.Empty;
-            txtTenNhom.Text = string.Empty;
-            txtSearch.Text = string.Empty;
         }
     }
 }
