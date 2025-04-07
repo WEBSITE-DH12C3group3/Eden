@@ -417,6 +417,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+     <None Include="Resources\more.png" />
     <None Include="Resources\Pi7_profit.png" />
     <None Include="Resources\Pi7_money-tag.png" />
     <None Include="Resources\Pi7_group.png" />

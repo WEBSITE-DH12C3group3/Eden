@@ -68,7 +68,7 @@ namespace Eden
         {
             var resultTable = _context.HOADONs
                 .Where(o => o.NgayLap >= startDate && o.NgayLap <= endDate)
-                .GroupBy(o => o.NgayLap)
+                .GroupBy(o => o.NgayLap)  // Sử dụng NgayLap nguyên gốc mà không cần tách phần ngày
                 .Select(g => new { Date = g.Key, TotalAmount = g.Sum(o => o.TongTien) })
                 .ToList();
 
@@ -77,20 +77,23 @@ namespace Eden
 
             if (numberDays <= 1)
             {
+                // Nhóm theo giờ trong ngày
                 GrossRevenueList = resultTable
-                    .GroupBy(o => o.Date.ToString("hh tt"))
+                    .GroupBy(o => o.Date.ToString("hh:tt"))
                     .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
                     .ToList();
             }
             else if (numberDays <= 30)
             {
+                // Nhóm theo ngày trong tháng
                 GrossRevenueList = resultTable
-                    .GroupBy(o => o.Date.ToString("dd MMM"))
+                    .GroupBy(o => o.Date.ToString("dd/MMM"))
                     .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
                     .ToList();
             }
             else if (numberDays <= 92)
             {
+                // Nhóm theo tuần trong năm
                 GrossRevenueList = resultTable
                     .GroupBy(o => System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
                         o.Date, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday))
@@ -99,13 +102,15 @@ namespace Eden
             }
             else if (numberDays <= (365 * 2))
             {
+                // Nhóm theo tháng trong năm
                 GrossRevenueList = resultTable
-                    .GroupBy(o => o.Date.ToString("MMM yyyy"))
+                    .GroupBy(o => o.Date.ToString("MMM/yyyy"))
                     .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
                     .ToList();
             }
             else
             {
+                // Nhóm theo năm
                 GrossRevenueList = resultTable
                     .GroupBy(o => o.Date.ToString("yyyy"))
                     .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })

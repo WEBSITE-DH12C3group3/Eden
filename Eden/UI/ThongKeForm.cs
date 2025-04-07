@@ -40,6 +40,7 @@ namespace Eden
                 chartGrossRevenue.DataSource = model.GrossRevenueList;
                 chartGrossRevenue.Series[0].XValueMember = "Date";
                 chartGrossRevenue.Series[0].YValueMembers = "TotalAmount";
+                chartGrossRevenue.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM/yyyy";
                 chartGrossRevenue.DataBind();
                 chartTopProducts.DataSource = model.TopProductsList
                     .Select(p => new { Key = p.Name, Value = (double)p.Quantity })
