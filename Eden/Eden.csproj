@@ -101,6 +101,7 @@
     <Compile Include="DAL\NGUOIDUNGDAL.cs" />
     <Compile Include="DTO\CurrentUser.cs" />
     <Compile Include="DTO\Dashboard.cs" />
+    <Compile Include="DTO\HoaDonDTO.cs" />
     <Compile Include="HOADON.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
