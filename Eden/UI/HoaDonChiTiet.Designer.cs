@@ -38,34 +38,38 @@
             // 
             // dgchitietHD
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgchitietHD.AllowUserToAddRows = false;
+            this.dgchitietHD.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
             this.dgchitietHD.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgchitietHD.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgchitietHD.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgchitietHD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgchitietHD.ColumnHeadersHeight = 29;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightBlue;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgchitietHD.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgchitietHD.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgchitietHD.Location = new System.Drawing.Point(12, 49);
+            this.dgchitietHD.Location = new System.Drawing.Point(3, 1);
             this.dgchitietHD.Name = "dgchitietHD";
+            this.dgchitietHD.ReadOnly = true;
             this.dgchitietHD.RowHeadersVisible = false;
             this.dgchitietHD.RowHeadersWidth = 51;
-            this.dgchitietHD.RowTemplate.Height = 24;
-            this.dgchitietHD.Size = new System.Drawing.Size(658, 240);
-            this.dgchitietHD.TabIndex = 0;
-            this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgchitietHD.RowTemplate.Height = 29;
+            this.dgchitietHD.Size = new System.Drawing.Size(795, 290);
+            this.dgchitietHD.TabIndex = 3;
+            this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
             this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.Font = null;
             this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
             this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
@@ -74,19 +78,18 @@
             this.dgchitietHD.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgchitietHD.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             this.dgchitietHD.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgchitietHD.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgchitietHD.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dgchitietHD.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgchitietHD.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgchitietHD.ThemeStyle.HeaderStyle.Height = 4;
-            this.dgchitietHD.ThemeStyle.ReadOnly = false;
+            this.dgchitietHD.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgchitietHD.ThemeStyle.HeaderStyle.Height = 29;
+            this.dgchitietHD.ThemeStyle.ReadOnly = true;
             this.dgchitietHD.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dgchitietHD.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgchitietHD.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgchitietHD.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dgchitietHD.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgchitietHD.ThemeStyle.RowsStyle.Height = 24;
-            this.dgchitietHD.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgchitietHD.ThemeStyle.RowsStyle.Height = 29;
+            this.dgchitietHD.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.LightBlue;
             this.dgchitietHD.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgchitietHD.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgchitietHD_CellContentClick);
             // 
             // back
             // 
@@ -96,7 +99,7 @@
             this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(12, 308);
+            this.back.Location = new System.Drawing.Point(12, 312);
             this.back.Name = "back";
             this.back.Size = new System.Drawing.Size(180, 45);
             this.back.TabIndex = 1;
