@@ -177,6 +177,16 @@ namespace Eden
         {
             lblStartDate.Text = dtpStartDate.Value.ToString("dd/MM/yyyy");
             lblEndDate.Text = dtpEndDate.Value.ToString("dd/MM/yyyy");
+            dgvUnderstock.Columns[0].HeaderText = "Tên sản phẩm";
+            dgvUnderstock.Columns[1].HeaderText = "Số lượng";
+            dgvUnderstock.Columns[0].Width = 200;
+            dgvUnderstock.Columns[1].Width = 100;
+            dgvUnderstock.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvUnderstock.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvUnderstock.Columns[1].DefaultCellStyle.NullValue = "0"; // Hiển thị 0 nếu không có giá trị
+            dgvUnderstock.RowHeadersWidth = 60; // Tăng chiều rộng header (nếu bạn dùng chỉ số hoặc icon)
+            dgvUnderstock.RowTemplate.Height = 30; // Tăng chiều cao của từng dòng
+            dgvUnderstock.DefaultCellStyle.Padding = new Padding(5); // Thêm khoảng cách nếu cần
         }
     }
 }
