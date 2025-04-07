@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Guna.UI2.WinForms;
 
 namespace Eden
 {
@@ -11,6 +13,7 @@ namespace Eden
     {
         private QLBanHoaEntities db = new QLBanHoaEntities(); // DbContext của Entity Framework
         private Dashboard model;
+        private Guna2Button currentButton;
 
         public ThongKeForm()
         {
@@ -18,6 +21,7 @@ namespace Eden
             dtpStartDate.Value = DateTime.Today.AddDays(-7);
             dtpEndDate.Value = DateTime.Now;
             btnLast7Days.Select();
+            SetDateMenuButtonUI(btnLast7Days);
             model = new Dashboard(db);
             LoadData();
         }
@@ -28,8 +32,8 @@ namespace Eden
             if (refreshData == true)
             {
                 lblNumOrders.Text = model.NumOrders.ToString();
-                lblTotalRevenue.Text = "$" + model.TotalRevenue.ToString();
-                lblTotalProfit.Text = "$" + model.TotalProfit.ToString();
+                lblTotalRevenue.Text = model.TotalRevenue.ToString("#,##0") + "đ";
+                lblTotalProfit.Text = model.TotalProfit.ToString("#,##0") + "đ";
                 lblNumCustomers.Text = model.NumCustomers.ToString();
                 lblNumSuppliers.Text = model.NumSuppliers.ToString();
                 lblNumProducts.Text = model.NumProducts.ToString();
@@ -38,24 +42,60 @@ namespace Eden
                 chartGrossRevenue.Series[0].YValueMembers = "TotalAmount";
                 chartGrossRevenue.DataBind();
                 chartTopProducts.DataSource = model.TopProductsList
-                     .Select(p => new { Key = p.Name, Value = (double)p.Quantity })
-                     .ToList();
+                    .Select(p => new { Key = p.Name, Value = (double)p.Quantity })
+                    .ToList();
                 chartTopProducts.Series[0].XValueMember = "Key";
                 chartTopProducts.Series[0].YValueMembers = "Value";
                 chartTopProducts.DataBind();
-                dgvUnderstock.DataSource = model.UnderstockList;
+                dgvUnderstock.DataSource = model.UnderstockList
+                    .Select(p => new { Name = p.Name, Quantity = (double)p.Quantity })
+                    .ToList();
                 dgvUnderstock.Columns[0].HeaderText = "Item";
                 dgvUnderstock.Columns[1].HeaderText = "Units";
+                Console.WriteLine("Understock count: " + model.UnderstockList.Count);
+                foreach (var item in model.UnderstockList)
+                {
+                    Console.WriteLine($"{item.Name} - {item.Quantity}");
+                }
+
                 Console.WriteLine("Loaded view :)");
             }
             else Console.WriteLine("View not loaded, same query");
         }
 
-        private void DisableCustomDates()
+        private void SetDateMenuButtonUI(object button)
         {
-            dtpStartDate.Enabled = false;
-            dtpEndDate.Enabled = false;
-            btnOkCustomDate.Visible = false;
+            var btn = (Guna.UI2.WinForms.Guna2Button)button;
+
+            // Highlight: nút đang được chọn
+            btn.FillColor = Color.FromArgb(107, 83, 255); // màu nền khi được chọn
+            btn.ForeColor = Color.White;
+
+            // Contrast: reset lại nút trước đó
+            if (currentButton != null && currentButton != btn)
+            {
+                currentButton.FillColor = Color.Transparent;
+                currentButton.ForeColor = Color.FromArgb(124, 141, 181);
+            }
+            currentButton = btn; // Gán nút hiện tại là đang active
+
+            // Enable customdate
+            if (btn == btnCustomDate)
+            {
+                dtpStartDate.Enabled = true;
+                dtpEndDate.Enabled = true;
+                btnOkCustomDate.Visible = true;
+                lblStartDate.Cursor = Cursors.Hand;
+                lblEndDate.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                dtpStartDate.Enabled = false;
+                dtpEndDate.Enabled = false;
+                btnOkCustomDate.Visible = false;
+                lblStartDate.Cursor = Cursors.Default;
+                lblEndDate.Cursor = Cursors.Default;
+            }
         }
 
         //Event methods
@@ -64,7 +104,7 @@ namespace Eden
             dtpStartDate.Value = DateTime.Today;
             dtpEndDate.Value = DateTime.Now;
             LoadData();
-            DisableCustomDates();
+            SetDateMenuButtonUI(sender);
         }
 
         private void btnLast7Days_Click(object sender, EventArgs e)
@@ -72,7 +112,7 @@ namespace Eden
             dtpStartDate.Value = DateTime.Today.AddDays(-7);
             dtpEndDate.Value = DateTime.Now;
             LoadData();
-            DisableCustomDates();
+            SetDateMenuButtonUI(sender);
         }
 
         private void btnLast30Days_Click(object sender, EventArgs e)
@@ -80,7 +120,7 @@ namespace Eden
             dtpStartDate.Value = DateTime.Today.AddDays(-30);
             dtpEndDate.Value = DateTime.Now;
             LoadData();
-            DisableCustomDates();
+            SetDateMenuButtonUI(sender);
         }
 
         private void btnThisMonth_Click(object sender, EventArgs e)
@@ -88,7 +128,7 @@ namespace Eden
             dtpStartDate.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dtpEndDate.Value = DateTime.Now;
             LoadData();
-            DisableCustomDates();
+            SetDateMenuButtonUI(sender);
         }
 
         private void btnCustomDate_Click(object sender, EventArgs e)
@@ -96,11 +136,46 @@ namespace Eden
             dtpStartDate.Enabled = true;
             dtpEndDate.Enabled = true;
             btnOkCustomDate.Visible = true;
+            SetDateMenuButtonUI(sender);
         }
 
         private void btnOkCustomDate_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void lblStartDate_Click(object sender, EventArgs e)
+        {
+            if (currentButton == btnCustomDate)
+            {
+                dtpStartDate.Select();
+                SendKeys.Send("{F4}"); // Mở lịch chọn ngày
+            }
+        }
+
+        private void lblEndDate_Click(object sender, EventArgs e)
+        {
+            if (currentButton == btnCustomDate)
+            {
+                dtpEndDate.Select();
+                SendKeys.Send("{F4}"); // Mở lịch chọn ngày
+            }
+        }
+
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            lblStartDate.Text = dtpStartDate.Value.ToString("dd/MM/yyyy");
+        }
+
+        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            lblEndDate.Text = dtpEndDate.Value.ToString("dd/MM/yyyy");
+        }
+
+        private void ThongKeForm_Load(object sender, EventArgs e)
+        {
+            lblStartDate.Text = dtpStartDate.Value.ToString("dd/MM/yyyy");
+            lblEndDate.Text = dtpEndDate.Value.ToString("dd/MM/yyyy");
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Eden
                 .ToList();
 
             UnderstockList = _context.SANPHAMs
-                .Where(p => p.SoLuong <= 6)
+                .Where(p => p.SoLuong <= 10)
                 .Select(p => new ProductStatistic { Name = p.TenSanPham, Quantity = p.SoLuong }) // ✅ ĐÚNG
                 .ToList();
         }
