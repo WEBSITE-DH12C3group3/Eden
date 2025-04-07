@@ -99,6 +99,7 @@
     <Compile Include="DAL\PHIEUNHAPDAL.cs" />
     <Compile Include="DAL\SANPHAMDAL.cs" />
     <Compile Include="DAL\NGUOIDUNGDAL.cs" />
+    <Compile Include="DTO\ChiTietHoaDonDTO.cs" />
     <Compile Include="DTO\CurrentUser.cs" />
     <Compile Include="DTO\Dashboard.cs" />
     <Compile Include="DTO\HoaDonDTO.cs" />
@@ -155,6 +156,12 @@
     </Compile>
     <Compile Include="UI\AddEditNhomNguoiDungForm.Designer.cs">
       <DependentUpon>AddEditNhomNguoiDungForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\HoaDonChiTiet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\HoaDonChiTiet.Designer.cs">
+      <DependentUpon>HoaDonChiTiet.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\HoaDonForm.cs">
       <SubType>Form</SubType>
@@ -282,6 +289,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\HoaDonChiTiet.resx">
+      <DependentUpon>HoaDonChiTiet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\HoaDonForm.resx">
       <DependentUpon>HoaDonForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -417,7 +427,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-     <None Include="Resources\more.png" />
+    <None Include="Resources\more.png" />
     <None Include="Resources\Pi7_profit.png" />
     <None Include="Resources\Pi7_money-tag.png" />
     <None Include="Resources\Pi7_group.png" />

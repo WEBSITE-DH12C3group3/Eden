@@ -31,9 +31,9 @@ namespace Eden
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dghoadon = new Guna.UI2.WinForms.Guna2DataGridView();
             this.addhoadon = new Guna.UI2.WinForms.Guna2Button();
             this.suahoadon = new Guna.UI2.WinForms.Guna2Button();
@@ -44,61 +44,65 @@ namespace Eden
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.searchHD = new Guna.UI2.WinForms.Guna2Button();
             this.search = new Guna.UI2.WinForms.Guna2TextBox();
+            this.xemct = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dghoadon)).BeginInit();
             this.SuspendLayout();
             // 
             // dghoadon
             // 
-            dghoadon.AllowUserToAddRows = false;
-            dghoadon.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.BackColor = Color.AliceBlue;
-            dghoadon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
-            dghoadon.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle8.ForeColor = Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dghoadon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            dghoadon.ColumnHeadersHeight = 29;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.White;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle9.SelectionBackColor = Color.LightBlue;
-            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
-            dghoadon.DefaultCellStyle = dataGridViewCellStyle9;
-            dghoadon.GridColor = Color.FromArgb(231, 229, 255);
-            dghoadon.Location = new Point(20, 120);
-            dghoadon.Name = "dghoadon";
-            dghoadon.ReadOnly = true;
-            dghoadon.RowHeadersVisible = false;
-            dghoadon.RowHeadersWidth = 51;
-            dghoadon.Size = new Size(912, 350);
-            dghoadon.TabIndex = 3;
-            dghoadon.ThemeStyle.AlternatingRowsStyle.BackColor = Color.AliceBlue;
-            dghoadon.ThemeStyle.AlternatingRowsStyle.Font = null;
-            dghoadon.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
-            dghoadon.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
-            dghoadon.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            dghoadon.ThemeStyle.BackColor = Color.White;
-            dghoadon.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
-            dghoadon.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
-            dghoadon.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
-            dghoadon.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
-            dghoadon.ThemeStyle.HeaderStyle.ForeColor = Color.White;
-            dghoadon.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dghoadon.ThemeStyle.HeaderStyle.Height = 29;
-            dghoadon.ThemeStyle.ReadOnly = true;
-            dghoadon.ThemeStyle.RowsStyle.BackColor = Color.White;
-            dghoadon.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dghoadon.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
-            dghoadon.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
-            dghoadon.ThemeStyle.RowsStyle.Height = 29; dghoadon.ThemeStyle.RowsStyle.SelectionBackColor = Color.LightBlue;
-            dghoadon.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            this.dghoadon.AllowUserToAddRows = false;
+            this.dghoadon.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            this.dghoadon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dghoadon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dghoadon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dghoadon.ColumnHeadersHeight = 29;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightBlue;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dghoadon.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dghoadon.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dghoadon.Location = new System.Drawing.Point(20, 120);
+            this.dghoadon.Name = "dghoadon";
+            this.dghoadon.ReadOnly = true;
+            this.dghoadon.RowHeadersVisible = false;
+            this.dghoadon.RowHeadersWidth = 51;
+            this.dghoadon.RowTemplate.Height = 29;
+            this.dghoadon.Size = new System.Drawing.Size(912, 350);
+            this.dghoadon.TabIndex = 3;
+            this.dghoadon.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
+            this.dghoadon.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dghoadon.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dghoadon.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dghoadon.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dghoadon.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dghoadon.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dghoadon.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dghoadon.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dghoadon.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dghoadon.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dghoadon.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dghoadon.ThemeStyle.HeaderStyle.Height = 29;
+            this.dghoadon.ThemeStyle.ReadOnly = true;
+            this.dghoadon.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dghoadon.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dghoadon.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dghoadon.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dghoadon.ThemeStyle.RowsStyle.Height = 29;
+            this.dghoadon.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.LightBlue;
+            this.dghoadon.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
             // addhoadon
             // 
             this.addhoadon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -107,7 +111,7 @@ namespace Eden
             this.addhoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.addhoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.addhoadon.ForeColor = System.Drawing.Color.White;
-            this.addhoadon.Location = new System.Drawing.Point(71, 650);
+            this.addhoadon.Location = new System.Drawing.Point(16, 609);
             this.addhoadon.Name = "addhoadon";
             this.addhoadon.Size = new System.Drawing.Size(180, 45);
             this.addhoadon.TabIndex = 1;
@@ -122,7 +126,7 @@ namespace Eden
             this.suahoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.suahoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.suahoadon.ForeColor = System.Drawing.Color.White;
-            this.suahoadon.Location = new System.Drawing.Point(381, 650);
+            this.suahoadon.Location = new System.Drawing.Point(326, 609);
             this.suahoadon.Name = "suahoadon";
             this.suahoadon.Size = new System.Drawing.Size(180, 45);
             this.suahoadon.TabIndex = 2;
@@ -137,7 +141,7 @@ namespace Eden
             this.xoahoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.xoahoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.xoahoadon.ForeColor = System.Drawing.Color.White;
-            this.xoahoadon.Location = new System.Drawing.Point(697, 650);
+            this.xoahoadon.Location = new System.Drawing.Point(642, 609);
             this.xoahoadon.Name = "xoahoadon";
             this.xoahoadon.Size = new System.Drawing.Size(180, 45);
             this.xoahoadon.TabIndex = 3;
@@ -152,7 +156,7 @@ namespace Eden
             this.btnPreviousPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnPreviousPage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnPreviousPage.ForeColor = System.Drawing.Color.White;
-            this.btnPreviousPage.Location = new System.Drawing.Point(175, 539);
+            this.btnPreviousPage.Location = new System.Drawing.Point(41, 496);
             this.btnPreviousPage.Name = "btnPreviousPage";
             this.btnPreviousPage.Size = new System.Drawing.Size(180, 45);
             this.btnPreviousPage.TabIndex = 4;
@@ -167,7 +171,7 @@ namespace Eden
             this.btnNextPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnNextPage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnNextPage.ForeColor = System.Drawing.Color.White;
-            this.btnNextPage.Location = new System.Drawing.Point(580, 539);
+            this.btnNextPage.Location = new System.Drawing.Point(446, 496);
             this.btnNextPage.Name = "btnNextPage";
             this.btnNextPage.Size = new System.Drawing.Size(180, 45);
             this.btnNextPage.TabIndex = 5;
@@ -177,7 +181,7 @@ namespace Eden
             // lblPageInfo
             // 
             this.lblPageInfo.BackColor = System.Drawing.Color.Transparent;
-            this.lblPageInfo.Location = new System.Drawing.Point(437, 555);
+            this.lblPageInfo.Location = new System.Drawing.Point(303, 512);
             this.lblPageInfo.Name = "lblPageInfo";
             this.lblPageInfo.Size = new System.Drawing.Size(66, 18);
             this.lblPageInfo.TabIndex = 6;
@@ -228,11 +232,27 @@ namespace Eden
             this.search.TextChanged += new System.EventHandler(this.search_TextChanged);
             this.search.StyleChanged += new System.EventHandler(this.search_TextChanged);
             // 
+            // xemct
+            // 
+            this.xemct.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.xemct.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.xemct.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.xemct.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.xemct.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.xemct.ForeColor = System.Drawing.Color.White;
+            this.xemct.Location = new System.Drawing.Point(752, 496);
+            this.xemct.Name = "xemct";
+            this.xemct.Size = new System.Drawing.Size(180, 45);
+            this.xemct.TabIndex = 10;
+            this.xemct.Text = "Xem Chi Tiết";
+            this.xemct.Click += new System.EventHandler(this.xemct_Click);
+            // 
             // HoaDonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1151, 724);
+            this.Controls.Add(this.xemct);
             this.Controls.Add(this.search);
             this.Controls.Add(this.searchHD);
             this.Controls.Add(this.guna2HtmlLabel2);
@@ -263,5 +283,6 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2Button searchHD;
         private Guna.UI2.WinForms.Guna2TextBox search;
+        private Guna.UI2.WinForms.Guna2Button xemct;
     }
 }

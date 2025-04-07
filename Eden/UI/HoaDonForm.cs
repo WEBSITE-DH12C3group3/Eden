@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Eden.UI;
 using Guna.UI2.WinForms;
 
 namespace Eden
@@ -29,7 +30,8 @@ namespace Eden
             dghoadon.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "MaHoaDon",
-                HeaderText = "Mã Hóa Đơn"
+                HeaderText = "Mã Hóa Đơn",
+                Name = "MaHoaDon"
             });
             dghoadon.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -38,7 +40,7 @@ namespace Eden
             });
             dghoadon.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "idKhachHang",
+                DataPropertyName = "MaKhachHang",
                 HeaderText = "Mã Khách Hàng"
             });
             dghoadon.Columns.Add(new DataGridViewTextBoxColumn
@@ -224,6 +226,28 @@ namespace Eden
         private void dghoadon_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Có thể thêm xử lý nếu cần
+        }
+
+        private void xemct_Click(object sender, EventArgs e) // Xem chi tiết hóa đơn
+        {
+            if (dghoadon.CurrentRow != null)
+            {
+                // Lấy MaHoaDon từ dòng được chọn (ví dụ: "HD0001")
+                string maHoaDon = dghoadon.CurrentRow.Cells["MaHoaDon"].Value.ToString();
+
+                // Chuyển MaHoaDon thành idHoaDon (lấy số từ chuỗi HDxxxx)
+                int idHoaDon = int.Parse(maHoaDon.Replace("HD", ""));
+
+                // Khởi tạo form HoaDonChiTiet với idHoaDon
+                using (HoaDonChiTiet formCT = new HoaDonChiTiet(idHoaDon))
+                {
+                    formCT.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn hóa đơn để xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

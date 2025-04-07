@@ -28,16 +28,16 @@ namespace Eden
                 int skip = (page - 1) * pageSize;
 
                 var data = db.HOADONs
-                    .OrderBy(hd => hd.id)
+                    .OrderBy(hd => hd.MaHoaDon)
                     .Skip(skip)
                     .Take(pageSize)
                     .Select(hd => new HoaDonDTO
                     {
-                        MaHoaDon = hd.id,
+                        MaHoaDon = hd.MaHoaDon,
                         NgayLap = hd.NgayLap,
-                        idKhachHang = hd.idKhachHang.HasValue ? hd.idKhachHang.Value : 0, // Xử lý int? sang int
+                        MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A", // Lấy MaKhachHang từ KHACHHANG
                         TenKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.TenKhachHang : "N/A",
-                        idNguoiDung = hd.idNguoiDung.HasValue ? hd.idNguoiDung.Value : 0, // Xử lý int? sang int
+                        idNguoiDung = hd.idNguoiDung.HasValue ? hd.idNguoiDung.Value : 0,
                         TenNguoiDung = hd.NGUOIDUNG != null ? hd.NGUOIDUNG.TenNguoiDung : "N/A",
                         TongTien = hd.TongTien
                     })
@@ -77,11 +77,11 @@ namespace Eden
                     .Take(pageSize)
                     .Select(hd => new HoaDonDTO
                     {
-                        MaHoaDon = hd.id,
+                        MaHoaDon = hd.MaHoaDon,
                         NgayLap = hd.NgayLap,
-                        idKhachHang = hd.idKhachHang.HasValue ? hd.idKhachHang.Value : 0, // Xử lý int? sang int
+                        MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A", // Lấy MaKhachHang từ KHACHHANG
                         TenKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.TenKhachHang : "N/A",
-                        idNguoiDung = hd.idNguoiDung.HasValue ? hd.idNguoiDung.Value : 0, // Xử lý int? sang int
+                        idNguoiDung = hd.idNguoiDung.HasValue ? hd.idNguoiDung.Value : 0,
                         TenNguoiDung = hd.NGUOIDUNG != null ? hd.NGUOIDUNG.TenNguoiDung : "N/A",
                         TongTien = hd.TongTien
                     })
