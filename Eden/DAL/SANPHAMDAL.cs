@@ -97,6 +97,37 @@ namespace Eden
                 throw new Exception("Sản phẩm không tồn tại.");
             }
         }
+        public List<SanPhamDTO> LaySanPhamTheoTrang(int page, int pageSize)
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.SANPHAMs
+                    .OrderBy(sp => sp.MaSanPham)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(sp => new SanPhamDTO
+                    {
+                        MaSanPham = sp.MaSanPham,
+                        TenSanPham = sp.TenSanPham,
+                        MoTa = sp.MoTa,
+                        Gia = sp.Gia,
+                        SoLuong = sp.SoLuong,
+                        MauSac = sp.MauSac,
+                        AnhChiTiet = sp.AnhChiTiet,
+                        TenNhaCungCap = sp.NHACUNGCAP.TenNhaCungCap,
+                        TenLoaiSanPham = sp.LOAISANPHAM.TenLoaiSanPham
+                    })
+                    .ToList();
+            }
+        }
+
+        public int DemSoLuongSanPham()
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.SANPHAMs.Count();
+            }
+        }
 
         public void Delete(SANPHAM sp)
         {

@@ -12,7 +12,10 @@ namespace Eden
     public partial class SanPhamForm : Form
     {
         private SANPHAMBLL sanphamBLL; // Đổi tên theo chuẩn CamelCase
-        
+        private int pageSize = 10; // số sản phẩm mỗi trang
+        private int currentPage = 1;
+        private int totalPage = 1;
+
         public SanPhamForm()
         {
             InitializeComponent();
@@ -27,22 +30,31 @@ namespace Eden
 
         private void LoadSanPham()
         {
-            var ds = sanphamBLL.GetAll()
-        .Select(sp => new SanPhamDTO
-        {
-            MaSanPham = sp.MaSanPham,
-            TenSanPham = sp.TenSanPham,
-            MoTa = sp.MoTa,
-            Gia = sp.Gia,
-            SoLuong = sp.SoLuong,
-            MauSac = sp.MauSac,
-            AnhChiTiet = sp.AnhChiTiet,
-            TenLoaiSanPham = sp.LOAISANPHAM?.TenLoaiSanPham,
-            TenNhaCungCap = sp.NHACUNGCAP?.TenNhaCungCap
-        })
-        .ToList();
+                var ds = sanphamBLL.GetAll()
+            .Select(sp => new SanPhamDTO
+            {
+                MaSanPham = sp.MaSanPham,
+                TenSanPham = sp.TenSanPham,
+                MoTa = sp.MoTa,
+                Gia = sp.Gia,
+                SoLuong = sp.SoLuong,
+                MauSac = sp.MauSac,
+                AnhChiTiet = sp.AnhChiTiet,
+                TenLoaiSanPham = sp.LOAISANPHAM?.TenLoaiSanPham,
+                TenNhaCungCap = sp.NHACUNGCAP?.TenNhaCungCap
+            })
+            .ToList();
 
-            dgSanPham.DataSource = ds;
+            // Lấy tổng số lượng sản phẩm để tính tổng số trang
+            int tongSanPham = sanphamBLL.DemSoLuongSanPham();
+            totalPage = (int)Math.Ceiling((double)tongSanPham / pageSize);
+
+            // Lấy danh sách sản phẩm theo trang hiện tại
+            var danhSach = sanphamBLL.LaySanPhamTheoTrang(currentPage, pageSize);
+            dgSanPham.DataSource = danhSach;
+
+            // Cập nhật label số trang
+            lblPage.Text = $"Trang {currentPage}/{totalPage}";
         }
         
 
@@ -151,6 +163,24 @@ namespace Eden
             else
             {
                 dgSanPham.DataSource = sanphamBLL.TimKiemTheoTen(""); // Hoặc sanphamBLL.GetAllDTO()
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                LoadSanPham();
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPage)
+            {
+                currentPage++;
+                LoadSanPham();
             }
         }
     }

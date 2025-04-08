@@ -37,6 +37,15 @@ namespace Eden
         {
             return dal.TimKiemTheoTen(tuKhoa);
         }
+        public List<SanPhamDTO> LaySanPhamTheoTrang(int page, int pageSize)
+        {
+            return dal.LaySanPhamTheoTrang(page, pageSize);
+        }
+
+        public int DemSoLuongSanPham()
+        {
+            return dal.DemSoLuongSanPham();
+        }
 
         public void Dispose()
         {

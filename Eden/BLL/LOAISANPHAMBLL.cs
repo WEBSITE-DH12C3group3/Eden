@@ -40,6 +40,15 @@ namespace Eden
             return dal.TimKiemTheoTen(tuKhoa);
         }
 
+        public List<LoaiSanPhamDTO> GetPagedLoaiSanPham(int pageNumber, int pageSize)
+        {
+            return dal.GetPagedLoaiSanPham(pageNumber, pageSize);
+        }
+
+        public int GetTotalCount()
+        {
+            return dal.GetTotalCount();
+        }
 
         public void Dispose()
         {

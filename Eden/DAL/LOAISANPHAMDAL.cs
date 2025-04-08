@@ -45,6 +45,31 @@ namespace Eden
                          .ToList();
             }
         }
+        public List<LoaiSanPhamDTO> GetPagedLoaiSanPham(int pageNumber, int pageSize)
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.LOAISANPHAMs
+                    .OrderBy(lsp => lsp.id)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(lsp => new LoaiSanPhamDTO
+                    {
+                        Id = lsp.id,
+                        MaLoaiSanPham = lsp.MaLoaiSanPham,
+                        TenLoaiSanPham = lsp.TenLoaiSanPham
+                    })
+                    .ToList();
+            }
+        }
+
+        public int GetTotalCount()
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.LOAISANPHAMs.Count();
+            }
+        }
 
 
         public void Delete(LOAISANPHAM entity) { db.LOAISANPHAMs.Remove(entity); db.SaveChanges(); }
