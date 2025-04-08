@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-
+using Eden.DTO;
 namespace Eden
 {
     public class KHACHHANGDAL : IDisposable
@@ -23,7 +23,7 @@ namespace Eden
         }
 
         // Lấy danh sách khách hàng theo trang
-        public (List<KHACHHANG> Data, int TotalRecords) GetPaged(int page, int pageSize)
+        public (List<KhachHangDTO> Data, int TotalRecords) GetPaged(int page, int pageSize)
         {
             try
             {
@@ -34,7 +34,16 @@ namespace Eden
                     .OrderBy(kh => kh.MaKhachHang) // Sắp xếp theo MaKhachHang
                     .Skip(skip)
                     .Take(pageSize)
+                    .Select(kh => new KhachHangDTO
+                    {
+                        MaKhachHang = kh.MaKhachHang,
+                        TenKhachHang = kh.TenKhachHang,
+                        SoDienThoai = kh.SoDienThoai,
+                        DiaChi = kh.DiaChi,
+                        Email = kh.Email
+                    })
                     .ToList();
+
 
                 // Tính tổng số bản ghi
                 int totalRecords = db.KHACHHANGs.Count();

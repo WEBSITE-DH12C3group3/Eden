@@ -35,7 +35,7 @@ namespace Eden
                     {
                         MaHoaDon = hd.MaHoaDon,
                         NgayLap = hd.NgayLap,
-                        MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A", // Lấy MaKhachHang từ KHACHHANG
+                        MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A",
                         TenKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.TenKhachHang : "N/A",
                         idNguoiDung = hd.idNguoiDung.HasValue ? hd.idNguoiDung.Value : 0,
                         TenNguoiDung = hd.NGUOIDUNG != null ? hd.NGUOIDUNG.TenNguoiDung : "N/A",
@@ -62,11 +62,9 @@ namespace Eden
 
                 if (!string.IsNullOrEmpty(searchText))
                 {
-                    if (int.TryParse(searchText, out int searchNumber))
-                    {
-                        query = query.Where(hd => hd.idNguoiDung == searchNumber ||
-                                                  (hd.idKhachHang.HasValue && hd.idKhachHang.Value == searchNumber));
-                    }
+                    searchText = searchText.ToLower(); // Chuyển searchText về chữ thường để tìm kiếm không phân biệt hoa thường
+                    query = query.Where(hd => hd.MaHoaDon.ToLower().Contains(searchText) || // Tìm kiếm theo MaHoaDon
+                                              (hd.KHACHHANG != null && hd.KHACHHANG.MaKhachHang.ToLower().Contains(searchText))); // Tìm kiếm theo MaKhachHang
                 }
 
                 int totalRecords = query.Count();
@@ -79,7 +77,7 @@ namespace Eden
                     {
                         MaHoaDon = hd.MaHoaDon,
                         NgayLap = hd.NgayLap,
-                        MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A", // Lấy MaKhachHang từ KHACHHANG
+                        MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A",
                         TenKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.TenKhachHang : "N/A",
                         idNguoiDung = hd.idNguoiDung.HasValue ? hd.idNguoiDung.Value : 0,
                         TenNguoiDung = hd.NGUOIDUNG != null ? hd.NGUOIDUNG.TenNguoiDung : "N/A",

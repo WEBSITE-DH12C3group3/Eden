@@ -20,6 +20,34 @@ namespace Eden
         {
             InitializeComponent();
             khachHangBLL = new KHACHHANGBLL();
+            dgkhachhang.AutoGenerateColumns = false;
+            dgkhachhang.Columns.Clear();
+            dgkhachhang.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaKhachHang",
+                HeaderText = "Mã Khách Hàng",
+                Name = "MaKhachHang"
+            });
+            dgkhachhang.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenKhachHang",
+                HeaderText = "Tên Khách Hàng"
+            });
+            dgkhachhang.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SoDienThoai",
+                HeaderText = "Số Điện Thoại"
+            });
+            dgkhachhang.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DiaChi",
+                HeaderText = "Địa Chỉ"
+            });
+            dgkhachhang.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Email",
+                HeaderText = "Email"
+            });
             LoadData();
 
             // Thêm sự kiện TextChanged cho tìm kiếm theo thời gian thực

@@ -103,6 +103,7 @@
     <Compile Include="DTO\CurrentUser.cs" />
     <Compile Include="DTO\Dashboard.cs" />
     <Compile Include="DTO\HoaDonDTO.cs" />
+     <Compile Include="DTO\KhachHangDTO.cs" />
     <Compile Include="DTO\SanPhamViewModelDTO.cs" />
 <Compile Include="UI\SanPhamFormSua.cs">
   <SubType>Form</SubType>

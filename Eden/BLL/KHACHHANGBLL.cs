@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eden.DTO;
 
 namespace Eden
 {
@@ -28,7 +29,7 @@ namespace Eden
         }
 
         // Lấy danh sách khách hàng theo trang (phân trang)
-        public (List<KHACHHANG> Data, int TotalRecords) GetPaged(int page, int pageSize)
+        public (List<KhachHangDTO> Data, int TotalRecords) GetPaged(int page, int pageSize)
         {
             try
             {
@@ -42,7 +43,7 @@ namespace Eden
         }
 
         // Tìm kiếm và phân trang
-        public (List<KHACHHANG> Data, int TotalRecords) SearchAndPage(string searchText, int page, int pageSize)
+        public (List<KhachHangDTO> Data, int TotalRecords) SearchAndPage(string searchText, int page, int pageSize)
         {
             try
             {
@@ -50,8 +51,17 @@ namespace Eden
                 {
                     return GetPaged(page, pageSize); // Nếu không có từ khóa, trả về phân trang thông thường
                 }
+                var result = dal.SearchAndPage(searchText, page, pageSize);
 
-                return dal.SearchAndPage(searchText, page, pageSize);
+                // Chuyển đổi từ List<KHACHHANG> sang List<KhachHangDTO>
+                var data = result.Data.Select(kh => new KhachHangDTO
+                {
+                    MaKhachHang = kh.MaKhachHang,
+                    TenKhachHang = kh.TenKhachHang,
+                    DiaChi = kh.DiaChi,
+                    SoDienThoai = kh.SoDienThoai
+                }).ToList();
+                return (data, result.TotalRecords);
             }
             catch (Exception ex)
             {
