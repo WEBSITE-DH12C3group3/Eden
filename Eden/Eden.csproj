@@ -79,6 +79,15 @@
     <Compile Include="BLL\PHIEUNHAPBLL.cs" />
     <Compile Include="BLL\SANPHAMBLL.cs" />
     <Compile Include="BLL\NGUOIDUNGBLL.cs" />
+    <Compile Include="UI\SanPhamFormSua.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SanPhamFormSua.Designer.cs">
+      <DependentUpon>SanPhamFormSua.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\SanPhamFormSua.resx">
+      <DependentUpon>SanPhamFormSua.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="CHITIETHOADON.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -105,15 +114,7 @@
     <Compile Include="DTO\HoaDonDTO.cs" />
      <Compile Include="DTO\KhachHangDTO.cs" />
     <Compile Include="DTO\SanPhamViewModelDTO.cs" />
-<Compile Include="UI\SanPhamFormSua.cs">
-  <SubType>Form</SubType>
-</Compile>
-<Compile Include="UI\SanPhamFormSua.Designer.cs">
-  <DependentUpon>SanPhamFormSua.cs</DependentUpon>
-</Compile>
-<EmbeddedResource Include="UI\SanPhamFormSua.resx">
-  <DependentUpon>SanPhamFormSua.cs</DependentUpon>
-</EmbeddedResource>
+
 
     <Compile Include="HOADON.cs">
       <DependentUpon>Model1.tt</DependentUpon>

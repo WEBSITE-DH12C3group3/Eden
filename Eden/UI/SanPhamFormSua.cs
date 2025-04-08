@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Eden.UI
         private NHACUNGCAPBLL nhaCungCapBLL;
         private LOAISANPHAMBLL loaiSanPhamBLL;
         private SANPHAM sanPham;
-
+        private string duongDanAnh = string.Empty;
         public SanPhamFormSua(SANPHAM maSP)
         {
             InitializeComponent();
@@ -31,19 +32,14 @@ namespace Eden.UI
         {
             try
             {
-                // Load ComboBox Nhà cung cấp
-                var dsNCC = nhaCungCapBLL.GetAll();
-                guna2ComboBoxNCC.DataSource = dsNCC;
+                guna2ComboBoxNCC.DataSource = nhaCungCapBLL.GetAll();
                 guna2ComboBoxNCC.DisplayMember = "TenNhaCungCap";
                 guna2ComboBoxNCC.ValueMember = "id";
 
-                // Load ComboBox Loại sản phẩm
-                var dsLoaiSP = loaiSanPhamBLL.GetAll();
-                guna2ComboBoxLoaiSP.DataSource = dsLoaiSP;
+                guna2ComboBoxLoaiSP.DataSource = loaiSanPhamBLL.GetAll();
                 guna2ComboBoxLoaiSP.DisplayMember = "TenLoaiSanPham";
                 guna2ComboBoxLoaiSP.ValueMember = "id";
 
-                // Hiển thị dữ liệu sản phẩm
                 guna2TextBoxMaSP.Text = sanPham.MaSanPham;
                 guna2TextBoxMaSP.ReadOnly = true;
                 guna2TextBoxTenSP.Text = sanPham.TenSanPham;
@@ -51,14 +47,23 @@ namespace Eden.UI
                 guna2TextBoxGia.Text = sanPham.Gia.ToString();
                 guna2TextBoxSoLuong.Text = sanPham.SoLuong.ToString();
                 guna2TextBoxMauSac.Text = sanPham.MauSac;
-                guna2TextBoxAnh.Text = sanPham.AnhChiTiet;
+                guna2TextAnh.Text = sanPham.AnhChiTiet;
 
                 guna2ComboBoxNCC.SelectedValue = sanPham.idNhaCungCap;
                 guna2ComboBoxLoaiSP.SelectedValue = sanPham.idLoaiSanPham;
+
+                // Load ảnh vào PictureBox nếu có
+                string path = Path.Combine(Application.StartupPath, "Resources\\Img", sanPham.AnhChiTiet ?? "");
+                if (File.Exists(path))
+                {
+                    guna2CirclePictureBoxAnh.Image = Image.FromFile(path);
+                    guna2CirclePictureBoxAnh.SizeMode = PictureBoxSizeMode.Zoom;
+                    duongDanAnh = sanPham.AnhChiTiet;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
                 this.Close();
             }
         }
@@ -67,12 +72,18 @@ namespace Eden.UI
         {
             try
             {
+                if (string.IsNullOrEmpty(duongDanAnh))
+                {
+                    MessageBox.Show("Vui lòng chọn ảnh!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 sanPham.TenSanPham = guna2TextBoxTenSP.Text.Trim();
                 sanPham.MoTa = guna2TextBoxMoTa.Text.Trim();
                 sanPham.Gia = decimal.Parse(guna2TextBoxGia.Text.Trim());
                 sanPham.SoLuong = int.Parse(guna2TextBoxSoLuong.Text.Trim());
                 sanPham.MauSac = guna2TextBoxMauSac.Text.Trim();
-                sanPham.AnhChiTiet = guna2TextBoxAnh.Text.Trim();
+                sanPham.AnhChiTiet = duongDanAnh;
                 sanPham.idNhaCungCap = Convert.ToInt32(guna2ComboBoxNCC.SelectedValue);
                 sanPham.idLoaiSanPham = Convert.ToInt32(guna2ComboBoxLoaiSP.SelectedValue);
 
@@ -80,23 +91,62 @@ namespace Eden.UI
 
                 MessageBox.Show("Cập nhật sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Gọi form cha nếu cần reload
                 if (this.Owner is SanPhamForm parentForm)
                 {
-                    parentForm.UpdateDataGridViewSP(sanPham); // Hoặc UpdateDataGridView gì đó tùy bạn đặt
+                    parentForm.UpdateDataGridViewSP(sanPham);
                 }
 
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi cập nhật: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi cập nhật: " + ex.Message);
             }
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+
+        private void guna2HtmlLabel8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2ChonAnh_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Title = "Chọn ảnh sản phẩm";
+                ofd.Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    string tenTep = Path.GetFileName(ofd.FileName);
+                    string thuMucDich = Path.Combine(Application.StartupPath, "Resources\\Img");
+
+                    if (!Directory.Exists(thuMucDich))
+                        Directory.CreateDirectory(thuMucDich);
+
+                    string duongDanDich = Path.Combine(thuMucDich, tenTep);
+
+                    try
+                    {
+                        File.Copy(ofd.FileName, duongDanDich, true);
+                        guna2CirclePictureBoxAnh.Image = Image.FromFile(duongDanDich);
+                        guna2CirclePictureBoxAnh.SizeMode = PictureBoxSizeMode.Zoom;
+
+                        duongDanAnh = tenTep;
+                        guna2TextAnh.Text = tenTep;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Không thể sao chép ảnh: " + ex.Message);
+                    }
+                }
+            }
         }
     }
 }
