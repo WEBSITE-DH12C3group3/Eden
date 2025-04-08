@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eden
+namespace Eden.DTO
 {
-    internal class SanPhamViewModelDTO
+    public class SanPhamDTO
     {
         public string MaSanPham { get; set; }
         public string TenSanPham { get; set; }
@@ -15,7 +15,6 @@ namespace Eden
         public int SoLuong { get; set; }
         public string MauSac { get; set; }
         public string AnhChiTiet { get; set; }
-
         public string TenNhaCungCap { get; set; }
         public string TenLoaiSanPham { get; set; }
     }

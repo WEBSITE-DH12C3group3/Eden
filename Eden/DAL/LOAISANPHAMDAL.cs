@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using Eden.DTO;
 
 namespace Eden
 {
@@ -29,6 +30,48 @@ namespace Eden
                 throw new Exception("Loại sản phẩm không tồn tại.");
             }
         }
+        public List<LoaiSanPhamDTO> TimKiemTheoTen(string tuKhoa)
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.LOAISANPHAMs
+                         .Where(l => l.TenLoaiSanPham.Contains(tuKhoa))
+                         .Select(l => new LoaiSanPhamDTO
+                         {
+                             Id = l.id,
+                             TenLoaiSanPham = l.TenLoaiSanPham,
+                             MaLoaiSanPham = l.MaLoaiSanPham
+                         })
+                         .ToList();
+            }
+        }
+        public List<LoaiSanPhamDTO> GetPagedLoaiSanPham(int pageNumber, int pageSize)
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.LOAISANPHAMs
+                    .OrderBy(lsp => lsp.id)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(lsp => new LoaiSanPhamDTO
+                    {
+                        Id = lsp.id,
+                        MaLoaiSanPham = lsp.MaLoaiSanPham,
+                        TenLoaiSanPham = lsp.TenLoaiSanPham
+                    })
+                    .ToList();
+            }
+        }
+
+        public int GetTotalCount()
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.LOAISANPHAMs.Count();
+            }
+        }
+
+
         public void Delete(LOAISANPHAM entity) { db.LOAISANPHAMs.Remove(entity); db.SaveChanges(); }
         public void Dispose() { db.Dispose(); }
     }

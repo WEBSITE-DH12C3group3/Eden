@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Eden.DTO;
 using Eden.UI;
 
 namespace Eden
@@ -14,6 +15,10 @@ namespace Eden
     public partial class PhanLoaiForm : Form
     {
         private LOAISANPHAMBLL loaiSanPhamBLL;
+        private int currentPage = 1;
+        private int pageSize = 10; // số lượng item mỗi trang
+        private int totalPages = 1;
+
         public PhanLoaiForm()
         {
             InitializeComponent();
@@ -33,6 +38,15 @@ namespace Eden
             {
                 MessageBox.Show("Lỗi khi tải danh sách loại sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            int totalRecords = loaiSanPhamBLL.GetTotalCount();
+            totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+
+            var data = loaiSanPhamBLL.GetPagedLoaiSanPham(currentPage, pageSize);
+            guna2DataGridView1.DataSource = data;
+
+            lblPage.Text = $"Trang {currentPage}/{totalPages}";
+            btnPrev.Enabled = currentPage > 1;
+            btnNext.Enabled = currentPage < totalPages;
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -112,6 +126,59 @@ namespace Eden
                     row.Cells["TenLoaiSanPham"].Value = updatedLSP.TenLoaiSanPham;
                     break;
                 }
+            }
+        }
+
+        private void guna2ButtonTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+
+            if (!string.IsNullOrEmpty(tuKhoa))
+            {
+                var ketQua = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
+                guna2DataGridView1.DataSource = ketQua;
+            }
+            else
+            {
+                // Nếu không có từ khóa thì hiển thị toàn bộ
+                guna2DataGridView1.DataSource = loaiSanPhamBLL.GetAll()
+                    .Select(lsp => new LoaiSanPhamDTO
+                    {
+                        Id = lsp.id,
+                        MaLoaiSanPham = lsp.MaLoaiSanPham,
+                        TenLoaiSanPham = lsp.TenLoaiSanPham
+                    })
+                    .ToList();
+            }
+        }
+        private void guna2TextBoxTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+            if (!string.IsNullOrEmpty(tuKhoa))
+            {
+                guna2DataGridView1.DataSource = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
+            }
+            else
+            {
+                guna2DataGridView1.DataSource = loaiSanPhamBLL.GetAll();
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                LoadLoaiSanPham();
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                LoadLoaiSanPham();
             }
         }
     }

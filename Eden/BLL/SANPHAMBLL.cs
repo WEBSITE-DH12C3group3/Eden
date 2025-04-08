@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Eden.DTO;
 
 namespace Eden
 {
@@ -31,6 +32,19 @@ namespace Eden
         public void Delete(SANPHAM sp)
         {
             dal.Delete(sp);
+        }
+        public List<SanPhamDTO>TimKiemTheoTen(string tuKhoa)
+        {
+            return dal.TimKiemTheoTen(tuKhoa);
+        }
+        public List<SanPhamDTO> LaySanPhamTheoTrang(int page, int pageSize)
+        {
+            return dal.LaySanPhamTheoTrang(page, pageSize);
+        }
+
+        public int DemSoLuongSanPham()
+        {
+            return dal.DemSoLuongSanPham();
         }
 
         public void Dispose()
