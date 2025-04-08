@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
+using Eden.DTO;
 namespace Eden
 {
     public class LOAISANPHAMBLL : IDisposable
@@ -33,7 +34,12 @@ namespace Eden
         {
             dal.Delete(lsp);
         }
-        
+
+        public List<LoaiSanPhamDTO> TimKiemTheoTen(string tuKhoa)
+        {
+            return dal.TimKiemTheoTen(tuKhoa);
+        }
+
 
         public void Dispose()
         {

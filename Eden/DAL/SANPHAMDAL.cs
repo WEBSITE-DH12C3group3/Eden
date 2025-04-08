@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using Eden.DTO;
 
 namespace Eden
 {
@@ -25,6 +26,27 @@ namespace Eden
             .Include(sp => sp.LOAISANPHAM)
             .ToList();
         }
+        public List<SanPhamDTO>TimKiemTheoTen(string tuKhoa)
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                return db.SANPHAMs
+                    .Where(sp => sp.TenSanPham.Contains(tuKhoa))
+                    .Select(sp => new SanPhamDTO
+                    {
+                        MaSanPham = sp.MaSanPham,
+                        TenSanPham = sp.TenSanPham,
+                        MoTa = sp.MoTa,
+                        Gia = sp.Gia,
+                        SoLuong = sp.SoLuong,
+                        MauSac = sp.MauSac,
+                        AnhChiTiet = sp.AnhChiTiet,
+                        TenNhaCungCap = sp.NHACUNGCAP.TenNhaCungCap,
+                        TenLoaiSanPham = sp.LOAISANPHAM.TenLoaiSanPham
+                    }).ToList();
+            }
+        }
+
 
         public void Add(SANPHAM sp)
         {

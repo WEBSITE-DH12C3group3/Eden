@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using Eden.DTO;
 using Eden.UI;
 using Guna.UI2.WinForms;
 
@@ -27,7 +28,7 @@ namespace Eden
         private void LoadSanPham()
         {
             var ds = sanphamBLL.GetAll()
-        .Select(sp => new SanPhamViewModelDTO
+        .Select(sp => new SanPhamDTO
         {
             MaSanPham = sp.MaSanPham,
             TenSanPham = sp.TenSanPham,
@@ -135,6 +136,21 @@ namespace Eden
             else
             {
                 MessageBox.Show("Vui lòng chọn sản phẩm cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void guna2ButtonTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+
+            if (!string.IsNullOrEmpty(tuKhoa))
+            {
+                var ketQua = sanphamBLL.TimKiemTheoTen(tuKhoa); // List<SanPhamDTO>
+                dgSanPham.DataSource = ketQua;
+            }
+            else
+            {
+                dgSanPham.DataSource = sanphamBLL.TimKiemTheoTen(""); // Hoặc sanphamBLL.GetAllDTO()
             }
         }
     }

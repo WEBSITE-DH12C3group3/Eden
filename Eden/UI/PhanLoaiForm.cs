@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Eden.DTO;
 using Eden.UI;
 
 namespace Eden
@@ -114,5 +115,41 @@ namespace Eden
                 }
             }
         }
+
+        private void guna2ButtonTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+
+            if (!string.IsNullOrEmpty(tuKhoa))
+            {
+                var ketQua = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
+                guna2DataGridView1.DataSource = ketQua;
+            }
+            else
+            {
+                // Nếu không có từ khóa thì hiển thị toàn bộ
+                guna2DataGridView1.DataSource = loaiSanPhamBLL.GetAll()
+                    .Select(lsp => new LoaiSanPhamDTO
+                    {
+                        Id = lsp.id,
+                        MaLoaiSanPham = lsp.MaLoaiSanPham,
+                        TenLoaiSanPham = lsp.TenLoaiSanPham
+                    })
+                    .ToList();
+            }
+        }
+        private void guna2TextBoxTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+            if (!string.IsNullOrEmpty(tuKhoa))
+            {
+                guna2DataGridView1.DataSource = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
+            }
+            else
+            {
+                guna2DataGridView1.DataSource = loaiSanPhamBLL.GetAll();
+            }
+        }
+
     }
 }
