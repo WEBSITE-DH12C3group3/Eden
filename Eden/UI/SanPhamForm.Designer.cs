@@ -61,12 +61,12 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgSanPham.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgSanPham.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgSanPham.Location = new System.Drawing.Point(17, 22);
+            this.dgSanPham.Location = new System.Drawing.Point(34, 95);
             this.dgSanPham.Name = "dgSanPham";
             this.dgSanPham.RowHeadersVisible = false;
             this.dgSanPham.RowHeadersWidth = 51;
             this.dgSanPham.RowTemplate.Height = 24;
-            this.dgSanPham.Size = new System.Drawing.Size(997, 327);
+            this.dgSanPham.Size = new System.Drawing.Size(900, 500);
             this.dgSanPham.TabIndex = 0;
             this.dgSanPham.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgSanPham.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -98,7 +98,7 @@
             this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(113, 470);
+            this.guna2Button1.Location = new System.Drawing.Point(98, 649);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(180, 45);
             this.guna2Button1.TabIndex = 1;
@@ -113,11 +113,12 @@
             this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button2.ForeColor = System.Drawing.Color.White;
-            this.guna2Button2.Location = new System.Drawing.Point(405, 470);
+            this.guna2Button2.Location = new System.Drawing.Point(394, 637);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(180, 45);
             this.guna2Button2.TabIndex = 2;
             this.guna2Button2.Text = "Sửa";
+            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
             // 
             // guna2Button3
             // 
@@ -127,11 +128,12 @@
             this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
-            this.guna2Button3.Location = new System.Drawing.Point(690, 470);
+            this.guna2Button3.Location = new System.Drawing.Point(710, 637);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(180, 45);
             this.guna2Button3.TabIndex = 2;
             this.guna2Button3.Text = "Xóa";
+            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             // 
             // SanPhamForm
             // 

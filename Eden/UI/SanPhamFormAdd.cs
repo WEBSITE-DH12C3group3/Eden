@@ -13,12 +13,14 @@ namespace Eden.UI
     public partial class SanPhamFormAdd : Form
     {
         private LOAISANPHAMBLL loaiSanPhamBLL;
+        private NHACUNGCAPBLL nhaCungCapBLL;
         private SANPHAMBLL sanPhamBLL;
         public SanPhamFormAdd()
         {
             InitializeComponent();
             sanPhamBLL = new SANPHAMBLL();
             loaiSanPhamBLL = new LOAISANPHAMBLL();
+            nhaCungCapBLL = new NHACUNGCAPBLL();
             GenerateProductID();
             LoadLoaiSanPham();
             LoadNhaCungCap();
@@ -53,47 +55,28 @@ namespace Eden.UI
         {
             try
             {
-                List<LOAISANPHAM> loaiSanPhams = loaiSanPhamBLL.GetAll(); // Lấy danh sách loại sản phẩm từ DB
-
-                if (loaiSanPhams.Count > 0)
-                {
-                    guna2ComboBoxLoaiSP.DataSource = loaiSanPhams; // Gán danh sách vào ComboBox
-                    guna2ComboBoxLoaiSP.DisplayMember = "TenLoaiSanPham"; // Hiển thị tên loại sản phẩm
-                    guna2ComboBoxLoaiSP.ValueMember = "id"; // Giá trị thực tế là ID loại sản phẩm
-                }
-                else
-                {
-                    MessageBox.Show("Không có loại sản phẩm nào trong cơ sở dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                var list = loaiSanPhamBLL.GetAll();
+                guna2ComboBoxLoaiSP.DataSource = list;
+                guna2ComboBoxLoaiSP.DisplayMember = "TenLoaiSanPham";
+                guna2ComboBoxLoaiSP.ValueMember = "id";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải danh sách loại sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi tải loại sản phẩm: " + ex.Message);
             }
         }
         private void LoadNhaCungCap()
         {
             try
             {
-                // Gọi BLL để lấy danh sách nhà cung cấp
-                var nhaCungCapBLL = new NHACUNGCAPBLL();
-                var listNCC = nhaCungCapBLL.GetAll();
-
-                if (listNCC.Count > 0)
-                {
-                    // Gán dữ liệu cho ComboBox
-                    guna2ComboBoxNCC.DataSource = listNCC;
-                    guna2ComboBoxNCC.DisplayMember = "TenNhaCungCap"; // Hiển thị tên nhà cung cấp
-                    guna2ComboBoxNCC.ValueMember = "MaNhaCungCap"; // Lưu mã nhà cung cấp
-                }
-                else
-                {
-                    MessageBox.Show("Không có nhà cung cấp nào trong hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                var list = nhaCungCapBLL.GetAll();
+                guna2ComboBoxNCC.DataSource = list;
+                guna2ComboBoxNCC.DisplayMember = "TenNhaCungCap";
+                guna2ComboBoxNCC.ValueMember = "id"; // Chỉ cần id vì MaNhaCungCap được sinh tự động
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải danh sách nhà cung cấp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi tải nhà cung cấp: " + ex.Message);
             }
         }
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -107,26 +90,28 @@ namespace Eden.UI
             {
                 SANPHAM sp = new SANPHAM
                 {
-                    MaSanPham = guna2TextBoxMaSP.Text.Trim(),
                     TenSanPham = guna2TextBoxTenSP.Text.Trim(),
                     MoTa = guna2TextBoxMoTa.Text.Trim(),
-                    Gia = decimal.Parse(guna2TextBoxGia.Text.Trim()), // Đảm bảo nhập số hợp lệ
-                    SoLuong = int.Parse(guna2TextBoxSoLuong.Text.Trim()), // Đảm bảo nhập số hợp lệ
+                    Gia = decimal.Parse(guna2TextBoxGia.Text.Trim()),
+                    SoLuong = int.Parse(guna2TextBoxSoLuong.Text.Trim()),
                     MauSac = guna2TextBoxMauSac.Text.Trim(),
-                    AnhChiTiet = guna2TextBoxAnh.Text.Trim(), // Tên ảnh nhập bằng text
-                    idNhaCungCap = int.Parse(guna2ComboBoxNCC.SelectedValue.ToString()), // Lấy ID nhà cung cấp từ ComboBox
-                    idLoaiSanPham = int.Parse(guna2ComboBoxLoaiSP.SelectedValue.ToString()) // Lấy ID loại sản phẩm từ ComboBox
+                    AnhChiTiet = guna2TextBoxAnh.Text.Trim(),
+                    idNhaCungCap = Convert.ToInt32(guna2ComboBoxNCC.SelectedValue),
+                    idLoaiSanPham = Convert.ToInt32(guna2ComboBoxLoaiSP.SelectedValue)
                 };
 
                 sanPhamBLL.Add(sp);
                 MessageBox.Show("Thêm sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
+            catch (FormatException)
+            {
+                MessageBox.Show("Giá và số lượng phải là số hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi thêm sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
     }
 }

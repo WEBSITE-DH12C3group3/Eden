@@ -350,6 +350,7 @@
             this.Controls.Add(this.guna2HtmlLabel2);
             this.Controls.Add(this.guna2HtmlLabel1);
             this.Name = "SanPhamFormAdd";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SanPhamFormAdd";
             this.ResumeLayout(false);
             this.PerformLayout();
