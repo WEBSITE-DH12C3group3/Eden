@@ -51,17 +51,16 @@ namespace Eden
                 dgvUnderstock.DataSource = model.UnderstockList
                     .Select(p => new { Name = p.Name, Quantity = (double)p.Quantity })
                     .ToList();
-                dgvUnderstock.Columns[0].HeaderText = "Item";
-                dgvUnderstock.Columns[1].HeaderText = "Units";
-                Console.WriteLine("Understock count: " + model.UnderstockList.Count);
-                foreach (var item in model.UnderstockList)
-                {
-                    Console.WriteLine($"{item.Name} - {item.Quantity}");
-                }
+                //Console.WriteLine("Understock count: " + model.UnderstockList.Count);
+                //    foreach (var item in model.UnderstockList)
+                //    {
+                //        Console.WriteLine($"{item.Name} - {item.Quantity}");
+                //    }
+                dgvUnderstock.ClearSelection();
 
-                Console.WriteLine("Loaded view :)");
+                //    Console.WriteLine("Loaded view :)");
             }
-            else Console.WriteLine("View not loaded, same query");
+            //else Console.WriteLine("View not loaded, same query");
         }
 
         private void SetDateMenuButtonUI(object button)
@@ -69,7 +68,7 @@ namespace Eden
             var btn = (Guna.UI2.WinForms.Guna2Button)button;
 
             // Highlight: nút đang được chọn
-            btn.FillColor = Color.FromArgb(107, 83, 255); // màu nền khi được chọn
+            btn.FillColor = Color.FromArgb(46, 117, 173); // màu nền khi được chọn
             btn.ForeColor = Color.White;
 
             // Contrast: reset lại nút trước đó
@@ -180,13 +179,11 @@ namespace Eden
             dgvUnderstock.Columns[0].HeaderText = "Tên sản phẩm";
             dgvUnderstock.Columns[1].HeaderText = "Số lượng";
             dgvUnderstock.Columns[0].Width = 200;
-            dgvUnderstock.Columns[1].Width = 100;
-            dgvUnderstock.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvUnderstock.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvUnderstock.Columns[1].Width = 80;
             dgvUnderstock.Columns[1].DefaultCellStyle.NullValue = "0"; // Hiển thị 0 nếu không có giá trị
-            dgvUnderstock.RowHeadersWidth = 60; // Tăng chiều rộng header (nếu bạn dùng chỉ số hoặc icon)
-            dgvUnderstock.RowTemplate.Height = 30; // Tăng chiều cao của từng dòng
             dgvUnderstock.DefaultCellStyle.Padding = new Padding(5); // Thêm khoảng cách nếu cần
+            dgvUnderstock.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dgvUnderstock.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
     }
 }
