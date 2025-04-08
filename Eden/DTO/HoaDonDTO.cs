@@ -8,7 +8,11 @@ namespace Eden.DTO
 {
     public class HoaDonDTO
     {
-        public string MaHoaDon { get; set; }
+
+
+        public int idHoaDon { get; set; }
+    public int idKhachHang { get; set; }
+    public string MaHoaDon { get; set; }
         public DateTime NgayLap { get; set; }
         public string MaKhachHang { get; set; }
         public string TenKhachHang { get; set; } // Thêm tên khách hàng

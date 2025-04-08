@@ -27,12 +27,12 @@ namespace Eden.UI
             dgchitietHD.Columns.Clear();
             dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "idHoaDon",
+                DataPropertyName = "MaHoaDon",
                 HeaderText = "Mã Hóa Đơn"
             });
             dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "idSanPham",
+                DataPropertyName = "MaSanPham",
                 HeaderText = "Mã Sản Phẩm"
             });
             dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
@@ -82,6 +82,11 @@ namespace Eden.UI
         {
             // Đóng form hiện tại và quay lại HoaDonForm
             this.Close();
+        }
+
+        private void HoaDonChiTiet_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

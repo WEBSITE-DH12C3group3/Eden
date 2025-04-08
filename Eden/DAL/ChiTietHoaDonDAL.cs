@@ -26,7 +26,9 @@ namespace Eden
                     .Select(ct => new ChiTietHoaDonDTO
                     {
                         idHoaDon = ct.idHoaDon,
+                        MaHoaDon = ct.HOADON.MaHoaDon,
                         idSanPham = ct.idSanPham,
+                        MaSanPham = ct.SANPHAM.MaSanPham,
                         TenSanPham = ct.SANPHAM.TenSanPham, // Lấy tên sản phẩm từ bảng SANPHAM
                         SoLuong = ct.SoLuong,
                         DonGia = ct.DonGia,

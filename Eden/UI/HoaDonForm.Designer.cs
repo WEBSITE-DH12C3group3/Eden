@@ -73,13 +73,13 @@ namespace Eden
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dghoadon.DefaultCellStyle = dataGridViewCellStyle3;
             this.dghoadon.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dghoadon.Location = new System.Drawing.Point(20, 120);
+            this.dghoadon.Location = new System.Drawing.Point(12, 120);
             this.dghoadon.Name = "dghoadon";
             this.dghoadon.ReadOnly = true;
             this.dghoadon.RowHeadersVisible = false;
             this.dghoadon.RowHeadersWidth = 51;
             this.dghoadon.RowTemplate.Height = 29;
-            this.dghoadon.Size = new System.Drawing.Size(912, 350);
+            this.dghoadon.Size = new System.Drawing.Size(1018, 350);
             this.dghoadon.TabIndex = 3;
             this.dghoadon.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
             this.dghoadon.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -102,6 +102,7 @@ namespace Eden
             this.dghoadon.ThemeStyle.RowsStyle.Height = 29;
             this.dghoadon.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.LightBlue;
             this.dghoadon.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dghoadon.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dghoadon_CellContentClick_1);
             // 
             // addhoadon
             // 
@@ -190,7 +191,7 @@ namespace Eden
             // guna2HtmlLabel2
             // 
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(208, 91);
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(209, 83);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             this.guna2HtmlLabel2.Size = new System.Drawing.Size(116, 18);
             this.guna2HtmlLabel2.TabIndex = 7;
@@ -204,7 +205,7 @@ namespace Eden
             this.searchHD.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.searchHD.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.searchHD.ForeColor = System.Drawing.Color.White;
-            this.searchHD.Location = new System.Drawing.Point(666, 73);
+            this.searchHD.Location = new System.Drawing.Point(667, 65);
             this.searchHD.Name = "searchHD";
             this.searchHD.Size = new System.Drawing.Size(180, 45);
             this.searchHD.TabIndex = 8;
@@ -222,7 +223,7 @@ namespace Eden
             this.search.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.search.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.search.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.search.Location = new System.Drawing.Point(381, 73);
+            this.search.Location = new System.Drawing.Point(382, 65);
             this.search.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.search.Name = "search";
             this.search.PlaceholderText = "";

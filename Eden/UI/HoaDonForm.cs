@@ -230,6 +230,7 @@ namespace Eden
 
         private void xemct_Click(object sender, EventArgs e) // Xem chi tiết hóa đơn
         {
+            
             if (dghoadon.CurrentRow != null)
             {
                 // Lấy MaHoaDon từ dòng được chọn (ví dụ: "HD0001")
@@ -248,6 +249,11 @@ namespace Eden
             {
                 MessageBox.Show("Vui lòng chọn hóa đơn để xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void dghoadon_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
