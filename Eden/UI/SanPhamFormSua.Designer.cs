@@ -380,8 +380,9 @@
             this.Controls.Add(this.guna2HtmlLabel3);
             this.Controls.Add(this.guna2HtmlLabel2);
             this.Controls.Add(this.guna2HtmlLabel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SanPhamFormSua";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SanPhamFormSua";
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBoxAnh)).EndInit();
             this.ResumeLayout(false);

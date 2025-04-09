@@ -133,7 +133,9 @@
             this.Controls.Add(this.guna2TextBox1);
             this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.guna2HtmlLabel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PhanLoaiFormAdd";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PhanLoaiFormAdd";
             this.ResumeLayout(false);
             this.PerformLayout();

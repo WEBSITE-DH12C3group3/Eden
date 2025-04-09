@@ -24,15 +24,44 @@ namespace Eden
             InitializeComponent();
             loaiSanPhamBLL = new LOAISANPHAMBLL();
             LoadLoaiSanPham();
+            ConfigureLoaiSanPhamGridView();
         }
 
+        private void ConfigureLoaiSanPhamGridView()
+        {
+            dgvLoaiSanPham.AutoGenerateColumns = false;
+
+            if (dgvLoaiSanPham.Columns.Count == 0)
+            {
+                dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "id", // hoặc MaLoaiSanPham nếu bạn dùng tên khác
+                    HeaderText = "ID",
+                    Name = "id"
+                });
+
+                dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "MaLoaiSanPham",
+                    HeaderText = "Mã Loại",
+                    Name = "MaLoaiSanPham"
+                });
+
+                dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    DataPropertyName = "TenLoaiSanPham",
+                    HeaderText = "Tên Loại",
+                    Name = "TenLoaiSanPham"
+                });
+            }
+        }
 
         private void LoadLoaiSanPham()
         {
             try
             {
-                guna2DataGridView1.DataSource = null; // Xóa nguồn dữ liệu cũ
-                guna2DataGridView1.DataSource = loaiSanPhamBLL.GetAll(); // Load dữ liệu mới từ DB
+                dgvLoaiSanPham.DataSource = null; // Xóa nguồn dữ liệu cũ
+                dgvLoaiSanPham.DataSource = loaiSanPhamBLL.GetAll(); // Load dữ liệu mới từ DB
             }
             catch (Exception ex)
             {
@@ -42,10 +71,10 @@ namespace Eden
             totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
 
             var data = loaiSanPhamBLL.GetPagedLoaiSanPham(currentPage, pageSize);
-            guna2DataGridView1.DataSource = data;
+            dgvLoaiSanPham.DataSource = data;
 
-            lblPage.Text = $"Trang {currentPage}/{totalPages}";
-            btnPrev.Enabled = currentPage > 1;
+            lblPageInfo.Text = $"Trang {currentPage}/{totalPages}";
+            btnPrevious.Enabled = currentPage > 1;
             btnNext.Enabled = currentPage < totalPages;
         }
 
@@ -60,9 +89,9 @@ namespace Eden
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            if (guna2DataGridView1.CurrentRow != null)
+            if (dgvLoaiSanPham.CurrentRow != null)
             {
-                string maLSP = guna2DataGridView1.CurrentRow.Cells["MaLoaiSanPham"].Value.ToString();
+                string maLSP = dgvLoaiSanPham.CurrentRow.Cells["MaLoaiSanPham"].Value.ToString();
                 PhanLoaiFormSua phanLoaiFormSua = new PhanLoaiFormSua(maLSP);
 
                 // Truyền form cha để có thể gọi UpdateDataGridView
@@ -79,10 +108,10 @@ namespace Eden
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            if (guna2DataGridView1.CurrentRow != null)
+            if (dgvLoaiSanPham.CurrentRow != null)
             {
                 // Lấy giá trị "MaLoaiSanPham" từ cột trong DataGridView
-                string maLSP = guna2DataGridView1.CurrentRow.Cells["MaLoaiSanPham"].Value.ToString(); // Đảm bảo đúng tên cột
+                string maLSP = dgvLoaiSanPham.CurrentRow.Cells["MaLoaiSanPham"].Value.ToString(); // Đảm bảo đúng tên cột
                 LOAISANPHAM lsp = new LOAISANPHAM { MaLoaiSanPham = maLSP };
 
                 // Hỏi người dùng có chắc chắn muốn xóa loại sản phẩm này không
@@ -119,7 +148,7 @@ namespace Eden
         }
         public void UpdateDataGridView(LOAISANPHAM updatedLSP)
         {
-            foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+            foreach (DataGridViewRow row in dgvLoaiSanPham.Rows)
             {
                 if (row.Cells["MaLoaiSanPham"].Value.ToString() == updatedLSP.MaLoaiSanPham)
                 {
@@ -131,17 +160,17 @@ namespace Eden
 
         private void guna2ButtonTimKiem_Click(object sender, EventArgs e)
         {
-            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+            string tuKhoa = txtSearch.Text.Trim();
 
             if (!string.IsNullOrEmpty(tuKhoa))
             {
                 var ketQua = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
-                guna2DataGridView1.DataSource = ketQua;
+                dgvLoaiSanPham.DataSource = ketQua;
             }
             else
             {
                 // Nếu không có từ khóa thì hiển thị toàn bộ
-                guna2DataGridView1.DataSource = loaiSanPhamBLL.GetAll()
+                dgvLoaiSanPham.DataSource = loaiSanPhamBLL.GetAll()
                     .Select(lsp => new LoaiSanPhamDTO
                     {
                         Id = lsp.id,
@@ -153,14 +182,14 @@ namespace Eden
         }
         private void guna2TextBoxTimKiem_TextChanged(object sender, EventArgs e)
         {
-            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+            string tuKhoa = txtSearch.Text.Trim();
             if (!string.IsNullOrEmpty(tuKhoa))
             {
-                guna2DataGridView1.DataSource = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
+                dgvLoaiSanPham.DataSource = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
             }
             else
             {
-                guna2DataGridView1.DataSource = loaiSanPhamBLL.GetAll();
+                dgvLoaiSanPham.DataSource = loaiSanPhamBLL.GetAll();
             }
         }
 
