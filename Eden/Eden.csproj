@@ -81,7 +81,6 @@
     <Compile Include="BLL\NGUOIDUNGBLL.cs" />
     <Compile Include="DTO\LoaiSanPhamDTO .cs" />
     <Compile Include="DTO\SanPhamDTO.cs" />
-    <Compile Include="Session.cs" />
     <Compile Include="UI\HoaDonAdd.cs">
       <SubType>Form</SubType>
     </Compile>

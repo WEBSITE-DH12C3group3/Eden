@@ -1,4 +1,5 @@
 ﻿using System;
+using Eden;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,6 +49,17 @@ namespace Eden.UI
             cbKhachHang.DisplayMember = "MaKhachHang";
             cbKhachHang.ValueMember = "id";
 
+            cbKhachHang.SelectedIndexChanged += cbKhachHang_SelectedIndexChanged;
+
+            // Hiển thị thông tin khách hàng mặc định (nếu có khách hàng được chọn)
+            if (cbKhachHang.SelectedItem != null)
+            {
+                var khachHang = cbKhachHang.SelectedItem as KHACHHANG;
+                string tenKhachHang = khachHang.TenKhachHang ?? "Không có tên";
+                string soDienThoai = khachHang.SoDienThoai ?? "Không có SĐT";
+                lblKhachHangInfo.Text = $"Tên: {tenKhachHang} | SĐT: {soDienThoai}";
+            }
+
             // Hiển thị tên người dùng
             lblNguoiDung.Text = $"{CurrentUser.Username} ({CurrentUser.Role})";
 
@@ -55,14 +67,14 @@ namespace Eden.UI
             var sanPhamList = sanPhamBLL.GetAll();
             cbSanPham.DataSource = sanPhamList;
             cbSanPham.DisplayMember = "TenSanPham";
-            cbSanPham.ValueMember = "id";
+            cbSanPham.ValueMember = "MaSanPham";
 
             // Thiết lập DataGridView cho chi tiết hóa đơn
             dgvChiTiet.AutoGenerateColumns = false;
             dgvChiTiet.Columns.Clear();
             dgvChiTiet.Columns.Add(new DataGridViewTextBoxColumn
             {
-                DataPropertyName = "idSanPham",
+                DataPropertyName = "MaSanPham",
                 HeaderText = "Mã Sản Phẩm",
                 Name = "idSanPham"
             });
@@ -102,8 +114,30 @@ namespace Eden.UI
                     cbKhachHang.DataSource = khachHangList;
                     cbKhachHang.DisplayMember = "MaKhachHang";
                     cbKhachHang.ValueMember = "id";
+
+                    // Tự động chọn khách hàng mới nhất
+                    var lastKhachHang = khachHangList.LastOrDefault();
+                    if (lastKhachHang != null)
+                    {
+                        cbKhachHang.SelectedValue = lastKhachHang.id;
+                    }
                 };
                 formAdd.ShowDialog();
+            }
+        }
+
+        private void cbKhachHang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbKhachHang.SelectedItem != null)
+            {
+                var khachHang = cbKhachHang.SelectedItem as KHACHHANG;
+                string tenKhachHang = khachHang.TenKhachHang ?? "Không có tên";
+                string soDienThoai = khachHang.SoDienThoai ?? "Không có SĐT";
+                lblKhachHangInfo.Text = $"Tên: {tenKhachHang} | SĐT: {soDienThoai}";
+            }
+            else
+            {
+                lblKhachHangInfo.Text = "Tên: | SĐT: ";
             }
         }
 
@@ -132,6 +166,7 @@ namespace Eden.UI
             var chiTiet = new ChiTietHoaDonDTO
             {
                 idSanPham = sanPham.id,
+                MaSanPham = sanPham.MaSanPham,
                 TenSanPham = sanPham.TenSanPham,
                 SoLuong = soLuong,
                 DonGia = sanPham.Gia,
@@ -144,10 +179,29 @@ namespace Eden.UI
 
             // Cập nhật tổng tiền
             decimal tongTien = chiTietList.Sum(ct => ct.ThanhTien);
-            lblTongTien.Text = $"Tổng tiền: {tongTien:N2}";
+            lblTongTien.Text = $"{tongTien:N0}";
 
             // Reset số lượng
             txtSoLuong.Text = "";
+        }
+
+        private void btnXoaChiTiet_Click(object sender, EventArgs e)
+        {
+            if (dgvChiTiet.SelectedRows.Count > 0)
+            {
+                var chiTiet = dgvChiTiet.SelectedRows[0].DataBoundItem as ChiTietHoaDonDTO;
+                chiTietList.Remove(chiTiet);
+                dgvChiTiet.DataSource = null;
+                dgvChiTiet.DataSource = chiTietList;
+
+                // Cập nhật tổng tiền
+                decimal tongTien = chiTietList.Sum(ct => ct.ThanhTien);
+                lblTongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một chi tiết hóa đơn để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnLuu_Click(object sender, EventArgs e)

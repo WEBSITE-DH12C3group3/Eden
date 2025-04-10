@@ -175,23 +175,7 @@ namespace Eden
         }
 
         // Mở form sửa hóa đơn
-        private void suahoadon_Click(object sender, EventArgs e)
-        {
-            //if (dghoadon.CurrentRow != null)
-            //{
-            //    string maHD = dghoadon.CurrentRow.Cells["MaHoaDon"].Value.ToString();
-
-            //    using (HoaDonSua formSua = new HoaDonSua(maHD))
-            //    {
-            //        formSua.FormClosed += (s, args) => LoadData();
-            //        formSua.ShowDialog();
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Vui lòng chọn hóa đơn cần sửa.");
-            //}
-        }
+       
 
         // Xóa hóa đơn
         private void xoahoadon_Click(object sender, EventArgs e)

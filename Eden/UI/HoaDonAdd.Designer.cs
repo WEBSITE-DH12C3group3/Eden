@@ -47,6 +47,8 @@
             this.btnThemKhachHang = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.lblNguoiDung = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblKhachHangInfo = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnXoaChiTiet = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiTiet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,7 +81,7 @@
             this.txtSoLuong.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtSoLuong.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtSoLuong.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtSoLuong.Location = new System.Drawing.Point(176, 231);
+            this.txtSoLuong.Location = new System.Drawing.Point(176, 282);
             this.txtSoLuong.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSoLuong.Name = "txtSoLuong";
             this.txtSoLuong.PlaceholderText = "";
@@ -118,7 +120,7 @@
             // guna2HtmlLabel3
             // 
             this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(89, 137);
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(89, 188);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
             this.guna2HtmlLabel3.Size = new System.Drawing.Size(67, 18);
             this.guna2HtmlLabel3.TabIndex = 6;
@@ -134,7 +136,7 @@
             this.cbSanPham.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cbSanPham.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cbSanPham.ItemHeight = 30;
-            this.cbSanPham.Location = new System.Drawing.Point(176, 188);
+            this.cbSanPham.Location = new System.Drawing.Point(176, 239);
             this.cbSanPham.Name = "cbSanPham";
             this.cbSanPham.Size = new System.Drawing.Size(288, 36);
             this.cbSanPham.TabIndex = 7;
@@ -142,7 +144,7 @@
             // guna2HtmlLabel4
             // 
             this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(62, 206);
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(62, 257);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
             this.guna2HtmlLabel4.Size = new System.Drawing.Size(64, 18);
             this.guna2HtmlLabel4.TabIndex = 8;
@@ -151,7 +153,7 @@
             // guna2HtmlLabel5
             // 
             this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(78, 249);
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(78, 300);
             this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
             this.guna2HtmlLabel5.Size = new System.Drawing.Size(56, 18);
             this.guna2HtmlLabel5.TabIndex = 9;
@@ -160,7 +162,7 @@
             // guna2HtmlLabel6
             // 
             this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel6.Location = new System.Drawing.Point(67, 441);
+            this.guna2HtmlLabel6.Location = new System.Drawing.Point(73, 532);
             this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
             this.guna2HtmlLabel6.Size = new System.Drawing.Size(59, 18);
             this.guna2HtmlLabel6.TabIndex = 10;
@@ -169,11 +171,11 @@
             // lblTongTien
             // 
             this.lblTongTien.BackColor = System.Drawing.Color.Transparent;
-            this.lblTongTien.Location = new System.Drawing.Point(198, 441);
+            this.lblTongTien.Location = new System.Drawing.Point(204, 532);
             this.lblTongTien.Name = "lblTongTien";
-            this.lblTongTien.Size = new System.Drawing.Size(108, 18);
+            this.lblTongTien.Size = new System.Drawing.Size(22, 18);
             this.lblTongTien.TabIndex = 11;
-            this.lblTongTien.Text = "guna2HtmlLabel7";
+            this.lblTongTien.Text = "0 Đ";
             // 
             // btnLuu
             // 
@@ -183,7 +185,7 @@
             this.btnLuu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnLuu.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnLuu.ForeColor = System.Drawing.Color.White;
-            this.btnLuu.Location = new System.Drawing.Point(386, 469);
+            this.btnLuu.Location = new System.Drawing.Point(386, 520);
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(180, 45);
             this.btnLuu.TabIndex = 12;
@@ -213,7 +215,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvChiTiet.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvChiTiet.Location = new System.Drawing.Point(72, 286);
+            this.dgvChiTiet.Location = new System.Drawing.Point(72, 337);
             this.dgvChiTiet.Name = "dgvChiTiet";
             this.dgvChiTiet.RowHeadersVisible = false;
             this.dgvChiTiet.RowHeadersWidth = 51;
@@ -245,7 +247,7 @@
             // btnThemKhachHang
             // 
             this.btnThemKhachHang.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnThemKhachHang.Location = new System.Drawing.Point(481, 243);
+            this.btnThemKhachHang.Location = new System.Drawing.Point(481, 294);
             this.btnThemKhachHang.Name = "btnThemKhachHang";
             this.btnThemKhachHang.Size = new System.Drawing.Size(75, 36);
             this.btnThemKhachHang.TabIndex = 14;
@@ -267,17 +269,42 @@
             // lblNguoiDung
             // 
             this.lblNguoiDung.BackColor = System.Drawing.Color.Transparent;
-            this.lblNguoiDung.Location = new System.Drawing.Point(176, 137);
+            this.lblNguoiDung.Location = new System.Drawing.Point(176, 188);
             this.lblNguoiDung.Name = "lblNguoiDung";
             this.lblNguoiDung.Size = new System.Drawing.Size(108, 18);
             this.lblNguoiDung.TabIndex = 16;
             this.lblNguoiDung.Text = "guna2HtmlLabel7";
+            // 
+            // lblKhachHangInfo
+            // 
+            this.lblKhachHangInfo.BackColor = System.Drawing.Color.Transparent;
+            this.lblKhachHangInfo.Location = new System.Drawing.Point(176, 140);
+            this.lblKhachHangInfo.Name = "lblKhachHangInfo";
+            this.lblKhachHangInfo.Size = new System.Drawing.Size(3, 2);
+            this.lblKhachHangInfo.TabIndex = 17;
+            // 
+            // btnXoaChiTiet
+            // 
+            this.btnXoaChiTiet.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnXoaChiTiet.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnXoaChiTiet.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnXoaChiTiet.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnXoaChiTiet.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnXoaChiTiet.ForeColor = System.Drawing.Color.White;
+            this.btnXoaChiTiet.Location = new System.Drawing.Point(78, 481);
+            this.btnXoaChiTiet.Name = "btnXoaChiTiet";
+            this.btnXoaChiTiet.Size = new System.Drawing.Size(80, 35);
+            this.btnXoaChiTiet.TabIndex = 18;
+            this.btnXoaChiTiet.Text = "Xóa";
+            this.btnXoaChiTiet.Click += new System.EventHandler(this.btnXoaChiTiet_Click);
             // 
             // HoaDonAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 628);
+            this.Controls.Add(this.btnXoaChiTiet);
+            this.Controls.Add(this.lblKhachHangInfo);
             this.Controls.Add(this.lblNguoiDung);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnThemKhachHang);
@@ -319,5 +346,7 @@
         private System.Windows.Forms.Button btnThemKhachHang;
         private System.Windows.Forms.Button button2;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNguoiDung;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblKhachHangInfo;
+        private Guna.UI2.WinForms.Guna2Button btnXoaChiTiet;
     }
 }
