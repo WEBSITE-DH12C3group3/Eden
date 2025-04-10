@@ -59,11 +59,11 @@ namespace Eden
             }
         }
 
-        public void Add(HOADON hd)
+        public void Add(HOADON hoaDon, List<ChiTietHoaDonDTO> chiTietList)
         {
             try
             {
-                dal.Add(hd);
+                dal.Add(hoaDon, chiTietList);
             }
             catch (Exception ex)
             {

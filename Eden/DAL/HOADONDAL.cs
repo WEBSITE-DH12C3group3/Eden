@@ -94,17 +94,50 @@ namespace Eden
             }
         }
 
-        public void Add(HOADON entity)
+        public void Add(HOADON hoaDon, List<ChiTietHoaDonDTO> chiTietList)
         {
-            try
+            using (var transaction = db.Database.BeginTransaction())
             {
-                db.HOADONs.Add(entity);
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Lỗi khi thêm hóa đơn: " + ex.Message);
-                throw;
+                try
+                {
+                    // Thêm hóa đơn
+                    db.HOADONs.Add(hoaDon);
+                    db.SaveChanges(); // Lưu để lấy id của hóa đơn
+
+                    // Thêm chi tiết hóa đơn
+                    foreach (var chiTiet in chiTietList)
+                    {
+                        var chiTietEntity = new CHITIETHOADON
+                        {
+                            idHoaDon = hoaDon.id,
+                            idSanPham = chiTiet.idSanPham,
+                            SoLuong = chiTiet.SoLuong,
+                            DonGia = chiTiet.DonGia,
+                            ThanhTien = chiTiet.ThanhTien
+                        };
+                        db.CHITIETHOADONs.Add(chiTietEntity);
+
+                        // Cập nhật số lượng tồn của sản phẩm
+                        var sanPham = db.SANPHAMs.FirstOrDefault(sp => sp.id == chiTiet.idSanPham);
+                        if (sanPham != null)
+                        {
+                            sanPham.SoLuong -= chiTiet.SoLuong;
+                            if (sanPham.SoLuong < 0)
+                            {
+                                throw new Exception($"Số lượng tồn của sản phẩm {sanPham.TenSanPham} không đủ.");
+                            }
+                        }
+                    }
+
+                    db.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine("Lỗi khi thêm hóa đơn: " + ex.Message);
+                    throw;
+                }
             }
         }
 

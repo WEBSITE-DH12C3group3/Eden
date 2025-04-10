@@ -36,7 +36,6 @@ namespace Eden
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dghoadon = new Guna.UI2.WinForms.Guna2DataGridView();
             this.addhoadon = new Guna.UI2.WinForms.Guna2Button();
-            this.suahoadon = new Guna.UI2.WinForms.Guna2Button();
             this.xoahoadon = new Guna.UI2.WinForms.Guna2Button();
             this.btnPreviousPage = new Guna.UI2.WinForms.Guna2Button();
             this.btnNextPage = new Guna.UI2.WinForms.Guna2Button();
@@ -112,27 +111,12 @@ namespace Eden
             this.addhoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.addhoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.addhoadon.ForeColor = System.Drawing.Color.White;
-            this.addhoadon.Location = new System.Drawing.Point(16, 609);
+            this.addhoadon.Location = new System.Drawing.Point(166, 599);
             this.addhoadon.Name = "addhoadon";
             this.addhoadon.Size = new System.Drawing.Size(180, 45);
             this.addhoadon.TabIndex = 1;
             this.addhoadon.Text = "Thêm Hóa Đơn";
             this.addhoadon.Click += new System.EventHandler(this.addhoadon_Click);
-            // 
-            // suahoadon
-            // 
-            this.suahoadon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.suahoadon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.suahoadon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.suahoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.suahoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.suahoadon.ForeColor = System.Drawing.Color.White;
-            this.suahoadon.Location = new System.Drawing.Point(326, 609);
-            this.suahoadon.Name = "suahoadon";
-            this.suahoadon.Size = new System.Drawing.Size(180, 45);
-            this.suahoadon.TabIndex = 2;
-            this.suahoadon.Text = "Sửa Hóa Đơn";
-            this.suahoadon.Click += new System.EventHandler(this.suahoadon_Click);
             // 
             // xoahoadon
             // 
@@ -142,7 +126,7 @@ namespace Eden
             this.xoahoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.xoahoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.xoahoadon.ForeColor = System.Drawing.Color.White;
-            this.xoahoadon.Location = new System.Drawing.Point(642, 609);
+            this.xoahoadon.Location = new System.Drawing.Point(398, 599);
             this.xoahoadon.Name = "xoahoadon";
             this.xoahoadon.Size = new System.Drawing.Size(180, 45);
             this.xoahoadon.TabIndex = 3;
@@ -157,7 +141,7 @@ namespace Eden
             this.btnPreviousPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnPreviousPage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnPreviousPage.ForeColor = System.Drawing.Color.White;
-            this.btnPreviousPage.Location = new System.Drawing.Point(41, 496);
+            this.btnPreviousPage.Location = new System.Drawing.Point(202, 492);
             this.btnPreviousPage.Name = "btnPreviousPage";
             this.btnPreviousPage.Size = new System.Drawing.Size(180, 45);
             this.btnPreviousPage.TabIndex = 4;
@@ -172,7 +156,7 @@ namespace Eden
             this.btnNextPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnNextPage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnNextPage.ForeColor = System.Drawing.Color.White;
-            this.btnNextPage.Location = new System.Drawing.Point(446, 496);
+            this.btnNextPage.Location = new System.Drawing.Point(607, 492);
             this.btnNextPage.Name = "btnNextPage";
             this.btnNextPage.Size = new System.Drawing.Size(180, 45);
             this.btnNextPage.TabIndex = 5;
@@ -182,7 +166,7 @@ namespace Eden
             // lblPageInfo
             // 
             this.lblPageInfo.BackColor = System.Drawing.Color.Transparent;
-            this.lblPageInfo.Location = new System.Drawing.Point(303, 512);
+            this.lblPageInfo.Location = new System.Drawing.Point(464, 508);
             this.lblPageInfo.Name = "lblPageInfo";
             this.lblPageInfo.Size = new System.Drawing.Size(66, 18);
             this.lblPageInfo.TabIndex = 6;
@@ -241,7 +225,7 @@ namespace Eden
             this.xemct.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.xemct.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.xemct.ForeColor = System.Drawing.Color.White;
-            this.xemct.Location = new System.Drawing.Point(752, 496);
+            this.xemct.Location = new System.Drawing.Point(616, 599);
             this.xemct.Name = "xemct";
             this.xemct.Size = new System.Drawing.Size(180, 45);
             this.xemct.TabIndex = 10;
@@ -261,7 +245,6 @@ namespace Eden
             this.Controls.Add(this.btnNextPage);
             this.Controls.Add(this.btnPreviousPage);
             this.Controls.Add(this.xoahoadon);
-            this.Controls.Add(this.suahoadon);
             this.Controls.Add(this.addhoadon);
             this.Controls.Add(this.dghoadon);
             this.Name = "HoaDonForm";
@@ -276,7 +259,6 @@ namespace Eden
 
         private Guna.UI2.WinForms.Guna2DataGridView dghoadon;
         private Guna.UI2.WinForms.Guna2Button addhoadon;
-        private Guna.UI2.WinForms.Guna2Button suahoadon;
         private Guna.UI2.WinForms.Guna2Button xoahoadon;
         private Guna.UI2.WinForms.Guna2Button btnPreviousPage;
         private Guna.UI2.WinForms.Guna2Button btnNextPage;

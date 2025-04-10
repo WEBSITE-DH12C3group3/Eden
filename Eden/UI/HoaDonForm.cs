@@ -167,11 +167,11 @@ namespace Eden
         // Mở form thêm hóa đơn
         private void addhoadon_Click(object sender, EventArgs e)
         {
-            //using (HoaDonAdd formAdd = new HoaDonAdd())
-            //{
-            //    formAdd.ShowDialog();
-            //    LoadData();
-            //}
+            using (HoaDonAdd formAdd = new HoaDonAdd())
+            {
+                formAdd.FormClosed += (s, args) => LoadData(); // Làm mới danh sách sau khi thêm
+                formAdd.ShowDialog();
+            }
         }
 
         // Mở form sửa hóa đơn

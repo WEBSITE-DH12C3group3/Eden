@@ -81,12 +81,22 @@
     <Compile Include="BLL\NGUOIDUNGBLL.cs" />
     <Compile Include="DTO\LoaiSanPhamDTO .cs" />
     <Compile Include="DTO\SanPhamDTO.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="UI\HoaDonAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\HoaDonAdd.Designer.cs">
+      <DependentUpon>HoaDonAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SanPhamFormSua.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\SanPhamFormSua.Designer.cs">
       <DependentUpon>SanPhamFormSua.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\HoaDonAdd.resx">
+      <DependentUpon>HoaDonAdd.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\SanPhamFormSua.resx">
       <DependentUpon>SanPhamFormSua.cs</DependentUpon>
     </EmbeddedResource>
