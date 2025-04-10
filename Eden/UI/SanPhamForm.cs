@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Eden.DTO;
 using Eden.UI;
 using Guna.UI2.WinForms;
+using System.Drawing;
+
 
 namespace Eden
 {
@@ -51,7 +54,7 @@ namespace Eden
 
             // Lấy danh sách sản phẩm theo trang hiện tại
             var danhSach = sanphamBLL.LaySanPhamTheoTrang(currentPage, pageSize);
-            dgSanPham.DataSource = danhSach;
+            dgvSanPham.DataSource = danhSach;
 
             // Cập nhật label số trang
             lblPage.Text = $"Trang {currentPage}/{totalPage}";
@@ -69,9 +72,9 @@ namespace Eden
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            if (dgSanPham.CurrentRow != null)
+            if (dgvSanPham.CurrentRow != null)
             {
-                string maSP = dgSanPham.CurrentRow.Cells["MaSanPham"].Value.ToString();
+                string maSP = dgvSanPham.CurrentRow.Cells["MaSanPham"].Value.ToString();
                 var sanPham = sanphamBLL.GetAll().FirstOrDefault(sp => sp.MaSanPham == maSP);
 
                 if (sanPham != null)
@@ -89,7 +92,7 @@ namespace Eden
         }
         public void UpdateDataGridViewSP(SANPHAM updatedSP)
         {
-            foreach (DataGridViewRow row in dgSanPham.Rows)
+            foreach (DataGridViewRow row in dgvSanPham.Rows)
             {
                 var maSP = row.Cells["MaSanPham"].Value?.ToString();
                 if (maSP == updatedSP.MaSanPham)
@@ -109,10 +112,10 @@ namespace Eden
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            if (dgSanPham.CurrentRow != null)
+            if (dgvSanPham.CurrentRow != null)
             {
                 // Lấy mã sản phẩm từ dòng được chọn
-                string maSP = dgSanPham.CurrentRow.Cells["MaSanPham"].Value.ToString();
+                string maSP = dgvSanPham.CurrentRow.Cells["MaSanPham"].Value.ToString();
 
                 // Xác nhận từ người dùng
                 DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa sản phẩm này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -158,11 +161,11 @@ namespace Eden
             if (!string.IsNullOrEmpty(tuKhoa))
             {
                 var ketQua = sanphamBLL.TimKiemTheoTen(tuKhoa); // List<SanPhamDTO>
-                dgSanPham.DataSource = ketQua;
+                dgvSanPham.DataSource = ketQua;
             }
             else
             {
-                dgSanPham.DataSource = sanphamBLL.TimKiemTheoTen(""); // Hoặc sanphamBLL.GetAllDTO()
+                dgvSanPham.DataSource = sanphamBLL.TimKiemTheoTen(""); // Hoặc sanphamBLL.GetAllDTO()
             }
         }
 
@@ -181,6 +184,34 @@ namespace Eden
             {
                 currentPage++;
                 LoadSanPham();
+            }
+        }
+        private void dgvSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dgvSanPham.Rows[e.RowIndex];
+                string tenFileAnh = row.Cells["AnhChiTiet"].Value?.ToString();
+
+                if (!string.IsNullOrEmpty(tenFileAnh))
+                {
+                    string duongDanGoc = Path.Combine(Application.StartupPath, @"..\..\Resources\img", tenFileAnh);
+                    string duongDanAnh = Path.GetFullPath(duongDanGoc);
+
+                    if (File.Exists(duongDanAnh))
+                    {
+                        pictureBoxSanPham.Image = Image.FromFile(duongDanAnh);
+                    }
+                    else
+                    {
+                        pictureBoxSanPham.Image = null;
+                        MessageBox.Show("Không tìm thấy ảnh tại:\n" + duongDanAnh);
+                    }
+                }
+                else
+                {
+                    pictureBoxSanPham.Image = null;
+                }
             }
         }
     }
