@@ -20,7 +20,8 @@ namespace Eden
             InitializeComponent();
 
             guna2HtmlLabel1.Text = CurrentUser.Username;
-
+            picVan.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            picVan.SizeMode = PictureBoxSizeMode.StretchImage;
             InitializeSidebarButtons();
         }
 
@@ -77,6 +78,8 @@ namespace Eden
             btn.Size = new Size(219, 69);
             btn.TabIndex = 1;
             btn.Animated = true;
+
+            btn.Anchor = AnchorStyles.Left;
 
             // Thiết lập font và text
             btn.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
