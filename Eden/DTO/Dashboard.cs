@@ -66,55 +66,68 @@ namespace Eden
 
         private void GetOrderAnalysis()
         {
-            var resultTable = _context.HOADONs
+            if (numberDays <= 1)
+            {
+                // Nhóm theo giờ (ví dụ: 09:00, 10:00, ...)
+                // Lấy toàn bộ hóa đơn trước
+                var rawData = _context.HOADONs
+                    .Where(o => o.NgayLap >= startDate && o.NgayLap <= endDate)
+                    .ToList(); // ⚠️ ép lấy về trước, từ đây LINQ sẽ chạy trên bộ nhớ (not EF)
+
+                GrossRevenueList = rawData
+                    .GroupBy(o => new DateTime(o.NgayLap.Year, o.NgayLap.Month, o.NgayLap.Day, o.NgayLap.Hour, 0, 0))
+                    .Select(g => new RevenueByDate
+                    {
+                        Date = g.Key.ToString("HH:mm"),
+                        TotalAmount = g.Sum(o => o.TongTien)
+                    })
+                    .OrderBy(r => r.Date)
+                    .ToList();
+            }
+            else
+            {
+                var resultTable = _context.HOADONs
                 .Where(o => o.NgayLap >= startDate && o.NgayLap <= endDate)
                 .GroupBy(o => o.NgayLap)  // Sử dụng NgayLap nguyên gốc mà không cần tách phần ngày
                 .Select(g => new { Date = g.Key, TotalAmount = g.Sum(o => o.TongTien) })
                 .ToList();
 
-            TotalRevenue = resultTable.Sum(r => r.TotalAmount);
-            TotalProfit = TotalRevenue * 0.2m;
+                TotalRevenue = resultTable.Sum(r => r.TotalAmount);
+                TotalProfit = TotalRevenue * 0.2m;
 
-            if (numberDays <= 1)
-            {
-                // Nhóm theo giờ trong ngày
-                GrossRevenueList = resultTable
-                    .GroupBy(o => o.Date.ToString("hh:tt"))
-                    .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
-                    .ToList();
-            }
-            else if (numberDays <= 30)
-            {
-                // Nhóm theo ngày trong tháng
-                GrossRevenueList = resultTable
-                    .GroupBy(o => o.Date.ToString("dd/MMM"))
-                    .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
-                    .ToList();
-            }
-            else if (numberDays <= 92)
-            {
-                // Nhóm theo tuần trong năm
-                GrossRevenueList = resultTable
-                    .GroupBy(o => System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
-                        o.Date, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday))
-                    .Select(g => new RevenueByDate { Date = "Week " + g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
-                    .ToList();
-            }
-            else if (numberDays <= (365 * 2))
-            {
-                // Nhóm theo tháng trong năm
-                GrossRevenueList = resultTable
-                    .GroupBy(o => o.Date.ToString("MMM/yyyy"))
-                    .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
-                    .ToList();
-            }
-            else
-            {
-                // Nhóm theo năm
-                GrossRevenueList = resultTable
-                    .GroupBy(o => o.Date.ToString("yyyy"))
-                    .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
-                    .ToList();
+                if (numberDays <= 30)
+                {
+                    // Nhóm theo ngày trong tháng
+                    GrossRevenueList = resultTable
+                        .GroupBy(o => o.Date.ToString("dd/MMM"))
+                        .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
+                        .ToList();
+                }
+                else if (numberDays <= 92)
+                {
+                    // Nhóm theo tuần trong năm
+                    GrossRevenueList = resultTable
+                        .GroupBy(o => System.Globalization.CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
+                            o.Date, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Monday))
+                        .Select(g => new RevenueByDate { Date = "Week " + g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
+                        .ToList();
+                }
+                else if (numberDays <= (365 * 2))
+                {
+                    // Nhóm theo tháng trong năm
+                    GrossRevenueList = resultTable
+                        .GroupBy(o => o.Date.ToString("MMM/yyyy"))
+                        .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
+                        .ToList();
+                }
+                else
+                {
+                    // Nhóm theo năm
+                    GrossRevenueList = resultTable
+                        .GroupBy(o => o.Date.ToString("yyyy"))
+                        .Select(g => new RevenueByDate { Date = g.Key, TotalAmount = g.Sum(r => r.TotalAmount) })
+                        .ToList();
+                }
             }
         }
 
