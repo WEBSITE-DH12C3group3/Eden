@@ -71,121 +71,115 @@ namespace Eden
         {
             Guna2GradientButton btn = new Guna2GradientButton();
 
-            // Thiết lập cơ bản
             btn.Name = name;
             btn.Text = text;
-            btn.Location = new Point(0, y);
-            btn.Size = new Size(219, 69);
-            btn.TabIndex = 1;
-            btn.Animated = true;
 
+            // Kích thước và vị trí
+            btn.Size = new Size(guna2Panel2.Width, 69); // Width = Panel chứa nó
+            btn.Location = new Point(0, y);
+
+            // Set layout & padding/margin rõ ràng
+            btn.Margin = new Padding(0);
+            btn.Padding = new Padding(0);
             btn.Anchor = AnchorStyles.Left;
 
-            // Thiết lập font và text
+            // Font và màu sắc
             btn.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
             btn.ForeColor = Color.White;
             btn.TextAlign = HorizontalAlignment.Left;
             btn.TextOffset = new Point(30, 0);
 
-            // Thiết lập hình ảnh (giả sử bạn có Resources chứa các ảnh tương ứng)
-            var image = (Image)Properties.Resources.ResourceManager.GetObject(imgName);
-            btn.Image = image;
+            // Hình ảnh
+            btn.Image = (Image)Properties.Resources.ResourceManager.GetObject(imgName);
             btn.ImageAlign = HorizontalAlignment.Left;
             btn.ImageOffset = new Point(10, 0);
             btn.ImageSize = new Size(24, 24);
 
-            // Màu sắc
+            // Màu nền
             btn.FillColor = Color.FromArgb(26, 49, 80);
             btn.FillColor2 = Color.FromArgb(26, 49, 80);
-            btn.BorderThickness = 0;
 
-            // Trạng thái hover
+            // Hover
             btn.HoverState.FillColor = Color.FromArgb(58, 125, 167);
             btn.HoverState.FillColor2 = Color.FromArgb(26, 49, 80);
             btn.HoverState.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
 
-            // Trạng thái disabled
-            btn.DisabledState.BorderColor = Color.DarkGray;
-            btn.DisabledState.CustomBorderColor = Color.DarkGray;
-            btn.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btn.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            btn.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            // Click event
 
-            // Sự kiện click
             btn.Click += (sender, e) =>
-            {
-                // Reset màu tất cả các nút
-                foreach (var control in this.Controls.OfType<Guna2GradientButton>())
-                {
-                    control.FillColor = Color.FromArgb(26, 49, 80);
-                    control.FillColor2 = Color.FromArgb(26, 49, 80);
-                    control.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-                }
+                    {
+                        // Reset màu tất cả các nút
+                        foreach (var control in this.Controls.OfType<Guna2GradientButton>())
+                        {
+                            control.FillColor = Color.FromArgb(26, 49, 80);
+                            control.FillColor2 = Color.FromArgb(26, 49, 80);
+                            control.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+                        }
 
-                // Đặt màu cho nút được chọn
-                var selectedBtn = (Guna2GradientButton)sender;
-                selectedBtn.FillColor = Color.FromArgb(58, 125, 167);
-                selectedBtn.FillColor2 = Color.FromArgb(26, 49, 80);
-                selectedBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                        // Đặt màu cho nút được chọn
+                        var selectedBtn = (Guna2GradientButton)sender;
+                        selectedBtn.FillColor = Color.FromArgb(58, 125, 167);
+                        selectedBtn.FillColor2 = Color.FromArgb(26, 49, 80);
+                        selectedBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
 
-                //Xử lý logic khi click vào từng nút
-                switch (selectedBtn.Name)
-                {
-                    case "btnTK":
-                        // Xử lý Thống kê
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new ThongKeForm());
-                        break;
+                        //Xử lý logic khi click vào từng nút
+                        switch (selectedBtn.Name)
+                        {
+                            case "btnTK":
+                                // Xử lý Thống kê
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new ThongKeForm());
+                                break;
 
-                    case "btnSP":
-                        // Xử lý Sản phẩm
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new SanPhamForm());
-                        break;
+                            case "btnSP":
+                                // Xử lý Sản phẩm
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new SanPhamForm());
+                                break;
 
-                    case "btnPL":
-                        // Xử lý Phân loại
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new PhanLoaiForm());
-                        break;
+                            case "btnPL":
+                                // Xử lý Phân loại
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new PhanLoaiForm());
+                                break;
 
-                    case "btnND":
-                        // Xử lý Người dùng
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new NguoiDungForm());
-                        break;
+                            case "btnND":
+                                // Xử lý Người dùng
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new NguoiDungForm());
+                                break;
 
-                    case "btnNND":
-                        // Xử lý Nhóm người dùng
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new NhomNguoiDungForm());
-                        break;
+                            case "btnNND":
+                                // Xử lý Nhóm người dùng
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new NhomNguoiDungForm());
+                                break;
 
-                    case "btnKH":
-                        // Xử lý Khách hàng
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new KhachHangForm());
-                        break;
+                            case "btnKH":
+                                // Xử lý Khách hàng
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new KhachHangForm());
+                                break;
 
-                    case "btnHD":
-                        // Xử lý Hóa đơn
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new HoaDonForm());
-                        break;
+                            case "btnHD":
+                                // Xử lý Hóa đơn
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new HoaDonForm());
+                                break;
 
-                    case "btnNK":
-                        // Xử lý Nhập kho
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new NhapKhoForm());
-                        break;
+                            case "btnNK":
+                                // Xử lý Nhập kho
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new NhapKhoForm());
+                                break;
 
-                    case "btnNCC":
-                        // Xử lý Nhà cung cấp
-                        pnlMainContent.Controls.Clear();
-                        ShowForm(new NhaCungCapForm());
-                        break;
-                }
-            };
+                            case "btnNCC":
+                                // Xử lý Nhà cung cấp
+                                pnlMainContent.Controls.Clear();
+                                ShowForm(new NhaCungCapForm());
+                                break;
+                        }
+                    };
 
             return btn;
         }

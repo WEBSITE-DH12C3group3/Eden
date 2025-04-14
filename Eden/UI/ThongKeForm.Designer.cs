@@ -29,11 +29,10 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -200,7 +199,7 @@
             this.guna2Panel1.Location = new System.Drawing.Point(12, 60);
             this.guna2Panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(252, 85);
+            this.guna2Panel1.Size = new System.Drawing.Size(328, 85);
             this.guna2Panel1.TabIndex = 2;
             // 
             // guna2PictureBox2
@@ -225,7 +224,7 @@
             this.lblNumOrders.Location = new System.Drawing.Point(84, 42);
             this.lblNumOrders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lblNumOrders.Name = "lblNumOrders";
-            this.lblNumOrders.Size = new System.Drawing.Size(17, 31);
+            this.lblNumOrders.Size = new System.Drawing.Size(14, 27);
             this.lblNumOrders.TabIndex = 0;
             this.lblNumOrders.Text = "0";
             // 
@@ -237,7 +236,7 @@
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(84, 9);
             this.guna2HtmlLabel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(126, 27);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(97, 21);
             this.guna2HtmlLabel1.TabIndex = 0;
             this.guna2HtmlLabel1.Text = "Tổng đơn hàng";
             // 
@@ -247,10 +246,10 @@
             this.guna2Panel2.Controls.Add(this.guna2PictureBox1);
             this.guna2Panel2.Controls.Add(this.lblTotalRevenue);
             this.guna2Panel2.Controls.Add(this.guna2HtmlLabel7);
-            this.guna2Panel2.Location = new System.Drawing.Point(269, 60);
+            this.guna2Panel2.Location = new System.Drawing.Point(346, 60);
             this.guna2Panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(348, 85);
+            this.guna2Panel2.Size = new System.Drawing.Size(346, 85);
             this.guna2Panel2.TabIndex = 2;
             // 
             // guna2PictureBox1
@@ -275,7 +274,7 @@
             this.lblTotalRevenue.Location = new System.Drawing.Point(87, 42);
             this.lblTotalRevenue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lblTotalRevenue.Name = "lblTotalRevenue";
-            this.lblTotalRevenue.Size = new System.Drawing.Size(17, 31);
+            this.lblTotalRevenue.Size = new System.Drawing.Size(14, 27);
             this.lblTotalRevenue.TabIndex = 0;
             this.lblTotalRevenue.Text = "0";
             // 
@@ -287,7 +286,7 @@
             this.guna2HtmlLabel7.Location = new System.Drawing.Point(87, 9);
             this.guna2HtmlLabel7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            this.guna2HtmlLabel7.Size = new System.Drawing.Size(131, 27);
+            this.guna2HtmlLabel7.Size = new System.Drawing.Size(102, 21);
             this.guna2HtmlLabel7.TabIndex = 0;
             this.guna2HtmlLabel7.Text = "Tổng doanh thu";
             // 
@@ -313,20 +312,22 @@
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(151, 17);
             this.guna2HtmlLabel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(16, 19);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(13, 14);
             this.guna2HtmlLabel3.TabIndex = 0;
             this.guna2HtmlLabel3.Text = "—";
             // 
             // guna2Panel3
             // 
+            this.guna2Panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             this.guna2Panel3.Controls.Add(this.guna2PictureBox3);
             this.guna2Panel3.Controls.Add(this.lblTotalProfit);
             this.guna2Panel3.Controls.Add(this.guna2HtmlLabel2);
-            this.guna2Panel3.Location = new System.Drawing.Point(624, 60);
+            this.guna2Panel3.Location = new System.Drawing.Point(699, 60);
             this.guna2Panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(389, 85);
+            this.guna2Panel3.Size = new System.Drawing.Size(314, 85);
             this.guna2Panel3.TabIndex = 2;
             // 
             // guna2PictureBox3
@@ -351,7 +352,7 @@
             this.lblTotalProfit.Location = new System.Drawing.Point(87, 42);
             this.lblTotalProfit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lblTotalProfit.Name = "lblTotalProfit";
-            this.lblTotalProfit.Size = new System.Drawing.Size(17, 31);
+            this.lblTotalProfit.Size = new System.Drawing.Size(14, 27);
             this.lblTotalProfit.TabIndex = 0;
             this.lblTotalProfit.Text = "0";
             // 
@@ -363,7 +364,7 @@
             this.guna2HtmlLabel2.Location = new System.Drawing.Point(87, 9);
             this.guna2HtmlLabel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(122, 27);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(95, 21);
             this.guna2HtmlLabel2.TabIndex = 0;
             this.guna2HtmlLabel2.Text = "Tổng lợi nhuận";
             // 
@@ -391,13 +392,6 @@
             chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             chartArea1.Name = "ChartArea1";
             this.chartGrossRevenue.ChartAreas.Add(chartArea1);
-            legend1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            legend1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            legend1.IsTextAutoFit = false;
-            legend1.Name = "Legend1";
-            this.chartGrossRevenue.Legends.Add(legend1);
             this.chartGrossRevenue.Location = new System.Drawing.Point(12, 151);
             this.chartGrossRevenue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chartGrossRevenue.Name = "chartGrossRevenue";
@@ -407,14 +401,17 @@
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(88)))), ((int)(((byte)(127)))));
-            series1.Legend = "Legend1";
+            series1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.IsValueShownAsLabel = true;
+            series1.IsXValueIndexed = true;
+            series1.LabelForeColor = System.Drawing.Color.LightGray;
             series1.MarkerColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(88)))), ((int)(((byte)(127)))));
             series1.MarkerSize = 8;
             series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
             series1.Name = "Doanh số";
             series1.YValuesPerPoint = 2;
             this.chartGrossRevenue.Series.Add(series1);
-            this.chartGrossRevenue.Size = new System.Drawing.Size(680, 290);
+            this.chartGrossRevenue.Size = new System.Drawing.Size(647, 290);
             this.chartGrossRevenue.TabIndex = 3;
             this.chartGrossRevenue.Text = "chartGrossRevenue";
             title1.Alignment = System.Drawing.ContentAlignment.TopLeft;
@@ -432,13 +429,13 @@
             chartArea2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             chartArea2.Name = "ChartArea1";
             this.chartTopProducts.ChartAreas.Add(chartArea2);
-            legend2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            legend2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend2.ForeColor = System.Drawing.Color.Gainsboro;
-            legend2.IsTextAutoFit = false;
-            legend2.Name = "Legend1";
-            this.chartTopProducts.Legends.Add(legend2);
-            this.chartTopProducts.Location = new System.Drawing.Point(699, 151);
+            legend1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend1.ForeColor = System.Drawing.Color.Gainsboro;
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            this.chartTopProducts.Legends.Add(legend1);
+            this.chartTopProducts.Location = new System.Drawing.Point(665, 151);
             this.chartTopProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chartTopProducts.Name = "chartTopProducts";
             this.chartTopProducts.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
@@ -463,7 +460,7 @@
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.chartTopProducts.Series.Add(series2);
-            this.chartTopProducts.Size = new System.Drawing.Size(316, 575);
+            this.chartTopProducts.Size = new System.Drawing.Size(350, 575);
             this.chartTopProducts.TabIndex = 3;
             this.chartTopProducts.Text = "chartTopProducts";
             title2.Alignment = System.Drawing.ContentAlignment.TopLeft;
@@ -498,7 +495,7 @@
             this.lblNumProducts.Location = new System.Drawing.Point(25, 218);
             this.lblNumProducts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lblNumProducts.Name = "lblNumProducts";
-            this.lblNumProducts.Size = new System.Drawing.Size(17, 31);
+            this.lblNumProducts.Size = new System.Drawing.Size(14, 27);
             this.lblNumProducts.TabIndex = 0;
             this.lblNumProducts.Text = "0";
             // 
@@ -510,7 +507,7 @@
             this.lblNumSuppliers.Location = new System.Drawing.Point(25, 155);
             this.lblNumSuppliers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lblNumSuppliers.Name = "lblNumSuppliers";
-            this.lblNumSuppliers.Size = new System.Drawing.Size(17, 31);
+            this.lblNumSuppliers.Size = new System.Drawing.Size(14, 27);
             this.lblNumSuppliers.TabIndex = 0;
             this.lblNumSuppliers.Text = "0";
             // 
@@ -522,7 +519,7 @@
             this.lblNumCustomers.Location = new System.Drawing.Point(25, 91);
             this.lblNumCustomers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lblNumCustomers.Name = "lblNumCustomers";
-            this.lblNumCustomers.Size = new System.Drawing.Size(17, 31);
+            this.lblNumCustomers.Size = new System.Drawing.Size(14, 27);
             this.lblNumCustomers.TabIndex = 0;
             this.lblNumCustomers.Text = "0";
             // 
@@ -534,7 +531,7 @@
             this.guna2HtmlLabel8.Location = new System.Drawing.Point(11, 191);
             this.guna2HtmlLabel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            this.guna2HtmlLabel8.Size = new System.Drawing.Size(78, 22);
+            this.guna2HtmlLabel8.Size = new System.Drawing.Size(67, 19);
             this.guna2HtmlLabel8.TabIndex = 0;
             this.guna2HtmlLabel8.Text = "Sản phẩm";
             // 
@@ -546,7 +543,7 @@
             this.guna2HtmlLabel4.Location = new System.Drawing.Point(11, 128);
             this.guna2HtmlLabel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(106, 22);
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(91, 19);
             this.guna2HtmlLabel4.TabIndex = 0;
             this.guna2HtmlLabel4.Text = "Nhà cung cấp";
             // 
@@ -558,7 +555,7 @@
             this.guna2HtmlLabel6.Location = new System.Drawing.Point(11, 64);
             this.guna2HtmlLabel6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            this.guna2HtmlLabel6.Size = new System.Drawing.Size(91, 22);
+            this.guna2HtmlLabel6.Size = new System.Drawing.Size(79, 19);
             this.guna2HtmlLabel6.TabIndex = 0;
             this.guna2HtmlLabel6.Text = "Khách hàng";
             // 
@@ -570,7 +567,7 @@
             this.guna2HtmlLabel5.Location = new System.Drawing.Point(9, 6);
             this.guna2HtmlLabel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(130, 30);
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(103, 23);
             this.guna2HtmlLabel5.TabIndex = 0;
             this.guna2HtmlLabel5.Text = "Tổng số lượng";
             // 
@@ -586,7 +583,7 @@
             this.guna2Panel5.Location = new System.Drawing.Point(205, 448);
             this.guna2Panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2Panel5.Name = "guna2Panel5";
-            this.guna2Panel5.Size = new System.Drawing.Size(485, 278);
+            this.guna2Panel5.Size = new System.Drawing.Size(452, 278);
             this.guna2Panel5.TabIndex = 2;
             // 
             // guna2PictureBox4
@@ -594,7 +591,7 @@
             this.guna2PictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.guna2PictureBox4.Image = global::Eden.Properties.Resources.more;
             this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(433, 2);
+            this.guna2PictureBox4.Location = new System.Drawing.Point(398, 2);
             this.guna2PictureBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2PictureBox4.Name = "guna2PictureBox4";
             this.guna2PictureBox4.Size = new System.Drawing.Size(51, 28);
@@ -649,7 +646,7 @@
             this.dgvUnderstock.RowHeadersWidth = 29;
             this.dgvUnderstock.RowTemplate.Height = 29;
             this.dgvUnderstock.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvUnderstock.Size = new System.Drawing.Size(471, 233);
+            this.dgvUnderstock.Size = new System.Drawing.Size(438, 233);
             this.dgvUnderstock.TabIndex = 3;
             this.dgvUnderstock.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
             this.dgvUnderstock.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -681,7 +678,7 @@
             this.guna2HtmlLabel14.Location = new System.Drawing.Point(16, 6);
             this.guna2HtmlLabel14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2HtmlLabel14.Name = "guna2HtmlLabel14";
-            this.guna2HtmlLabel14.Size = new System.Drawing.Size(119, 30);
+            this.guna2HtmlLabel14.Size = new System.Drawing.Size(94, 23);
             this.guna2HtmlLabel14.TabIndex = 0;
             this.guna2HtmlLabel14.Text = "Tồn kho thấp\r\n";
             // 
@@ -738,8 +735,8 @@
             // 
             // ThongKeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(1027, 738);
             this.Controls.Add(this.lblStartDate);

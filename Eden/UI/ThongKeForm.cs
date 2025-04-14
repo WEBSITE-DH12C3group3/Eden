@@ -21,6 +21,8 @@ namespace Eden
             dtpStartDate.Value = DateTime.Today.AddDays(-7);
             dtpEndDate.Value = DateTime.Now;
             btnLast7Days.Select();
+            this.chartGrossRevenue.MouseMove += chart1_MouseMove;
+
             SetDateMenuButtonUI(btnLast7Days);
             model = new Dashboard(db);
             LoadData();
@@ -29,37 +31,42 @@ namespace Eden
         private void LoadData()
         {
             var refreshData = model.LoadData(dtpStartDate.Value, dtpEndDate.Value);
-            if (refreshData == true)
+            if (refreshData)
             {
+                // Gán số liệu
                 lblNumOrders.Text = model.NumOrders.ToString();
                 lblTotalRevenue.Text = model.TotalRevenue.ToString("#,##0") + "đ";
                 lblTotalProfit.Text = model.TotalProfit.ToString("#,##0") + "đ";
                 lblNumCustomers.Text = model.NumCustomers.ToString();
                 lblNumSuppliers.Text = model.NumSuppliers.ToString();
                 lblNumProducts.Text = model.NumProducts.ToString();
-                chartGrossRevenue.DataSource = model.GrossRevenueList;
-                chartGrossRevenue.Series[0].XValueMember = "Date";
-                chartGrossRevenue.Series[0].YValueMembers = "TotalAmount";
-                chartGrossRevenue.DataBind();
+
+                // Cập nhật Chart Doanh thu
+                var series = chartGrossRevenue.Series[0];
+                series.Points.Clear();
+
+                foreach (var item in model.GrossRevenueList)
+                {
+                    int pointIndex = series.Points.AddXY(item.Date, item.TotalAmount);
+                    double amount = (double)item.TotalAmount;
+                    string label = amount >= 1000 ? (amount / 1000).ToString("0.#") + "k" : amount.ToString("0");
+                    series.Points[pointIndex].Label = label;
+                }
+
+                // Cập nhật biểu đồ Top Products
                 chartTopProducts.DataSource = model.TopProductsList
                     .Select(p => new { Key = p.Name, Value = (double)p.Quantity })
                     .ToList();
                 chartTopProducts.Series[0].XValueMember = "Key";
                 chartTopProducts.Series[0].YValueMembers = "Value";
                 chartTopProducts.DataBind();
+
+                // Bảng dưới mức tồn kho
                 dgvUnderstock.DataSource = model.UnderstockList
                     .Select(p => new { Name = p.Name, Quantity = (double)p.Quantity })
                     .ToList();
-                //Console.WriteLine("Understock count: " + model.UnderstockList.Count);
-                //    foreach (var item in model.UnderstockList)
-                //    {
-                //        Console.WriteLine($"{item.Name} - {item.Quantity}");
-                //    }
                 dgvUnderstock.ClearSelection();
-
-                //    Console.WriteLine("Loaded view :)");
             }
-            //else Console.WriteLine("View not loaded, same query");
         }
 
         private void SetDateMenuButtonUI(object button)
@@ -183,6 +190,32 @@ namespace Eden
             dgvUnderstock.DefaultCellStyle.Padding = new Padding(5); // Thêm khoảng cách nếu cần
             dgvUnderstock.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgvUnderstock.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        }
+
+        private void chart1_MouseMove(object sender, MouseEventArgs e)
+        {
+            var result = chartGrossRevenue.HitTest(e.X, e.Y);
+
+            if (result.ChartElementType == ChartElementType.DataPoint)
+            {
+                var pointIndex = result.PointIndex;
+                var series = result.Series;
+                if (pointIndex >= 0 && series != null)
+                {
+                    var point = series.Points[pointIndex];
+
+                    // Lấy giá trị X, Y
+                    string xValue = point.AxisLabel ?? point.XValue.ToString();
+                    string yValue = point.YValues[0].ToString("N0");
+
+                    chartGrossRevenue.Series[0].ToolTip = $"Ngày: {xValue}\nThu: {yValue}đ";
+                }
+            }
+            else
+            {
+                // Clear tooltip nếu không nằm trên datapoint
+                chartGrossRevenue.Series[0].ToolTip = string.Empty;
+            }
         }
     }
 }
