@@ -1,91 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Eden.DALCustom;
 
-namespace Eden
+namespace Eden.BLLCustom
 {
     public class NHOMNGUOIDUNGBLL
     {
-        private NHOMNGUOIDUNGDAL dal = new NHOMNGUOIDUNGDAL();
+        private NHOMNGUOIDUNGDAL nhomNguoiDungDal = new NHOMNGUOIDUNGDAL();
 
         public List<NHOMNGUOIDUNG> GetAll()
         {
-            try
-            {
-                return dal.GetAll();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Lỗi khi lấy danh sách nhóm người dùng: " + ex.Message, ex);
-            }
+            return nhomNguoiDungDal.GetAll();
         }
 
-        public void Add(NHOMNGUOIDUNG nnd)
+        public int Add(NHOMNGUOIDUNG nhom)
         {
-            try
+            if (nhomNguoiDungDal.CheckIfGroupNameExists(nhom.TenNhomNguoiDung))
+                throw new Exception("Tên nhóm đã tồn tại.");
+
+            // Kiểm tra MaNhomNguoiDung có trùng không
+            using (var context = new QLBanHoaEntities())
             {
-                if (nnd == null)
-                    throw new ArgumentNullException(nameof(nnd), "Thông tin nhóm người dùng không được để trống.");
-
-                if (string.IsNullOrWhiteSpace(nnd.MaNhomNguoiDung))
-                    throw new ArgumentException("Mã nhóm người dùng không được để trống.", nameof(nnd.MaNhomNguoiDung));
-
-                if (string.IsNullOrWhiteSpace(nnd.TenNhomNguoiDung))
-                    throw new ArgumentException("Tên nhóm người dùng không được để trống.", nameof(nnd.TenNhomNguoiDung));
-
-                if (dal.CheckIfCodeExists(nnd.MaNhomNguoiDung))
-                    throw new InvalidOperationException($"Mã nhóm người dùng '{nnd.MaNhomNguoiDung}' đã tồn tại.");
-
-                dal.Add(nnd);
+                int attempt = 0;
+                string originalMaNhom = nhom.MaNhomNguoiDung;
+                while (context.NHOMNGUOIDUNGs.Any(n => n.MaNhomNguoiDung == nhom.MaNhomNguoiDung))
+                {
+                    attempt++;
+                    nhom.MaNhomNguoiDung = $"{originalMaNhom.Substring(0, 3)}{attempt:D3}";
+                }
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Lỗi khi thêm nhóm người dùng: " + ex.Message, ex);
-            }
+
+            return nhomNguoiDungDal.Add(nhom);
         }
 
-        public void Update(NHOMNGUOIDUNG nnd)
+        public void Update(NHOMNGUOIDUNG nhom)
         {
-            try
-            {
-                if (nnd == null)
-                    throw new ArgumentNullException(nameof(nnd), "Thông tin nhóm người dùng không được để trống.");
+            if (nhomNguoiDungDal.CheckIfGroupNameExistsForOther(nhom.TenNhomNguoiDung, nhom.id))
+                throw new Exception("Tên nhóm đã tồn tại.");
 
-                if (nnd.id <= 0) // Sửa Id thành id
-                    throw new ArgumentException("ID nhóm người dùng không hợp lệ.", nameof(nnd.id));
-
-                if (string.IsNullOrWhiteSpace(nnd.MaNhomNguoiDung))
-                    throw new ArgumentException("Mã nhóm người dùng không được để trống.", nameof(nnd.MaNhomNguoiDung));
-
-                if (string.IsNullOrWhiteSpace(nnd.TenNhomNguoiDung))
-                    throw new ArgumentException("Tên nhóm người dùng không được để trống.", nameof(nnd.TenNhomNguoiDung));
-
-                if (dal.CheckIfCodeExistsForOther(nnd.MaNhomNguoiDung, nnd.id)) // Sửa Id thành id
-                    throw new InvalidOperationException($"Mã nhóm người dùng '{nnd.MaNhomNguoiDung}' đã tồn tại ở một nhóm khác.");
-
-                dal.Update(nnd);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Lỗi khi cập nhật nhóm người dùng: " + ex.Message, ex);
-            }
+            nhomNguoiDungDal.Update(nhom);
         }
 
-        public void Delete(NHOMNGUOIDUNG nnd)
+        public void Delete(NHOMNGUOIDUNG nhom)
         {
-            try
+            using (var context = new QLBanHoaEntities())
             {
-                if (nnd == null)
-                    throw new ArgumentNullException(nameof(nnd), "Thông tin nhóm người dùng không được để trống.");
-
-                if (nnd.id <= 0) // Sửa Id thành id
-                    throw new ArgumentException("ID nhóm người dùng không hợp lệ.", nameof(nnd.id));
-
-                dal.Delete(nnd);
+                if (context.NGUOIDUNGs.Any(u => u.idNhomNguoiDung == nhom.id))
+                    throw new Exception("Không thể xóa nhóm vì đã có người dùng thuộc nhóm này.");
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Lỗi khi xóa nhóm người dùng: " + ex.Message, ex);
-            }
+
+            nhomNguoiDungDal.Delete(nhom);
+        }
+
+        public List<CHUCNANG> GetAllPermissions()
+        {
+            return nhomNguoiDungDal.GetAllPermissions();
+        }
+
+        public List<int> GetPermissionsForGroup(int groupId)
+        {
+            return nhomNguoiDungDal.GetPermissionsForGroup(groupId);
+        }
+
+        public void UpdatePermissionsForGroup(int groupId, List<int> permissionIds)
+        {
+            nhomNguoiDungDal.UpdatePermissionsForGroup(groupId, permissionIds);
         }
     }
 }

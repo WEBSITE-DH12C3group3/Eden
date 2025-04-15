@@ -1,113 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
-namespace Eden
+namespace Eden.DALCustom
 {
     public class NGUOIDUNGDAL
     {
         public List<NGUOIDUNG> GetAll()
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    return db.NGUOIDUNGs.ToList();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi lấy danh sách người dùng từ database: " + ex.Message, ex);
-                }
+                return context.NGUOIDUNGs.Include(nd => nd.NHOMNGUOIDUNG).ToList();
             }
         }
 
         public void Add(NGUOIDUNG nd)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    db.NGUOIDUNGs.Add(nd);
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi thêm người dùng vào database: " + ex.Message, ex);
-                }
+                context.NGUOIDUNGs.Add(nd);
+                context.SaveChanges();
             }
         }
 
         public void Update(NGUOIDUNG nd)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    var existing = db.NGUOIDUNGs.Find(nd.id);
-                    if (existing == null)
-                        throw new KeyNotFoundException($"Không tìm thấy người dùng với ID: {nd.id}");
+                var existingUser = context.NGUOIDUNGs.Find(nd.id);
+                if (existingUser == null)
+                    throw new Exception($"Không tìm thấy người dùng với ID: {nd.id}");
 
-                    existing.TenDangNhap = nd.TenDangNhap;
-                    existing.MatKhau = nd.MatKhau;
-                    existing.idNhomNguoiDung = nd.idNhomNguoiDung;
-
-                    db.Entry(existing).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi cập nhật người dùng trong database: " + ex.Message, ex);
-                }
+                existingUser.MaNguoiDung = nd.MaNguoiDung;
+                existingUser.TenNguoiDung = nd.TenNguoiDung;
+                existingUser.TenDangNhap = nd.TenDangNhap;
+                existingUser.MatKhau = nd.MatKhau;
+                existingUser.idNhomNguoiDung = nd.idNhomNguoiDung;
+                context.SaveChanges();
             }
         }
 
         public void Delete(NGUOIDUNG nd)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    var existing = db.NGUOIDUNGs.Find(nd.id);
-                    if (existing == null)
-                        throw new KeyNotFoundException($"Không tìm thấy người dùng với ID: {nd.id}");
+                var user = context.NGUOIDUNGs.Find(nd.id);
+                if (user == null)
+                    throw new Exception($"Không tìm thấy người dùng với ID: {nd.id}");
 
-                    db.NGUOIDUNGs.Remove(existing);
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi xóa người dùng khỏi database: " + ex.Message, ex);
-                }
+                context.NGUOIDUNGs.Remove(user);
+                context.SaveChanges();
             }
         }
 
-        public bool CheckIfUsernameExists(string tenDangNhap)
+        public bool CheckIfUsernameExists(string username)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    return db.NGUOIDUNGs.Any(x => x.TenDangNhap.ToLower() == tenDangNhap.ToLower());
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi kiểm tra tên đăng nhập trong database: " + ex.Message, ex);
-                }
+                return context.NGUOIDUNGs.Any(u => u.TenDangNhap == username);
             }
         }
 
-        public bool CheckIfUsernameExistsForOther(string tenDangNhap, int currentId)
+        public bool CheckIfUsernameExistsForOther(string username, int userId)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    return db.NGUOIDUNGs.Any(x => x.TenDangNhap.ToLower() == tenDangNhap.ToLower() && x.id != currentId);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi kiểm tra tên đăng nhập trong database: " + ex.Message, ex);
-                }
+                return context.NGUOIDUNGs.Any(u => u.TenDangNhap == username && u.id != userId);
             }
         }
     }

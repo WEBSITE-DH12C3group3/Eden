@@ -1,34 +1,30 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Eden.BLLCustom;
+using Guna.UI2.WinForms; // Thêm namespace cho Guna.UI2.WinForms
 
 namespace Eden
 {
     public partial class AddEditNguoiDungForm : Form
     {
-        private NGUOIDUNG _nd; // Đối tượng người dùng để thêm hoặc sửa
-        private bool _isEditMode; // Chế độ: true = sửa, false = thêm
-        private NHOMNGUOIDUNGBLL _nhomBll = new NHOMNGUOIDUNGBLL();
+        private NGUOIDUNG nguoiDung;
+        private List<NHOMNGUOIDUNG> nhomNguoiDungList;
+        private NGUOIDUNGBLL nguoiDungBll = new NGUOIDUNGBLL();
 
-        public NGUOIDUNG NguoiDung => _nd; // Thuộc tính để lấy dữ liệu sau khi thêm/sửa
-
-        public AddEditNguoiDungForm(NGUOIDUNG nd = null)
+        public AddEditNguoiDungForm(NGUOIDUNG nguoiDung, List<NHOMNGUOIDUNG> nhomNguoiDungList)
         {
             InitializeComponent();
-            _nd = nd ?? new NGUOIDUNG(); // Nếu nd là null (thêm mới), tạo mới
-            _isEditMode = nd != null; // Nếu nd không null, là chế độ sửa
-
-            // Load danh sách nhóm người dùng vào ComboBox
+            this.nguoiDung = nguoiDung;
+            this.nhomNguoiDungList = nhomNguoiDungList;
             LoadNhomNguoiDung();
-
-            // Điền dữ liệu vào form nếu là chế độ sửa
-            if (_isEditMode)
+            if (nguoiDung != null)
             {
-                txtTenDangNhap.Text = _nd.TenDangNhap;
-                txtMatKhau.Text = _nd.MatKhau;
-                txtTenDangNhap.Enabled = false; // Không cho sửa tên đăng nhập khi chỉnh sửa
-                cboNhomNguoiDung.SelectedValue = _nd.idNhomNguoiDung;
-                this.Text = "Sửa Người Dùng";
+                txtTenNguoiDung.Text = nguoiDung.TenNguoiDung;
+                txtTenDangNhap.Text = nguoiDung.TenDangNhap;
+                txtMatKhau.Text = nguoiDung.MatKhau;
+                cbNhomNguoiDung.SelectedValue = nguoiDung.idNhomNguoiDung;
+                this.Text = "Chỉnh Sửa Người Dùng";
             }
             else
             {
@@ -38,39 +34,71 @@ namespace Eden
 
         private void LoadNhomNguoiDung()
         {
+            cbNhomNguoiDung.DataSource = nhomNguoiDungList;
+            cbNhomNguoiDung.DisplayMember = "TenNhomNguoiDung";
+            cbNhomNguoiDung.ValueMember = "id";
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
             try
             {
-                var nhomList = _nhomBll.GetAll();
-                cboNhomNguoiDung.DataSource = nhomList;
-                cboNhomNguoiDung.DisplayMember = "TenNhomNguoiDung";
-                cboNhomNguoiDung.ValueMember = "id";
+                if (string.IsNullOrWhiteSpace(txtTenNguoiDung.Text))
+                {
+                    MessageBox.Show("Tên người dùng không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+                {
+                    MessageBox.Show("Tên đăng nhập không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
+                {
+                    MessageBox.Show("Mật khẩu không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cbNhomNguoiDung.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Vui lòng chọn nhóm người dùng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (nguoiDung == null)
+                {
+                    nguoiDung = new NGUOIDUNG();
+                    nguoiDung.TenNguoiDung = txtTenNguoiDung.Text;
+                    nguoiDung.TenDangNhap = txtTenDangNhap.Text;
+                    nguoiDung.MatKhau = txtMatKhau.Text;
+                    nguoiDung.idNhomNguoiDung = (int)cbNhomNguoiDung.SelectedValue;
+                    nguoiDungBll.Add(nguoiDung);
+                    MessageBox.Show("Đã thêm người dùng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    nguoiDung.TenNguoiDung = txtTenNguoiDung.Text;
+                    nguoiDung.TenDangNhap = txtTenDangNhap.Text;
+                    nguoiDung.MatKhau = txtMatKhau.Text;
+                    nguoiDung.idNhomNguoiDung = (int)cbNhomNguoiDung.SelectedValue;
+                    nguoiDungBll.Update(nguoiDung);
+                    MessageBox.Show("Đã cập nhật người dùng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách nhóm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void btnLuu_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text) || string.IsNullOrWhiteSpace(txtMatKhau.Text) || cboNhomNguoiDung.SelectedValue == null)
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Cập nhật dữ liệu vào đối tượng _nd
-            _nd.TenDangNhap = txtTenDangNhap.Text;
-            _nd.MatKhau = txtMatKhau.Text;
-            _nd.idNhomNguoiDung = (int)cboNhomNguoiDung.SelectedValue;
-
-            this.DialogResult = DialogResult.OK; // Đóng form và trả về kết quả OK
-            this.Close();
-        }
-
-        private void btnHuy_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel; // Đóng form và trả về kết quả Cancel
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }

@@ -1,112 +1,137 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
+using Eden;
 
-namespace Eden
+namespace Eden.DALCustom
 {
     public class NHOMNGUOIDUNGDAL
     {
         public List<NHOMNGUOIDUNG> GetAll()
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    return db.NHOMNGUOIDUNGs.ToList();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi lấy danh sách nhóm người dùng từ database: " + ex.Message, ex);
-                }
+                return context.NHOMNGUOIDUNGs.ToList();
             }
         }
 
-        public void Add(NHOMNGUOIDUNG nnd)
+        public int Add(NHOMNGUOIDUNG nhom)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    db.NHOMNGUOIDUNGs.Add(nnd);
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi thêm nhóm người dùng vào database: " + ex.Message, ex);
-                }
+                context.NHOMNGUOIDUNGs.Add(nhom);
+                context.SaveChanges();
+                return nhom.id;
             }
         }
 
-        public void Update(NHOMNGUOIDUNG nnd)
+        public void Update(NHOMNGUOIDUNG nhom)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    var existing = db.NHOMNGUOIDUNGs.Find(nnd.id); // Sửa Id thành id
-                    if (existing == null)
-                        throw new KeyNotFoundException($"Không tìm thấy nhóm người dùng với ID: {nnd.id}");
+                var existingGroup = context.NHOMNGUOIDUNGs.Find(nhom.id);
+                if (existingGroup == null)
+                    throw new Exception($"Không tìm thấy nhóm với ID: {nhom.id}");
 
-                    existing.MaNhomNguoiDung = nnd.MaNhomNguoiDung;
-                    existing.TenNhomNguoiDung = nnd.TenNhomNguoiDung;
-
-                    db.Entry(existing).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi cập nhật nhóm người dùng trong database: " + ex.Message, ex);
-                }
+                existingGroup.TenNhomNguoiDung = nhom.TenNhomNguoiDung;
+                context.SaveChanges();
             }
         }
 
-        public void Delete(NHOMNGUOIDUNG nnd)
+        public void Delete(NHOMNGUOIDUNG nhom)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    var existing = db.NHOMNGUOIDUNGs.Find(nnd.id); // Sửa Id thành id
-                    if (existing == null)
-                        throw new KeyNotFoundException($"Không tìm thấy nhóm người dùng với ID: {nnd.id}");
+                var group = context.NHOMNGUOIDUNGs
+                    .Include(g => g.CHUCNANGs)
+                    .Include(g => g.NGUOIDUNGs)
+                    .FirstOrDefault(g => g.id == nhom.id);
 
-                    db.NHOMNGUOIDUNGs.Remove(existing);
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi xóa nhóm người dùng khỏi database: " + ex.Message, ex);
-                }
+                if (group == null)
+                    throw new Exception($"Không tìm thấy nhóm với ID: {nhom.id}");
+
+                // Xóa các quyền liên quan trước (sử dụng navigation property)
+                group.CHUCNANGs.Clear();
+
+                // Kiểm tra xem nhóm có người dùng nào không
+                if (group.NGUOIDUNGs.Any())
+                    throw new Exception("Không thể xóa nhóm vì vẫn còn người dùng thuộc nhóm này.");
+
+                context.NHOMNGUOIDUNGs.Remove(group);
+                context.SaveChanges();
             }
         }
 
-        public bool CheckIfCodeExists(string maNhomNguoiDung)
+        public bool CheckIfGroupNameExists(string groupName)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
-                {
-                    return db.NHOMNGUOIDUNGs.Any(x => x.MaNhomNguoiDung.ToLower() == maNhomNguoiDung.ToLower());
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Lỗi khi kiểm tra mã nhóm người dùng trong database: " + ex.Message, ex);
-                }
+                return context.NHOMNGUOIDUNGs.Any(g => g.TenNhomNguoiDung == groupName);
             }
         }
 
-        public bool CheckIfCodeExistsForOther(string maNhomNguoiDung, int currentId)
+        public bool CheckIfGroupNameExistsForOther(string groupName, int groupId)
         {
-            using (var db = new QLBanHoaEntities())
+            using (var context = new QLBanHoaEntities())
             {
-                try
+                return context.NHOMNGUOIDUNGs.Any(g => g.TenNhomNguoiDung == groupName && g.id != groupId);
+            }
+        }
+
+        public List<CHUCNANG> GetAllPermissions()
+        {
+            using (var context = new QLBanHoaEntities())
+            {
+                return context.CHUCNANGs.ToList();
+            }
+        }
+
+        public List<int> GetPermissionsForGroup(int groupId)
+        {
+            using (var context = new QLBanHoaEntities())
+            {
+                var group = context.NHOMNGUOIDUNGs
+                    .Include(g => g.CHUCNANGs)
+                    .FirstOrDefault(g => g.id == groupId);
+
+                if (group == null)
+                    throw new Exception($"Không tìm thấy nhóm với ID: {groupId}");
+
+                return group.CHUCNANGs.Select(c => c.id).ToList();
+            }
+        }
+
+        public void UpdatePermissionsForGroup(int groupId, List<int> permissionIds)
+        {
+            using (var context = new QLBanHoaEntities())
+            {
+                var group = context.NHOMNGUOIDUNGs
+                    .Include(g => g.CHUCNANGs)
+                    .FirstOrDefault(g => g.id == groupId);
+
+                if (group == null)
+                    throw new Exception($"Không tìm thấy nhóm với ID: {groupId}");
+
+                // Xóa các quyền cũ
+                group.CHUCNANGs.Clear();
+
+                if (permissionIds == null || !permissionIds.Any())
                 {
-                    return db.NHOMNGUOIDUNGs.Any(x => x.MaNhomNguoiDung.ToLower() == maNhomNguoiDung.ToLower() && x.id != currentId); // Sửa Id thành id
+                    context.SaveChanges();
+                    return;
                 }
-                catch (Exception ex)
+
+                // Thêm các quyền mới
+                foreach (int permissionId in permissionIds)
                 {
-                    throw new Exception("Lỗi khi kiểm tra mã nhóm người dùng trong database: " + ex.Message, ex);
+                    var chucNang = context.CHUCNANGs.Find(permissionId);
+                    if (chucNang == null)
+                        throw new Exception($"Không tìm thấy chức năng với ID: {permissionId}");
+
+                    group.CHUCNANGs.Add(chucNang);
                 }
+                context.SaveChanges();
             }
         }
     }
