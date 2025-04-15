@@ -42,6 +42,7 @@
             this.btnNext = new Guna.UI2.WinForms.Guna2Button();
             this.btnPrev = new Guna.UI2.WinForms.Guna2Button();
             this.pictureBoxSanPham = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnExportExcel = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSanPham)).BeginInit();
             this.SuspendLayout();
@@ -74,7 +75,7 @@
             this.dgvSanPham.RowHeadersVisible = false;
             this.dgvSanPham.RowHeadersWidth = 51;
             this.dgvSanPham.RowTemplate.Height = 24;
-            this.dgvSanPham.Size = new System.Drawing.Size(900, 500);
+            this.dgvSanPham.Size = new System.Drawing.Size(900, 487);
             this.dgvSanPham.TabIndex = 0;
             this.dgvSanPham.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvSanPham.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -107,7 +108,7 @@
             this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
-            this.guna2Button1.Location = new System.Drawing.Point(105, 681);
+            this.guna2Button1.Location = new System.Drawing.Point(98, 669);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(180, 45);
             this.guna2Button1.TabIndex = 1;
@@ -122,7 +123,7 @@
             this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button2.ForeColor = System.Drawing.Color.White;
-            this.guna2Button2.Location = new System.Drawing.Point(401, 669);
+            this.guna2Button2.Location = new System.Drawing.Point(353, 669);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(180, 45);
             this.guna2Button2.TabIndex = 2;
@@ -137,7 +138,7 @@
             this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
-            this.guna2Button3.Location = new System.Drawing.Point(717, 669);
+            this.guna2Button3.Location = new System.Drawing.Point(608, 669);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(180, 45);
             this.guna2Button3.TabIndex = 2;
@@ -236,11 +237,27 @@
             this.pictureBoxSanPham.TabIndex = 16;
             this.pictureBoxSanPham.TabStop = false;
             // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExportExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportExcel.Location = new System.Drawing.Point(845, 669);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(180, 45);
+            this.btnExportExcel.TabIndex = 17;
+            this.btnExportExcel.Text = "xuất excel";
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
             // SanPhamForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1026, 738);
+            this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.pictureBoxSanPham);
             this.Controls.Add(this.lblPage);
             this.Controls.Add(this.btnNext);
@@ -275,5 +292,6 @@
         private Guna.UI2.WinForms.Guna2Button btnNext;
         private Guna.UI2.WinForms.Guna2Button btnPrev;
         private Guna.UI2.WinForms.Guna2PictureBox pictureBoxSanPham;
+        private Guna.UI2.WinForms.Guna2Button btnExportExcel;
     }
 }

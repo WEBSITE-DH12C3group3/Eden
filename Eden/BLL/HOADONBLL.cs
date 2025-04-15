@@ -14,12 +14,11 @@ namespace Eden
             dal = new HOADONDAL();
         }
 
-        // Lấy toàn bộ danh sách hóa đơn
-        public List<HOADON> GetAll()
+        public List<HoaDonDTO> GetAll()
         {
             try
             {
-                return dal.GetAll();
+                return dal.GetAllDTO();
             }
             catch (Exception ex)
             {
@@ -28,7 +27,6 @@ namespace Eden
             }
         }
 
-        // Lấy danh sách hóa đơn theo trang
         public (List<HoaDonDTO> Data, int TotalRecords) GetPaged(int page, int pageSize)
         {
             try

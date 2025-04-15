@@ -44,6 +44,7 @@ namespace Eden
             this.searchHD = new Guna.UI2.WinForms.Guna2Button();
             this.search = new Guna.UI2.WinForms.Guna2TextBox();
             this.xemct = new Guna.UI2.WinForms.Guna2Button();
+            this.btnExportExcel = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dghoadon)).BeginInit();
             this.SuspendLayout();
             // 
@@ -232,11 +233,28 @@ namespace Eden
             this.xemct.Text = "Xem Chi Tiết";
             this.xemct.Click += new System.EventHandler(this.xemct_Click);
             // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExportExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportExcel.Location = new System.Drawing.Point(850, 599);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(180, 45);
+            this.btnExportExcel.TabIndex = 11;
+            this.btnExportExcel.Text = "Xuất excel";
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
             // HoaDonForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1151, 724);
+            this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.xemct);
             this.Controls.Add(this.search);
             this.Controls.Add(this.searchHD);
@@ -267,5 +285,6 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2Button searchHD;
         private Guna.UI2.WinForms.Guna2TextBox search;
         private Guna.UI2.WinForms.Guna2Button xemct;
+        private Guna.UI2.WinForms.Guna2Button btnExportExcel;
     }
 }

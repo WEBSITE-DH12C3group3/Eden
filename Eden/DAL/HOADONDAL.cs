@@ -21,6 +21,32 @@ namespace Eden
             return db.HOADONs.ToList();
         }
 
+        public List<HoaDonDTO> GetAllDTO()
+        {
+            try
+            {
+                return db.HOADONs
+                    .Select(hd => new HoaDonDTO
+                    {
+                        idHoaDon = hd.id,
+                        idKhachHang = hd.idKhachHang.HasValue ? hd.idKhachHang.Value : 0,
+                        MaHoaDon = hd.MaHoaDon,
+                        NgayLap = hd.NgayLap,
+                        MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A",
+                        TenKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.TenKhachHang : "N/A",
+                        idNguoiDung = hd.idNguoiDung.HasValue ? hd.idNguoiDung.Value : 0,
+                        TenNguoiDung = hd.NGUOIDUNG != null ? hd.NGUOIDUNG.TenNguoiDung : "N/A",
+                        TongTien = hd.TongTien
+                    })
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi lấy toàn bộ hóa đơn DTO: " + ex.Message);
+                throw;
+            }
+        }
+
         public (List<HoaDonDTO> Data, int TotalRecords) GetPaged(int page, int pageSize)
         {
             try
@@ -62,9 +88,9 @@ namespace Eden
 
                 if (!string.IsNullOrEmpty(searchText))
                 {
-                    searchText = searchText.ToLower(); // Chuyển searchText về chữ thường để tìm kiếm không phân biệt hoa thường
-                    query = query.Where(hd => hd.MaHoaDon.ToLower().Contains(searchText) || // Tìm kiếm theo MaHoaDon
-                                              (hd.KHACHHANG != null && hd.KHACHHANG.MaKhachHang.ToLower().Contains(searchText))); // Tìm kiếm theo MaKhachHang
+                    searchText = searchText.ToLower();
+                    query = query.Where(hd => hd.MaHoaDon.ToLower().Contains(searchText) ||
+                                              (hd.KHACHHANG != null && hd.KHACHHANG.MaKhachHang.ToLower().Contains(searchText)));
                 }
 
                 int totalRecords = query.Count();
@@ -100,11 +126,9 @@ namespace Eden
             {
                 try
                 {
-                    // Thêm hóa đơn
                     db.HOADONs.Add(hoaDon);
-                    db.SaveChanges(); // Lưu để lấy id của hóa đơn
+                    db.SaveChanges();
 
-                    // Thêm chi tiết hóa đơn
                     foreach (var chiTiet in chiTietList)
                     {
                         var chiTietEntity = new CHITIETHOADON
@@ -117,7 +141,6 @@ namespace Eden
                         };
                         db.CHITIETHOADONs.Add(chiTietEntity);
 
-                        // Cập nhật số lượng tồn của sản phẩm
                         var sanPham = db.SANPHAMs.FirstOrDefault(sp => sp.id == chiTiet.idSanPham);
                         if (sanPham != null)
                         {

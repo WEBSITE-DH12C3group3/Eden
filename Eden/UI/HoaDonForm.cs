@@ -5,10 +5,12 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using ClosedXML.Excel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eden.UI;
 using Guna.UI2.WinForms;
+using Eden.DTO;
 
 namespace Eden
 {
@@ -65,7 +67,7 @@ namespace Eden
             search.Text = "Nhập mã hóa đơn hoặc mã khách hàng (số)";
             search.ForeColor = Color.Gray;
             search.Enter += new EventHandler(search_Enter);
-            search.Leave += new EventHandler(search_Leave); // Sửa lại để dùng search
+            search.Leave += new EventHandler(search_Leave);
         }
 
         // Hàm tải dữ liệu lên DataGridView
@@ -77,7 +79,7 @@ namespace Eden
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message);
+                MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -108,7 +110,7 @@ namespace Eden
         private void search_TextChanged(object sender, EventArgs e)
         {
             string searchText = search.Text.Trim().ToLower();
-            if (searchText != "nhập mã hóa đơn hoặc mã khách hàng (số)") // Sửa lại để khớp với placeholder
+            if (searchText != "nhập mã hóa đơn hoặc mã khách hàng (số)")
             {
                 currentSearchText = searchText; // Lưu từ khóa tìm kiếm
                 DisplayPage(1); // Hiển thị lại từ trang 1
@@ -174,9 +176,6 @@ namespace Eden
             }
         }
 
-        // Mở form sửa hóa đơn
-       
-
         // Xóa hóa đơn
         private void xoahoadon_Click(object sender, EventArgs e)
         {
@@ -192,7 +191,7 @@ namespace Eden
                     {
                         hoaDonBLL.Delete(hd);
                         LoadData();
-                        MessageBox.Show("Xóa hóa đơn thành công!");
+                        MessageBox.Show("Xóa hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -202,28 +201,17 @@ namespace Eden
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn hóa đơn cần xóa.");
+                MessageBox.Show("Vui lòng chọn hóa đơn cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        // Xử lý sự kiện click trong DataGridView (nếu cần)
-        private void dghoadon_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        // Xem chi tiết hóa đơn
+        private void xemct_Click(object sender, EventArgs e)
         {
-            // Có thể thêm xử lý nếu cần
-        }
-
-        private void xemct_Click(object sender, EventArgs e) // Xem chi tiết hóa đơn
-        {
-            
             if (dghoadon.CurrentRow != null)
             {
-                // Lấy MaHoaDon từ dòng được chọn (ví dụ: "HD0001")
                 string maHoaDon = dghoadon.CurrentRow.Cells["MaHoaDon"].Value.ToString();
-
-                // Chuyển MaHoaDon thành idHoaDon (lấy số từ chuỗi HDxxxx)
                 int idHoaDon = int.Parse(maHoaDon.Replace("HD", ""));
-
-                // Khởi tạo form HoaDonChiTiet với idHoaDon
                 using (HoaDonChiTiet formCT = new HoaDonChiTiet(idHoaDon))
                 {
                     formCT.ShowDialog();
@@ -235,9 +223,108 @@ namespace Eden
             }
         }
 
+        // Xuất Excel
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            List<HoaDonDTO> allHoaDon = hoaDonBLL.GetAll();
+
+            if (allHoaDon == null || allHoaDon.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Tạo DataTable để lưu dữ liệu
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã Hóa Đơn");
+            dt.Columns.Add("Ngày Lập");
+            dt.Columns.Add("Mã Khách Hàng");
+            dt.Columns.Add("Tên Khách Hàng");
+            dt.Columns.Add("Tên Người Dùng");
+            dt.Columns.Add("Tổng Tiền");
+
+            foreach (var hd in allHoaDon)
+            {
+                dt.Rows.Add(
+                    hd.MaHoaDon,
+                    hd.NgayLap.ToString("dd/MM/yyyy"),
+                    hd.MaKhachHang,
+                    hd.TenKhachHang,
+                    hd.TenNguoiDung,
+                    hd.TongTien
+                );
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+            saveFileDialog.Title = "Lưu file Excel";
+            saveFileDialog.FileName = $"DanhSachHoaDon_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    var ws = wb.Worksheets.Add("HoaDon");
+
+                    // Thêm tiêu đề chính
+                    ws.Cell(1, 1).Value = "Danh Sách Hóa Đơn";
+                    ws.Cell(1, 1).Style.Font.Bold = true;
+                    ws.Cell(1, 1).Style.Font.FontSize = 16;
+                    ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    ws.Range(1, 1, 1, 6).Merge();
+
+                    // Thêm ngày xuất file
+                    ws.Cell(2, 1).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, 6).Merge();
+
+                    // Thêm dữ liệu từ DataTable (bắt đầu từ hàng 4)
+                    var dataRange = ws.Cell(4, 1).InsertTable(dt.AsEnumerable()).AsRange();
+
+                    // Định dạng tiêu đề cột
+                    var headerRow = dataRange.FirstRow();
+                    headerRow.Style.Font.Bold = true;
+                    headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
+                    headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    // Định dạng cột "Ngày Lập"
+                    var ngayLapColumn = ws.Column(2);
+                    ngayLapColumn.Style.DateFormat.Format = "dd/MM/yyyy";
+
+                    // Định dạng cột "Tổng Tiền" (không có phần thập phân)
+                    var tongTienColumn = ws.Column(6);
+                    tongTienColumn.Style.NumberFormat.Format = "0";
+
+                    // Thêm hàng tổng cộng ở cuối bảng
+                    var lastRow = dataRange.LastRow().RowNumber();
+                    ws.Cell(lastRow + 1, 5).Value = "Tổng cộng:";
+                    ws.Cell(lastRow + 1, 6).Value = allHoaDon.Sum(hd => hd.TongTien);
+                    ws.Cell(lastRow + 1, 5).Style.Font.Bold = true;
+                    ws.Cell(lastRow + 1, 6).Style.Font.Bold = true;
+                    ws.Cell(lastRow + 1, 6).Style.NumberFormat.Format = "0";
+
+                    // Tự động điều chỉnh độ rộng cột
+                    ws.Columns().AdjustToContents();
+
+                    // Thêm đường viền cho bảng
+                    dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // Lưu file
+                    wb.SaveAs(saveFileDialog.FileName);
+                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void dghoadon_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Có thể thêm xử lý nếu cần
+        }
+
         private void dghoadon_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-
+            // Có thể thêm xử lý nếu cần
         }
     }
 }

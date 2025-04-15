@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgchitietHD = new Guna.UI2.WinForms.Guna2DataGridView();
             this.back = new Guna.UI2.WinForms.Guna2Button();
+            this.btnExportExcel = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgchitietHD)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,11 +107,27 @@
             this.back.Text = "Quay lại";
             this.back.Click += new System.EventHandler(this.back_Click);
             // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExportExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportExcel.Location = new System.Drawing.Point(608, 312);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(180, 45);
+            this.btnExportExcel.TabIndex = 4;
+            this.btnExportExcel.Text = "Xuất excel";
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
             // HoaDonChiTiet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.back);
             this.Controls.Add(this.dgchitietHD);
             this.Name = "HoaDonChiTiet";
@@ -126,5 +143,6 @@
 
         private Guna.UI2.WinForms.Guna2DataGridView dgchitietHD;
         private Guna.UI2.WinForms.Guna2Button back;
+        private Guna.UI2.WinForms.Guna2Button btnExportExcel;
     }
 }

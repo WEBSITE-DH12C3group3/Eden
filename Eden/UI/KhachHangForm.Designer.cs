@@ -31,9 +31,9 @@ namespace Eden
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addkhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.suakhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.xoakhachhang = new Guna.UI2.WinForms.Guna2Button();
@@ -44,6 +44,7 @@ namespace Eden
             this.btnPreviousPage = new Guna.UI2.WinForms.Guna2Button();
             this.btnNextPage = new Guna.UI2.WinForms.Guna2Button();
             this.lblPageInfo = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnExportExcel = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgkhachhang)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +71,7 @@ namespace Eden
             this.suakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.suakhachhang.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.suakhachhang.ForeColor = System.Drawing.Color.White;
-            this.suakhachhang.Location = new System.Drawing.Point(437, 612);
+            this.suakhachhang.Location = new System.Drawing.Point(390, 612);
             this.suakhachhang.Name = "suakhachhang";
             this.suakhachhang.Size = new System.Drawing.Size(180, 45);
             this.suakhachhang.TabIndex = 2;
@@ -85,7 +86,7 @@ namespace Eden
             this.xoakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.xoakhachhang.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.xoakhachhang.ForeColor = System.Drawing.Color.White;
-            this.xoakhachhang.Location = new System.Drawing.Point(759, 612);
+            this.xoakhachhang.Location = new System.Drawing.Point(640, 612);
             this.xoakhachhang.Name = "xoakhachhang";
             this.xoakhachhang.Size = new System.Drawing.Size(180, 45);
             this.xoakhachhang.TabIndex = 3;
@@ -96,26 +97,26 @@ namespace Eden
             // 
             this.dgkhachhang.AllowUserToAddRows = false;
             this.dgkhachhang.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.AliceBlue;
-            this.dgkhachhang.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.AliceBlue;
+            this.dgkhachhang.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgkhachhang.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgkhachhang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgkhachhang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgkhachhang.ColumnHeadersHeight = 29;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.LightBlue;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgkhachhang.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.LightBlue;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgkhachhang.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgkhachhang.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgkhachhang.Location = new System.Drawing.Point(3, 117);
             this.dgkhachhang.Name = "dgkhachhang";
@@ -232,11 +233,27 @@ namespace Eden
             this.lblPageInfo.TabIndex = 9;
             this.lblPageInfo.Text = "Trang 1 / 1";
             // 
+            // btnExportExcel
+            // 
+            this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExportExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExportExcel.Location = new System.Drawing.Point(910, 612);
+            this.btnExportExcel.Name = "btnExportExcel";
+            this.btnExportExcel.Size = new System.Drawing.Size(180, 45);
+            this.btnExportExcel.TabIndex = 10;
+            this.btnExportExcel.Text = "Xuất excel";
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
+            // 
             // KhachHangForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1283, 702);
+            this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.lblPageInfo);
             this.Controls.Add(this.btnNextPage);
             this.Controls.Add(this.btnPreviousPage);
@@ -266,5 +283,6 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2Button btnPreviousPage;
         private Guna.UI2.WinForms.Guna2Button btnNextPage;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblPageInfo;
+        private Guna.UI2.WinForms.Guna2Button btnExportExcel;
     }
 }
