@@ -1,4 +1,6 @@
 ﻿using System;
+using ClosedXML.Excel;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -108,6 +110,46 @@ namespace Eden
             else
             {
                 MessageBox.Show("Vui lòng chọn nhà cung cấp cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            // Tạo DataTable từ DataGridView
+            DataTable dt = new DataTable();
+
+            foreach (DataGridViewColumn column in guna2DataGridViewNCC.Columns)
+            {
+                dt.Columns.Add(column.HeaderText, typeof(string));
+            }
+
+            foreach (DataGridViewRow row in guna2DataGridViewNCC.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    DataRow dr = dt.NewRow();
+                    for (int i = 0; i < guna2DataGridViewNCC.Columns.Count; i++)
+                    {
+                        dr[i] = row.Cells[i].Value?.ToString();
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            // Lưu Excel
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+            saveFileDialog.Title = "Lưu file Excel";
+            saveFileDialog.FileName = "DanhSach.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt, "DanhSach");
+                    wb.SaveAs(saveFileDialog.FileName);
+                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }

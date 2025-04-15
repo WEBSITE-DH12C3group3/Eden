@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using ClosedXML.Excel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eden.UI;
@@ -175,7 +176,7 @@ namespace Eden
         }
 
         // Mở form sửa hóa đơn
-       
+
 
         // Xóa hóa đơn
         private void xoahoadon_Click(object sender, EventArgs e)
@@ -214,7 +215,7 @@ namespace Eden
 
         private void xemct_Click(object sender, EventArgs e) // Xem chi tiết hóa đơn
         {
-            
+
             if (dghoadon.CurrentRow != null)
             {
                 // Lấy MaHoaDon từ dòng được chọn (ví dụ: "HD0001")
@@ -235,9 +236,51 @@ namespace Eden
             }
         }
 
+
+
         private void dghoadon_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            // Tạo DataTable từ DataGridView
+            DataTable dt = new DataTable();
+
+            foreach (DataGridViewColumn column in dghoadon.Columns)
+            {
+                dt.Columns.Add(column.HeaderText, typeof(string));
+            }
+
+            foreach (DataGridViewRow row in dghoadon.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    DataRow dr = dt.NewRow();
+                    for (int i = 0; i < dghoadon.Columns.Count; i++)
+                    {
+                        dr[i] = row.Cells[i].Value?.ToString();
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            // Lưu Excel
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+            saveFileDialog.Title = "Lưu file Excel";
+            saveFileDialog.FileName = "DanhSach.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(dt, "DanhSach");
+                    wb.SaveAs(saveFileDialog.FileName);
+                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }
