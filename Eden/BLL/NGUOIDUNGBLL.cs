@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Eden
+namespace Eden.BLLCustom
 {
     public class NGUOIDUNGBLL
     {
-        private NGUOIDUNGDAL dal = new NGUOIDUNGDAL();
+        private DALCustom.NGUOIDUNGDAL dal = new DALCustom.NGUOIDUNGDAL();
 
         public List<NGUOIDUNG> GetAll()
         {
@@ -26,14 +26,23 @@ namespace Eden
                 if (nd == null)
                     throw new ArgumentNullException(nameof(nd), "Thông tin người dùng không được để trống.");
 
+                if (string.IsNullOrWhiteSpace(nd.TenNguoiDung))
+                    throw new ArgumentException("Tên người dùng không được để trống.", nameof(nd.TenNguoiDung));
+
                 if (string.IsNullOrWhiteSpace(nd.TenDangNhap))
                     throw new ArgumentException("Tên đăng nhập không được để trống.", nameof(nd.TenDangNhap));
 
                 if (string.IsNullOrWhiteSpace(nd.MatKhau))
                     throw new ArgumentException("Mật khẩu không được để trống.", nameof(nd.MatKhau));
 
+                if (nd.idNhomNguoiDung <= 0)
+                    throw new ArgumentException("Nhóm người dùng không hợp lệ.", nameof(nd.idNhomNguoiDung));
+
                 if (dal.CheckIfUsernameExists(nd.TenDangNhap))
                     throw new InvalidOperationException($"Tên đăng nhập '{nd.TenDangNhap}' đã tồn tại.");
+
+                if (string.IsNullOrWhiteSpace(nd.MaNguoiDung))
+                    nd.MaNguoiDung = $"ND{DateTime.Now.Ticks}";
 
                 dal.Add(nd);
             }
@@ -53,11 +62,17 @@ namespace Eden
                 if (nd.id <= 0)
                     throw new ArgumentException("ID người dùng không hợp lệ.", nameof(nd.id));
 
+                if (string.IsNullOrWhiteSpace(nd.TenNguoiDung))
+                    throw new ArgumentException("Tên người dùng không được để trống.", nameof(nd.TenNguoiDung));
+
                 if (string.IsNullOrWhiteSpace(nd.TenDangNhap))
                     throw new ArgumentException("Tên đăng nhập không được để trống.", nameof(nd.TenDangNhap));
 
                 if (string.IsNullOrWhiteSpace(nd.MatKhau))
                     throw new ArgumentException("Mật khẩu không được để trống.", nameof(nd.MatKhau));
+
+                if (nd.idNhomNguoiDung <= 0)
+                    throw new ArgumentException("Nhóm người dùng không hợp lệ.", nameof(nd.idNhomNguoiDung));
 
                 if (dal.CheckIfUsernameExistsForOther(nd.TenDangNhap, nd.id))
                     throw new InvalidOperationException($"Tên đăng nhập '{nd.TenDangNhap}' đã tồn tại ở một người dùng khác.");

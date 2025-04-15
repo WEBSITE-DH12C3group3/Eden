@@ -1,54 +1,138 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Eden.BLLCustom;
+using Guna.UI2.WinForms;
+using System.Data.Entity.Validation;
 
 namespace Eden
 {
     public partial class AddEditNhomNguoiDungForm : Form
     {
-        private NHOMNGUOIDUNG _nnd; // Đối tượng nhóm người dùng để thêm hoặc sửa
-        private bool _isEditMode; // Chế độ: true = sửa, false = thêm
+        private NHOMNGUOIDUNG nhomNguoiDung;
+        private NHOMNGUOIDUNGBLL nhomNguoiDungBll = new NHOMNGUOIDUNGBLL();
+        private List<CHUCNANG> chucNangList;
+        private List<int> selectedPermissions;
 
-        public NHOMNGUOIDUNG NhomNguoiDung => _nnd; // Thuộc tính để lấy dữ liệu sau khi thêm/sửa
-
-        public AddEditNhomNguoiDungForm(NHOMNGUOIDUNG nnd = null)
+        public AddEditNhomNguoiDungForm(NHOMNGUOIDUNG nhomNguoiDung)
         {
             InitializeComponent();
-            _nnd = nnd ?? new NHOMNGUOIDUNG(); // Nếu nnd là null (thêm mới), tạo mới
-            _isEditMode = nnd != null; // Nếu nnd không null, là chế độ sửa
-
-            // Điền dữ liệu vào form nếu là chế độ sửa
-            if (_isEditMode)
+            this.nhomNguoiDung = nhomNguoiDung;
+            LoadChucNang();
+            if (nhomNguoiDung != null)
             {
-                txtMaNhom.Text = _nnd.MaNhomNguoiDung;
-                txtTenNhom.Text = _nnd.TenNhomNguoiDung;
-                txtMaNhom.Enabled = false; // Không cho sửa mã nhóm khi chỉnh sửa
-                this.Text = "Sửa Nhóm Người Dùng";
+                txtTenNhom.Text = nhomNguoiDung.TenNhomNguoiDung;
+                selectedPermissions = nhomNguoiDungBll.GetPermissionsForGroup(nhomNguoiDung.id);
+                foreach (ListViewItem item in listViewQuyen.Items)
+                {
+                    int chucNangId = (int)item.Tag;
+                    item.Checked = selectedPermissions.Contains(chucNangId);
+                }
+                this.Text = "Chỉnh Sửa Nhóm Người Dùng";
             }
             else
             {
+                selectedPermissions = new List<int>();
                 this.Text = "Thêm Nhóm Người Dùng";
             }
         }
 
-        private void btnLuu_Click(object sender, EventArgs e)
+        private void LoadChucNang()
         {
-            if (string.IsNullOrWhiteSpace(txtMaNhom.Text) || string.IsNullOrWhiteSpace(txtTenNhom.Text))
+            try
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ Mã Nhóm và Tên Nhóm!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                chucNangList = nhomNguoiDungBll.GetAllPermissions();
+                listViewQuyen.Items.Clear();
+                foreach (var chucNang in chucNangList)
+                {
+                    var item = new ListViewItem(chucNang.TenChucNang)
+                    {
+                        Tag = chucNang.id
+                    };
+                    listViewQuyen.Items.Add(item);
+                }
             }
-
-            // Cập nhật dữ liệu vào đối tượng _nnd
-            _nnd.MaNhomNguoiDung = txtMaNhom.Text;
-            _nnd.TenNhomNguoiDung = txtTenNhom.Text;
-
-            this.DialogResult = DialogResult.OK; // Đóng form và trả về kết quả OK
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải danh sách quyền: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btnHuy_Click(object sender, EventArgs e)
+        private void listViewQuyen_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel; // Đóng form và trả về kết quả Cancel
+            int chucNangId = (int)e.Item.Tag;
+            if (e.Item.Checked)
+            {
+                if (!selectedPermissions.Contains(chucNangId))
+                    selectedPermissions.Add(chucNangId);
+            }
+            else
+            {
+                selectedPermissions.Remove(chucNangId);
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtTenNhom.Text))
+                {
+                    MessageBox.Show("Tên nhóm không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra xem có quyền nào được chọn không
+                if (selectedPermissions == null || !selectedPermissions.Any())
+                {
+                    MessageBox.Show("Vui lòng chọn ít nhất một quyền cho nhóm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (nhomNguoiDung == null)
+                {
+                    nhomNguoiDung = new NHOMNGUOIDUNG
+                    {
+                        TenNhomNguoiDung = txtTenNhom.Text,
+                        MaNhomNguoiDung = $"NND{DateTime.Now.Ticks.ToString().Substring(0, 3)}"
+                    };
+                    int newGroupId = nhomNguoiDungBll.Add(nhomNguoiDung);
+                    nhomNguoiDungBll.UpdatePermissionsForGroup(newGroupId, selectedPermissions);
+                    MessageBox.Show("Đã thêm nhóm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    nhomNguoiDung.TenNhomNguoiDung = txtTenNhom.Text;
+                    nhomNguoiDungBll.Update(nhomNguoiDung);
+                    nhomNguoiDungBll.UpdatePermissionsForGroup(nhomNguoiDung.id, selectedPermissions);
+                    MessageBox.Show("Đã cập nhật nhóm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                string errorMessage = "Lỗi chi tiết:\n";
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += $"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}\n";
+                    }
+                }
+                MessageBox.Show(errorMessage, "Lỗi Validation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: Lỗi khi cập nhật nhóm người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }

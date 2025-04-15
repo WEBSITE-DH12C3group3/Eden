@@ -63,7 +63,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaLoaiSanPham" Type="varchar" MaxLength="6" StoreGeneratedPattern="Computed" />
+          <Property Name="MaLoaiSanPham" Type="char" MaxLength="6" StoreGeneratedPattern="Computed" />
           <Property Name="TenLoaiSanPham" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="NGUOIDUNG">
@@ -82,7 +82,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaNhaCungCap" Type="varchar" MaxLength="6" StoreGeneratedPattern="Computed" />
+          <Property Name="MaNhaCungCap" Type="char" MaxLength="6" StoreGeneratedPattern="Computed" />
           <Property Name="TenNhaCungCap" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="DiaChi" Type="nvarchar(max)" />
           <Property Name="SoDienThoai" Type="nvarchar" MaxLength="20" />
@@ -120,7 +120,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MaSanPham" Type="char" MaxLength="6" StoreGeneratedPattern="Computed" />
+          <Property Name="MaSanPham" Type="char" MaxLength="7" StoreGeneratedPattern="Computed" />
           <Property Name="TenSanPham" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="MoTa" Type="nvarchar(max)" />
           <Property Name="Gia" Type="decimal" Precision="10" Scale="2" Nullable="false" />
@@ -168,7 +168,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CHITIETPH__idPhi__5812160E">
-          <End Role="PHIEUNHAP" Type="Self.PHIEUNHAP" Multiplicity="1" />
+          <End Role="PHIEUNHAP" Type="Self.PHIEUNHAP" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CHITIETPHIEUNHAP" Type="Self.CHITIETPHIEUNHAP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PHIEUNHAP">
@@ -180,7 +182,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__CHITIETPH__idSan__59063A47">
-          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1" />
+          <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="CHITIETPHIEUNHAP" Type="Self.CHITIETPHIEUNHAP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SANPHAM">
@@ -192,9 +196,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__HOADON__idKhachH__4CA06362">
-          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="KHACHHANG" Type="Self.KHACHHANG" Multiplicity="0..1" />
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KHACHHANG">
@@ -206,9 +208,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__HOADON__idNguoiD__4D94879B">
-          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1" />
           <End Role="HOADON" Type="Self.HOADON" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NGUOIDUNG">
@@ -262,9 +262,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__PHIEUNHAP__idNgu__5535A963">
-          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1" />
           <End Role="PHIEUNHAP" Type="Self.PHIEUNHAP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NGUOIDUNG">
@@ -276,9 +274,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__PHIEUNHAP__idNha__5441852A">
-          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
           <End Role="PHIEUNHAP" Type="Self.PHIEUNHAP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NHACUNGCAP">
@@ -304,9 +300,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__SANPHAM__idNhaCu__46E78A0C">
-          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="NHACUNGCAP" Type="Self.NHACUNGCAP" Multiplicity="0..1" />
           <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NHACUNGCAP">
@@ -456,7 +450,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoaiSanPham" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MaLoaiSanPham" Type="String" MaxLength="6" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MaLoaiSanPham" Type="String" MaxLength="6" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="SANPHAMs" Relationship="Self.FK__SANPHAM__idLoaiS__47DBAE45" FromRole="LOAISANPHAM" ToRole="SANPHAM" />
         </EntityType>
         <EntityType Name="NGUOIDUNG">
@@ -478,7 +472,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaNhaCungCap" Type="String" MaxLength="6" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MaNhaCungCap" Type="String" MaxLength="6" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="TenNhaCungCap" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SoDienThoai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
@@ -515,7 +509,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaSanPham" Type="String" MaxLength="6" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MaSanPham" Type="String" MaxLength="7" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="TenSanPham" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Gia" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
