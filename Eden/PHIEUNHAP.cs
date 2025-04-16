@@ -33,6 +33,5 @@ namespace Eden
         public virtual NHACUNGCAP NHACUNGCAP { get; set; }
         public string TenNhaCungCap { get; internal set; }
 
-       
     }
 }

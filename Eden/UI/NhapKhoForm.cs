@@ -28,28 +28,35 @@ namespace Eden
             {
                 // Lấy tất cả phiếu nhập nếu không có từ khóa tìm kiếm
                 var phieuNhaps = string.IsNullOrEmpty(searchTerm) ? phieuNhapBLL.GetAll() :
-                                phieuNhapBLL.GetAll()
-                                             .Where(p => p.MaPhieuNhap.ToLower().Contains(searchTerm) ||
-                                                        p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm))
-                                             .ToList();
+                                  phieuNhapBLL.GetAll()
+                                              .Where(p => p.MaPhieuNhap.ToLower().Contains(searchTerm) ||
+                                                          p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm))
+                                              .ToList();
 
-                var data = from phieuNhap in phieuNhaps
-                          
-                           select new
-                           {
-                               phieuNhap.MaPhieuNhap,
-                               phieuNhap.NgayNhap,
-                               NhaCungCap = phieuNhap.NHACUNGCAP.TenNhaCungCap
-                               
-                           };
+                // Kết hợp thông tin phiếu nhập và chi tiết phiếu nhập
+                var listDto = phieuNhaps.SelectMany(p => p.CHITIETPHIEUNHAPs, (p, c) => new
+                {
+                    MaPhieuNhap = p.MaPhieuNhap,
+                    NgayNhap = p.NgayNhap.ToString("dd/MM/yyyy"),
+                    TenNhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
+                    TongTien = p.TongTien,
+                    MaSanPham = c.idSanPham,
+                    TenSanPham = c.SANPHAM.TenSanPham,
+                    SoLuong = c.SoLuong,
+                    DonGia = c.DonGia,
+                    ThanhTien = c.SoLuong * c.DonGia
+                }).ToList();
 
-                dgvPhieuNhap.DataSource = data.ToList();
+                // Gán dữ liệu vào DataGridView
+                dgvPhieuNhap.DataSource = listDto;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu phiếu nhập: " + ex.Message);
             }
         }
+
+
 
         // Sự kiện Thêm phiếu nhập
         private void btnAdd_Click(object sender, EventArgs e)

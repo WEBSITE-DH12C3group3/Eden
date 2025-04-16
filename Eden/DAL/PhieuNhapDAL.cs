@@ -107,7 +107,12 @@ namespace Eden
 
         internal PHIEUNHAP GetByMaPhieuNhap(string maPhieuNhap)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(maPhieuNhap)) return null;
+
+            return db.PHIEUNHAPs
+                     .Include(p => p.NHACUNGCAP) // nếu cần cả thông tin NCC
+                     .FirstOrDefault(p => p.MaPhieuNhap == maPhieuNhap);
         }
+
     }
 }

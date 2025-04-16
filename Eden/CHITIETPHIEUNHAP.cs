@@ -22,5 +22,7 @@ namespace Eden
     
         public virtual PHIEUNHAP PHIEUNHAP { get; set; }
         public virtual SANPHAM SANPHAM { get; set; }
+
+       
     }
 }
