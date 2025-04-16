@@ -31,5 +31,8 @@ namespace Eden
         public virtual ICollection<CHITIETPHIEUNHAP> CHITIETPHIEUNHAPs { get; set; }
         public virtual NGUOIDUNG NGUOIDUNG { get; set; }
         public virtual NHACUNGCAP NHACUNGCAP { get; set; }
+        public string TenNhaCungCap { get; internal set; }
+
+       
     }
 }

@@ -9,30 +9,13 @@ namespace Eden
     {
         private readonly QLBanHoaEntities db = new QLBanHoaEntities();
 
-        // Lấy tất cả phiếu nhập cùng thông tin nhà cung cấp và người dùng
-        public List<NHACUNGCAP> GetAllNHACUNGCAP()
-        {
-            return db.NHACUNGCAPs.OrderBy(ncc => ncc.TenNhaCungCap).ToList();
-        }
-
+        // Lấy tất cả phiếu nhập + tên nhà cung cấp (chỉ lấy tên, không Include toàn bộ đối tượng)
         public List<PHIEUNHAP> GetAll()
         {
             return db.PHIEUNHAPs
-                     .Include(p => p.NHACUNGCAP)
-                     .Include(p => p.NGUOIDUNG)
+                     .Include(p => p.NHACUNGCAP) // cần Include để truy cập TenNCC
                      .OrderByDescending(p => p.NgayNhap)
                      .ToList();
-        }
-
-        // Lấy phiếu nhập theo mã phiếu nhập
-        public PHIEUNHAP GetByMaPhieuNhap(string maPhieuNhap)
-        {
-            if (string.IsNullOrEmpty(maPhieuNhap)) return null;
-
-            return db.PHIEUNHAPs
-                     .Include(p => p.NHACUNGCAP)
-                     .Include(p => p.NGUOIDUNG)
-                     .FirstOrDefault(p => p.MaPhieuNhap == maPhieuNhap);
         }
 
         // Thêm phiếu nhập
@@ -70,12 +53,12 @@ namespace Eden
             }
         }
 
-        // Lấy danh sách chi tiết phiếu nhập theo id phiếu nhập
+        // Lấy chi tiết theo mã phiếu nhập
         public List<CHITIETPHIEUNHAP> GetChiTietByPhieuNhap(int idPhieuNhap)
         {
             return db.CHITIETPHIEUNHAPs
                      .Where(c => c.idPhieuNhap == idPhieuNhap)
-                     .Include(c => c.SANPHAM)
+                     .Include(c => c.SANPHAM) // nếu cần tên sản phẩm, đơn giá,...
                      .ToList();
         }
 
@@ -88,12 +71,13 @@ namespace Eden
             db.SaveChanges();
         }
 
-        // Cập nhật chi tiết phiếu nhập
+        // Cập nhật chi tiết
         public void UpdateChiTiet(CHITIETPHIEUNHAP entity)
         {
             if (entity == null) return;
 
-            var existing = db.CHITIETPHIEUNHAPs.Find(entity.idPhieuNhap);
+            var existing = db.CHITIETPHIEUNHAPs
+                             .FirstOrDefault(c => c.idPhieuNhap == entity.idPhieuNhap && c.idSanPham == entity.idSanPham);
             if (existing != null)
             {
                 db.Entry(existing).CurrentValues.SetValues(entity);
@@ -101,12 +85,13 @@ namespace Eden
             }
         }
 
-        // Xóa chi tiết phiếu nhập
+        // Xóa chi tiết
         public void DeleteChiTiet(CHITIETPHIEUNHAP entity)
         {
             if (entity == null) return;
 
-            var existing = db.CHITIETPHIEUNHAPs.Find(entity.idPhieuNhap);
+            var existing = db.CHITIETPHIEUNHAPs
+                             .FirstOrDefault(c => c.idPhieuNhap == entity.idPhieuNhap && c.idSanPham == entity.idSanPham);
             if (existing != null)
             {
                 db.CHITIETPHIEUNHAPs.Remove(existing);
@@ -118,6 +103,11 @@ namespace Eden
         public void Dispose()
         {
             db.Dispose();
+        }
+
+        internal PHIEUNHAP GetByMaPhieuNhap(string maPhieuNhap)
+        {
+            throw new NotImplementedException();
         }
     }
 }

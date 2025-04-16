@@ -1,4 +1,7 @@
-﻿namespace Eden
+﻿using System.Windows.Forms;
+using System;
+
+namespace Eden
 {
     partial class NhapKhoFormAdd
     {
@@ -28,143 +31,83 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.txtMaPhieuNhap = new Guna.UI2.WinForms.Guna2TextBox();
+            this.dtpNgayNhap = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.cmbNhaCungCap = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.btnSave = new Guna.UI2.WinForms.Guna2Button();
+            this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
+
             this.SuspendLayout();
-            // 
-            // NhapKhoFormAdd
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "NhapKhoFormAdd";
-            this.Text = "NhapKhoFormAdd";
-            this.ResumeLayout(false);
 
-            this.txtMaPhieuNhap = new System.Windows.Forms.TextBox();
-            this.dtpNgayNhap = new System.Windows.Forms.DateTimePicker();
-            this.cmbNhaCungCap = new System.Windows.Forms.ComboBox();
-            this.cmbNguoiDung = new System.Windows.Forms.ComboBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.lblMaPhieuNhap = new System.Windows.Forms.Label();
-            this.lblNgayNhap = new System.Windows.Forms.Label();
-            this.lblNhaCungCap = new System.Windows.Forms.Label();
-            this.lblNguoiDung = new System.Windows.Forms.Label();
-
-            // 
             // txtMaPhieuNhap
-            // 
-            this.txtMaPhieuNhap.Location = new System.Drawing.Point(120, 20);
+            this.txtMaPhieuNhap.Cursor = Cursors.IBeam;
+            this.txtMaPhieuNhap.DefaultText = "";
+            this.txtMaPhieuNhap.DisabledState.BorderColor = System.Drawing.Color.FromArgb(208, 208, 208);
+            this.txtMaPhieuNhap.DisabledState.FillColor = System.Drawing.Color.FromArgb(226, 226, 226);
+            this.txtMaPhieuNhap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            this.txtMaPhieuNhap.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(138, 138, 138);
+            this.txtMaPhieuNhap.FocusedState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            this.txtMaPhieuNhap.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtMaPhieuNhap.HoverState.BorderColor = System.Drawing.Color.FromArgb(94, 148, 255);
+            this.txtMaPhieuNhap.Location = new System.Drawing.Point(12, 12);
             this.txtMaPhieuNhap.Name = "txtMaPhieuNhap";
-            this.txtMaPhieuNhap.Size = new System.Drawing.Size(200, 20);
+            this.txtMaPhieuNhap.PasswordChar = '\0';
+            this.txtMaPhieuNhap.PlaceholderText = "Mã phiếu nhập";
+            this.txtMaPhieuNhap.SelectedText = "";
+            this.txtMaPhieuNhap.Size = new System.Drawing.Size(300, 36);
             this.txtMaPhieuNhap.TabIndex = 0;
 
-            // 
             // dtpNgayNhap
-            // 
-            this.dtpNgayNhap.Location = new System.Drawing.Point(120, 60);
+            this.dtpNgayNhap.CheckedState.Parent = this.dtpNgayNhap;
+            this.dtpNgayNhap.FillColor = System.Drawing.Color.White;
+            this.dtpNgayNhap.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpNgayNhap.Format = System.Windows.Forms.DateTimePickerFormat.Long;
+            this.dtpNgayNhap.HoverState.Parent = this.dtpNgayNhap;
+            this.dtpNgayNhap.Location = new System.Drawing.Point(12, 54);
             this.dtpNgayNhap.Name = "dtpNgayNhap";
-            this.dtpNgayNhap.Size = new System.Drawing.Size(200, 20);
+            this.dtpNgayNhap.Size = new System.Drawing.Size(300, 36);
             this.dtpNgayNhap.TabIndex = 1;
 
-            // 
             // cmbNhaCungCap
-            // 
+            this.cmbNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmbNhaCungCap.ForeColor = System.Drawing.Color.Black;
             this.cmbNhaCungCap.FormattingEnabled = true;
-            this.cmbNhaCungCap.Location = new System.Drawing.Point(120, 100);
+            this.cmbNhaCungCap.Location = new System.Drawing.Point(12, 96);
             this.cmbNhaCungCap.Name = "cmbNhaCungCap";
-            this.cmbNhaCungCap.Size = new System.Drawing.Size(200, 21);
+            this.cmbNhaCungCap.Size = new System.Drawing.Size(300, 36);
             this.cmbNhaCungCap.TabIndex = 2;
 
-            // 
-            // cmbNguoiDung
-            // 
-            this.cmbNguoiDung.FormattingEnabled = true;
-            this.cmbNguoiDung.Location = new System.Drawing.Point(120, 140);
-            this.cmbNguoiDung.Name = "cmbNguoiDung";
-            this.cmbNguoiDung.Size = new System.Drawing.Size(200, 21);
-            this.cmbNguoiDung.TabIndex = 3;
-
-            // 
             // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(120, 180);
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Location = new System.Drawing.Point(12, 138);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 4;
+            this.btnSave.Size = new System.Drawing.Size(100, 36);
+            this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new EventHandler(this.btnSave_Click);
 
-            // 
             // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(200, 180);
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.Location = new System.Drawing.Point(118, 138);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Size = new System.Drawing.Size(100, 36);
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Hủy";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new EventHandler(this.btnCancel_Click);
 
-            // 
-            // lblMaPhieuNhap
-            // 
-            this.lblMaPhieuNhap.AutoSize = true;
-            this.lblMaPhieuNhap.Location = new System.Drawing.Point(20, 23);
-            this.lblMaPhieuNhap.Name = "lblMaPhieuNhap";
-            this.lblMaPhieuNhap.Size = new System.Drawing.Size(88, 13);
-            this.lblMaPhieuNhap.TabIndex = 6;
-            this.lblMaPhieuNhap.Text = "Mã Phiếu Nhập";
-
-            // 
-            // lblNgayNhap
-            // 
-            this.lblNgayNhap.AutoSize = true;
-            this.lblNgayNhap.Location = new System.Drawing.Point(20, 63);
-            this.lblNgayNhap.Name = "lblNgayNhap";
-            this.lblNgayNhap.Size = new System.Drawing.Size(62, 13);
-            this.lblNgayNhap.TabIndex = 7;
-            this.lblNgayNhap.Text = "Ngày Nhập";
-
-            // 
-            // lblNhaCungCap
-            // 
-            this.lblNhaCungCap.AutoSize = true;
-            this.lblNhaCungCap.Location = new System.Drawing.Point(20, 103);
-            this.lblNhaCungCap.Name = "lblNhaCungCap";
-            this.lblNhaCungCap.Size = new System.Drawing.Size(74, 13);
-            this.lblNhaCungCap.TabIndex = 8;
-            this.lblNhaCungCap.Text = "Nhà Cung Cấp";
-
-            // 
-            // lblNguoiDung
-            // 
-            this.lblNguoiDung.AutoSize = true;
-            this.lblNguoiDung.Location = new System.Drawing.Point(20, 143);
-            this.lblNguoiDung.Name = "lblNguoiDung";
-            this.lblNguoiDung.Size = new System.Drawing.Size(60, 13);
-            this.lblNguoiDung.TabIndex = 9;
-            this.lblNguoiDung.Text = "Người Dùng";
-
-            // 
             // NhapKhoFormAdd
-            // 
-            this.ClientSize = new System.Drawing.Size(340, 220);
-            this.Controls.Add(this.lblNguoiDung);
-            this.Controls.Add(this.lblNhaCungCap);
-            this.Controls.Add(this.lblNgayNhap);
-            this.Controls.Add(this.lblMaPhieuNhap);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.cmbNguoiDung);
-            this.Controls.Add(this.cmbNhaCungCap);
-            this.Controls.Add(this.dtpNgayNhap);
+            this.ClientSize = new System.Drawing.Size(330, 200);
             this.Controls.Add(this.txtMaPhieuNhap);
+            this.Controls.Add(this.dtpNgayNhap);
+            this.Controls.Add(this.cmbNhaCungCap);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnCancel);
             this.Name = "NhapKhoFormAdd";
-            this.Text = "Thêm Phiếu Nhập";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            this.Text = "Thêm/Sửa Phiếu Nhập Kho";
 
+            this.ResumeLayout(false);
         }
 
         #endregion

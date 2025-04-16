@@ -12,18 +12,13 @@ namespace Eden
             dal = new PHIEUNHAPDAL();
         }
 
-        // Lấy tất cả phiếu nhập
-
-        public List<NHACUNGCAP> GetAllNHACUNGCAP()
-        {
-            return dal.GetAllNHACUNGCAP();
-        }
+        // Lấy tất cả phiếu nhập (có tên nhà cung cấp)
         public List<PHIEUNHAP> GetAll()
         {
             return dal.GetAll();
         }
 
-        // Lấy phiếu nhập theo mã phiếu nhập
+        // Lấy phiếu nhập theo mã phiếu
         public PHIEUNHAP GetByMaPhieuNhap(string maPhieuNhap)
         {
             if (string.IsNullOrEmpty(maPhieuNhap))

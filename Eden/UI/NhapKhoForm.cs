@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,27 +9,41 @@ namespace Eden
     public partial class NhapKhoForm : Form
     {
         private PHIEUNHAPBLL phieuNhapBLL;
+        private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL; // Để lấy thông tin chi tiết phiếu nhập
+
+        public object ChiTiet { get; private set; }
 
         public NhapKhoForm()
         {
             InitializeComponent();
             phieuNhapBLL = new PHIEUNHAPBLL();
+            chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL(); // Khởi tạo để lấy dữ liệu từ bảng chi tiết phiếu nhập
             LoadData();
         }
 
         // Hàm Load dữ liệu phiếu nhập vào DataGridView
-        private void LoadData()
+        private void LoadData(string searchTerm = "")
         {
             try
             {
-                var phieuNhaps = phieuNhapBLL.GetAll();
-                dgvPhieuNhap.DataSource = phieuNhaps.Select(p => new
-                {
-                    p.MaPhieuNhap,
-                    p.NgayNhap,
-                    NhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
-                    NguoiDung = p.NGUOIDUNG.TenNguoiDung
-                }).ToList();
+                // Lấy tất cả phiếu nhập nếu không có từ khóa tìm kiếm
+                var phieuNhaps = string.IsNullOrEmpty(searchTerm) ? phieuNhapBLL.GetAll() :
+                                phieuNhapBLL.GetAll()
+                                             .Where(p => p.MaPhieuNhap.ToLower().Contains(searchTerm) ||
+                                                        p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm))
+                                             .ToList();
+
+                var data = from phieuNhap in phieuNhaps
+                          
+                           select new
+                           {
+                               phieuNhap.MaPhieuNhap,
+                               phieuNhap.NgayNhap,
+                               NhaCungCap = phieuNhap.NHACUNGCAP.TenNhaCungCap
+                               
+                           };
+
+                dgvPhieuNhap.DataSource = data.ToList();
             }
             catch (Exception ex)
             {
@@ -41,10 +54,12 @@ namespace Eden
         // Sự kiện Thêm phiếu nhập
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            NhapKhoFormAdd formAdd = new NhapKhoFormAdd();
-            if (formAdd.ShowDialog() == DialogResult.OK)
+            using (var formAdd = new NhapKhoFormAdd())
             {
-                LoadData();
+                if (formAdd.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
             }
         }
 
@@ -58,31 +73,20 @@ namespace Eden
             }
 
             string maPhieuNhap = dgvPhieuNhap.SelectedRows[0].Cells["MaPhieuNhap"].Value.ToString();
-            NhapKhoFormAdd formAdd = new NhapKhoFormAdd(maPhieuNhap);
-            if (formAdd.ShowDialog() == DialogResult.OK)
+            using (var formAdd = new NhapKhoFormAdd(maPhieuNhap))
             {
-                LoadData();
+                if (formAdd.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
             }
         }
-
-        // Sự kiện Xóa phiếu nhập
 
         // Sự kiện Tìm kiếm phiếu nhập
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string searchTerm = txtSearch.Text.Trim().ToLower();
-            var phieuNhaps = phieuNhapBLL.GetAll()
-                                           .Where(p => p.MaPhieuNhap.ToLower().Contains(searchTerm) ||
-                                                       p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm) ||
-                                                       p.NGUOIDUNG.TenNguoiDung.ToLower().Contains(searchTerm))
-                                           .ToList();
-            dgvPhieuNhap.DataSource = phieuNhaps.Select(p => new
-            {
-                p.MaPhieuNhap,
-                p.NgayNhap,
-                NhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
-                NguoiDung = p.NGUOIDUNG.TenNguoiDung
-            }).ToList();
+            LoadData(searchTerm);
         }
 
         // Sự kiện Refresh lại danh sách phiếu nhập
@@ -91,9 +95,7 @@ namespace Eden
             LoadData();
         }
 
-        // Hàm khởi tạo giao diện cho form chính này
-        
-
+        // Sự kiện Xóa phiếu nhập
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvPhieuNhap.SelectedRows.Count == 0)
@@ -119,40 +121,8 @@ namespace Eden
                 MessageBox.Show("Phiếu nhập không tồn tại.");
             }
         }
-        private Button btnAdd;
-        private Button btnEdit;
-        private Button btnDelete;
-        private TextBox txtSearch;
-        private Button btnSearch;
-        private Button btnRefresh;
 
-
-        private void dgvPhieuNhap_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            try
-            {
-                var phieuNhaps = phieuNhapBLL.GetAll();
-                dgvPhieuNhap.DataSource = phieuNhaps.Select(p => new
-                {
-                    p.MaPhieuNhap,
-                    p.NgayNhap,
-                    NhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
-                    NguoiDung = p.NGUOIDUNG.TenNguoiDung
-                }).ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tải dữ liệu phiếu nhập: " + ex.Message);
-            }
-
-        }
-
-        private void NhapKhoForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        // Xuất dữ liệu ra Excel
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
             // Tạo DataTable từ DataGridView
@@ -177,10 +147,12 @@ namespace Eden
             }
 
             // Lưu Excel
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
-            saveFileDialog.Title = "Lưu file Excel";
-            saveFileDialog.FileName = "DanhSach.xlsx";
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel Workbook|*.xlsx",
+                Title = "Lưu file Excel",
+                FileName = "DanhSach.xlsx"
+            };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -192,5 +164,24 @@ namespace Eden
                 }
             }
         }
+
+        // Giao diện khởi tạo và sự kiện CellContentClick
+        private void dgvPhieuNhap_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Dòng này không còn cần thiết nữa, vì đã tối ưu hóa LoadData() trong sự kiện khác.
+        }
+
+        private void NhapKhoForm_Load(object sender, EventArgs e)
+        {
+            // Dòng này không cần thiết, LoadData đã được gọi trong constructor.
+        }
+        private Guna.UI2.WinForms.Guna2DataGridView dgvPhieuNhap;
+        private Guna.UI2.WinForms.Guna2TextBox txtSearch;
+        private Guna.UI2.WinForms.Guna2Button btnSearch;
+        private Guna.UI2.WinForms.Guna2Button btnAdd;
+        private Guna.UI2.WinForms.Guna2Button btnEdit;
+        private Guna.UI2.WinForms.Guna2Button btnDelete;
+        private Guna.UI2.WinForms.Guna2Button btnRefresh;
+        private Guna.UI2.WinForms.Guna2Button btnExportExcel;
     }
 }
