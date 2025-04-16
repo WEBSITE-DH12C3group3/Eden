@@ -14,9 +14,17 @@ namespace Eden
             dal = new SANPHAMDAL();
         }
 
-        public List<SANPHAM> GetAll()
+        public List<SanPhamDTO> GetAll()
         {
-            return dal.GetAll();
+            try
+            {
+                return dal.GetAllDTO();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi lấy toàn bộ khach hang: " + ex.Message);
+                throw;
+            }
         }
 
         public void Add(SANPHAM sp)
@@ -45,6 +53,11 @@ namespace Eden
         public int DemSoLuongSanPham()
         {
             return dal.DemSoLuongSanPham();
+        }
+
+        public SANPHAM GetByMaSanPham(string maSanPham)
+        {
+            return dal.GetByMaSanPham(maSanPham);
         }
 
         public void Dispose()

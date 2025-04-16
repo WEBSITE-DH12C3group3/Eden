@@ -47,6 +47,32 @@ namespace Eden
             }
         }
 
+        public List<SanPhamDTO> GetAllDTO()
+        {
+            try
+            {
+                return db.SANPHAMs
+                    .Select(sp => new SanPhamDTO
+                    {
+                        idSanPham = sp.id,
+                        MaSanPham = sp.MaSanPham,
+                        TenSanPham = sp.TenSanPham,
+                        MoTa = sp.MoTa,
+                        Gia = sp.Gia,
+                        SoLuong = sp.SoLuong,
+                        MauSac = sp.MauSac,
+                        TenNhaCungCap = sp.NHACUNGCAP.TenNhaCungCap,
+                        TenLoaiSanPham = sp.LOAISANPHAM.TenLoaiSanPham
+
+                    })
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi lấy toàn bộ hóa đơn DTO: " + ex.Message);
+                throw;
+            }
+        }
 
         public void Add(SANPHAM sp)
         {
@@ -133,6 +159,14 @@ namespace Eden
         {
             db.SANPHAMs.Remove(sp);
             db.SaveChanges();
+        }
+
+        public SANPHAM GetByMaSanPham(string maSanPham)
+        {
+            return db.SANPHAMs
+                .Include(sp => sp.NHACUNGCAP)
+                .Include(sp => sp.LOAISANPHAM)
+                .FirstOrDefault(sp => sp.MaSanPham == maSanPham);
         }
     }
 }

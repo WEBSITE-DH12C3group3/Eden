@@ -8,6 +8,7 @@ namespace Eden.DTO
 {
     public class KhachHangDTO
     {
+        public int id { get; set; } // ID của khách hàng
         public string MaKhachHang { get; set; }
         public string TenKhachHang { get; set; }
         public string SoDienThoai { get; set; }

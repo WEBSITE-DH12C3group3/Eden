@@ -17,7 +17,7 @@ namespace Eden.UI
         private HOADONBLL hoaDonBLL;
         private KHACHHANGBLL khachHangBLL;
         private SANPHAMBLL sanPhamBLL;
-        private List<ChiTietHoaDonDTO> chiTietList; // Danh sách chi tiết hóa đơn
+        private List<ChiTietHoaDonDTO> chiTietList;
 
         public HoaDonAdd()
         {
@@ -40,31 +40,44 @@ namespace Eden.UI
 
         private void InitializeForm()
         {
-            // Thiết lập DateTimePicker
             dtpNgayLap.Value = DateTime.Now;
 
             // Load danh sách khách hàng vào ComboBox
-            var khachHangList = khachHangBLL.GetAll();
+            var khachHangList = khachHangBLL.GetAll(); // Trả về List<KhachHangDTO>
+            if (khachHangList == null || khachHangList.Count == 0)
+            {
+                MessageBox.Show("Không có khách hàng nào để hiển thị. Vui lòng thêm khách hàng trước.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             cbKhachHang.DataSource = khachHangList;
             cbKhachHang.DisplayMember = "MaKhachHang";
-            cbKhachHang.ValueMember = "id";
+            cbKhachHang.ValueMember = "MaKhachHang";
 
             cbKhachHang.SelectedIndexChanged += cbKhachHang_SelectedIndexChanged;
 
-            // Hiển thị thông tin khách hàng mặc định (nếu có khách hàng được chọn)
+            // Hiển thị thông tin khách hàng mặc định
             if (cbKhachHang.SelectedItem != null)
             {
-                var khachHang = cbKhachHang.SelectedItem as KHACHHANG;
-                string tenKhachHang = khachHang.TenKhachHang ?? "Không có tên";
-                string soDienThoai = khachHang.SoDienThoai ?? "Không có SĐT";
-                lblKhachHangInfo.Text = $"Tên: {tenKhachHang} | SĐT: {soDienThoai}";
+                var khachHang = cbKhachHang.SelectedItem as KhachHangDTO;
+                if (khachHang != null)
+                {
+                    string tenKhachHang = khachHang.TenKhachHang ?? "Không có tên";
+                    string soDienThoai = khachHang.SoDienThoai ?? "Không có SĐT";
+                    lblKhachHangInfo.Text = $"Tên: {tenKhachHang} | SĐT: {soDienThoai}";
+                }
             }
 
-            // Hiển thị tên người dùng
             lblNguoiDung.Text = $"{CurrentUser.Username} ({CurrentUser.Role})";
 
             // Load danh sách sản phẩm vào ComboBox
             var sanPhamList = sanPhamBLL.GetAll();
+            if (sanPhamList == null || sanPhamList.Count == 0)
+            {
+                MessageBox.Show("Không có sản phẩm nào để hiển thị. Vui lòng thêm sản phẩm trước.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             cbSanPham.DataSource = sanPhamList;
             cbSanPham.DisplayMember = "TenSanPham";
             cbSanPham.ValueMember = "MaSanPham";
@@ -113,13 +126,12 @@ namespace Eden.UI
                     var khachHangList = khachHangBLL.GetAll();
                     cbKhachHang.DataSource = khachHangList;
                     cbKhachHang.DisplayMember = "MaKhachHang";
-                    cbKhachHang.ValueMember = "id";
+                    cbKhachHang.ValueMember = "idKhachHang";
 
-                    // Tự động chọn khách hàng mới nhất
                     var lastKhachHang = khachHangList.LastOrDefault();
                     if (lastKhachHang != null)
                     {
-                        cbKhachHang.SelectedValue = lastKhachHang.id;
+                        cbKhachHang.SelectedValue = lastKhachHang.MaKhachHang;
                     }
                 };
                 formAdd.ShowDialog();
@@ -130,10 +142,17 @@ namespace Eden.UI
         {
             if (cbKhachHang.SelectedItem != null)
             {
-                var khachHang = cbKhachHang.SelectedItem as KHACHHANG;
-                string tenKhachHang = khachHang.TenKhachHang ?? "Không có tên";
-                string soDienThoai = khachHang.SoDienThoai ?? "Không có SĐT";
-                lblKhachHangInfo.Text = $"Tên: {tenKhachHang} | SĐT: {soDienThoai}";
+                var khachHang = cbKhachHang.SelectedItem as KhachHangDTO;
+                if (khachHang != null)
+                {
+                    string tenKhachHang = khachHang.TenKhachHang ?? "Không có tên";
+                    string soDienThoai = khachHang.SoDienThoai ?? "Không có SĐT";
+                    lblKhachHangInfo.Text = $"Tên: {tenKhachHang} | SĐT: {soDienThoai}";
+                }
+                else
+                {
+                    lblKhachHangInfo.Text = "Tên: | SĐT: ";
+                }
             }
             else
             {
@@ -155,7 +174,13 @@ namespace Eden.UI
                 return;
             }
 
-            var sanPham = cbSanPham.SelectedItem as SANPHAM;
+            var sanPham = cbSanPham.SelectedItem as SanPhamDTO;
+            if (sanPham == null || sanPham.idSanPham == 0)
+            {
+                MessageBox.Show("Không thể lấy thông tin sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (sanPham.SoLuong < soLuong)
             {
                 MessageBox.Show($"Số lượng tồn của sản phẩm {sanPham.TenSanPham} không đủ. Hiện tại chỉ còn {sanPham.SoLuong} sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -165,7 +190,7 @@ namespace Eden.UI
             // Tạo chi tiết hóa đơn
             var chiTiet = new ChiTietHoaDonDTO
             {
-                idSanPham = sanPham.id,
+                idSanPham = sanPham.idSanPham, // Sử dụng id (chữ "i" thường)
                 MaSanPham = sanPham.MaSanPham,
                 TenSanPham = sanPham.TenSanPham,
                 SoLuong = soLuong,
@@ -179,7 +204,7 @@ namespace Eden.UI
 
             // Cập nhật tổng tiền
             decimal tongTien = chiTietList.Sum(ct => ct.ThanhTien);
-            lblTongTien.Text = $"{tongTien:N0}";
+            lblTongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
 
             // Reset số lượng
             txtSoLuong.Text = "";
@@ -220,19 +245,27 @@ namespace Eden.UI
 
             try
             {
+                // Lấy idKhachHang từ KhachHangDTO
+                var khachHang = cbKhachHang.SelectedItem as KhachHangDTO;
+                if (khachHang == null || khachHang.id == 0)
+                {
+                    MessageBox.Show("Không tìm thấy khách hàng trong cơ sở dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // Tạo hóa đơn
                 var hoaDon = new HOADON
                 {
                     NgayLap = dtpNgayLap.Value,
-                    idKhachHang = (int)cbKhachHang.SelectedValue,
-                    idNguoiDung = CurrentUser.Id, // Lấy idNguoiDung từ CurrentUser
+                    idKhachHang = khachHang.id, // Sử dụng id (chữ "i" thường)
+                    idNguoiDung = CurrentUser.Id,
                     TongTien = chiTietList.Sum(ct => ct.ThanhTien)
                 };
 
                 // Tạo MaHoaDon tự động
                 var hoaDonList = hoaDonBLL.GetAll();
                 int soThuTu = hoaDonList.Count + 1;
-                hoaDon.MaHoaDon = $"HD{soThuTu:D4}"; // Ví dụ: HD0001, HD0002, ...
+                hoaDon.MaHoaDon = $"HD{soThuTu:D4}";
 
                 // Lưu hóa đơn và chi tiết hóa đơn
                 hoaDonBLL.Add(hoaDon, chiTietList);
@@ -242,7 +275,13 @@ namespace Eden.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Ghi lại lỗi chi tiết (inner exception)
+                string errorMessage = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    errorMessage += "\nChi tiết lỗi: " + ex.InnerException.Message;
+                }
+                MessageBox.Show("Lỗi khi thêm hóa đơn: " + errorMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

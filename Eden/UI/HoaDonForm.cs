@@ -326,5 +326,10 @@ namespace Eden
         {
             // Có thể thêm xử lý nếu cần
         }
+
+        private void lblPageInfo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

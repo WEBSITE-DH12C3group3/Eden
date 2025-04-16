@@ -15,15 +15,15 @@ namespace Eden
         }
 
         // Lấy toàn bộ danh sách khách hàng (giữ nguyên để tương thích với code cũ)
-        public List<KHACHHANG> GetAll()
+        public List<KhachHangDTO> GetAll()
         {
             try
             {
-                return dal.GetAll();
+                return dal.GetAllDTO();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Lỗi khi lấy toàn bộ khách hàng: " + ex.Message);
+                Console.WriteLine("Lỗi khi lấy toàn bộ khach hang: " + ex.Message);
                 throw;
             }
         }
@@ -70,7 +70,9 @@ namespace Eden
             }
         }
 
-        public void Add(KHACHHANG kh)
+       
+
+    public void Add(KHACHHANG kh)
         {
             try
             {

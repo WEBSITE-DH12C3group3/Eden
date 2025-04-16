@@ -57,6 +57,31 @@ namespace Eden
             }
         }
 
+        public List<KhachHangDTO> GetAllDTO()
+        {
+            try
+            {
+                return db.KHACHHANGs
+                    .Select(kh => new KhachHangDTO
+                    {
+                        id = kh.id,
+                        MaKhachHang = kh.MaKhachHang,
+                        TenKhachHang = kh.TenKhachHang,
+                        DiaChi = kh.DiaChi,
+                        Email = kh.Email,
+                        SoDienThoai = kh.SoDienThoai
+
+                    })
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi lấy toàn bộ hóa đơn DTO: " + ex.Message);
+                throw;
+            }
+        }
+
+
         // Tìm kiếm và phân trang
         public (List<KHACHHANG> Data, int TotalRecords) SearchAndPage(string searchText, int page, int pageSize)
         {

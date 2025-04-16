@@ -54,6 +54,9 @@ namespace Eden
             this.dghoadon.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
             this.dghoadon.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dghoadon.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dghoadon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
@@ -73,13 +76,13 @@ namespace Eden
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dghoadon.DefaultCellStyle = dataGridViewCellStyle3;
             this.dghoadon.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dghoadon.Location = new System.Drawing.Point(12, 120);
+            this.dghoadon.Location = new System.Drawing.Point(-1, 68);
             this.dghoadon.Name = "dghoadon";
             this.dghoadon.ReadOnly = true;
             this.dghoadon.RowHeadersVisible = false;
             this.dghoadon.RowHeadersWidth = 51;
             this.dghoadon.RowTemplate.Height = 29;
-            this.dghoadon.Size = new System.Drawing.Size(1018, 350);
+            this.dghoadon.Size = new System.Drawing.Size(1152, 400);
             this.dghoadon.TabIndex = 3;
             this.dghoadon.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
             this.dghoadon.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -106,13 +109,15 @@ namespace Eden
             // 
             // addhoadon
             // 
+            this.addhoadon.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.addhoadon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.addhoadon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.addhoadon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.addhoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.addhoadon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.addhoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.addhoadon.ForeColor = System.Drawing.Color.White;
-            this.addhoadon.Location = new System.Drawing.Point(166, 599);
+            this.addhoadon.Location = new System.Drawing.Point(132, 588);
             this.addhoadon.Name = "addhoadon";
             this.addhoadon.Size = new System.Drawing.Size(180, 45);
             this.addhoadon.TabIndex = 1;
@@ -121,13 +126,15 @@ namespace Eden
             // 
             // xoahoadon
             // 
+            this.xoahoadon.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.xoahoadon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.xoahoadon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.xoahoadon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.xoahoadon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.xoahoadon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.xoahoadon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.xoahoadon.ForeColor = System.Drawing.Color.White;
-            this.xoahoadon.Location = new System.Drawing.Point(398, 599);
+            this.xoahoadon.Location = new System.Drawing.Point(364, 588);
             this.xoahoadon.Name = "xoahoadon";
             this.xoahoadon.Size = new System.Drawing.Size(180, 45);
             this.xoahoadon.TabIndex = 3;
@@ -136,61 +143,69 @@ namespace Eden
             // 
             // btnPreviousPage
             // 
+            this.btnPreviousPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnPreviousPage.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnPreviousPage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnPreviousPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnPreviousPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnPreviousPage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnPreviousPage.ForeColor = System.Drawing.Color.White;
-            this.btnPreviousPage.Location = new System.Drawing.Point(202, 492);
+            this.btnPreviousPage.Location = new System.Drawing.Point(290, 488);
             this.btnPreviousPage.Name = "btnPreviousPage";
-            this.btnPreviousPage.Size = new System.Drawing.Size(180, 45);
+            this.btnPreviousPage.Size = new System.Drawing.Size(113, 45);
             this.btnPreviousPage.TabIndex = 4;
             this.btnPreviousPage.Text = "Trước";
             this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
             // 
             // btnNextPage
             // 
+            this.btnNextPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnNextPage.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnNextPage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnNextPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnNextPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnNextPage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnNextPage.ForeColor = System.Drawing.Color.White;
-            this.btnNextPage.Location = new System.Drawing.Point(607, 492);
+            this.btnNextPage.Location = new System.Drawing.Point(695, 488);
             this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(180, 45);
+            this.btnNextPage.Size = new System.Drawing.Size(113, 45);
             this.btnNextPage.TabIndex = 5;
             this.btnNextPage.Text = "Sau";
             this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
             // 
             // lblPageInfo
             // 
+            this.lblPageInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblPageInfo.BackColor = System.Drawing.Color.Transparent;
-            this.lblPageInfo.Location = new System.Drawing.Point(464, 508);
+            this.lblPageInfo.Location = new System.Drawing.Point(509, 502);
             this.lblPageInfo.Name = "lblPageInfo";
             this.lblPageInfo.Size = new System.Drawing.Size(66, 18);
             this.lblPageInfo.TabIndex = 6;
             this.lblPageInfo.Text = "Trang 1 / 1";
+            this.lblPageInfo.Click += new System.EventHandler(this.lblPageInfo_Click);
             // 
             // guna2HtmlLabel2
             // 
+            this.guna2HtmlLabel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Location = new System.Drawing.Point(209, 83);
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(195, 22);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(116, 18);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(187, 27);
             this.guna2HtmlLabel2.TabIndex = 7;
             this.guna2HtmlLabel2.Text = "Tìm kiếm hóa đơn :";
             // 
             // searchHD
             // 
+            this.searchHD.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.searchHD.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.searchHD.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.searchHD.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.searchHD.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.searchHD.FillColor = System.Drawing.Color.Blue;
             this.searchHD.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.searchHD.ForeColor = System.Drawing.Color.White;
-            this.searchHD.Location = new System.Drawing.Point(667, 65);
+            this.searchHD.Location = new System.Drawing.Point(769, 13);
             this.searchHD.Name = "searchHD";
             this.searchHD.Size = new System.Drawing.Size(180, 45);
             this.searchHD.TabIndex = 8;
@@ -199,6 +214,7 @@ namespace Eden
             // 
             // search
             // 
+            this.search.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.search.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.search.DefaultText = "";
             this.search.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -208,25 +224,27 @@ namespace Eden
             this.search.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.search.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.search.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.search.Location = new System.Drawing.Point(382, 65);
+            this.search.Location = new System.Drawing.Point(388, 13);
             this.search.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.search.Name = "search";
             this.search.PlaceholderText = "";
             this.search.SelectedText = "";
-            this.search.Size = new System.Drawing.Size(229, 48);
+            this.search.Size = new System.Drawing.Size(349, 48);
             this.search.TabIndex = 9;
             this.search.TextChanged += new System.EventHandler(this.search_TextChanged);
             this.search.StyleChanged += new System.EventHandler(this.search_TextChanged);
             // 
             // xemct
             // 
+            this.xemct.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.xemct.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.xemct.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.xemct.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.xemct.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.xemct.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.xemct.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.xemct.ForeColor = System.Drawing.Color.White;
-            this.xemct.Location = new System.Drawing.Point(616, 599);
+            this.xemct.Location = new System.Drawing.Point(582, 588);
             this.xemct.Name = "xemct";
             this.xemct.Size = new System.Drawing.Size(180, 45);
             this.xemct.TabIndex = 10;
@@ -235,13 +253,15 @@ namespace Eden
             // 
             // btnExportExcel
             // 
+            this.btnExportExcel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportExcel.FillColor = System.Drawing.Color.Green;
             this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
-            this.btnExportExcel.Location = new System.Drawing.Point(850, 599);
+            this.btnExportExcel.Location = new System.Drawing.Point(816, 588);
             this.btnExportExcel.Name = "btnExportExcel";
             this.btnExportExcel.Size = new System.Drawing.Size(180, 45);
             this.btnExportExcel.TabIndex = 11;

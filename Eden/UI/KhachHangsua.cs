@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Eden;
+using Eden.DTO;
 
 namespace Eden.UI
 {
@@ -22,16 +23,16 @@ namespace Eden.UI
         {
             try
             {
-                KHACHHANG kh = khachHangBLL.GetAll().FirstOrDefault(k => k.MaKhachHang == maKH);
+                KhachHangDTO khDTO = khachHangBLL.GetAll().FirstOrDefault(k => k.MaKhachHang == maKH);
 
-                if (kh != null) // Nếu tìm thấy khách hàng
+                if (khDTO != null) // Nếu tìm thấy khách hàng
                 {
-                    guna2TextBox1.Text = kh.MaKhachHang;
+                    guna2TextBox1.Text = khDTO.MaKhachHang;
                     guna2TextBox1.ReadOnly = true; // Ngăn sửa mã khách hàng
-                    guna2TextBox2.Text = kh.TenKhachHang;
-                    guna2TextBox3.Text = kh.DiaChi;
-                    guna2TextBox4.Text = kh.SoDienThoai;
-                    guna2TextBox5.Text = kh.Email;
+                    guna2TextBox2.Text = khDTO.TenKhachHang;
+                    guna2TextBox3.Text = khDTO.DiaChi;
+                    guna2TextBox4.Text = khDTO.SoDienThoai;
+                    guna2TextBox5.Text = khDTO.Email;
                 }
                 else // Nếu không tìm thấy khách hàng
                 {

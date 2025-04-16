@@ -8,6 +8,8 @@ using System.Linq;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Data;
+using Eden.DTO;
+using System.Collections.Generic;
 
 namespace Eden
 {
@@ -225,40 +227,83 @@ namespace Eden
             // Có thể thêm xử lý nếu cần
         }
 
+
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            // Tạo DataTable từ DataGridView
+            List<KhachHangDTO> allKhachHang = khachHangBLL.GetAll();
+
+            if (allKhachHang == null || allKhachHang.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Tạo DataTable để lưu dữ liệu
             DataTable dt = new DataTable();
+            dt.Columns.Add("Mã khách hàng");
+            dt.Columns.Add("Tên khách hàng");
+            dt.Columns.Add("Tên địa chỉ");
+            dt.Columns.Add("Email");
+            dt.Columns.Add("Số điện thoại");
 
-            foreach (DataGridViewColumn column in dgkhachhang.Columns)
+            foreach (var kh in allKhachHang)
             {
-                dt.Columns.Add(column.HeaderText, typeof(string));
+                dt.Rows.Add(
+                    kh.MaKhachHang,
+                    kh.TenKhachHang,
+                    kh.DiaChi,
+                    kh.Email,
+                    kh.SoDienThoai
+                );
             }
 
-            foreach (DataGridViewRow row in dgkhachhang.Rows)
-            {
-                if (!row.IsNewRow)
-                {
-                    DataRow dr = dt.NewRow();
-                    for (int i = 0; i < dgkhachhang.Columns.Count; i++)
-                    {
-                        dr[i] = row.Cells[i].Value?.ToString();
-                    }
-                    dt.Rows.Add(dr);
-                }
-            }
-
-            // Lưu Excel
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Excel Workbook|*.xlsx";
             saveFileDialog.Title = "Lưu file Excel";
-            saveFileDialog.FileName = "DanhSach.xlsx";
+            saveFileDialog.FileName = $"DanhSachkhachhang_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 using (XLWorkbook wb = new XLWorkbook())
                 {
-                    wb.Worksheets.Add(dt, "DanhSach");
+                    var ws = wb.Worksheets.Add("HoaDon");
+
+                    // Thêm tiêu đề chính
+                    ws.Cell(1, 1).Value = "Danh Sách khách hàng";
+                    ws.Cell(1, 1).Style.Font.Bold = true;
+                    ws.Cell(1, 1).Style.Font.FontSize = 16;
+                    ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    ws.Range(1, 1, 1, 6).Merge();
+
+                    // Thêm ngày xuất file
+                    ws.Cell(2, 1).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, 6).Merge();
+
+                    // Thêm dữ liệu từ DataTable (bắt đầu từ hàng 4)
+                    var dataRange = ws.Cell(4, 1).InsertTable(dt.AsEnumerable()).AsRange();
+
+                    // Định dạng tiêu đề cột
+                    var headerRow = dataRange.FirstRow();
+                    headerRow.Style.Font.Bold = true;
+                    headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
+                    headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    // Định dạng cột "Ngày Lập"
+                    var ngayLapColumn = ws.Column(2);
+                    ngayLapColumn.Style.DateFormat.Format = "dd/MM/yyyy";
+
+                    
+                   
+
+                    // Tự động điều chỉnh độ rộng cột
+                    ws.Columns().AdjustToContents();
+
+                    // Thêm đường viền cho bảng
+                    dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // Lưu file
                     wb.SaveAs(saveFileDialog.FileName);
                     MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
