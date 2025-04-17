@@ -16,6 +16,7 @@ namespace Eden
         public NguoiDungForm()
         {
             InitializeComponent();
+            
             LoadData();
         }
 
@@ -28,7 +29,7 @@ namespace Eden
                 dataGridViewNguoiDung.Rows.Clear();
                 foreach (var nd in nguoiDungList)
                 {
-                    dataGridViewNguoiDung.Rows.Add(nd.id, nd.MaNguoiDung, nd.TenNguoiDung, nd.TenDangNhap, nd.NHOMNGUOIDUNG?.TenNhomNguoiDung);
+                    dataGridViewNguoiDung.Rows.Add(nd.MaNguoiDung, nd.TenNguoiDung, nd.TenDangNhap, nd.NHOMNGUOIDUNG?.TenNhomNguoiDung);
                 }
             }
             catch (Exception ex)
@@ -65,8 +66,8 @@ namespace Eden
                     return;
                 }
 
-                int id = Convert.ToInt32(dataGridViewNguoiDung.SelectedRows[0].Cells["colId"].Value);
-                var nguoiDung = nguoiDungList.Find(nd => nd.id == id);
+                int mand = Convert.ToInt32(dataGridViewNguoiDung.SelectedRows[0].Cells["colId"].Value);
+                var nguoiDung = nguoiDungList.Find(nd => nd.MaNguoiDung == mand.ToString());
                 if (nguoiDung == null)
                 {
                     MessageBox.Show("Người dùng không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);

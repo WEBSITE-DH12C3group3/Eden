@@ -126,7 +126,7 @@ namespace Eden.UI
                     var khachHangList = khachHangBLL.GetAll();
                     cbKhachHang.DataSource = khachHangList;
                     cbKhachHang.DisplayMember = "MaKhachHang";
-                    cbKhachHang.ValueMember = "idKhachHang";
+                    cbKhachHang.ValueMember = "MaKhachHang";
 
                     var lastKhachHang = khachHangList.LastOrDefault();
                     if (lastKhachHang != null)
