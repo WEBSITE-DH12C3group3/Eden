@@ -32,11 +32,7 @@ namespace Eden
                                                           p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm))
                                               .ToList();
 
-                // Tính tổng tiền cho mỗi phiếu nhập từ chi tiết phiếu nhập
-                var tongTienDict = phieuNhaps.ToDictionary(
-                    p => p.MaPhieuNhap,
-                    p => p.CHITIETPHIEUNHAPs.Sum(c => c.SoLuong * c.DonGia)
-                );
+             
 
                 // Gán dữ liệu vào DataGridView (tính lại tổng tiền thủ công)
                 var listDto = phieuNhaps.SelectMany(p => p.CHITIETPHIEUNHAPs, (p, c) => new
@@ -44,8 +40,7 @@ namespace Eden
                     MaPhieuNhap = p.MaPhieuNhap,
                     NgayNhap = p.NgayNhap.ToString("dd/MM/yyyy"),
                     TenNhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
-                    idNguoiDung = p.idNguoiDung,
-                    TongTien = tongTienDict[p.MaPhieuNhap], // lấy từ dictionary
+                    idNguoiDung = p.idNguoiDung,                  
                     TenSanPham = c.SANPHAM.TenSanPham,
                     SoLuong = c.SoLuong,
                     DonGia = c.DonGia,

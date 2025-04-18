@@ -156,9 +156,6 @@ namespace Eden
             dal.Dispose();
         }
 
-        internal object GetChiTietByPhieuNhap(string maPhieuNhap)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
