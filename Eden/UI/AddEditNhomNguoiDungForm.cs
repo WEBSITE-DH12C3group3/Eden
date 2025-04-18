@@ -46,7 +46,7 @@ namespace Eden
                 listViewQuyen.Items.Clear();
                 foreach (var chucNang in chucNangList)
                 {
-                    var item = new ListViewItem(chucNang.TenChucNang)
+                    var item = new ListViewItem(chucNang.TenManHinh)
                     {
                         Tag = chucNang.id
                     };
