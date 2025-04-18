@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Eden.BLLCustom;
-using Guna.UI2.WinForms; // Thêm namespace cho Guna.UI2.WinForms
+using Guna.UI2.WinForms;
 
 namespace Eden
 {
@@ -14,29 +14,35 @@ namespace Eden
 
         public AddEditNguoiDungForm(NGUOIDUNG nguoiDung, List<NHOMNGUOIDUNG> nhomNguoiDungList)
         {
-            InitializeComponent();
             this.nguoiDung = nguoiDung;
             this.nhomNguoiDungList = nhomNguoiDungList;
+            InitializeComponent();
             LoadNhomNguoiDung();
             if (nguoiDung != null)
             {
-                txtTenNguoiDung.Text = nguoiDung.TenNguoiDung;
-                txtTenDangNhap.Text = nguoiDung.TenDangNhap;
-                txtMatKhau.Text = nguoiDung.MatKhau;
-                cbNhomNguoiDung.SelectedValue = nguoiDung.idNhomNguoiDung;
-                this.Text = "Chỉnh Sửa Người Dùng";
-            }
-            else
-            {
-                this.Text = "Thêm Người Dùng";
+                LoadData();
             }
         }
 
         private void LoadNhomNguoiDung()
         {
-            cbNhomNguoiDung.DataSource = nhomNguoiDungList;
-            cbNhomNguoiDung.DisplayMember = "TenNhomNguoiDung";
-            cbNhomNguoiDung.ValueMember = "id";
+            if (cbNhomNguoiDung != null)
+            {
+                cbNhomNguoiDung.DataSource = nhomNguoiDungList;
+                cbNhomNguoiDung.DisplayMember = "TenNhomNguoiDung";
+                cbNhomNguoiDung.ValueMember = "id";
+            }
+        }
+
+        private void LoadData()
+        {
+            txtTenNguoiDung.Text = nguoiDung.TenNguoiDung;
+            txtTenDangNhap.Text = nguoiDung.TenDangNhap;
+            txtMatKhau.Text = nguoiDung.MatKhau;
+            if (nguoiDung.idNhomNguoiDung != null)
+            {
+                cbNhomNguoiDung.SelectedValue = nguoiDung.idNhomNguoiDung;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -45,46 +51,52 @@ namespace Eden
             {
                 if (string.IsNullOrWhiteSpace(txtTenNguoiDung.Text))
                 {
-                    MessageBox.Show("Tên người dùng không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Tên người dùng không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
                 {
-                    MessageBox.Show("Tên đăng nhập không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Tên đăng nhập không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
                 {
-                    MessageBox.Show("Mật khẩu không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Mật khẩu không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                if (cbNhomNguoiDung.SelectedIndex == -1)
+                if (cbNhomNguoiDung.SelectedValue == null)
                 {
-                    MessageBox.Show("Vui lòng chọn nhóm người dùng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn một nhóm người dùng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 if (nguoiDung == null)
                 {
                     nguoiDung = new NGUOIDUNG();
-                    nguoiDung.TenNguoiDung = txtTenNguoiDung.Text;
-                    nguoiDung.TenDangNhap = txtTenDangNhap.Text;
-                    nguoiDung.MatKhau = txtMatKhau.Text;
-                    nguoiDung.idNhomNguoiDung = (int)cbNhomNguoiDung.SelectedValue;
+                }
+
+                // Tạo mã người dùng dựa trên số thứ tự
+                var allUsers = nguoiDungBll.GetAll();
+                int nextId = allUsers.Count + 1; // Số thứ tự tiếp theo
+                nguoiDung.MaNguoiDung = $"ND{nextId.ToString().PadLeft(4, '0')}";
+
+                nguoiDung.TenNguoiDung = txtTenNguoiDung.Text.Trim();
+                nguoiDung.TenDangNhap = txtTenDangNhap.Text.Trim();
+                nguoiDung.MatKhau = txtMatKhau.Text.Trim();
+                nguoiDung.idNhomNguoiDung = Convert.ToInt32(cbNhomNguoiDung.SelectedValue);
+
+                if (nguoiDung.id == 0)
+                {
                     nguoiDungBll.Add(nguoiDung);
-                    MessageBox.Show("Đã thêm người dùng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    nguoiDung.TenNguoiDung = txtTenNguoiDung.Text;
-                    nguoiDung.TenDangNhap = txtTenDangNhap.Text;
-                    nguoiDung.MatKhau = txtMatKhau.Text;
-                    nguoiDung.idNhomNguoiDung = (int)cbNhomNguoiDung.SelectedValue;
                     nguoiDungBll.Update(nguoiDung);
-                    MessageBox.Show("Đã cập nhật người dùng thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 this.DialogResult = DialogResult.OK;
