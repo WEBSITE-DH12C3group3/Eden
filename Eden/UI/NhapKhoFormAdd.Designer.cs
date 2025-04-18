@@ -31,12 +31,13 @@ namespace Eden
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnThem = new Guna.UI2.WinForms.Guna2Button();
+
             this.txtMaPhieuNhap = new Guna.UI2.WinForms.Guna2TextBox();
             this.dtpNgayNhap = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.cmbNhaCungCap = new Guna.UI2.WinForms.Guna2ComboBox();
 
-            this.txtMaSP = new Guna.UI2.WinForms.Guna2TextBox();
-            this.txtTenSP = new Guna.UI2.WinForms.Guna2TextBox();
+            this.cmbTenSP = new Guna.UI2.WinForms.Guna2ComboBox(); // Đổi từ txtTenSP
             this.txtSoLuong = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtDonGia = new Guna.UI2.WinForms.Guna2TextBox();
 
@@ -58,55 +59,69 @@ namespace Eden
             this.cmbNhaCungCap.Location = new System.Drawing.Point(20, 120);
             this.cmbNhaCungCap.Size = new System.Drawing.Size(300, 36);
 
-            // txtMaSP
-            this.txtMaSP.Location = new System.Drawing.Point(20, 180);
-            this.txtMaSP.Size = new System.Drawing.Size(140, 36);
-            this.txtMaSP.PlaceholderText = "Mã SP";
+            // cmbTenSP
+            this.cmbTenSP.Location = new System.Drawing.Point(20, 180);
+            this.cmbTenSP.Size = new System.Drawing.Size(240, 36);
+            this.cmbTenSP.Text = "Tên SP";
+            // cmbIDNguoiDung
+            this.cmbIDNguoiDung = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cmbIDNguoiDung.Location = new System.Drawing.Point(20, 270); // dưới cmbTenSP
+            this.cmbIDNguoiDung.Size = new System.Drawing.Size(300, 36);
+            this.cmbIDNguoiDung.Text = "ID Người Dùng";
+            
 
-            // txtTenSP
-            this.txtTenSP.Location = new System.Drawing.Point(170, 180);
-            this.txtTenSP.Size = new System.Drawing.Size(300, 36);
-            this.txtTenSP.PlaceholderText = "Tên SP";
+
+
+            // btnThem
+            this.btnThem.Location = new System.Drawing.Point(270, 180); // Cách phải 10px
+            this.btnThem.Size = new System.Drawing.Size(70, 36);
+            this.btnThem.Text = "Thêm";
+            this.btnThem.Click += new EventHandler(this.btnThem_Click);
+
 
             // txtSoLuong
-            this.txtSoLuong.Location = new System.Drawing.Point(20, 230);
+            this.txtSoLuong.Location = new System.Drawing.Point(20, 320);
             this.txtSoLuong.Size = new System.Drawing.Size(140, 36);
             this.txtSoLuong.PlaceholderText = "Số lượng";
 
             // txtDonGia
-            this.txtDonGia.Location = new System.Drawing.Point(170, 230);
+            this.txtDonGia.Location = new System.Drawing.Point(170, 320 );
             this.txtDonGia.Size = new System.Drawing.Size(140, 36);
             this.txtDonGia.PlaceholderText = "Đơn giá";
 
             // btnSave
-            this.btnSave.Location = new System.Drawing.Point(20, 290);
+            this.btnSave.Location = new System.Drawing.Point(20, 380);
             this.btnSave.Size = new System.Drawing.Size(100, 36);
             this.btnSave.Text = "Lưu";
             this.btnSave.Click += new EventHandler(this.btnSave_Click);
 
             // btnCancel
-            this.btnCancel.Location = new System.Drawing.Point(130, 290);
+            this.btnCancel.Location = new System.Drawing.Point(130, 380);
             this.btnCancel.Size = new System.Drawing.Size(100, 36);
             this.btnCancel.Text = "Hủy";
             this.btnCancel.Click += new EventHandler(this.btnCancel_Click);
 
             // Form
-            this.ClientSize = new System.Drawing.Size(500, 350);
+            this.ClientSize = new System.Drawing.Size(500, 450);
             this.Controls.Add(this.txtMaPhieuNhap);
             this.Controls.Add(this.dtpNgayNhap);
             this.Controls.Add(this.cmbNhaCungCap);
-            this.Controls.Add(this.txtMaSP);
-            this.Controls.Add(this.txtTenSP);
+            this.Controls.Add(this.cmbTenSP); // Thêm combo box
             this.Controls.Add(this.txtSoLuong);
             this.Controls.Add(this.txtDonGia);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnThem); // Thêm vào Form
+            this.Controls.Add(this.cmbIDNguoiDung);
+
+
             this.Name = "NhapKhoFormAdd";
             this.Text = "Thêm/Sửa Phiếu Nhập";
 
             this.ResumeLayout(false);
         }
 
+        
 
         #endregion
     }

@@ -26,28 +26,32 @@ namespace Eden
         {
             try
             {
-                // Lấy tất cả phiếu nhập nếu không có từ khóa tìm kiếm
                 var phieuNhaps = string.IsNullOrEmpty(searchTerm) ? phieuNhapBLL.GetAll() :
                                   phieuNhapBLL.GetAll()
                                               .Where(p => p.MaPhieuNhap.ToLower().Contains(searchTerm) ||
                                                           p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm))
                                               .ToList();
 
-                // Kết hợp thông tin phiếu nhập và chi tiết phiếu nhập
+                // Tính tổng tiền cho mỗi phiếu nhập từ chi tiết phiếu nhập
+                var tongTienDict = phieuNhaps.ToDictionary(
+                    p => p.MaPhieuNhap,
+                    p => p.CHITIETPHIEUNHAPs.Sum(c => c.SoLuong * c.DonGia)
+                );
+
+                // Gán dữ liệu vào DataGridView (tính lại tổng tiền thủ công)
                 var listDto = phieuNhaps.SelectMany(p => p.CHITIETPHIEUNHAPs, (p, c) => new
                 {
                     MaPhieuNhap = p.MaPhieuNhap,
                     NgayNhap = p.NgayNhap.ToString("dd/MM/yyyy"),
                     TenNhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
-                    TongTien = p.TongTien,
-                    MaSanPham = c.idSanPham,
+                    idNguoiDung = p.idNguoiDung,
+                    TongTien = tongTienDict[p.MaPhieuNhap], // lấy từ dictionary
                     TenSanPham = c.SANPHAM.TenSanPham,
                     SoLuong = c.SoLuong,
                     DonGia = c.DonGia,
                     ThanhTien = c.SoLuong * c.DonGia
                 }).ToList();
 
-                // Gán dữ liệu vào DataGridView
                 dgvPhieuNhap.DataSource = listDto;
             }
             catch (Exception ex)
@@ -55,6 +59,7 @@ namespace Eden
                 MessageBox.Show("Lỗi khi tải dữ liệu phiếu nhập: " + ex.Message);
             }
         }
+
 
 
 
