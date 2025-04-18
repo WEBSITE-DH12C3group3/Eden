@@ -119,6 +119,12 @@
     <Compile Include="BLL\NGUOIDUNGBLL.cs" />
     <Compile Include="DTO\LoaiSanPhamDTO .cs" />
     <Compile Include="DTO\SanPhamDTO.cs" />
+    <Compile Include="UI\CHITIETPHIEUNHAPFORM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CHITIETPHIEUNHAPFORM.Designer.cs">
+      <DependentUpon>CHITIETPHIEUNHAPFORM.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\HoaDonAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,9 @@
     <Compile Include="UI\SanPhamFormSua.Designer.cs">
       <DependentUpon>SanPhamFormSua.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\CHITIETPHIEUNHAPFORM.resx">
+      <DependentUpon>CHITIETPHIEUNHAPFORM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\HoaDonAdd.resx">
       <DependentUpon>HoaDonAdd.cs</DependentUpon>
     </EmbeddedResource>

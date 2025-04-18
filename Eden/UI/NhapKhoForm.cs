@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using Eden.UI;
 
 namespace Eden
 {
@@ -172,6 +173,44 @@ namespace Eden
             }
         }
 
+        private void btnXemChiTiet_Click(object sender, EventArgs e)
+        {
+            if (dgvPhieuNhap.CurrentRow != null)
+            {
+                var maPhieuNhapCell = dgvPhieuNhap.CurrentRow.Cells["MaPhieuNhap"].Value;
+
+                if (maPhieuNhapCell != null)
+                {
+                    string maPhieuNhap = maPhieuNhapCell.ToString();  // Lấy giá trị là string
+
+                    // Kiểm tra nếu MaPhieuNhap là số hoặc chuỗi hợp lệ
+                    if (int.TryParse(maPhieuNhap, out int idPhieuNhap))  // Nếu có thể chuyển sang int
+                    {
+                        var form = new CHITIETPHIEUNHAPFORM(idPhieuNhap);  // Nếu dùng id kiểu int
+                        form.ShowDialog();
+                    }
+                    else
+                    {
+                        var form = new CHITIETPHIEUNHAPFORM(maPhieuNhap);  // Nếu dùng maPhieuNhap là string
+                        form.ShowDialog();
+                        
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Mã phiếu nhập không hợp lệ.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một phiếu nhập để xem chi tiết.");
+            }
+        }
+
+
+
+
+
         // Giao diện khởi tạo và sự kiện CellContentClick
         private void dgvPhieuNhap_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -190,5 +229,7 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2Button btnDelete;
         private Guna.UI2.WinForms.Guna2Button btnRefresh;
         private Guna.UI2.WinForms.Guna2Button btnExportExcel;
+        private Guna.UI2.WinForms.Guna2Button btnXemChiTiet;
+
     }
 }

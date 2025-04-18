@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 
 namespace Eden
 {
@@ -145,6 +146,18 @@ namespace Eden
             this.btnExportExcel.TabIndex = 7;
             this.btnExportExcel.Text = "Xuất Excel";
             this.btnExportExcel.Click += new EventHandler(this.btnExportExcel_Click);
+
+            btnXemChiTiet = new Guna2Button
+            {
+                Text = "Xem Chi Tiết",
+                Size = new System.Drawing.Size(150, 36),
+                Location = new System.Drawing.Point(400, 400), // Đặt vị trí phù hợp trên form
+                FillColor = System.Drawing.Color.MediumSlateBlue,
+                ForeColor = System.Drawing.Color.White
+            };
+            btnXemChiTiet.Click += btnXemChiTiet_Click;
+            this.Controls.Add(btnXemChiTiet);
+
 
             // NhapKhoForm: Cấu hình form
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
