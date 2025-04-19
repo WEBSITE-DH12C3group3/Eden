@@ -57,11 +57,12 @@ namespace Eden
             this.addkhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.addkhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.addkhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.addkhachhang.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.addkhachhang.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addkhachhang.ForeColor = System.Drawing.Color.White;
-            this.addkhachhang.Location = new System.Drawing.Point(132, 544);
+            this.addkhachhang.Location = new System.Drawing.Point(99, 621);
+            this.addkhachhang.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addkhachhang.Name = "addkhachhang";
-            this.addkhachhang.Size = new System.Drawing.Size(180, 45);
+            this.addkhachhang.Size = new System.Drawing.Size(135, 37);
             this.addkhachhang.TabIndex = 1;
             this.addkhachhang.Text = "Thêm Khách Hàng";
             this.addkhachhang.Click += new System.EventHandler(this.addkhachhang_Click);
@@ -74,11 +75,12 @@ namespace Eden
             this.suakhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.suakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.suakhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.suakhachhang.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.suakhachhang.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.suakhachhang.ForeColor = System.Drawing.Color.White;
-            this.suakhachhang.Location = new System.Drawing.Point(396, 544);
+            this.suakhachhang.Location = new System.Drawing.Point(297, 621);
+            this.suakhachhang.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.suakhachhang.Name = "suakhachhang";
-            this.suakhachhang.Size = new System.Drawing.Size(180, 45);
+            this.suakhachhang.Size = new System.Drawing.Size(135, 37);
             this.suakhachhang.TabIndex = 2;
             this.suakhachhang.Text = "Sửa thông tin KH";
             this.suakhachhang.Click += new System.EventHandler(this.suakhachhang_Click);
@@ -91,11 +93,12 @@ namespace Eden
             this.xoakhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.xoakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.xoakhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.xoakhachhang.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.xoakhachhang.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.xoakhachhang.ForeColor = System.Drawing.Color.White;
-            this.xoakhachhang.Location = new System.Drawing.Point(646, 544);
+            this.xoakhachhang.Location = new System.Drawing.Point(484, 621);
+            this.xoakhachhang.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.xoakhachhang.Name = "xoakhachhang";
-            this.xoakhachhang.Size = new System.Drawing.Size(180, 45);
+            this.xoakhachhang.Size = new System.Drawing.Size(135, 37);
             this.xoakhachhang.TabIndex = 3;
             this.xoakhachhang.Text = "Xóa Khách Hàng";
             this.xoakhachhang.Click += new System.EventHandler(this.xoakhachhang_Click);
@@ -128,13 +131,14 @@ namespace Eden
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgkhachhang.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgkhachhang.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgkhachhang.Location = new System.Drawing.Point(1, 68);
+            this.dgkhachhang.Location = new System.Drawing.Point(8, 55);
+            this.dgkhachhang.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgkhachhang.Name = "dgkhachhang";
             this.dgkhachhang.ReadOnly = true;
             this.dgkhachhang.RowHeadersVisible = false;
             this.dgkhachhang.RowHeadersWidth = 51;
             this.dgkhachhang.RowTemplate.Height = 29;
-            this.dgkhachhang.Size = new System.Drawing.Size(1281, 361);
+            this.dgkhachhang.Size = new System.Drawing.Size(945, 486);
             this.dgkhachhang.TabIndex = 3;
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -162,12 +166,13 @@ namespace Eden
             // 
             this.guna2HtmlLabel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(167, 22);
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(125, 18);
+            this.guna2HtmlLabel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(215, 27);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(125, 19);
             this.guna2HtmlLabel1.TabIndex = 4;
-            this.guna2HtmlLabel1.Text = "Tìm kiếm khách hàng:";
+            this.guna2HtmlLabel1.Text = "Tìm kiếm khách hàng";
             // 
             // searchHK
             // 
@@ -181,12 +186,12 @@ namespace Eden
             this.searchHK.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.searchHK.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.searchHK.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.searchHK.Location = new System.Drawing.Point(405, 13);
-            this.searchHK.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.searchHK.Location = new System.Drawing.Point(304, 11);
+            this.searchHK.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.searchHK.Name = "searchHK";
             this.searchHK.PlaceholderText = "";
             this.searchHK.SelectedText = "";
-            this.searchHK.Size = new System.Drawing.Size(368, 48);
+            this.searchHK.Size = new System.Drawing.Size(276, 39);
             this.searchHK.TabIndex = 5;
             this.searchHK.TextChanged += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -198,11 +203,12 @@ namespace Eden
             this.btnSearch.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnSearch.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnSearch.FillColor = System.Drawing.Color.Blue;
-            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(788, 13);
+            this.btnSearch.Location = new System.Drawing.Point(591, 11);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(144, 45);
+            this.btnSearch.Size = new System.Drawing.Size(108, 37);
             this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "Tìm Kiếm";
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -214,11 +220,12 @@ namespace Eden
             this.btnPreviousPage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnPreviousPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnPreviousPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnPreviousPage.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnPreviousPage.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPreviousPage.ForeColor = System.Drawing.Color.White;
-            this.btnPreviousPage.Location = new System.Drawing.Point(359, 454);
+            this.btnPreviousPage.Location = new System.Drawing.Point(269, 548);
+            this.btnPreviousPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnPreviousPage.Name = "btnPreviousPage";
-            this.btnPreviousPage.Size = new System.Drawing.Size(94, 45);
+            this.btnPreviousPage.Size = new System.Drawing.Size(70, 37);
             this.btnPreviousPage.TabIndex = 7;
             this.btnPreviousPage.Text = "Trước ";
             this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
@@ -230,11 +237,12 @@ namespace Eden
             this.btnNextPage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnNextPage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnNextPage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnNextPage.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnNextPage.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNextPage.ForeColor = System.Drawing.Color.White;
-            this.btnNextPage.Location = new System.Drawing.Point(680, 454);
+            this.btnNextPage.Location = new System.Drawing.Point(510, 548);
+            this.btnNextPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(99, 45);
+            this.btnNextPage.Size = new System.Drawing.Size(74, 37);
             this.btnNextPage.TabIndex = 8;
             this.btnNextPage.Text = "Sau";
             this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
@@ -243,10 +251,11 @@ namespace Eden
             // 
             this.lblPageInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblPageInfo.BackColor = System.Drawing.Color.Transparent;
-            this.lblPageInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPageInfo.Location = new System.Drawing.Point(523, 468);
+            this.lblPageInfo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPageInfo.Location = new System.Drawing.Point(392, 559);
+            this.lblPageInfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lblPageInfo.Name = "lblPageInfo";
-            this.lblPageInfo.Size = new System.Drawing.Size(66, 18);
+            this.lblPageInfo.Size = new System.Drawing.Size(68, 19);
             this.lblPageInfo.TabIndex = 9;
             this.lblPageInfo.Text = "Trang 1 / 1";
             // 
@@ -258,21 +267,22 @@ namespace Eden
             this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnExportExcel.FillColor = System.Drawing.Color.Green;
-            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
-            this.btnExportExcel.Location = new System.Drawing.Point(916, 544);
+            this.btnExportExcel.Location = new System.Drawing.Point(687, 621);
+            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(180, 45);
+            this.btnExportExcel.Size = new System.Drawing.Size(135, 37);
             this.btnExportExcel.TabIndex = 10;
             this.btnExportExcel.Text = "Xuất excel";
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // KhachHangForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1283, 702);
+            this.ClientSize = new System.Drawing.Size(962, 749);
             this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.lblPageInfo);
             this.Controls.Add(this.btnNextPage);
@@ -284,6 +294,8 @@ namespace Eden
             this.Controls.Add(this.xoakhachhang);
             this.Controls.Add(this.suakhachhang);
             this.Controls.Add(this.addkhachhang);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "KhachHangForm";
             this.Text = "6";
             ((System.ComponentModel.ISupportInitialize)(this.dgkhachhang)).EndInit();

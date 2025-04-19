@@ -127,7 +127,7 @@
             this.forgot.Cursor = System.Windows.Forms.Cursors.Hand;
             this.forgot.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.forgot.ForeColor = System.Drawing.Color.White;
-            this.forgot.Location = new System.Drawing.Point(204, 414);
+            this.forgot.Location = new System.Drawing.Point(229, 418);
             this.forgot.Name = "forgot";
             this.forgot.Size = new System.Drawing.Size(95, 15);
             this.forgot.TabIndex = 4;
@@ -139,7 +139,7 @@
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(80, 412);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(91, 416);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             this.guna2HtmlLabel1.Size = new System.Drawing.Size(85, 17);
             this.guna2HtmlLabel1.TabIndex = 3;

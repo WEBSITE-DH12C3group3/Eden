@@ -69,7 +69,6 @@ namespace Eden
             }
         }
 
-
         public void UpdateDataGridViewSP(SANPHAM updatedSP)
         {
             foreach (DataGridViewRow row in dgvSanPham.Rows)
@@ -143,6 +142,7 @@ namespace Eden
                 MessageBox.Show("Vui lòng chọn sản phẩm cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         private void guna2ButtonTimKiem_Click(object sender, EventArgs e)
         {
             string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
