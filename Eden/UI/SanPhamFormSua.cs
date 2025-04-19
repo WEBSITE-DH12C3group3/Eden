@@ -11,7 +11,6 @@ using System.Windows.Forms;
 
 namespace Eden.UI
 {
-
     public partial class SanPhamFormSua : Form
     {
         private SANPHAMBLL sanPhamBLL;
@@ -19,6 +18,7 @@ namespace Eden.UI
         private LOAISANPHAMBLL loaiSanPhamBLL;
         private SANPHAM sanPham;
         private string duongDanAnh = string.Empty;
+
         public SanPhamFormSua(SANPHAM maSP)
         {
             InitializeComponent();
@@ -28,6 +28,7 @@ namespace Eden.UI
             sanPham = maSP;
             LoadForm();
         }
+
         private void LoadForm()
         {
             try
@@ -109,10 +110,8 @@ namespace Eden.UI
             this.Close();
         }
 
-
         private void guna2HtmlLabel8_Click(object sender, EventArgs e)
         {
-
         }
 
         private void guna2ChonAnh_Click(object sender, EventArgs e)

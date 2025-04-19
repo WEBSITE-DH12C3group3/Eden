@@ -45,17 +45,14 @@
             this.btnToday = new Guna.UI2.WinForms.Guna2Button();
             this.btnCustomDate = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblNumOrders = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblTotalRevenue = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblStartDate = new System.Windows.Forms.Label();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblTotalProfit = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.chartGrossRevenue = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -69,25 +66,30 @@
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.dgvUnderstock = new Guna.UI2.WinForms.Guna2DataGridView();
             this.guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblEndDate = new System.Windows.Forms.Label();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnXuatPDF = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnXuatExcel = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnOkCustomDate = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             this.guna2Panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.guna2Panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartGrossRevenue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTopProducts)).BeginInit();
             this.guna2Panel4.SuspendLayout();
             this.guna2Panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnderstock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatPDF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatExcel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnThisMonth
@@ -202,20 +204,6 @@
             this.guna2Panel1.Size = new System.Drawing.Size(328, 85);
             this.guna2Panel1.TabIndex = 2;
             // 
-            // guna2PictureBox2
-            // 
-            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox2.Image = global::Eden.Properties.Resources.Pi7_group;
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(12, 14);
-            this.guna2PictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(57, 57);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox2.TabIndex = 1;
-            this.guna2PictureBox2.TabStop = false;
-            this.guna2PictureBox2.UseTransparentBackground = true;
-            // 
             // lblNumOrders
             // 
             this.lblNumOrders.BackColor = System.Drawing.Color.Transparent;
@@ -251,20 +239,6 @@
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(346, 85);
             this.guna2Panel2.TabIndex = 2;
-            // 
-            // guna2PictureBox1
-            // 
-            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox1.Image = global::Eden.Properties.Resources.Pi7_money_tag;
-            this.guna2PictureBox1.ImageRotate = 0F;
-            this.guna2PictureBox1.Location = new System.Drawing.Point(13, 12);
-            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.guna2PictureBox1.Name = "guna2PictureBox1";
-            this.guna2PictureBox1.Size = new System.Drawing.Size(57, 57);
-            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox1.TabIndex = 1;
-            this.guna2PictureBox1.TabStop = false;
-            this.guna2PictureBox1.UseTransparentBackground = true;
             // 
             // lblTotalRevenue
             // 
@@ -329,20 +303,6 @@
             this.guna2Panel3.Name = "guna2Panel3";
             this.guna2Panel3.Size = new System.Drawing.Size(314, 85);
             this.guna2Panel3.TabIndex = 2;
-            // 
-            // guna2PictureBox3
-            // 
-            this.guna2PictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox3.Image = global::Eden.Properties.Resources.Pi7_profit;
-            this.guna2PictureBox3.ImageRotate = 0F;
-            this.guna2PictureBox3.Location = new System.Drawing.Point(13, 12);
-            this.guna2PictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.guna2PictureBox3.Name = "guna2PictureBox3";
-            this.guna2PictureBox3.Size = new System.Drawing.Size(57, 57);
-            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox3.TabIndex = 1;
-            this.guna2PictureBox3.TabStop = false;
-            this.guna2PictureBox3.UseTransparentBackground = true;
             // 
             // lblTotalProfit
             // 
@@ -576,7 +536,8 @@
             this.guna2Panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.guna2Panel5.Controls.Add(this.guna2PictureBox4);
+            this.guna2Panel5.Controls.Add(this.btnXuatPDF);
+            this.guna2Panel5.Controls.Add(this.btnXuatExcel);
             this.guna2Panel5.Controls.Add(this.dgvUnderstock);
             this.guna2Panel5.Controls.Add(this.guna2HtmlLabel14);
             this.guna2Panel5.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -585,21 +546,6 @@
             this.guna2Panel5.Name = "guna2Panel5";
             this.guna2Panel5.Size = new System.Drawing.Size(452, 278);
             this.guna2Panel5.TabIndex = 2;
-            // 
-            // guna2PictureBox4
-            // 
-            this.guna2PictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox4.Image = global::Eden.Properties.Resources.more;
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(398, 2);
-            this.guna2PictureBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(51, 28);
-            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox4.TabIndex = 6;
-            this.guna2PictureBox4.TabStop = false;
-            this.guna2PictureBox4.UseTransparentBackground = true;
-            this.guna2PictureBox4.Visible = false;
             // 
             // dgvUnderstock
             // 
@@ -630,7 +576,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvUnderstock.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvUnderstock.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.dgvUnderstock.Location = new System.Drawing.Point(7, 42);
+            this.dgvUnderstock.Location = new System.Drawing.Point(7, 47);
             this.dgvUnderstock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvUnderstock.Name = "dgvUnderstock";
             this.dgvUnderstock.ReadOnly = true;
@@ -644,9 +590,9 @@
             this.dgvUnderstock.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvUnderstock.RowHeadersVisible = false;
             this.dgvUnderstock.RowHeadersWidth = 29;
-            this.dgvUnderstock.RowTemplate.Height = 29;
+            this.dgvUnderstock.RowTemplate.Height = 35;
             this.dgvUnderstock.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvUnderstock.Size = new System.Drawing.Size(438, 233);
+            this.dgvUnderstock.Size = new System.Drawing.Size(438, 228);
             this.dgvUnderstock.TabIndex = 3;
             this.dgvUnderstock.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
             this.dgvUnderstock.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -666,7 +612,7 @@
             this.dgvUnderstock.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvUnderstock.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dgvUnderstock.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvUnderstock.ThemeStyle.RowsStyle.Height = 29;
+            this.dgvUnderstock.ThemeStyle.RowsStyle.Height = 35;
             this.dgvUnderstock.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.LightBlue;
             this.dgvUnderstock.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
@@ -713,6 +659,82 @@
             this.dtpEndDate.Size = new System.Drawing.Size(129, 20);
             this.dtpEndDate.TabIndex = 5;
             this.dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
+            // 
+            // guna2PictureBox1
+            // 
+            this.guna2PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox1.Image = global::Eden.Properties.Resources.Pi7_money_tag;
+            this.guna2PictureBox1.ImageRotate = 0F;
+            this.guna2PictureBox1.Location = new System.Drawing.Point(13, 12);
+            this.guna2PictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2PictureBox1.Name = "guna2PictureBox1";
+            this.guna2PictureBox1.Size = new System.Drawing.Size(57, 57);
+            this.guna2PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox1.TabIndex = 1;
+            this.guna2PictureBox1.TabStop = false;
+            this.guna2PictureBox1.UseTransparentBackground = true;
+            // 
+            // guna2PictureBox3
+            // 
+            this.guna2PictureBox3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox3.Image = global::Eden.Properties.Resources.Pi7_profit;
+            this.guna2PictureBox3.ImageRotate = 0F;
+            this.guna2PictureBox3.Location = new System.Drawing.Point(13, 12);
+            this.guna2PictureBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2PictureBox3.Name = "guna2PictureBox3";
+            this.guna2PictureBox3.Size = new System.Drawing.Size(57, 57);
+            this.guna2PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox3.TabIndex = 1;
+            this.guna2PictureBox3.TabStop = false;
+            this.guna2PictureBox3.UseTransparentBackground = true;
+            // 
+            // btnXuatPDF
+            // 
+            this.btnXuatPDF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXuatPDF.BackColor = System.Drawing.Color.Transparent;
+            this.btnXuatPDF.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXuatPDF.Image = global::Eden.Properties.Resources.pdf;
+            this.btnXuatPDF.ImageRotate = 0F;
+            this.btnXuatPDF.Location = new System.Drawing.Point(373, 2);
+            this.btnXuatPDF.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnXuatPDF.Name = "btnXuatPDF";
+            this.btnXuatPDF.Size = new System.Drawing.Size(32, 41);
+            this.btnXuatPDF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnXuatPDF.TabIndex = 6;
+            this.btnXuatPDF.TabStop = false;
+            this.btnXuatPDF.UseTransparentBackground = true;
+            this.btnXuatPDF.Click += new System.EventHandler(this.btnXuatPDF_Click);
+            // 
+            // btnXuatExcel
+            // 
+            this.btnXuatExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXuatExcel.BackColor = System.Drawing.Color.Transparent;
+            this.btnXuatExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXuatExcel.Image = global::Eden.Properties.Resources.exel;
+            this.btnXuatExcel.ImageRotate = 0F;
+            this.btnXuatExcel.Location = new System.Drawing.Point(417, 2);
+            this.btnXuatExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnXuatExcel.Name = "btnXuatExcel";
+            this.btnXuatExcel.Size = new System.Drawing.Size(32, 41);
+            this.btnXuatExcel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnXuatExcel.TabIndex = 6;
+            this.btnXuatExcel.TabStop = false;
+            this.btnXuatExcel.UseTransparentBackground = true;
+            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
+            // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox2.Image = global::Eden.Properties.Resources.Pi7_group;
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(12, 14);
+            this.guna2PictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(57, 57);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 1;
+            this.guna2PictureBox2.TabStop = false;
+            this.guna2PictureBox2.UseTransparentBackground = true;
             // 
             // btnOkCustomDate
             // 
@@ -763,21 +785,22 @@
             this.Load += new System.EventHandler(this.ThongKeForm_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartGrossRevenue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartTopProducts)).EndInit();
             this.guna2Panel4.ResumeLayout(false);
             this.guna2Panel4.PerformLayout();
             this.guna2Panel5.ResumeLayout(false);
             this.guna2Panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnderstock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatPDF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatExcel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -826,6 +849,7 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
+        private Guna.UI2.WinForms.Guna2PictureBox btnXuatExcel;
+        private Guna.UI2.WinForms.Guna2PictureBox btnXuatPDF;
     }
 }
