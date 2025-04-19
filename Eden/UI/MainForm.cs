@@ -18,7 +18,7 @@ namespace Eden
         public MainForm()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            //this.WindowState = FormWindowState.Maximized;
             guna2HtmlLabel1.Text = CurrentUser.Username;
             picVan.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             picVan.SizeMode = PictureBoxSizeMode.StretchImage;
