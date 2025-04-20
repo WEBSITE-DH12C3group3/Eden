@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Drawing;
+
+//using System.Drawing;
 
 namespace Eden.UI
 {
@@ -29,6 +30,7 @@ namespace Eden.UI
             LoadLoaiSanPham();
             LoadNhaCungCap();
         }
+
         private void GenerateProductID()
         {
             var sanPhamList = sanPhamBLL.GetAll();
@@ -55,6 +57,7 @@ namespace Eden.UI
             }
             guna2TextBoxMaSP.ReadOnly = true; // Không cho phép chỉnh sửa mã
         }
+
         private void LoadLoaiSanPham()
         {
             try
@@ -69,6 +72,7 @@ namespace Eden.UI
                 MessageBox.Show("Lỗi tải loại sản phẩm: " + ex.Message);
             }
         }
+
         private void LoadNhaCungCap()
         {
             try
@@ -83,6 +87,7 @@ namespace Eden.UI
                 MessageBox.Show("Lỗi tải nhà cung cấp: " + ex.Message);
             }
         }
+
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             this.Close();
