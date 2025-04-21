@@ -77,7 +77,18 @@ namespace Eden
                 return;
             }
 
-            string maPhieuNhap = dgvPhieuNhap.SelectedRows[0].Cells["MaPhieuNhap"].Value.ToString();
+            string maPhieuNhap = "";
+            try
+            {
+                maPhieuNhap = dgvPhieuNhap.SelectedRows[0].Cells["MaPhieuNhap"].Value?.ToString();
+                Console.WriteLine($"Mở form chỉnh sửa với MaPhieuNhap: {maPhieuNhap}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lấy mã phiếu nhập: {ex.Message}");
+                return;
+            }
+
             using (var formAdd = new NhapKhoFormAdd(maPhieuNhap))
             {
                 if (formAdd.ShowDialog() == DialogResult.OK)

@@ -6,6 +6,7 @@ using Eden.DTO;
 using Eden.Eden;
 using Eden.UI;
 using Guna.UI2.WinForms;
+using Eden;
 
 namespace Eden
 {
@@ -16,6 +17,7 @@ namespace Eden
         private NHACUNGCAPBLL nhaCungCapBLL;
         private SANPHAMBLL sanPHAMBLL = new SANPHAMBLL();
         private NGUOIDUNGBLL nguoiDungBLL = new NGUOIDUNGBLL();
+        private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL();
 
 
         public NhapKhoFormAdd(string maPhieuNhap = "")
@@ -80,8 +82,8 @@ namespace Eden
                     return;
                 }
                 cmbIDNguoiDung.DataSource = list;
-                cmbIDNguoiDung.DisplayMember = "TenNguoiDung"; // Hiển thị tên người dùng
-                cmbIDNguoiDung.ValueMember = "id"; // Lấy id làm giá trị
+                cmbIDNguoiDung.DisplayMember = "TenNguoiDung";
+                cmbIDNguoiDung.ValueMember = "id";
             }
             catch (Exception ex)
             {
@@ -89,28 +91,56 @@ namespace Eden
             }
         }
 
-
         // Load dữ liệu nếu là sửa phiếu nhập
         private void LoadData(string maPhieuNhap)
         {
+            Console.WriteLine($"Đang tải dữ liệu cho MaPhieuNhap: {maPhieuNhap}");
             var phieuNhap = phieuNhapBLL.GetByMaPhieuNhap(maPhieuNhap);
-            if (phieuNhap != null)
+            if (phieuNhap == null)
             {
-                // Lấy thông tin phiếu nhập
-                txtMaPhieuNhap.Text = phieuNhap.MaPhieuNhap;
-                dtpNgayNhap.Value = phieuNhap.NgayNhap;
+                MessageBox.Show($"Không tìm thấy phiếu nhập với mã {maPhieuNhap}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                // Lấy danh sách nhà cung cấp và hiển thị lên ComboBox
-                var nhaCungCapList = nhaCungCapBLL.GetAll(); // Giả sử bạn có phương thức GetAll() trong NHACUNGCAPBLL
-                cmbNhaCungCap.DataSource = nhaCungCapList;
-                cmbNhaCungCap.DisplayMember = "TenNhaCungCap";  // Hiển thị tên nhà cung cấp
-                cmbNhaCungCap.ValueMember = "MaNhaCungCap";    // Lưu mã nhà cung cấp khi người dùng chọn
+            txtMaPhieuNhap.Text = phieuNhap.MaPhieuNhap;
+            txtMaPhieuNhap.ReadOnly = true; // Ngăn chỉnh sửa MaPhieuNhap
+            dtpNgayNhap.Value = phieuNhap.NgayNhap;
 
-                // Cập nhật lựa chọn hiện tại cho ComboBox (nếu đang sửa)
-                if (!string.IsNullOrEmpty(maPhieuNhap))
-                {
-                    cmbNhaCungCap.SelectedValue = phieuNhap.idNhaCungCap; // Đặt giá trị nhà cung cấp hiện tại
-                }
+            // Tải danh sách nhà cung cấp
+            var nhaCungCapList = nhaCungCapBLL.GetAll();
+            cmbNhaCungCap.DataSource = nhaCungCapList;
+            cmbNhaCungCap.DisplayMember = "TenNhaCungCap";
+            cmbNhaCungCap.ValueMember = "id";
+            cmbNhaCungCap.SelectedValue = phieuNhap.idNhaCungCap;
+
+            // Tải danh sách người dùng
+            var nguoiDungList = nguoiDungBLL.GetAll();
+            cmbIDNguoiDung.DataSource = nguoiDungList;
+            cmbIDNguoiDung.DisplayMember = "TenNguoiDung";
+            cmbIDNguoiDung.ValueMember = "id";
+            cmbIDNguoiDung.SelectedValue = phieuNhap.idNguoiDung;
+
+            // Tải chi tiết phiếu nhập (nếu có)
+            var chiTietList = phieuNhapBLL.GetChiTietByPhieuNhap(phieuNhap.id); // Sử dụng phieuNhapBLL
+            if (chiTietList != null && chiTietList.Any())
+            {
+                // Lấy chi tiết đầu tiên (hoặc điều chỉnh nếu cần hiển thị nhiều chi tiết)
+                var chiTiet = chiTietList.First();
+                var sanPhamList = sanPHAMBLL.GetAll(); // Giả sử bạn có SANPHAMBLL
+                cmbTenSP.DataSource = sanPhamList;
+                cmbTenSP.DisplayMember = "TenSanPham";
+                cmbTenSP.ValueMember = "idSanPham";
+                cmbTenSP.SelectedValue = chiTiet.idSanPham;
+
+                txtSoLuong.Text = chiTiet.SoLuong.ToString();
+                txtDonGia.Text = chiTiet.DonGia.ToString();
+            }
+            else
+            {
+                // Để trống nếu không có chi tiết
+                cmbTenSP.SelectedIndex = -1;
+                txtSoLuong.Text = "";
+                txtDonGia.Text = "";
             }
         }
 
@@ -140,7 +170,7 @@ namespace Eden
                     NgayNhap = dtpNgayNhap.Value,
                     idNhaCungCap = idNhaCungCap,
                     idNguoiDung = idNguoiDung,
-                    TongTien = 0 // Gán mặc định, sẽ cập nhật sau
+                    TongTien = 0 // Sẽ cập nhật sau
                 };
 
                 // Thêm hoặc cập nhật phiếu nhập
@@ -151,11 +181,12 @@ namespace Eden
                         bool isAdded = phieuNhapBLL.Add(phieuNhap);
                         if (isAdded)
                         {
-                            // Lấy lại phiếu nhập vừa thêm (dùng id để suy ra MaPhieuNhap)
-                            var addedPhieuNhap = phieuNhapBLL.GetByMaPhieuNhap($"PN{phieuNhap.id:D4}");
+                            // Lấy id của phiếu nhập vừa thêm
+                            var addedPhieuNhap = phieuNhapBLL.GetById(phieuNhap.id); // Giả sử có GetById
                             if (addedPhieuNhap != null)
                             {
                                 phieuNhap.id = addedPhieuNhap.id;
+                                maPhieuNhap = addedPhieuNhap.MaPhieuNhap;
                                 MessageBox.Show("Thêm phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else
@@ -166,7 +197,7 @@ namespace Eden
                         }
                         else
                         {
-                            MessageBox.Show("Thêm phiếu nhập thất bại! Vui lòng kiểm tra dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Thêm phiếu nhập thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                     }
@@ -178,11 +209,35 @@ namespace Eden
                 }
                 else
                 {
-                    phieuNhapBLL.Update(phieuNhap);
-                    MessageBox.Show("Cập nhật phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    try
+                    {
+                        // Lấy id từ maPhieuNhap
+                        var existingPhieuNhap = phieuNhapBLL.GetByMaPhieuNhap(maPhieuNhap);
+                        if (existingPhieuNhap == null)
+                        {
+                            MessageBox.Show($"Phiếu nhập với mã {maPhieuNhap} không tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        phieuNhap.id = existingPhieuNhap.id; // Gán id để cập nhật
+                        bool isUpdated = phieuNhapBLL.Update(phieuNhap);
+                        if (isUpdated)
+                        {
+                            MessageBox.Show("Cập nhật phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cập nhật phiếu nhập thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Cập nhật phiếu nhập thất bại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
 
-                // Thêm chi tiết phiếu nhập
+                // Thêm hoặc cập nhật chi tiết phiếu nhập
                 var selectedSanPham = cmbTenSP.SelectedItem as SanPhamDTO;
                 if (selectedSanPham != null)
                 {
@@ -207,24 +262,30 @@ namespace Eden
                         ThanhTien = soLuong * donGia
                     };
 
-                    CHITIETPHIEUNHAPBLL chiTietBLL = new CHITIETPHIEUNHAPBLL();
                     try
                     {
-                        chiTietBLL.Add(chiTietPhieuNhap);
+                        // Kiểm tra xem chi tiết đã tồn tại chưa
+                        var existingChiTiet = phieuNhapBLL.GetChiTietByPhieuNhap(phieuNhap.id)
+                            .FirstOrDefault(c => c.idSanPham == chiTietPhieuNhap.idSanPham);
+                        if (existingChiTiet != null)
+                        {
+                            chiTietPhieuNhapBLL.Update(chiTietPhieuNhap);
+                        }
+                        else
+                        {
+                            chiTietPhieuNhapBLL.Add(chiTietPhieuNhap);
+                        }
+
                         // Cập nhật TongTien
-                        phieuNhap.TongTien = chiTietPhieuNhap.ThanhTien; // Cộng dồn nếu có nhiều chi tiết
+                        var chiTietList = phieuNhapBLL.GetChiTietByPhieuNhap(phieuNhap.id);
+                        phieuNhap.TongTien = chiTietList.Sum(c => c.ThanhTien);
                         phieuNhapBLL.Update(phieuNhap);
-                        MessageBox.Show("Thêm chi tiết phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Lưu chi tiết phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Thêm chi tiết phiếu nhập thất bại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Lưu chi tiết phiếu nhập thất bại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Vui lòng chọn sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
                 }
 
                 this.DialogResult = DialogResult.OK;
@@ -232,11 +293,9 @@ namespace Eden
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi không xác định khi lưu phiếu nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
         // Hủy bỏ và đóng form
         private void btnCancel_Click(object sender, EventArgs e)

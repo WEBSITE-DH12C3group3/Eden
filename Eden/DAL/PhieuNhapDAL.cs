@@ -18,6 +18,10 @@ namespace Eden
                      .ToList();
         }
 
+        public PHIEUNHAP GetById(int id)
+        {
+            return db.PHIEUNHAPs.Find(id);
+        }
         // Thêm phiếu nhập
         public void Add(PHIEUNHAP entity)
         {
@@ -37,18 +41,30 @@ namespace Eden
         }
 
         // Cập nhật phiếu nhập
-        public void Update(PHIEUNHAP entity)
+        public bool Update(PHIEUNHAP p)
         {
-            if (entity == null) return;
-
-            var existing = db.PHIEUNHAPs.Find(entity.MaPhieuNhap);
-            if (existing != null)
+            try
             {
-                db.Entry(existing).CurrentValues.SetValues(entity);
+                var entity = db.PHIEUNHAPs.Find(p.id);
+                if (entity == null)
+                {
+                    return false; // Không tìm thấy phiếu nhập
+                }
+
+                // Cập nhật các trường
+                entity.NgayNhap = p.NgayNhap;
+                entity.idNhaCungCap = p.idNhaCungCap;
+                entity.idNguoiDung = p.idNguoiDung;
+                entity.TongTien = p.TongTien;
+
                 db.SaveChanges();
+                return true; // Cập nhật thành công
+            }
+            catch
+            {
+                return false; // Cập nhật thất bại
             }
         }
-
         // Xóa phiếu nhập
         public void Delete(PHIEUNHAP entity)
         {

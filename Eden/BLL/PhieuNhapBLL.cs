@@ -17,6 +17,14 @@ namespace Eden
         {
             return dal.GetAll();
         }
+        public PHIEUNHAP GetById(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException("ID phiếu nhập không hợp lệ!");
+            return dal.GetById(id);
+        }
+    // Các phương thức khác...
+
 
         // Lấy phiếu nhập theo mã phiếu
         public PHIEUNHAP GetByMaPhieuNhap(string maPhieuNhap)
@@ -52,18 +60,26 @@ namespace Eden
         // Cập nhật phiếu nhập
         public bool Update(PHIEUNHAP p)
         {
-            if (p == null || string.IsNullOrEmpty(p.MaPhieuNhap))
+            if (p == null || p.id <= 0)
                 throw new ArgumentException("Dữ liệu phiếu nhập không hợp lệ!");
+            if (p.NgayNhap == default)
+                throw new ArgumentException("Ngày nhập không hợp lệ!");
+            if (p.TongTien < 0)
+                throw new ArgumentException("Tổng tiền không hợp lệ!");
 
             try
             {
-                dal.Update(p);
+                bool result = dal.Update(p);
+                if (!result)
+                {
+                    throw new Exception("Cập nhật phiếu nhập thất bại: Không tìm thấy phiếu nhập hoặc lỗi dữ liệu.");
+                }
                 return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Lỗi khi cập nhật phiếu nhập: {ex.Message}");
-                return false;
+                throw; // Ném lại để hiển thị chi tiết lỗi
             }
         }
 
