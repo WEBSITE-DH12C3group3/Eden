@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using Eden.BLLCustom;
+using Eden.DTO;
+using Eden.Eden;
 using Eden.UI;
 using Guna.UI2.WinForms;
 
@@ -12,6 +15,7 @@ namespace Eden
         private PHIEUNHAPBLL phieuNhapBLL;
         private NHACUNGCAPBLL nhaCungCapBLL;
         private SANPHAMBLL sanPHAMBLL = new SANPHAMBLL();
+        private NGUOIDUNGBLL nguoiDungBLL = new NGUOIDUNGBLL();
 
 
         public NhapKhoFormAdd(string maPhieuNhap = "")
@@ -69,13 +73,19 @@ namespace Eden
         {
             try
             {
-                var list = phieuNhapBLL.GetAll();
+                var list = nguoiDungBLL.GetAll();
+                if (list.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy người dùng nào!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 cmbIDNguoiDung.DataSource = list;
-                cmbIDNguoiDung.DisplayMember = "IDNguoiDung";
-                cmbIDNguoiDung.ValueMember = "id";
+                cmbIDNguoiDung.DisplayMember = "TenNguoiDung"; // Hiển thị tên người dùng
+                cmbIDNguoiDung.ValueMember = "id"; // Lấy id làm giá trị
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
+                MessageBox.Show($"Lỗi tải người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -112,39 +122,120 @@ namespace Eden
         {
             try
             {
+                // Kiểm tra dữ liệu đầu vào
+                if (cmbNhaCungCap.SelectedValue == null || !int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
+                {
+                    MessageBox.Show("Vui lòng chọn nhà cung cấp hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cmbIDNguoiDung.SelectedValue == null || !int.TryParse(cmbIDNguoiDung.SelectedValue.ToString(), out int idNguoiDung))
+                {
+                    MessageBox.Show("Vui lòng chọn người dùng hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 var phieuNhap = new PHIEUNHAP
                 {
-                    MaPhieuNhap = txtMaPhieuNhap.Text.Trim(),
                     NgayNhap = dtpNgayNhap.Value,
-                    TenNhaCungCap = (cmbNhaCungCap.SelectedItem as NHACUNGCAP)?.TenNhaCungCap,
-                    idNhaCungCap = Convert.ToInt32(cmbNhaCungCap.SelectedValue),
-                    idNguoiDung = Convert.ToInt32(cmbIDNguoiDung.SelectedValue)
-
+                    idNhaCungCap = idNhaCungCap,
+                    idNguoiDung = idNguoiDung,
+                    TongTien = 0 // Gán mặc định, sẽ cập nhật sau
                 };
 
+                // Thêm hoặc cập nhật phiếu nhập
                 if (string.IsNullOrEmpty(maPhieuNhap))
                 {
-                    // Thêm mới
-                    phieuNhapBLL.Add(phieuNhap);
-                    MessageBox.Show("Thêm phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    try
+                    {
+                        bool isAdded = phieuNhapBLL.Add(phieuNhap);
+                        if (isAdded)
+                        {
+                            // Lấy lại phiếu nhập vừa thêm (dùng id để suy ra MaPhieuNhap)
+                            var addedPhieuNhap = phieuNhapBLL.GetByMaPhieuNhap($"PN{phieuNhap.id:D4}");
+                            if (addedPhieuNhap != null)
+                            {
+                                phieuNhap.id = addedPhieuNhap.id;
+                                MessageBox.Show("Thêm phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Không tìm thấy phiếu nhập vừa thêm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Thêm phiếu nhập thất bại! Vui lòng kiểm tra dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Thêm phiếu nhập thất bại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 else
                 {
-                    // Cập nhật
                     phieuNhapBLL.Update(phieuNhap);
                     MessageBox.Show("Cập nhật phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-               
+                // Thêm chi tiết phiếu nhập
+                var selectedSanPham = cmbTenSP.SelectedItem as SanPhamDTO;
+                if (selectedSanPham != null)
+                {
+                    if (!int.TryParse(txtSoLuong.Text, out int soLuong) || soLuong <= 0)
+                    {
+                        MessageBox.Show("Số lượng không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (!decimal.TryParse(txtDonGia.Text, out decimal donGia) || donGia <= 0)
+                    {
+                        MessageBox.Show("Đơn giá không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    var chiTietPhieuNhap = new CHITIETPHIEUNHAP
+                    {
+                        idPhieuNhap = phieuNhap.id,
+                        idSanPham = selectedSanPham.idSanPham,
+                        SoLuong = soLuong,
+                        DonGia = donGia,
+                        ThanhTien = soLuong * donGia
+                    };
+
+                    CHITIETPHIEUNHAPBLL chiTietBLL = new CHITIETPHIEUNHAPBLL();
+                    try
+                    {
+                        chiTietBLL.Add(chiTietPhieuNhap);
+                        // Cập nhật TongTien
+                        phieuNhap.TongTien = chiTietPhieuNhap.ThanhTien; // Cộng dồn nếu có nhiều chi tiết
+                        phieuNhapBLL.Update(phieuNhap);
+                        MessageBox.Show("Thêm chi tiết phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Thêm chi tiết phiếu nhập thất bại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi lưu phiếu nhập: " + ex.ToString(), "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
         // Hủy bỏ và đóng form
@@ -153,28 +244,39 @@ namespace Eden
             this.Close();
         }
 
-       
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
             {
                 formAdd.FormClosed += (s, args) =>
                 {
-                    var sanPhamList = sanPHAMBLL.GetAll();
-                    cmbTenSP.DataSource = sanPhamList;
-                    cmbTenSP.DisplayMember = "TenSanPham"; // hoặc "MaSanPham" nếu bạn muốn hiển thị mã
-                    cmbTenSP.ValueMember = "id";
-
-                    var lastSanPham = sanPhamList.LastOrDefault();
-                    if (lastSanPham != null)
+                    try
                     {
-                        cmbTenSP.SelectedValue = lastSanPham.MaSanPham;
+                        // Lấy lại danh sách sản phẩm mới nhất
+                        var sanPhamList = sanPHAMBLL.GetAll();
+                        cmbTenSP.DataSource = null;
+                        cmbTenSP.DataSource = sanPhamList;
+                        cmbTenSP.DisplayMember = "TenSanPham";
+                        cmbTenSP.ValueMember = "id";
+
+                        // Tự động chọn sản phẩm vừa mới thêm (sắp xếp theo id giảm dần)
+                        var lastSanPham = sanPhamList.OrderByDescending(sp => sp.MaSanPham).FirstOrDefault();
+                        if (lastSanPham != null)
+                        {
+                            cmbTenSP.SelectedValue = lastSanPham.MaSanPham;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi cập nhật danh sách sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 };
 
                 formAdd.ShowDialog();
             }
         }
+
 
 
         private Guna.UI2.WinForms.Guna2TextBox txtMaPhieuNhap;

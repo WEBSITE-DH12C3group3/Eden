@@ -41,10 +41,7 @@ namespace Eden
                     MaPhieuNhap = p.MaPhieuNhap,
                     NgayNhap = p.NgayNhap.ToString("dd/MM/yyyy"),
                     TenNhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
-                    idNguoiDung = p.idNguoiDung,                  
-                    TenSanPham = c.SANPHAM.TenSanPham,
-                    SoLuong = c.SoLuong,
-                    DonGia = c.DonGia,
+                    idNguoiDung = p.idNguoiDung,                                     
                     ThanhTien = c.SoLuong * c.DonGia
                 }).ToList();
 

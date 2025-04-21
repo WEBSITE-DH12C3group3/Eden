@@ -32,12 +32,10 @@ namespace Eden
         {
             if (p == null)
                 throw new ArgumentNullException(nameof(p), "Dữ liệu phiếu nhập không được null!");
-
-            if (string.IsNullOrEmpty(p.MaPhieuNhap))
-                throw new ArgumentException("Mã phiếu nhập không được để trống!");
-
             if (p.NgayNhap == default)
                 throw new ArgumentException("Ngày nhập không hợp lệ!");
+            if (p.TongTien < 0)
+                throw new ArgumentException("Tổng tiền không hợp lệ!");
 
             try
             {
@@ -46,8 +44,8 @@ namespace Eden
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi khi thêm phiếu nhập: {ex.Message}");
-                return false;
+                Console.WriteLine($"Lỗi khi thêm phiếu nhập: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                throw; // Ném lại ngoại lệ để hiển thị chi tiết trong UI
             }
         }
 

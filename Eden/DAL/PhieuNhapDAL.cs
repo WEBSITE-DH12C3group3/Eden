@@ -23,8 +23,17 @@ namespace Eden
         {
             if (entity == null) return;
 
-            db.PHIEUNHAPs.Add(entity);
-            db.SaveChanges();
+            try
+            {
+                db.PHIEUNHAPs.Add(entity);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // In thông báo lỗi để dễ dàng phát hiện
+                Console.WriteLine($"Lỗi khi thêm phiếu nhập: {ex.Message}");
+                throw;
+            }
         }
 
         // Cập nhật phiếu nhập
