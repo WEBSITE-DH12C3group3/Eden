@@ -19,7 +19,6 @@ namespace Eden
         private NGUOIDUNGBLL nguoiDungBLL = new NGUOIDUNGBLL();
         private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL();
 
-
         public NhapKhoFormAdd(string maPhieuNhap = "")
         {
             InitializeComponent();

@@ -66,15 +66,26 @@ namespace Eden
             }
         }
         // Xóa phiếu nhập
-        public void Delete(PHIEUNHAP entity)
+        public bool Delete(int id, QLBanHoaEntities db)
         {
-            if (entity == null) return;
-
-            var existing = db.PHIEUNHAPs.Find(entity.MaPhieuNhap);
-            if (existing != null)
+            try
             {
-                db.PHIEUNHAPs.Remove(existing);
+                var entity = db.PHIEUNHAPs.Find(id);
+                if (entity == null)
+                {
+                    Console.WriteLine($"Không tìm thấy phiếu nhập với id={id}");
+                    return false;
+                }
+
+                Console.WriteLine($"Xóa phiếu nhập với id={id}");
+                db.PHIEUNHAPs.Remove(entity);
                 db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi xóa phiếu nhập: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                return false;
             }
         }
 

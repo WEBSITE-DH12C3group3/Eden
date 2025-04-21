@@ -20,6 +20,28 @@ namespace Eden
                 db = new QLBanHoaEntities();
             }
 
+            public bool DeleteByPhieuNhapId(int idPhieuNhap, QLBanHoaEntities db)
+            {
+                try
+                {
+                    var chiTietList = db.CHITIETPHIEUNHAPs.Where(c => c.idPhieuNhap == idPhieuNhap).ToList();
+                    Console.WriteLine($"Tìm thấy {chiTietList.Count} chi tiết phiếu nhập cho idPhieuNhap={idPhieuNhap}");
+
+                    foreach (var chiTiet in chiTietList)
+                    {
+                        db.CHITIETPHIEUNHAPs.Remove(chiTiet);
+                    }
+
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi khi xóa chi tiết phiếu nhập: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                    return false;
+                }
+            }
+
             // Lấy danh sách tất cả chi tiết phiếu nhập
             public List<CHITIETPHIEUNHAP> GetAll()
             {

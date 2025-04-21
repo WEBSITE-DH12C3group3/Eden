@@ -116,28 +116,48 @@ namespace Eden
         {
             if (dgvPhieuNhap.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn một phiếu nhập để xóa.");
+                MessageBox.Show("Vui lòng chọn một phiếu nhập để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string maPhieuNhap = dgvPhieuNhap.SelectedRows[0].Cells["MaPhieuNhap"].Value.ToString();
-            PHIEUNHAP phieuNhap = phieuNhapBLL.GetByMaPhieuNhap(maPhieuNhap);
-
-            if (phieuNhap != null)
+            string maPhieuNhap = dgvPhieuNhap.SelectedRows[0].Cells["MaPhieuNhap"].Value?.ToString();
+            if (string.IsNullOrEmpty(maPhieuNhap))
             {
-                var confirmResult = MessageBox.Show("Bạn chắc chắn muốn xóa phiếu nhập này?", "Xác nhận xóa", MessageBoxButtons.YesNo);
-                if (confirmResult == DialogResult.Yes)
+                MessageBox.Show("Mã phiếu nhập không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            PHIEUNHAP phieuNhap = phieuNhapBLL.GetByMaPhieuNhap(maPhieuNhap);
+            if (phieuNhap == null)
+            {
+                MessageBox.Show("Phiếu nhập không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var confirmResult = MessageBox.Show("Bạn chắc chắn muốn xóa phiếu nhập này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult == DialogResult.Yes)
+            {
+                try
                 {
-                    phieuNhapBLL.Delete(phieuNhap);
-                    LoadData();
+                    Console.WriteLine($"Đang xóa phiếu nhập: MaPhieuNhap={maPhieuNhap}, id={phieuNhap.id}");
+                    bool isDeleted = phieuNhapBLL.Delete(phieuNhap);
+                    if (isDeleted)
+                    {
+                        MessageBox.Show("Xóa phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData(); // Chỉ làm mới khi xóa thành công
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa phiếu nhập thất bại! Vui lòng kiểm tra lại dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi khi xóa phiếu nhập: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                    MessageBox.Show($"Lỗi khi xóa phiếu nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
-            {
-                MessageBox.Show("Phiếu nhập không tồn tại.");
-            }
         }
-
         // Xuất dữ liệu ra Excel
         private void btnExportExcel_Click(object sender, EventArgs e)
         {

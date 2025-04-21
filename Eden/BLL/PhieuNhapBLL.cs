@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Eden.Eden;
 
 namespace Eden
 {
     public class PHIEUNHAPBLL : IDisposable
     {
         private readonly PHIEUNHAPDAL dal;
+        private readonly CHITIETPHIEUNHAPDAL chiTietDal = new CHITIETPHIEUNHAPDAL();
 
         public PHIEUNHAPBLL()
         {
@@ -86,18 +88,34 @@ namespace Eden
         // Xóa phiếu nhập
         public bool Delete(PHIEUNHAP p)
         {
-            if (p == null)
-                throw new ArgumentNullException(nameof(p), "Phiếu nhập không được null!");
+            if (p == null || p.id <= 0)
+                throw new ArgumentException("Dữ liệu phiếu nhập không hợp lệ!");
 
-            try
+            using (var db = new QLBanHoaEntities())
+            using (var transaction = db.Database.BeginTransaction())
             {
-                dal.Delete(p);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Lỗi khi xóa phiếu nhập: {ex.Message}");
-                return false;
+                try
+                {
+                    Console.WriteLine($"Xóa chi tiết phiếu nhập cho idPhieuNhap={p.id}");
+                    chiTietDal.DeleteByPhieuNhapId(p.id, db); // Truyền DbContext
+
+                    Console.WriteLine($"Xóa phiếu nhập: id={p.id}");
+                    bool result = dal.Delete(p.id, db); // Truyền DbContext
+                    if (!result)
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Console.WriteLine($"Lỗi khi xóa phiếu nhập: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                    throw;
+                }
             }
         }
 
