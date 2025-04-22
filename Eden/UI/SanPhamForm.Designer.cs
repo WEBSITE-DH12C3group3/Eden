@@ -273,6 +273,7 @@
             this.guna2TextBoxTimKiem.SelectedText = "";
             this.guna2TextBoxTimKiem.Size = new System.Drawing.Size(292, 36);
             this.guna2TextBoxTimKiem.TabIndex = 18;
+            this.guna2TextBoxTimKiem.TextChanged += new System.EventHandler(this.guna2TextBoxTimKiem_TextChanged_1);
             // 
             // btnNext
             // 

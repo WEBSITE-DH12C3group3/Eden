@@ -285,5 +285,12 @@ namespace Eden
                 MessageBox.Show("Lỗi khi xuất file Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void guna2TextBoxTimKiem_TextChanged_1(object sender, EventArgs e)
+        {
+            string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
+            var ketQua = sanphamBLL.TimKiemTheoTen(tuKhoa);
+            dgvSanPham.DataSource = ketQua;
+        }
     }
 }
