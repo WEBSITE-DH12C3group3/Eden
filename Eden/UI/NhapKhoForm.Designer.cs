@@ -33,7 +33,6 @@ namespace Eden
         /// </summary>
         private void InitializeComponent()
         {
-            // Cấu hình các điều khiển Guna UI2
             this.dgvPhieuNhap = new Guna.UI2.WinForms.Guna2DataGridView();
             this.btnAdd = new Guna.UI2.WinForms.Guna2Button();
             this.btnEdit = new Guna.UI2.WinForms.Guna2Button();
@@ -42,6 +41,10 @@ namespace Eden
             this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnRefresh = new Guna.UI2.WinForms.Guna2Button();
             this.btnExportExcel = new Guna.UI2.WinForms.Guna2Button();
+            this.btnXemChiTiet = new Guna.UI2.WinForms.Guna2Button();
+            this.btnPrev = new Guna.UI2.WinForms.Guna2Button(); // Thêm nút Previous
+            this.btnNext = new Guna.UI2.WinForms.Guna2Button(); // Thêm nút Next
+            this.lblPage = new Guna.UI2.WinForms.Guna2HtmlLabel(); // Thêm label trang
 
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuNhap)).BeginInit();
             this.SuspendLayout();
@@ -147,17 +150,51 @@ namespace Eden
             this.btnExportExcel.Text = "Xuất Excel";
             this.btnExportExcel.Click += new EventHandler(this.btnExportExcel_Click);
 
-            btnXemChiTiet = new Guna2Button
-            {
-                Text = "Xem Chi Tiết",
-                Size = new System.Drawing.Size(150, 36),
-                Location = new System.Drawing.Point(400, 400), // Đặt vị trí phù hợp trên form
-                FillColor = System.Drawing.Color.MediumSlateBlue,
-                ForeColor = System.Drawing.Color.White
-            };
-            btnXemChiTiet.Click += btnXemChiTiet_Click;
-            this.Controls.Add(btnXemChiTiet);
+            // Guna2Button: Xem chi tiết
+            this.btnXemChiTiet.BorderRadius = 10;
+            this.btnXemChiTiet.FillColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnXemChiTiet.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnXemChiTiet.ForeColor = System.Drawing.Color.White;
+            this.btnXemChiTiet.Location = new System.Drawing.Point(440, 460);
+            this.btnXemChiTiet.Name = "btnXemChiTiet";
+            this.btnXemChiTiet.Size = new System.Drawing.Size(120, 40);
+            this.btnXemChiTiet.TabIndex = 8;
+            this.btnXemChiTiet.Text = "Xem Chi Tiết";
+            this.btnXemChiTiet.Click += new EventHandler(this.btnXemChiTiet_Click);
 
+            // Guna2Button: Nút Previous (Trang trước)
+            this.btnPrev.BorderRadius = 10;
+            this.btnPrev.FillColor = System.Drawing.Color.FromArgb(46, 117, 173);
+            this.btnPrev.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnPrev.ForeColor = System.Drawing.Color.White;
+            this.btnPrev.Location = new System.Drawing.Point(300, 520);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(40, 40);
+            this.btnPrev.TabIndex = 9;
+            this.btnPrev.Text = "<";
+            this.btnPrev.Click += new EventHandler(this.btnPrev_Click);
+
+            // Guna2Button: Nút Next (Trang sau)
+            this.btnNext.BorderRadius = 10;
+            this.btnNext.FillColor = System.Drawing.Color.FromArgb(46, 117, 173);
+            this.btnNext.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnNext.ForeColor = System.Drawing.Color.White;
+            this.btnNext.Location = new System.Drawing.Point(400, 520);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(40, 40);
+            this.btnNext.TabIndex = 10;
+            this.btnNext.Text = ">";
+            this.btnNext.Click += new EventHandler(this.btnNext_Click);
+
+            // Guna2HtmlLabel: Label hiển thị trang
+            this.lblPage.BackColor = System.Drawing.Color.Transparent;
+            this.lblPage.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblPage.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblPage.Location = new System.Drawing.Point(350, 520);
+            this.lblPage.Name = "lblPage";
+            this.lblPage.Size = new System.Drawing.Size(80, 40);
+            this.lblPage.TabIndex = 11;
+            this.lblPage.Text = "Trang 1/1";
 
             // NhapKhoForm: Cấu hình form
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,9 +208,13 @@ namespace Eden
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnExportExcel);
+            this.Controls.Add(this.btnXemChiTiet);
+            this.Controls.Add(this.btnPrev);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.lblPage);
             this.Name = "NhapKhoForm";
             this.Text = "Quản lý Phiếu Nhập";
-            this.Load += new EventHandler(this.NhapKhoForm_Load);
+           
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuNhap)).EndInit();
             this.ResumeLayout(false);
         }

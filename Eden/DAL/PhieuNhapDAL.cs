@@ -18,6 +18,27 @@ namespace Eden
                      .ToList();
         }
 
+        public List<PHIEUNHAP> GetPagedPhieuNhap(int pageNumber, int pageSize, out int totalRecords, string searchTerm = "")
+        {
+            var query = db.PHIEUNHAPs.AsQueryable();
+
+            // Lọc theo MaPhieuNhap nếu có searchTerm
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(p => p.MaPhieuNhap.Contains(searchTerm));
+            }
+
+            // Lấy tổng số bản ghi
+            totalRecords = query.Count();
+
+            // Phân trang
+            return query
+                   .OrderBy(p => p.id)
+                   .Skip((pageNumber - 1) * pageSize)
+                   .Take(pageSize)
+                   .ToList();
+        }
+
         public PHIEUNHAP GetById(int id)
         {
             return db.PHIEUNHAPs.Find(id);

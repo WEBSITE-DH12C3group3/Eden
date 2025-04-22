@@ -10,82 +10,85 @@ namespace Eden
     public partial class NhapKhoForm : Form
     {
         private PHIEUNHAPBLL phieuNhapBLL;
-        private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL; // Để lấy thông tin chi tiết phiếu nhập
-
-        public object ChiTiet { get; private set; }
+        private PHIEUNHAPDAL phieuNhapDAL;
+        private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL;
+        private int currentPage = 1;
+        private int pageSize = 10;
+        private int totalRecords = 0;
+        private int totalPages = 1;
+        private string searchTerm = "";
 
         public NhapKhoForm()
         {
             InitializeComponent();
             phieuNhapBLL = new PHIEUNHAPBLL();
-            chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL(); // Khởi tạo để lấy dữ liệu từ bảng chi tiết phiếu nhập
+            phieuNhapDAL = new PHIEUNHAPDAL();
+            chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL();
             LoadData();
         }
 
-        // Hàm Load dữ liệu phiếu nhập vào DataGridView
         private void LoadData(string searchTerm = "")
         {
             try
             {
-                var phieuNhaps = string.IsNullOrEmpty(searchTerm) ? phieuNhapBLL.GetAll() :
-                                  phieuNhapBLL.GetAll()
-                                              .Where(p => p.MaPhieuNhap.ToLower().Contains(searchTerm) ||
-                                                          p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm))
-                                              .ToList();
+                // Lấy dữ liệu phân trang
+                var phieuNhapList = phieuNhapDAL.GetPagedPhieuNhap(currentPage, pageSize, out totalRecords, searchTerm);
 
-             
+                // Tính tổng số trang
+                totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+                if (totalPages == 0) totalPages = 1;
 
-                // Gán dữ liệu vào DataGridView (tính lại tổng tiền thủ công)
-                var listDto = phieuNhaps.SelectMany(p => p.CHITIETPHIEUNHAPs, (p, c) => new
+                // Gán dữ liệu cho DataGridView
+                dgvPhieuNhap.DataSource = phieuNhapList.Select(p => new
                 {
-                    MaPhieuNhap = p.MaPhieuNhap,
+                    p.MaPhieuNhap,
                     NgayNhap = p.NgayNhap.ToString("dd/MM/yyyy"),
-                    TenNhaCungCap = p.NHACUNGCAP.TenNhaCungCap,
-                    idNguoiDung = p.idNguoiDung,                                     
-                    ThanhTien = c.SoLuong * c.DonGia
+                    TenNhaCungCap = p.NHACUNGCAP != null ? p.NHACUNGCAP.TenNhaCungCap : "N/A",
+                    p.TongTien
                 }).ToList();
 
-                dgvPhieuNhap.DataSource = listDto;
+                // Cập nhật tiêu đề cột
+                dgvPhieuNhap.Columns["MaPhieuNhap"].HeaderText = "Mã Phiếu Nhập";
+                dgvPhieuNhap.Columns["NgayNhap"].HeaderText = "Ngày Nhập";
+                dgvPhieuNhap.Columns["TenNhaCungCap"].HeaderText = "Nhà Cung Cấp";
+                dgvPhieuNhap.Columns["TongTien"].HeaderText = "Tổng Tiền";
+
+                // Cập nhật label trang
+                lblPage.Text = $"Trang {currentPage}/{totalPages}";
+
+                // Cập nhật trạng thái nút
+                btnPrev.Enabled = currentPage > 1;
+                btnNext.Enabled = currentPage < totalPages;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải dữ liệu phiếu nhập: " + ex.Message);
+                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
-
-
-        // Sự kiện Thêm phiếu nhập
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using (var formAdd = new NhapKhoFormAdd())
             {
                 if (formAdd.ShowDialog() == DialogResult.OK)
                 {
-                    LoadData();
+                    LoadData(searchTerm);
                 }
             }
         }
 
-        // Sự kiện Sửa phiếu nhập
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (dgvPhieuNhap.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn một phiếu nhập để sửa.");
+                MessageBox.Show("Vui lòng chọn một phiếu nhập để sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string maPhieuNhap = "";
-            try
+            string maPhieuNhap = dgvPhieuNhap.SelectedRows[0].Cells["MaPhieuNhap"].Value?.ToString();
+            if (string.IsNullOrEmpty(maPhieuNhap))
             {
-                maPhieuNhap = dgvPhieuNhap.SelectedRows[0].Cells["MaPhieuNhap"].Value?.ToString();
-                Console.WriteLine($"Mở form chỉnh sửa với MaPhieuNhap: {maPhieuNhap}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi lấy mã phiếu nhập: {ex.Message}");
+                MessageBox.Show("Mã phiếu nhập không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -93,25 +96,11 @@ namespace Eden
             {
                 if (formAdd.ShowDialog() == DialogResult.OK)
                 {
-                    LoadData();
+                    LoadData(searchTerm);
                 }
             }
         }
 
-        // Sự kiện Tìm kiếm phiếu nhập
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            string searchTerm = txtSearch.Text.Trim().ToLower();
-            LoadData(searchTerm);
-        }
-
-        // Sự kiện Refresh lại danh sách phiếu nhập
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
-        // Sự kiện Xóa phiếu nhập
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvPhieuNhap.SelectedRows.Count == 0)
@@ -139,31 +128,60 @@ namespace Eden
             {
                 try
                 {
-                    Console.WriteLine($"Đang xóa phiếu nhập: MaPhieuNhap={maPhieuNhap}, id={phieuNhap.id}");
                     bool isDeleted = phieuNhapBLL.Delete(phieuNhap);
                     if (isDeleted)
                     {
                         MessageBox.Show("Xóa phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadData(); // Chỉ làm mới khi xóa thành công
+                        LoadData(searchTerm);
                     }
                     else
                     {
-                        MessageBox.Show("Xóa phiếu nhập thất bại! Vui lòng kiểm tra lại dữ liệu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Xóa phiếu nhập thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Lỗi khi xóa phiếu nhập: {ex.Message}\nStackTrace: {ex.StackTrace}");
                     MessageBox.Show($"Lỗi khi xóa phiếu nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
-        // Xuất dữ liệu ra Excel
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            searchTerm = txtSearch.Text.Trim();
+            currentPage = 1;
+            LoadData(searchTerm);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            searchTerm = "";
+            txtSearch.Text = "";
+            currentPage = 1;
+            LoadData();
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                LoadData(searchTerm);
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                LoadData(searchTerm);
+            }
+        }
+
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            // Tạo DataTable từ DataGridView
             DataTable dt = new DataTable();
-
             foreach (DataGridViewColumn column in dgvPhieuNhap.Columns)
             {
                 dt.Columns.Add(column.HeaderText, typeof(string));
@@ -182,19 +200,18 @@ namespace Eden
                 }
             }
 
-            // Lưu Excel
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "Excel Workbook|*.xlsx",
                 Title = "Lưu file Excel",
-                FileName = "DanhSach.xlsx"
+                FileName = "DanhSachPhieuNhap.xlsx"
             };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 using (XLWorkbook wb = new XLWorkbook())
                 {
-                    wb.Worksheets.Add(dt, "DanhSach");
+                    wb.Worksheets.Add(dt, "PhieuNhap");
                     wb.SaveAs(saveFileDialog.FileName);
                     MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -206,49 +223,30 @@ namespace Eden
             if (dgvPhieuNhap.CurrentRow != null)
             {
                 var maPhieuNhapCell = dgvPhieuNhap.CurrentRow.Cells["MaPhieuNhap"].Value;
-
                 if (maPhieuNhapCell != null)
                 {
-                    string maPhieuNhap = maPhieuNhapCell.ToString();  // Lấy giá trị là string
-
-                    // Kiểm tra nếu MaPhieuNhap là số hoặc chuỗi hợp lệ
-                    if (int.TryParse(maPhieuNhap, out int idPhieuNhap))  // Nếu có thể chuyển sang int
+                    string maPhieuNhap = maPhieuNhapCell.ToString();
+                    try
                     {
-                        var form = new CHITIETPHIEUNHAPFORM(idPhieuNhap);  // Nếu dùng id kiểu int
+                        var form = new CHITIETPHIEUNHAPFORM(maPhieuNhap);
                         form.ShowDialog();
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        var form = new CHITIETPHIEUNHAPFORM(maPhieuNhap);  // Nếu dùng maPhieuNhap là string
-                        form.ShowDialog();
-                        
+                        MessageBox.Show($"Lỗi khi mở chi tiết phiếu nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Mã phiếu nhập không hợp lệ.");
+                    MessageBox.Show("Mã phiếu nhập không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn một phiếu nhập để xem chi tiết.");
+                MessageBox.Show("Vui lòng chọn một phiếu nhập để xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-
-
-
-
-        // Giao diện khởi tạo và sự kiện CellContentClick
-        private void dgvPhieuNhap_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Dòng này không còn cần thiết nữa, vì đã tối ưu hóa LoadData() trong sự kiện khác.
-        }
-
-        private void NhapKhoForm_Load(object sender, EventArgs e)
-        {
-            // Dòng này không cần thiết, LoadData đã được gọi trong constructor.
-        }
         private Guna.UI2.WinForms.Guna2DataGridView dgvPhieuNhap;
         private Guna.UI2.WinForms.Guna2TextBox txtSearch;
         private Guna.UI2.WinForms.Guna2Button btnSearch;
@@ -258,6 +256,8 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2Button btnRefresh;
         private Guna.UI2.WinForms.Guna2Button btnExportExcel;
         private Guna.UI2.WinForms.Guna2Button btnXemChiTiet;
-
+        private Guna.UI2.WinForms.Guna2Button btnPrev;
+        private Guna.UI2.WinForms.Guna2Button btnNext;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblPage;
     }
 }
