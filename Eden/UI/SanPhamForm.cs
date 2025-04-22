@@ -24,6 +24,23 @@ namespace Eden
             InitializeComponent();
             sanphamBLL = new SANPHAMBLL();
             LoadSanPham();
+            List<string> giaRanges = new List<string>
+    {
+        "Giá từ 0 đến 100.000",
+        "Giá từ 100.000 đến 500.000",
+        "Giá từ 500.000 đến 1.000.000",
+        "Giá từ 1.000.000 đến 5.000.000",
+        "Giá từ 5.000.000 trở lên"
+    };
+
+            // Gán danh sách vào ComboBox
+            cmbGia.DataSource = giaRanges;
+
+            // Chọn mục mặc định cho ComboBox
+            if (cmbGia.Items.Count > 0)
+            {
+                cmbGia.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
+            }
         }
 
         private void guna2dgvSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -49,7 +66,12 @@ namespace Eden
             {
                 Console.WriteLine($"{sp.TenSanPham} - Đã bán: {sp.SoLuongDaBan}");
             }
-
+            string selectedRange = cmbGia.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedRange))
+            {
+                // Lựa chọn mặc định nếu chưa chọn gì
+                selectedRange = "Giá từ 0 đến 100.000";  // Giá trị mặc định
+            }
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -291,6 +313,51 @@ namespace Eden
             string tuKhoa = guna2TextBoxTimKiem.Text.Trim();
             var ketQua = sanphamBLL.TimKiemTheoTen(tuKhoa);
             dgvSanPham.DataSource = ketQua;
+        }
+
+        private void cmbGia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbGia.SelectedItem == null) return;
+
+            // Lấy phạm vi giá được chọn từ ComboBox
+            string selectedRange = cmbGia.SelectedItem.ToString();
+
+            decimal giaFrom = 0;
+            decimal giaTo = decimal.MaxValue;
+
+            // Phân tích phạm vi giá đã chọn
+            if (selectedRange == "Giá từ 0 đến 100.000")
+            {
+                giaFrom = 0;
+                giaTo = 100000;
+            }
+            else if (selectedRange == "Giá từ 100.000 đến 500.000")
+            {
+                giaFrom = 100000;
+                giaTo = 500000;
+            }
+            else if (selectedRange == "Giá từ 500.000 đến 1.000.000")
+            {
+                giaFrom = 500000;
+                giaTo = 1000000;
+            }
+            else if (selectedRange == "Giá từ 1.000.000 đến 5.000.000")
+            {
+                giaFrom = 1000000;
+                giaTo = 5000000;
+            }
+            else if (selectedRange == "Giá từ 5.000.000 trở lên")
+            {
+                giaFrom = 5000000;
+                giaTo = decimal.MaxValue;
+            }
+
+            // Lọc sản phẩm theo giá đã chọn
+            var ds = sanphamBLL.GetAll(); // Lấy tất cả sản phẩm
+            var filteredList = ds.Where(sp => sp.Gia >= giaFrom && sp.Gia <= giaTo).ToList();
+
+            // Cập nhật lại DataGridView với danh sách đã lọc
+            dgvSanPham.DataSource = filteredList;
         }
     }
 }
