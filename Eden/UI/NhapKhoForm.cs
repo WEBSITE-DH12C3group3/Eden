@@ -66,6 +66,46 @@ namespace Eden
             }
         }
 
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            searchTerm = txtSearch.Text.Trim();
+            currentPage = 1;
+            LoadData(searchTerm);
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            searchTerm = txtSearch.Text.Trim();
+            currentPage = 1;
+            LoadData(searchTerm);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            searchTerm = "";
+            txtSearch.Text = "";
+            currentPage = 1;
+            LoadData();
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                LoadData(searchTerm);
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                LoadData(searchTerm);
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using (var formAdd = new NhapKhoFormAdd())
@@ -143,39 +183,6 @@ namespace Eden
                 {
                     MessageBox.Show($"Lỗi khi xóa phiếu nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            searchTerm = txtSearch.Text.Trim();
-            currentPage = 1;
-            LoadData(searchTerm);
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            searchTerm = "";
-            txtSearch.Text = "";
-            currentPage = 1;
-            LoadData();
-        }
-
-        private void btnPrev_Click(object sender, EventArgs e)
-        {
-            if (currentPage > 1)
-            {
-                currentPage--;
-                LoadData(searchTerm);
-            }
-        }
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            if (currentPage < totalPages)
-            {
-                currentPage++;
-                LoadData(searchTerm);
             }
         }
 

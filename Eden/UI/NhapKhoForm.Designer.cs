@@ -125,6 +125,7 @@ namespace Eden
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(670, 40);
             this.txtSearch.TabIndex = 5;
+            this.txtSearch.TextChanged += new EventHandler(this.txtSearch_TextChanged);
 
             // Guna2Button: Làm mới danh sách phiếu nhập
             this.btnRefresh.BorderRadius = 10;
