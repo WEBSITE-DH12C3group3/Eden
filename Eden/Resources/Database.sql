@@ -67,7 +67,7 @@ GO
 -- Bảng Sản Phẩm (Hoa)
 CREATE TABLE SANPHAM (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    MaSanPham AS ('SP' + RIGHT('000' + CAST(id AS VARCHAR(3)), 3)) PERSISTED;    
+    MaSanPham AS ('SP' + RIGHT('000' + CAST(id AS VARCHAR(3)), 3)) PERSISTED,
     TenSanPham NVARCHAR(255) NOT NULL,
     MoTa NVARCHAR(MAX),
     Gia DECIMAL(10,2) NOT NULL,
