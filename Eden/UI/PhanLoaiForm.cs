@@ -24,6 +24,21 @@ namespace Eden
         {
             InitializeComponent();
             loaiSanPhamBLL = new LOAISANPHAMBLL();
+            dgvLoaiSanPham.AutoGenerateColumns = false;
+            dgvLoaiSanPham.Columns.Clear();
+            dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaLoaiSanPham",
+                HeaderText = "Mã Loại Sản Phẩm",
+                Name = "MaLoaiSanPham"
+            });
+            dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenLoaiSanPham",
+                HeaderText = "Tên Loại Sản Phẩm",
+                Name = "TenLoaiSanPham"
+            });
+
             LoadLoaiSanPham();
             ConfigureLoaiSanPhamGridView();
         }
@@ -104,7 +119,6 @@ namespace Eden
             {
                 MessageBox.Show("Vui lòng chọn loại sản phẩm cần sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
         }
 
         private void guna2Button3_Click(object sender, EventArgs e)
@@ -147,6 +161,7 @@ namespace Eden
                 MessageBox.Show("Vui lòng chọn loại sản phẩm cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         public void UpdateDataGridView(LOAISANPHAM updatedLSP)
         {
             foreach (DataGridViewRow row in dgvLoaiSanPham.Rows)
@@ -181,6 +196,7 @@ namespace Eden
                     .ToList();
             }
         }
+
         private void guna2TextBoxTimKiem_TextChanged(object sender, EventArgs e)
         {
             string tuKhoa = txtSearch.Text.Trim();

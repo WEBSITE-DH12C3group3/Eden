@@ -171,7 +171,7 @@
             this.gbOut.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.gbOut.FillColor = System.Drawing.Color.Empty;
             this.gbOut.FillColor2 = System.Drawing.Color.Empty;
-            this.gbOut.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.gbOut.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbOut.ForeColor = System.Drawing.Color.White;
             this.gbOut.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(125)))), ((int)(((byte)(167)))));
             this.gbOut.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(49)))), ((int)(((byte)(80)))));
