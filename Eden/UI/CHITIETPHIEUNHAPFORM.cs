@@ -64,13 +64,13 @@ namespace Eden.UI
         {
             this.Close();
         }
+
         private void CHITIETPHIEUNHAPFORM_Load(object sender, EventArgs e)
         {
-            
         }
 
         private Guna.UI2.WinForms.Guna2DataGridView dgvChiTiet;
         private Guna.UI2.WinForms.Guna2Button btnQuayLai;
-        private string maPhieuNhap;
+        //private string maPhieuNhap;
     }
 }

@@ -6,6 +6,10 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Guna.UI2.WinForms;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace Eden
 {
@@ -185,7 +189,7 @@ namespace Eden
             dgvUnderstock.Columns[0].HeaderText = "Tên sản phẩm";
             dgvUnderstock.Columns[1].HeaderText = "Số lượng";
             dgvUnderstock.Columns[0].Width = 200;
-            dgvUnderstock.Columns[1].Width = 80;
+            dgvUnderstock.Columns[1].Width = 100;
             dgvUnderstock.Columns[1].DefaultCellStyle.NullValue = "0"; // Hiển thị 0 nếu không có giá trị
             dgvUnderstock.DefaultCellStyle.Padding = new Padding(5); // Thêm khoảng cách nếu cần
             dgvUnderstock.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -215,6 +219,113 @@ namespace Eden
             {
                 // Clear tooltip nếu không nằm trên datapoint
                 chartGrossRevenue.Series[0].ToolTip = string.Empty;
+            }
+        }
+
+        private void btnXuatPDF_Click(object sender, EventArgs e)
+        {
+            ExportThongKeToPDF();
+        }
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            ExportThongKeToExcel();
+        }
+
+        private Bitmap CaptureForm()
+        {
+            Bitmap bmp = new Bitmap(this.Width, this.Height);
+            this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
+            return bmp;
+        }
+
+        private void ExportThongKeToPDF()
+        {
+            try
+            {
+                Bitmap bmp = CaptureForm();
+                SaveFileDialog saveDialog = new SaveFileDialog
+                {
+                    Filter = "PDF Files (*.pdf)|*.pdf",
+                    FileName = $"ThongKe_{DateTime.Now:yyyyMMdd_HHmmss}.pdf"
+                };
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    PdfDocument pdf = new PdfDocument();
+                    PdfPage page = pdf.AddPage();
+                    page.Width = XUnit.FromPoint(bmp.Width);
+                    page.Height = XUnit.FromPoint(bmp.Height);
+
+                    using (XGraphics gfx = XGraphics.FromPdfPage(page))
+                    {
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                            ms.Seek(0, SeekOrigin.Begin);
+                            using (XImage img = XImage.FromStream(ms))
+                            {
+                                gfx.DrawImage(img, 0, 0);
+                            }
+                        }
+                    }
+
+                    pdf.Save(saveDialog.FileName);
+                    MessageBox.Show("Xuất PDF thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xuất PDF: " + ex.Message);
+            }
+        }
+
+        private void ExportThongKeToExcel()
+        {
+            try
+            {
+                DataTable dt = new DataTable("DoanhThu");
+                dt.Columns.Add("Ngày", typeof(string));
+                dt.Columns.Add("Tổng Doanh Thu", typeof(decimal));
+
+                foreach (var item in model.GrossRevenueList)
+                {
+                    dt.Rows.Add(item.Date, item.TotalAmount);
+                }
+
+                DataTable dtUnderstock = new DataTable("TonKhoThap");
+                dtUnderstock.Columns.Add("Tên Sản Phẩm", typeof(string));
+                dtUnderstock.Columns.Add("Số Lượng", typeof(double));
+
+                foreach (var row in model.UnderstockList)
+                {
+                    dtUnderstock.Rows.Add(row.Name, row.Quantity);
+                }
+
+                SaveFileDialog saveDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Workbook|*.xlsx",
+                    FileName = $"ThongKeChiTiet_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
+                };
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var ws1 = wb.Worksheets.Add(dt, "Doanh Thu");
+                        var ws2 = wb.Worksheets.Add(dtUnderstock, "Tồn Kho Thấp");
+
+                        ws1.Columns().AdjustToContents();
+                        ws2.Columns().AdjustToContents();
+
+                        wb.SaveAs(saveDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
             }
         }
     }

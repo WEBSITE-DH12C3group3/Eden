@@ -39,10 +39,10 @@ namespace Eden
             txtTenNguoiDung.Text = nguoiDung.TenNguoiDung;
             txtTenDangNhap.Text = nguoiDung.TenDangNhap;
             txtMatKhau.Text = nguoiDung.MatKhau;
-            if (nguoiDung.idNhomNguoiDung != null)
-            {
-                cbNhomNguoiDung.SelectedValue = nguoiDung.idNhomNguoiDung;
-            }
+            //if (nguoiDung.idNhomNguoiDung != null)
+            //{
+            cbNhomNguoiDung.SelectedValue = nguoiDung.idNhomNguoiDung;
+            // }
         }
 
         private void btnSave_Click(object sender, EventArgs e)

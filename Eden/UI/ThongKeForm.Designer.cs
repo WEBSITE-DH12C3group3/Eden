@@ -69,7 +69,8 @@
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2PictureBox4 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnXuatPDF = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnXuatExcel = new Guna.UI2.WinForms.Guna2PictureBox();
             this.dgvUnderstock = new Guna.UI2.WinForms.Guna2DataGridView();
             this.guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblEndDate = new System.Windows.Forms.Label();
@@ -86,7 +87,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartTopProducts)).BeginInit();
             this.guna2Panel4.SuspendLayout();
             this.guna2Panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatPDF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatExcel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnderstock)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,7 +102,7 @@
             this.btnThisMonth.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnThisMonth.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnThisMonth.FillColor = System.Drawing.Color.Transparent;
-            this.btnThisMonth.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnThisMonth.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThisMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(141)))), ((int)(((byte)(181)))));
             this.btnThisMonth.Location = new System.Drawing.Point(884, 9);
             this.btnThisMonth.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -120,7 +122,7 @@
             this.btnLast30Days.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnLast30Days.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnLast30Days.FillColor = System.Drawing.Color.Transparent;
-            this.btnLast30Days.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLast30Days.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLast30Days.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(141)))), ((int)(((byte)(181)))));
             this.btnLast30Days.Location = new System.Drawing.Point(747, 9);
             this.btnLast30Days.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -140,7 +142,7 @@
             this.btnLast7Days.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnLast7Days.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnLast7Days.FillColor = System.Drawing.Color.Transparent;
-            this.btnLast7Days.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLast7Days.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLast7Days.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(141)))), ((int)(((byte)(181)))));
             this.btnLast7Days.Location = new System.Drawing.Point(619, 9);
             this.btnLast7Days.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -160,7 +162,7 @@
             this.btnToday.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnToday.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnToday.FillColor = System.Drawing.Color.Transparent;
-            this.btnToday.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnToday.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnToday.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(141)))), ((int)(((byte)(181)))));
             this.btnToday.Location = new System.Drawing.Point(491, 9);
             this.btnToday.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -180,7 +182,7 @@
             this.btnCustomDate.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnCustomDate.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnCustomDate.FillColor = System.Drawing.Color.Transparent;
-            this.btnCustomDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCustomDate.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(141)))), ((int)(((byte)(181)))));
             this.btnCustomDate.Location = new System.Drawing.Point(361, 9);
             this.btnCustomDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -576,7 +578,8 @@
             this.guna2Panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.guna2Panel5.Controls.Add(this.guna2PictureBox4);
+            this.guna2Panel5.Controls.Add(this.btnXuatPDF);
+            this.guna2Panel5.Controls.Add(this.btnXuatExcel);
             this.guna2Panel5.Controls.Add(this.dgvUnderstock);
             this.guna2Panel5.Controls.Add(this.guna2HtmlLabel14);
             this.guna2Panel5.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -586,20 +589,39 @@
             this.guna2Panel5.Size = new System.Drawing.Size(452, 278);
             this.guna2Panel5.TabIndex = 2;
             // 
-            // guna2PictureBox4
+            // btnXuatPDF
             // 
-            this.guna2PictureBox4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox4.Image = global::Eden.Properties.Resources.more;
-            this.guna2PictureBox4.ImageRotate = 0F;
-            this.guna2PictureBox4.Location = new System.Drawing.Point(398, 2);
-            this.guna2PictureBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.guna2PictureBox4.Name = "guna2PictureBox4";
-            this.guna2PictureBox4.Size = new System.Drawing.Size(51, 28);
-            this.guna2PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox4.TabIndex = 6;
-            this.guna2PictureBox4.TabStop = false;
-            this.guna2PictureBox4.UseTransparentBackground = true;
-            this.guna2PictureBox4.Visible = false;
+            this.btnXuatPDF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXuatPDF.BackColor = System.Drawing.Color.Transparent;
+            this.btnXuatPDF.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXuatPDF.Image = global::Eden.Properties.Resources.pdf;
+            this.btnXuatPDF.ImageRotate = 0F;
+            this.btnXuatPDF.Location = new System.Drawing.Point(373, 2);
+            this.btnXuatPDF.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnXuatPDF.Name = "btnXuatPDF";
+            this.btnXuatPDF.Size = new System.Drawing.Size(32, 41);
+            this.btnXuatPDF.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnXuatPDF.TabIndex = 6;
+            this.btnXuatPDF.TabStop = false;
+            this.btnXuatPDF.UseTransparentBackground = true;
+            this.btnXuatPDF.Click += new System.EventHandler(this.btnXuatPDF_Click);
+            // 
+            // btnXuatExcel
+            // 
+            this.btnXuatExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXuatExcel.BackColor = System.Drawing.Color.Transparent;
+            this.btnXuatExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXuatExcel.Image = global::Eden.Properties.Resources.exel;
+            this.btnXuatExcel.ImageRotate = 0F;
+            this.btnXuatExcel.Location = new System.Drawing.Point(417, 2);
+            this.btnXuatExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnXuatExcel.Name = "btnXuatExcel";
+            this.btnXuatExcel.Size = new System.Drawing.Size(32, 41);
+            this.btnXuatExcel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnXuatExcel.TabIndex = 6;
+            this.btnXuatExcel.TabStop = false;
+            this.btnXuatExcel.UseTransparentBackground = true;
+            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
             // 
             // dgvUnderstock
             // 
@@ -614,7 +636,7 @@
             this.dgvUnderstock.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -623,14 +645,14 @@
             this.dgvUnderstock.ColumnHeadersHeight = 35;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Silver;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(90)))), ((int)(((byte)(130)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvUnderstock.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvUnderstock.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.dgvUnderstock.Location = new System.Drawing.Point(7, 42);
+            this.dgvUnderstock.Location = new System.Drawing.Point(7, 47);
             this.dgvUnderstock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvUnderstock.Name = "dgvUnderstock";
             this.dgvUnderstock.ReadOnly = true;
@@ -644,9 +666,9 @@
             this.dgvUnderstock.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvUnderstock.RowHeadersVisible = false;
             this.dgvUnderstock.RowHeadersWidth = 29;
-            this.dgvUnderstock.RowTemplate.Height = 29;
+            this.dgvUnderstock.RowTemplate.Height = 35;
             this.dgvUnderstock.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvUnderstock.Size = new System.Drawing.Size(438, 233);
+            this.dgvUnderstock.Size = new System.Drawing.Size(438, 228);
             this.dgvUnderstock.TabIndex = 3;
             this.dgvUnderstock.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
             this.dgvUnderstock.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -666,7 +688,7 @@
             this.dgvUnderstock.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvUnderstock.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dgvUnderstock.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvUnderstock.ThemeStyle.RowsStyle.Height = 29;
+            this.dgvUnderstock.ThemeStyle.RowsStyle.Height = 35;
             this.dgvUnderstock.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.LightBlue;
             this.dgvUnderstock.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
@@ -776,7 +798,8 @@
             this.guna2Panel4.PerformLayout();
             this.guna2Panel5.ResumeLayout(false);
             this.guna2Panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatPDF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXuatExcel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnderstock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -826,6 +849,7 @@
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox3;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox4;
+        private Guna.UI2.WinForms.Guna2PictureBox btnXuatExcel;
+        private Guna.UI2.WinForms.Guna2PictureBox btnXuatPDF;
     }
 }

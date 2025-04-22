@@ -18,7 +18,7 @@ namespace Eden
         public MainForm()
         {
             InitializeComponent();
-            //this.WindowState = FormWindowState.Maximized;
+            this.WindowState = FormWindowState.Maximized;
             guna2HtmlLabel1.Text = CurrentUser.Username;
             picVan.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             picVan.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -84,10 +84,10 @@ namespace Eden
             btn.Anchor = AnchorStyles.Left;
 
             // Font và màu sắc
-            btn.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            btn.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
             btn.ForeColor = Color.White;
             btn.TextAlign = HorizontalAlignment.Left;
-            btn.TextOffset = new Point(30, 0);
+            btn.TextOffset = new Point(20, 0);
 
             // Hình ảnh
             btn.Image = (Image)Properties.Resources.ResourceManager.GetObject(imgName);
@@ -102,7 +102,7 @@ namespace Eden
             // Hover
             btn.HoverState.FillColor = Color.FromArgb(58, 125, 167);
             btn.HoverState.FillColor2 = Color.FromArgb(26, 49, 80);
-            btn.HoverState.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            btn.HoverState.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
 
             // Click event
 
@@ -113,14 +113,14 @@ namespace Eden
                         {
                             control.FillColor = Color.FromArgb(26, 49, 80);
                             control.FillColor2 = Color.FromArgb(26, 49, 80);
-                            control.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+                            control.Font = new Font("Segoe UI", 12F, FontStyle.Regular);
                         }
 
                         // Đặt màu cho nút được chọn
                         var selectedBtn = (Guna2GradientButton)sender;
                         selectedBtn.FillColor = Color.FromArgb(58, 125, 167);
                         selectedBtn.FillColor2 = Color.FromArgb(26, 49, 80);
-                        selectedBtn.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                        selectedBtn.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
 
                         //Xử lý logic khi click vào từng nút
                         switch (selectedBtn.Name)

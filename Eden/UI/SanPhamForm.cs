@@ -23,12 +23,65 @@ namespace Eden
         {
             InitializeComponent();
             sanphamBLL = new SANPHAMBLL();
-            LoadSanPham();
-        }
 
-        private void guna2dgvSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Xử lý sự kiện nếu cần
+            dgvSanPham.AutoGenerateColumns = false;
+            dgvSanPham.Columns.Clear();
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaSanPham",
+                HeaderText = "Mã Sản Phẩm",
+                Name = "MaSanPham"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenSanPham",
+                HeaderText = "Tên Sản Phẩm",
+                Name = "TenSanPham"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MoTa",
+                HeaderText = "Mô Tả",
+                Name = "MoTa"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Gia",
+                HeaderText = "Giá",
+                Name = "Gia"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SoLuong",
+                HeaderText = "Số Lượng",
+                Name = "SoLuong"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MauSac",
+                HeaderText = "Màu Sắc",
+                Name = "MauSac"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "AnhChiTiet",
+                HeaderText = "Ảnh Chi Tiết",
+                Name = "AnhChiTiet"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenNhaCungCap",
+                HeaderText = "Tên Nhà Cung Cấp",
+                Name = "TenNhaCungCap"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenLoaiSanPham",
+                HeaderText = "Tên Loại Sản Phẩm",
+                Name = "TenLoaiSanPham"
+            });
+
+            LoadSanPham();
         }
 
         private void LoadSanPham()
