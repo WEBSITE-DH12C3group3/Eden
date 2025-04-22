@@ -43,6 +43,7 @@
             this.guna2TextBoxTimKiem = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnNext = new Guna.UI2.WinForms.Guna2Button();
             this.labelTitle = new System.Windows.Forms.Label();
+            this.cmbGia = new Guna.UI2.WinForms.Guna2ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSanPham)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSanPham)).BeginInit();
             this.SuspendLayout();
@@ -307,12 +308,29 @@
             this.labelTitle.TabIndex = 20;
             this.labelTitle.Text = "Quản Lý Sản Phẩm";
             // 
+            // cmbGia
+            // 
+            this.cmbGia.BackColor = System.Drawing.Color.Transparent;
+            this.cmbGia.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbGia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGia.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbGia.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbGia.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbGia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cmbGia.ItemHeight = 30;
+            this.cmbGia.Location = new System.Drawing.Point(343, 35);
+            this.cmbGia.Name = "cmbGia";
+            this.cmbGia.Size = new System.Drawing.Size(140, 36);
+            this.cmbGia.TabIndex = 21;
+            this.cmbGia.SelectedIndexChanged += new System.EventHandler(this.guna2ComboBox1_SelectedIndexChanged);
+            // 
             // SanPhamForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(962, 749);
+            this.Controls.Add(this.cmbGia);
             this.Controls.Add(this.pictureBoxSanPham);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.guna2TextBoxTimKiem);
@@ -351,5 +369,6 @@
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBoxTimKiem;
         private Guna.UI2.WinForms.Guna2Button btnNext;
         private System.Windows.Forms.Label labelTitle;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbGia;
     }
 }
