@@ -33,31 +33,23 @@ namespace Eden
 
         private void LoadSanPham()
         {
-            var ds = sanphamBLL.GetAll()
-                .Select(sp => new SanPhamDTO
-                {
-                    MaSanPham = sp.MaSanPham,
-                    TenSanPham = sp.TenSanPham,
-                    MoTa = sp.MoTa,
-                    Gia = sp.Gia,
-                    SoLuong = sp.SoLuong,
-                    MauSac = sp.MauSac,
-                    AnhChiTiet = sp.AnhChiTiet,
-                    TenLoaiSanPham = sp.TenLoaiSanPham,
-                    TenNhaCungCap = sp.TenNhaCungCap
-                })
-                .ToList();
-
-            // Lấy tổng số lượng sản phẩm để tính tổng số trang
-            int tongSanPham = sanphamBLL.DemSoLuongSanPham();
+            var ds = sanphamBLL.GetAll(); // Đã là DTO, chứa SoLuongDaBan
+            int tongSanPham = ds.Count;
             totalPage = (int)Math.Ceiling((double)tongSanPham / pageSize);
 
-            // Lấy danh sách sản phẩm theo trang hiện tại
-            var danhSach = sanphamBLL.LaySanPhamTheoTrang(currentPage, pageSize);
-            dgvSanPham.DataSource = danhSach;
+            // Phân trang trực tiếp trên ds
+            var danhSachPhanTrang = ds
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
-            // Cập nhật label số trang
+            dgvSanPham.DataSource = danhSachPhanTrang;
             lblPage.Text = $"Trang {currentPage}/{totalPage}";
+            foreach (var sp in ds)
+            {
+                Console.WriteLine($"{sp.TenSanPham} - Đã bán: {sp.SoLuongDaBan}");
+            }
+
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -228,6 +220,8 @@ namespace Eden
                 dt.Columns.Add("Ảnh Chi Tiết", typeof(string));
                 dt.Columns.Add("Tên Nhà Cung Cấp", typeof(string));
                 dt.Columns.Add("Tên Loại Sản Phẩm", typeof(string));
+                dt.Columns.Add("Đã Bán", typeof(int));
+
 
                 // Duyệt qua từng dòng trong DataGridView và thêm vào DataTable
                 foreach (DataGridViewRow row in dgvSanPham.Rows)
@@ -244,6 +238,7 @@ namespace Eden
                         dr["Ảnh Chi Tiết"] = row.Cells["AnhChiTiet"].Value?.ToString() ?? "";
                         dr["Tên Nhà Cung Cấp"] = row.Cells["TenNhaCungCap"].Value?.ToString() ?? "";
                         dr["Tên Loại Sản Phẩm"] = row.Cells["TenLoaiSanPham"].Value?.ToString() ?? "";
+                        dr["Đã Bán"] = row.Cells["SoLuongDaBan"].Value != null ? Convert.ToInt32(row.Cells["SoLuongDaBan"].Value) : 0;
                         dt.Rows.Add(dr);
                     }
                 }

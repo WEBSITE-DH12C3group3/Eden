@@ -51,7 +51,7 @@ namespace Eden
         {
             try
             {
-                return db.SANPHAMs
+                var sanPhams = db.SANPHAMs
                     .Select(sp => new SanPhamDTO
                     {
                         idSanPham = sp.id,
@@ -62,17 +62,23 @@ namespace Eden
                         SoLuong = sp.SoLuong,
                         MauSac = sp.MauSac,
                         TenNhaCungCap = sp.NHACUNGCAP.TenNhaCungCap,
-                        TenLoaiSanPham = sp.LOAISANPHAM.TenLoaiSanPham
+                        TenLoaiSanPham = sp.LOAISANPHAM.TenLoaiSanPham,
+
+                        // Tính tổng số lượng đã bán từ các chi tiết hóa đơn liên quan đến sản phẩm này
+                        SoLuongDaBan = sp.CHITIETHOADONs.Sum(ct => (int?)ct.SoLuong) ?? 0
 
                     })
                     .ToList();
+
+                return sanPhams;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Lỗi khi lấy toàn bộ hóa đơn DTO: " + ex.Message);
+                Console.WriteLine("Lỗi khi lấy danh sách sản phẩm DTO: " + ex.ToString());
                 throw;
             }
         }
+
 
         public void Add(SANPHAM sp)
         {

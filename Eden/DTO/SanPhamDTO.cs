@@ -19,5 +19,7 @@ namespace Eden.DTO
         public string TenNhaCungCap { get; set; }
         public string TenLoaiSanPham { get; set; }
 
+        public int SoLuongDaBan { get; set; }
+
     }
 }
