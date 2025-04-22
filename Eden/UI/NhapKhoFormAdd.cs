@@ -99,10 +99,11 @@ namespace Eden
             {
                 MessageBox.Show($"Không tìm thấy phiếu nhập với mã {maPhieuNhap}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
+            } 
+            //txtMaPhieuNhap.Text = phieuNhap.MaPhieuNhap;
 
-            txtMaPhieuNhap.Text = phieuNhap.MaPhieuNhap;
-            txtMaPhieuNhap.ReadOnly = true; // Ngăn chỉnh sửa MaPhieuNhap
+           
+            //txtMaPhieuNhap.ReadOnly = true; // Ngăn chỉnh sửa MaPhieuNhap
             dtpNgayNhap.Value = phieuNhap.NgayNhap;
 
             // Tải danh sách nhà cung cấp
@@ -337,7 +338,7 @@ namespace Eden
 
 
 
-        private Guna.UI2.WinForms.Guna2TextBox txtMaPhieuNhap;
+        //private Guna.UI2.WinForms.Guna2TextBox txtMaPhieuNhap;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpNgayNhap;
         private Guna.UI2.WinForms.Guna2ComboBox cmbNhaCungCap;
         private Guna.UI2.WinForms.Guna2ComboBox cmbIDNguoiDung;

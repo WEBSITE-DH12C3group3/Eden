@@ -33,7 +33,7 @@ namespace Eden
         {
             this.btnThem = new Guna.UI2.WinForms.Guna2Button();
 
-            this.txtMaPhieuNhap = new Guna.UI2.WinForms.Guna2TextBox();
+            //this.txtMaPhieuNhap = new Guna.UI2.WinForms.Guna2TextBox();
             this.dtpNgayNhap = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.cmbNhaCungCap = new Guna.UI2.WinForms.Guna2ComboBox();
 
@@ -47,9 +47,9 @@ namespace Eden
             this.SuspendLayout();
 
             // txtMaPhieuNhap
-            this.txtMaPhieuNhap.Location = new System.Drawing.Point(20, 20);
-            this.txtMaPhieuNhap.Size = new System.Drawing.Size(300, 36);
-            this.txtMaPhieuNhap.PlaceholderText = "Mã phiếu nhập";
+            //this.txtMaPhieuNhap.Location = new System.Drawing.Point(20, 20);
+            //this.txtMaPhieuNhap.Size = new System.Drawing.Size(300, 36);
+            //this.txtMaPhieuNhap.PlaceholderText = "Mã phiếu nhập";
 
             // dtpNgayNhap
             this.dtpNgayNhap.Location = new System.Drawing.Point(20, 70);
@@ -103,7 +103,7 @@ namespace Eden
 
             // Form
             this.ClientSize = new System.Drawing.Size(500, 450);
-            this.Controls.Add(this.txtMaPhieuNhap);
+            //this.Controls.Add(this.txtMaPhieuNhap);
             this.Controls.Add(this.dtpNgayNhap);
             this.Controls.Add(this.cmbNhaCungCap);
             this.Controls.Add(this.cmbTenSP); // Thêm combo box
