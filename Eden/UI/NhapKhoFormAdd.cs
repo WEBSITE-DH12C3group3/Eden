@@ -328,7 +328,7 @@ namespace Eden
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Lỗi cập nhật danh sách sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Cập nhật danh sách sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 };
 

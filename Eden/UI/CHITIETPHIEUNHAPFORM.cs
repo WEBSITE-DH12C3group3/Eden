@@ -39,26 +39,33 @@ namespace Eden.UI
 
         private void LoadData()
         {
-            var data = dal.GetChiTietByPhieuNhap(_idPhieuNhap)
-                          .Select(c => new
-                          {
-                              c.idPhieuNhap,
-                              c.idSanPham,
-                              TenSanPham = c.SANPHAM != null ? c.SANPHAM.TenSanPham : "",
-                              c.SoLuong,
-                              c.DonGia,
-                              c.ThanhTien
-                          }).ToList();
+            using (var db = new QLBanHoaEntities())
+            {
+                var data = dal.GetChiTietByPhieuNhap(_idPhieuNhap)
+                              .Select(c => new
+                              {
+                                  MaPhieuNhap = db.PHIEUNHAPs
+                                                 .Where(p => p.id == c.idPhieuNhap)
+                                                 .Select(p => p.MaPhieuNhap)
+                                                 .FirstOrDefault() ?? "N/A",
+                                  c.idSanPham,
+                                  TenSanPham = c.SANPHAM != null ? c.SANPHAM.TenSanPham : "",
+                                  c.SoLuong,
+                                  c.DonGia,
+                                  c.ThanhTien
+                              }).ToList();
 
-            dgvChiTiet.DataSource = data;
+                dgvChiTiet.DataSource = data;
 
-            dgvChiTiet.Columns["idPhieuNhap"].HeaderText = "Mã Phiếu Nhập";
-            dgvChiTiet.Columns["idSanPham"].HeaderText = "Mã Sản Phẩm";
-            dgvChiTiet.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
-            dgvChiTiet.Columns["SoLuong"].HeaderText = "Số Lượng";
-            dgvChiTiet.Columns["DonGia"].HeaderText = "Đơn Giá";
-            dgvChiTiet.Columns["ThanhTien"].HeaderText = "Thành Tiền";
+                dgvChiTiet.Columns["MaPhieuNhap"].HeaderText = "Mã Phiếu Nhập";
+                dgvChiTiet.Columns["idSanPham"].HeaderText = "Mã Sản Phẩm";
+                dgvChiTiet.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
+                dgvChiTiet.Columns["SoLuong"].HeaderText = "Số Lượng";
+                dgvChiTiet.Columns["DonGia"].HeaderText = "Đơn Giá";
+                dgvChiTiet.Columns["ThanhTien"].HeaderText = "Thành Tiền";
+            }
         }
+        
 
         private void btnQuayLai_Click(object sender, EventArgs e)
         {
