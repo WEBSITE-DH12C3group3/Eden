@@ -1,6 +1,4 @@
 ﻿using System;
-using ClosedXML.Excel;
-
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClosedXML.Excel;
 using Eden.UI;
 using Guna.UI2.WinForms;
 
@@ -17,24 +16,103 @@ namespace Eden
     public partial class NhaCungCapForm : Form
     {
         private NHACUNGCAPBLL nhaCungCapBLL;
+        private NHACUNGCAPDAL nhaCungCapDAL;
+        private int currentPage = 1;
+        private int pageSize = 10;
+        private int totalRecords = 0;
+        private int totalPages = 1;
+        private string searchTerm = "";
+
         public NhaCungCapForm()
         {
             InitializeComponent();
             nhaCungCapBLL = new NHACUNGCAPBLL();
-            NhaCungCapForm_Load();
+            nhaCungCapDAL = new NHACUNGCAPDAL();
+            LoadData();
         }
 
-        private void NhaCungCapForm_Load()
+        private void LoadData()
         {
-            guna2DataGridViewNCC.DataSource = nhaCungCapBLL.GetAll();
+            try
+            {
+                // Lấy dữ liệu phân trang
+                var nhaCungCapList = nhaCungCapDAL.GetPagedNhaCungCap(currentPage, pageSize, out totalRecords, searchTerm);
+
+                // Tính tổng số trang
+                totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+                if (totalPages == 0) totalPages = 1;
+
+                // Gán dữ liệu cho DataGridView
+                guna2DataGridViewNCC.DataSource = nhaCungCapList.Select(n => new
+                {
+                    n.MaNhaCungCap,
+                    n.TenNhaCungCap,
+                    n.DiaChi,
+                    n.SoDienThoai,
+                    n.Email
+                }).ToList();
+
+                // Cập nhật tiêu đề cột
+                guna2DataGridViewNCC.Columns["MaNhaCungCap"].HeaderText = "Mã Nhà Cung Cấp";
+                guna2DataGridViewNCC.Columns["TenNhaCungCap"].HeaderText = "Tên Nhà Cung Cấp";
+                guna2DataGridViewNCC.Columns["DiaChi"].HeaderText = "Địa Chỉ";
+                guna2DataGridViewNCC.Columns["SoDienThoai"].HeaderText = "Số Điện Thoại";
+                guna2DataGridViewNCC.Columns["Email"].HeaderText = "Email";
+
+                // Cập nhật label trang
+                lblPage.Text = $"Trang {currentPage}/{totalPages}";
+
+                // Cập nhật trạng thái nút
+                btnPrev.Enabled = currentPage > 1;
+                btnNext.Enabled = currentPage < totalPages;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            searchTerm = txtSearch.Text.Trim();
+            currentPage = 1;
+            LoadData();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            searchTerm = "";
+            txtSearch.Text = "";
+            currentPage = 1;
+            LoadData();
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                LoadData();
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                LoadData();
+            }
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             using (NhaCungCapFormAdd formAdd = new NhaCungCapFormAdd())
             {
-                formAdd.ShowDialog();
-                NhaCungCapForm_Load(); // Cập nhật danh sách sau khi thêm
+                if (formAdd.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
             }
         }
 
@@ -42,24 +120,33 @@ namespace Eden
         {
             if (guna2DataGridViewNCC.CurrentRow != null)
             {
-                string maNCC = guna2DataGridViewNCC.CurrentRow.Cells["MaNhaCungCap"].Value.ToString();
-                NhaCungCapFormSua nhaCungCapFormSua = new NhaCungCapFormSua(maNCC);
+                string maNCC = guna2DataGridViewNCC.CurrentRow.Cells["MaNhaCungCap"].Value?.ToString();
+                if (string.IsNullOrEmpty(maNCC))
+                {
+                    MessageBox.Show("Mã nhà cung cấp không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                // Đặt Owner để form con có thể gọi UpdateDataGridView khi đóng
-                nhaCungCapFormSua.Owner = this;
-
-                nhaCungCapFormSua.ShowDialog();
+                using (NhaCungCapFormSua nhaCungCapFormSua = new NhaCungCapFormSua(maNCC))
+                {
+                    nhaCungCapFormSua.Owner = this;
+                    if (nhaCungCapFormSua.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadData();
+                    }
+                }
             }
             else
             {
                 MessageBox.Show("Vui lòng chọn nhà cung cấp cần sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
         public void UpdateDataGridView(NHACUNGCAP updatedNCC)
         {
             foreach (DataGridViewRow row in guna2DataGridViewNCC.Rows)
             {
-                if (row.Cells["MaNhaCungCap"].Value.ToString() == updatedNCC.MaNhaCungCap)
+                if (row.Cells["MaNhaCungCap"].Value?.ToString() == updatedNCC.MaNhaCungCap)
                 {
                     row.Cells["TenNhaCungCap"].Value = updatedNCC.TenNhaCungCap;
                     row.Cells["DiaChi"].Value = updatedNCC.DiaChi;
@@ -74,26 +161,23 @@ namespace Eden
         {
             if (guna2DataGridViewNCC.CurrentRow != null)
             {
-                // Lấy mã nhà cung cấp từ cột trong DataGridView
-                string maNCC = guna2DataGridViewNCC.CurrentRow.Cells["MaNhaCungCap"].Value.ToString();
+                string maNCC = guna2DataGridViewNCC.CurrentRow.Cells["MaNhaCungCap"].Value?.ToString();
+                if (string.IsNullOrEmpty(maNCC))
+                {
+                    MessageBox.Show("Mã nhà cung cấp không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                // Hỏi người dùng có chắc chắn muốn xóa nhà cung cấp này không
                 DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa nhà cung cấp này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     try
                     {
-                        // Tìm nhà cung cấp trong cơ sở dữ liệu trước khi xóa
                         var existingNCC = nhaCungCapBLL.GetAll().FirstOrDefault(n => n.MaNhaCungCap == maNCC);
-
-                        if (existingNCC != null) // Nếu nhà cung cấp tồn tại
+                        if (existingNCC != null)
                         {
-                            // Gọi phương thức Delete để xóa
                             nhaCungCapBLL.Delete(existingNCC);
-
-                            // Xóa dòng trong DataGridView mà không cần load lại toàn bộ
-                            guna2DataGridViewNCC.Rows.Remove(guna2DataGridViewNCC.CurrentRow);
-
+                            LoadData();
                             MessageBox.Show("Xóa nhà cung cấp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
@@ -103,7 +187,7 @@ namespace Eden
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Lỗi khi xóa nhà cung cấp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Lỗi khi xóa nhà cung cấp: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -115,9 +199,7 @@ namespace Eden
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            // Tạo DataTable từ DataGridView
             DataTable dt = new DataTable();
-
             foreach (DataGridViewColumn column in guna2DataGridViewNCC.Columns)
             {
                 dt.Columns.Add(column.HeaderText, typeof(string));
@@ -136,17 +218,18 @@ namespace Eden
                 }
             }
 
-            // Lưu Excel
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
-            saveFileDialog.Title = "Lưu file Excel";
-            saveFileDialog.FileName = "DanhSach.xlsx";
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Excel Workbook|*.xlsx",
+                Title = "Lưu file Excel",
+                FileName = "DanhSachNhaCungCap.xlsx"
+            };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 using (XLWorkbook wb = new XLWorkbook())
                 {
-                    wb.Worksheets.Add(dt, "DanhSach");
+                    wb.Worksheets.Add(dt, "NhaCungCap");
                     wb.SaveAs(saveFileDialog.FileName);
                     MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
