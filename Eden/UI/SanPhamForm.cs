@@ -50,11 +50,18 @@ namespace Eden
                 HeaderText = "Giá",
                 Name = "Gia"
             });
+
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "SoLuong",
                 HeaderText = "Số Lượng",
                 Name = "SoLuong"
+            });
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SoLuongDaBan",
+                HeaderText = "Số Lượng Đã Bán",
+                Name = "SoLuongDaBan"
             });
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -71,23 +78,23 @@ namespace Eden
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "TenNhaCungCap",
-                HeaderText = "Tên Nhà Cung Cấp",
+                HeaderText = "Nhà Cung Cấp",
                 Name = "TenNhaCungCap"
             });
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "TenLoaiSanPham",
-                HeaderText = "Tên Loại Sản Phẩm",
+                HeaderText = "Loại Sản Phẩm",
                 Name = "TenLoaiSanPham"
             });
             // Tạo các phạm vi giá
             List<string> giaRanges = new List<string>
     {
-        "Giá từ 0 đến 100.000",
-        "Giá từ 100.000 đến 500.000",
-        "Giá từ 500.000 đến 1.000.000",
-        "Giá từ 1.000.000 đến 5.000.000",
-        "Giá từ 5.000.000 trở lên"
+        "0 đến 100k",
+        "100k đến 500k",
+        "500k đến 1 triệu",
+        "1 triệu đến 5 triệu",
+        "5 triệu trở lên"
     };
 
             // Gán danh sách vào ComboBox
@@ -123,7 +130,7 @@ namespace Eden
             if (string.IsNullOrEmpty(selectedRange))
             {
                 // Lựa chọn mặc định nếu chưa chọn gì
-                selectedRange = "Giá từ 0 đến 100.000";  // Giá trị mặc định
+                selectedRange = "Giá từ 0 đến 100k";  // Giá trị mặc định
             }
         }
 
@@ -147,6 +154,7 @@ namespace Eden
                     row.Cells["MoTa"].Value = updatedSP.MoTa;
                     row.Cells["Gia"].Value = updatedSP.Gia;
                     row.Cells["SoLuong"].Value = updatedSP.SoLuong;
+                    row.Cells["SoLuongDaBan"].Value = updatedSP.SoLuongDaBan;
                     row.Cells["MauSac"].Value = updatedSP.MauSac;
                     row.Cells["AnhChiTiet"].Value = updatedSP.AnhChiTiet;
                     row.Cells["TenLoaiSanPham"].Value = updatedSP.LOAISANPHAM?.TenLoaiSanPham;
@@ -247,16 +255,29 @@ namespace Eden
             if (e.RowIndex >= 0)
             {
                 var row = dgvSanPham.Rows[e.RowIndex];
+
+                // Lấy thông tin từ dòng được chọn
+                string tenSP = row.Cells["TenSanPham"].Value?.ToString();
+                string gia = row.Cells["Gia"].Value?.ToString();
+                string soLuong = row.Cells["SoLuong"].Value?.ToString();
+                string mauSac = row.Cells["MauSac"].Value?.ToString();
                 string tenFileAnh = row.Cells["AnhChiTiet"].Value?.ToString();
 
+                // Gán vào các label hiển thị
+                lblTenSanPham.Text += tenSP;
+                lblGia.Text += gia;
+                lblSoLuong.Text += soLuong;
+                lblMauSac.Text += mauSac;
+
+                // Hiển thị ảnh
                 if (!string.IsNullOrEmpty(tenFileAnh))
                 {
-                    string duongDanGoc = Path.Combine(Application.StartupPath, @"..\..\Resources\img", tenFileAnh);
-                    string duongDanAnh = Path.GetFullPath(duongDanGoc);
+                    string duongDanAnh = Path.Combine(Application.StartupPath, @"Resources\img", tenFileAnh);
 
                     if (File.Exists(duongDanAnh))
                     {
                         pictureBoxSanPham.Image = Image.FromFile(duongDanAnh);
+                        pictureBoxSanPham.SizeMode = PictureBoxSizeMode.Zoom;
                     }
                     else
                     {
@@ -296,7 +317,6 @@ namespace Eden
                 dt.Columns.Add("Tên Nhà Cung Cấp", typeof(string));
                 dt.Columns.Add("Tên Loại Sản Phẩm", typeof(string));
                 dt.Columns.Add("Đã Bán", typeof(int));
-
 
                 // Duyệt qua từng dòng trong DataGridView và thêm vào DataTable
                 foreach (DataGridViewRow row in dgvSanPham.Rows)
@@ -380,27 +400,27 @@ namespace Eden
             decimal giaTo = decimal.MaxValue;
 
             // Phân tích phạm vi giá đã chọn
-            if (selectedRange == "Giá từ 0 đến 100.000")
+            if (selectedRange == "0 đến 100k")
             {
                 giaFrom = 0;
                 giaTo = 100000;
             }
-            else if (selectedRange == "Giá từ 100.000 đến 500.000")
+            else if (selectedRange == "100k đến 500k")
             {
                 giaFrom = 100000;
                 giaTo = 500000;
             }
-            else if (selectedRange == "Giá từ 500.000 đến 1.000.000")
+            else if (selectedRange == "500k đến 1 triệu")
             {
                 giaFrom = 500000;
                 giaTo = 1000000;
             }
-            else if (selectedRange == "Giá từ 1.000.000 đến 5.000.000")
+            else if (selectedRange == "1 triệu đến 5 triệu")
             {
                 giaFrom = 1000000;
                 giaTo = 5000000;
             }
-            else if (selectedRange == "Giá từ 5.000.000 trở lên")
+            else if (selectedRange == "5 triệu trở lên")
             {
                 giaFrom = 5000000;
                 giaTo = decimal.MaxValue;

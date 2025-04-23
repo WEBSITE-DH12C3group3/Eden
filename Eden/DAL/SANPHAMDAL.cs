@@ -26,7 +26,8 @@ namespace Eden
             .Include(sp => sp.LOAISANPHAM)
             .ToList();
         }
-        public List<SanPhamDTO>TimKiemTheoTen(string tuKhoa)
+
+        public List<SanPhamDTO> TimKiemTheoTen(string tuKhoa)
         {
             using (var db = new QLBanHoaEntities())
             {
@@ -63,10 +64,9 @@ namespace Eden
                         MauSac = sp.MauSac,
                         TenNhaCungCap = sp.NHACUNGCAP.TenNhaCungCap,
                         TenLoaiSanPham = sp.LOAISANPHAM.TenLoaiSanPham,
-
+                        AnhChiTiet = sp.AnhChiTiet,
                         // Tính tổng số lượng đã bán từ các chi tiết hóa đơn liên quan đến sản phẩm này
                         SoLuongDaBan = sp.CHITIETHOADONs.Sum(ct => (int?)ct.SoLuong) ?? 0
-
                     })
                     .ToList();
 
@@ -78,7 +78,6 @@ namespace Eden
                 throw;
             }
         }
-
 
         public void Add(SANPHAM sp)
         {
@@ -129,6 +128,7 @@ namespace Eden
                 throw new Exception("Sản phẩm không tồn tại.");
             }
         }
+
         public List<SanPhamDTO> LaySanPhamTheoTrang(int page, int pageSize)
         {
             using (var db = new QLBanHoaEntities())
