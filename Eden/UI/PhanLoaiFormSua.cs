@@ -9,6 +9,7 @@ namespace Eden.UI
     {
         private LOAISANPHAMBLL loaiSanPhamBLL;
         private string maLSP;
+
         public PhanLoaiFormSua(string maLSP)
         {
             InitializeComponent();
@@ -27,9 +28,9 @@ namespace Eden.UI
                 if (lsp != null) // Nếu sản phẩm tồn tại
                 {
                     // Đổ thông tin sản phẩm vào các ô nhập liệu
-                    guna2TextBox1.Text = lsp.MaLoaiSanPham;
-                    guna2TextBox1.ReadOnly = true; // Không cho phép sửa mã loại sản phẩm
-                    guna2TextBox2.Text = lsp.TenLoaiSanPham;
+                    txtMaLoai.Text = lsp.MaLoaiSanPham;
+                    txtMaLoai.ReadOnly = true; // Không cho phép sửa mã loại sản phẩm
+                    txtTenLoai.Text = lsp.TenLoaiSanPham;
                 }
                 else // Nếu không tìm thấy sản phẩm
                 {
@@ -51,7 +52,7 @@ namespace Eden.UI
                 LOAISANPHAM lsp = new LOAISANPHAM
                 {
                     MaLoaiSanPham = maLSP,
-                    TenLoaiSanPham = guna2TextBox2.Text.Trim(),
+                    TenLoaiSanPham = txtTenLoai.Text.Trim(),
                 };
 
                 loaiSanPhamBLL.Update(lsp);
@@ -76,6 +77,5 @@ namespace Eden.UI
         {
             this.Close();
         }
-
     }
 }
