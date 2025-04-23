@@ -89,13 +89,13 @@ namespace Eden
             });
             // Tạo các phạm vi giá
             List<string> giaRanges = new List<string>
-    {
-        "0 đến 100k",
-        "100k đến 500k",
-        "500k đến 1 triệu",
-        "1 triệu đến 5 triệu",
-        "5 triệu trở lên"
-    };
+            {
+                "0 đến 100k",
+                "100k đến 500k",
+                "500k đến 1 triệu",
+                "1 triệu đến 5 triệu",
+                "5 triệu trở lên"
+            };
 
             // Gán danh sách vào ComboBox
             cmbGia.DataSource = giaRanges;

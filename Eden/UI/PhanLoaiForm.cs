@@ -267,5 +267,11 @@ namespace Eden
                 }
             }
         }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e) {
+            string tuKhoa = txtSearch.Text.Trim();
+            var ketQua = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
+            dgvLoaiSanPham.DataSource = ketQua;
+        }
     }
 }
