@@ -78,13 +78,13 @@ namespace Eden
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "TenNhaCungCap",
-                HeaderText = "Tên Nhà Cung Cấp",
+                HeaderText = "Nhà Cung Cấp",
                 Name = "TenNhaCungCap"
             });
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "TenLoaiSanPham",
-                HeaderText = "Tên Loại Sản Phẩm",
+                HeaderText = "Loại Sản Phẩm",
                 Name = "TenLoaiSanPham"
             });
             // Tạo các phạm vi giá
@@ -264,10 +264,10 @@ namespace Eden
                 string tenFileAnh = row.Cells["AnhChiTiet"].Value?.ToString();
 
                 // Gán vào các label hiển thị
-                lblTenSanPham.Text = "Tên: " + tenSP;
-                lblGia.Text = "Giá: " + gia;
-                lblSoLuong.Text = "Số lượng: " + soLuong;
-                lblMauSac.Text = "Màu sắc: " + mauSac;
+                lblTenSanPham.Text += tenSP;
+                lblGia.Text += gia;
+                lblSoLuong.Text += soLuong;
+                lblMauSac.Text += mauSac;
 
                 // Hiển thị ảnh
                 if (!string.IsNullOrEmpty(tenFileAnh))
@@ -432,11 +432,6 @@ namespace Eden
 
             // Cập nhật lại DataGridView với danh sách đã lọc
             dgvSanPham.DataSource = filteredList;
-        }
-
-        private void pictureBoxSanPham_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
