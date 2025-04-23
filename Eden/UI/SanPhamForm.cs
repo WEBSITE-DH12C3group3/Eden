@@ -255,16 +255,29 @@ namespace Eden
             if (e.RowIndex >= 0)
             {
                 var row = dgvSanPham.Rows[e.RowIndex];
+
+                // Lấy thông tin từ dòng được chọn
+                string tenSP = row.Cells["TenSanPham"].Value?.ToString();
+                string gia = row.Cells["Gia"].Value?.ToString();
+                string soLuong = row.Cells["SoLuong"].Value?.ToString();
+                string mauSac = row.Cells["MauSac"].Value?.ToString();
                 string tenFileAnh = row.Cells["AnhChiTiet"].Value?.ToString();
 
+                // Gán vào các label hiển thị
+                lblTenSanPham.Text = "Tên: " + tenSP;
+                lblGia.Text = "Giá: " + gia;
+                lblSoLuong.Text = "Số lượng: " + soLuong;
+                lblMauSac.Text = "Màu sắc: " + mauSac;
+
+                // Hiển thị ảnh
                 if (!string.IsNullOrEmpty(tenFileAnh))
                 {
-                    string duongDanGoc = Path.Combine(Application.StartupPath, @"..\..\Resources\img", tenFileAnh);
-                    string duongDanAnh = Path.GetFullPath(duongDanGoc);
+                    string duongDanAnh = Path.Combine(Application.StartupPath, @"Resources\img", tenFileAnh);
 
                     if (File.Exists(duongDanAnh))
                     {
                         pictureBoxSanPham.Image = Image.FromFile(duongDanAnh);
+                        pictureBoxSanPham.SizeMode = PictureBoxSizeMode.Zoom;
                     }
                     else
                     {
@@ -419,6 +432,11 @@ namespace Eden
 
             // Cập nhật lại DataGridView với danh sách đã lọc
             dgvSanPham.DataSource = filteredList;
+        }
+
+        private void pictureBoxSanPham_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
