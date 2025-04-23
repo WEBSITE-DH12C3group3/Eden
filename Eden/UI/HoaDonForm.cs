@@ -65,7 +65,7 @@ namespace Eden
 
             search.TextChanged += new EventHandler(search_TextChanged);
             search.Text = "Nhập mã hóa đơn hoặc mã khách hàng (số)";
-            search.ForeColor = Color.Gray;
+            //search.ForeColor = Color.Gray;
             search.Enter += new EventHandler(search_Enter);
             search.Leave += new EventHandler(search_Leave);
         }
@@ -128,7 +128,7 @@ namespace Eden
             if (search.Text == "Nhập mã hóa đơn hoặc mã khách hàng (số)")
             {
                 search.Text = "";
-                search.ForeColor = Color.Black;
+                //search.ForeColor = Color.Black;
             }
         }
 
@@ -138,7 +138,7 @@ namespace Eden
             if (string.IsNullOrWhiteSpace(search.Text))
             {
                 search.Text = "Nhập mã hóa đơn hoặc mã khách hàng (số)";
-                search.ForeColor = Color.Gray;
+                //search.ForeColor = Color.Gray;
             }
         }
 
@@ -329,7 +329,6 @@ namespace Eden
 
         private void lblPageInfo_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

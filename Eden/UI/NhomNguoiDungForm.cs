@@ -25,7 +25,7 @@ namespace Eden
                 dataGridViewNhomNguoiDung.Rows.Clear();
                 foreach (var nhom in nhomNguoiDungList)
                 {
-                    dataGridViewNhomNguoiDung.Rows.Add(nhom.id, nhom.TenNhomNguoiDung);
+                    dataGridViewNhomNguoiDung.Rows.Add(nhom.MaNhomNguoiDung, nhom.TenNhomNguoiDung);
                 }
             }
             catch (Exception ex)

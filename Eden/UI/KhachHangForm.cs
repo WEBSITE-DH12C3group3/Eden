@@ -60,7 +60,7 @@ namespace Eden
 
             // Thiết lập placeholder cho searchHK
             searchHK.Text = "Nhập tên hoặc mã KH";
-            searchHK.ForeColor = Color.Gray;
+            //searchHK.ForeColor = Color.Gray;
             searchHK.Enter += new EventHandler(searchHK_Enter);
             searchHK.Leave += new EventHandler(searchHK_Leave);
         }
@@ -125,7 +125,7 @@ namespace Eden
             if (searchHK.Text == "Nhập tên hoặc mã KH")
             {
                 searchHK.Text = "";
-                searchHK.ForeColor = Color.Black;
+                //searchHK.ForeColor = Color.Black;
             }
         }
 
@@ -135,7 +135,7 @@ namespace Eden
             if (string.IsNullOrWhiteSpace(searchHK.Text))
             {
                 searchHK.Text = "Nhập tên hoặc mã KH";
-                searchHK.ForeColor = Color.Gray;
+                //searchHK.ForeColor = Color.Gray;
             }
         }
 
@@ -227,7 +227,6 @@ namespace Eden
             // Có thể thêm xử lý nếu cần
         }
 
-
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
             List<KhachHangDTO> allKhachHang = khachHangBLL.GetAll();
@@ -293,9 +292,6 @@ namespace Eden
                     var ngayLapColumn = ws.Column(2);
                     ngayLapColumn.Style.DateFormat.Format = "dd/MM/yyyy";
 
-                    
-                   
-
                     // Tự động điều chỉnh độ rộng cột
                     ws.Columns().AdjustToContents();
 
@@ -308,6 +304,10 @@ namespace Eden
                     MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void searchHK_TextChanged_1(object sender, EventArgs e)
+        {
         }
     }
 }

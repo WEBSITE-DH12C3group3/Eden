@@ -439,7 +439,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SanPhamFormSua";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "SanPhamFormSua";
+            this.Text = "Sửa sản phẩm";
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBoxAnh)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -60,10 +60,10 @@ namespace Eden
                 guna2DataGridViewNCC.Columns["Email"].HeaderText = "Email";
 
                 // Cập nhật label trang
-                lblPage.Text = $"Trang {currentPage}/{totalPages}";
+                lblPageInfo.Text = $"Trang {currentPage}/{totalPages}";
 
                 // Cập nhật trạng thái nút
-                btnPrev.Enabled = currentPage > 1;
+                btnPrevious.Enabled = currentPage > 1;
                 btnNext.Enabled = currentPage < totalPages;
             }
             catch (Exception ex)

@@ -31,306 +31,278 @@ namespace Eden
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addkhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.suakhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.xoakhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.dgkhachhang = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.searchHK = new Guna.UI2.WinForms.Guna2TextBox();
-            this.btnSearch = new Guna.UI2.WinForms.Guna2Button();
             this.btnPreviousPage = new Guna.UI2.WinForms.Guna2Button();
             this.btnNextPage = new Guna.UI2.WinForms.Guna2Button();
             this.lblPageInfo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnExportExcel = new Guna.UI2.WinForms.Guna2Button();
-            this.labelTitle = new System.Windows.Forms.Label(); // Added Title Label
-            // Removed guna2HtmlLabel1 - using placeholder text in textbox instead
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.searchHK = new Guna.UI2.WinForms.Guna2TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgkhachhang)).BeginInit();
             this.SuspendLayout();
-            //
+            // 
             // addkhachhang
-            //
-            this.addkhachhang.Anchor = System.Windows.Forms.AnchorStyles.Bottom; // Matched SanPhamForm anchor
-            this.addkhachhang.BorderRadius = 10; // Matched SanPhamForm border radius
+            // 
+            this.addkhachhang.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.addkhachhang.BorderRadius = 10;
             this.addkhachhang.CustomImages.ImageAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.addkhachhang.DisabledState.BorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.addkhachhang.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.addkhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169))))); // Matched SanPhamForm disabled state
-            this.addkhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141))))); // Matched SanPhamForm disabled state
-            this.addkhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192))))); // Matched SanPhamForm add button color (Teal)
-            this.addkhachhang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
+            this.addkhachhang.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.addkhachhang.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.addkhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.addkhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.addkhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.addkhachhang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addkhachhang.ForeColor = System.Drawing.Color.White;
-            this.addkhachhang.Image = global::Eden.Properties.Resources.add; // Matched SanPhamForm image (ensure resource exists)
-            this.addkhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left; // Matched SanPhamForm image align
-            this.addkhachhang.Location = new System.Drawing.Point(126, 661); // Adjusted location to match SanPhamForm layout
+            this.addkhachhang.Image = global::Eden.Properties.Resources.add;
+            this.addkhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.addkhachhang.Location = new System.Drawing.Point(126, 661);
             this.addkhachhang.Margin = new System.Windows.Forms.Padding(2);
             this.addkhachhang.Name = "addkhachhang";
-            this.addkhachhang.Size = new System.Drawing.Size(160, 55); // Matched SanPhamForm size
+            this.addkhachhang.Size = new System.Drawing.Size(160, 55);
             this.addkhachhang.TabIndex = 1;
-            this.addkhachhang.Text = "Thêm"; // Simplified text to match SanPhamForm button
+            this.addkhachhang.Text = "Thêm";
             this.addkhachhang.Click += new System.EventHandler(this.addkhachhang_Click);
-            //
+            // 
             // suakhachhang
-            //
-            this.suakhachhang.Anchor = System.Windows.Forms.AnchorStyles.Bottom; // Matched SanPhamForm anchor
-            this.suakhachhang.BorderRadius = 10; // Matched SanPhamForm border radius
-            this.suakhachhang.DisabledState.BorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.suakhachhang.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.suakhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169))))); // Matched SanPhamForm disabled state
-            this.suakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141))))); // Matched SanPhamForm disabled state
-            this.suakhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255))))); // Matched SanPhamForm edit button color (Purple)
-            this.suakhachhang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
+            // 
+            this.suakhachhang.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.suakhachhang.BorderRadius = 10;
+            this.suakhachhang.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.suakhachhang.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.suakhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.suakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.suakhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.suakhachhang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.suakhachhang.ForeColor = System.Drawing.Color.White;
-            this.suakhachhang.Image = global::Eden.Properties.Resources.edit; // Matched SanPhamForm image (ensure resource exists)
-            this.suakhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left; // Matched SanPhamForm image align
-            this.suakhachhang.Location = new System.Drawing.Point(316, 661); // Adjusted location to match SanPhamForm layout
+            this.suakhachhang.Image = global::Eden.Properties.Resources.edit;
+            this.suakhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.suakhachhang.Location = new System.Drawing.Point(316, 661);
             this.suakhachhang.Margin = new System.Windows.Forms.Padding(2);
             this.suakhachhang.Name = "suakhachhang";
-            this.suakhachhang.Size = new System.Drawing.Size(160, 55); // Matched SanPhamForm size
+            this.suakhachhang.Size = new System.Drawing.Size(160, 55);
             this.suakhachhang.TabIndex = 2;
-            this.suakhachhang.Text = "Sửa"; // Simplified text to match SanPhamForm button
+            this.suakhachhang.Text = "Sửa";
             this.suakhachhang.Click += new System.EventHandler(this.suakhachhang_Click);
-            //
+            // 
             // xoakhachhang
-            //
-            this.xoakhachhang.Anchor = System.Windows.Forms.AnchorStyles.Bottom; // Matched SanPhamForm anchor
-            this.xoakhachhang.BorderRadius = 10; // Matched SanPhamForm border radius
-            this.xoakhachhang.DisabledState.BorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.xoakhachhang.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.xoakhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169))))); // Matched SanPhamForm disabled state
-            this.xoakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141))))); // Matched SanPhamForm disabled state
-            this.xoakhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0))))); // Matched SanPhamForm delete button color (Orange)
-            this.xoakhachhang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
+            // 
+            this.xoakhachhang.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.xoakhachhang.BorderRadius = 10;
+            this.xoakhachhang.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.xoakhachhang.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.xoakhachhang.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.xoakhachhang.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.xoakhachhang.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.xoakhachhang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.xoakhachhang.ForeColor = System.Drawing.Color.White;
-            this.xoakhachhang.Image = global::Eden.Properties.Resources.del; // Matched SanPhamForm image (ensure resource exists)
-            this.xoakhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left; // Matched SanPhamForm image align
-            this.xoakhachhang.Location = new System.Drawing.Point(506, 661); // Adjusted location to match SanPhamForm layout
+            this.xoakhachhang.Image = global::Eden.Properties.Resources.del;
+            this.xoakhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.xoakhachhang.Location = new System.Drawing.Point(506, 661);
             this.xoakhachhang.Margin = new System.Windows.Forms.Padding(2);
             this.xoakhachhang.Name = "xoakhachhang";
-            this.xoakhachhang.Size = new System.Drawing.Size(160, 55); // Matched SanPhamForm size
+            this.xoakhachhang.Size = new System.Drawing.Size(160, 55);
             this.xoakhachhang.TabIndex = 3;
-            this.xoakhachhang.Text = "Xóa"; // Simplified text to match SanPhamForm button
+            this.xoakhachhang.Text = "Xóa";
             this.xoakhachhang.Click += new System.EventHandler(this.xoakhachhang_Click);
-            //
+            // 
             // dgkhachhang
-            //
-            this.dgkhachhang.AllowUserToAddRows = false; // Matched SanPhamForm
-            this.dgkhachhang.AllowUserToDeleteRows = false; // Matched SanPhamForm
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93))))); // Matched SanPhamForm color
-            this.dgkhachhang.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgkhachhang.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right))); // Matched SanPhamForm anchor
-            this.dgkhachhang.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86))))); // Matched SanPhamForm color
-            this.dgkhachhang.BorderStyle = System.Windows.Forms.BorderStyle.None; // Changed to None as in SanPhamForm
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139))))); // Matched SanPhamForm color
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173))))); // Matched SanPhamForm color
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgkhachhang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgkhachhang.ColumnHeadersHeight = 50; // Matched SanPhamForm height
-            this.dgkhachhang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing; // Matched SanPhamForm
-            this.dgkhachhang.Cursor = System.Windows.Forms.Cursors.Arrow; // Matched SanPhamForm cursor
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86))))); // Matched SanPhamForm color
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Silver; // Matched SanPhamForm color
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255))))); // Matched SanPhamForm color
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94))))); // Matched SanPhamForm color
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgkhachhang.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgkhachhang.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86))))); // Matched SanPhamForm color
-            this.dgkhachhang.Location = new System.Drawing.Point(21, 104); // Adjusted location to match SanPhamForm layout
+            // 
+            this.dgkhachhang.AllowUserToAddRows = false;
+            this.dgkhachhang.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
+            this.dgkhachhang.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgkhachhang.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgkhachhang.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgkhachhang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            this.dgkhachhang.ColumnHeadersHeight = 50;
+            this.dgkhachhang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgkhachhang.Cursor = System.Windows.Forms.Cursors.Arrow;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgkhachhang.DefaultCellStyle = dataGridViewCellStyle12;
+            this.dgkhachhang.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            this.dgkhachhang.Location = new System.Drawing.Point(21, 104);
             this.dgkhachhang.Margin = new System.Windows.Forms.Padding(2);
             this.dgkhachhang.Name = "dgkhachhang";
-            this.dgkhachhang.ReadOnly = true; // Matched SanPhamForm
-            this.dgkhachhang.RowHeadersVisible = false; // Matched SanPhamForm
-            this.dgkhachhang.RowHeadersWidth = 100; // Matched SanPhamForm
-            this.dgkhachhang.RowTemplate.Height = 40; // Matched SanPhamForm height
-            this.dgkhachhang.RowTemplate.ReadOnly = true; // Set ReadOnly as in SanPhamForm
-            this.dgkhachhang.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False; // Matched SanPhamForm
-            this.dgkhachhang.Size = new System.Drawing.Size(921, 474); // Adjusted size to fit layout
+            this.dgkhachhang.ReadOnly = true;
+            this.dgkhachhang.RowHeadersVisible = false;
+            this.dgkhachhang.RowHeadersWidth = 100;
+            this.dgkhachhang.RowTemplate.Height = 40;
+            this.dgkhachhang.RowTemplate.ReadOnly = true;
+            this.dgkhachhang.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgkhachhang.Size = new System.Drawing.Size(921, 474);
             this.dgkhachhang.TabIndex = 4;
-            this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93))))); // Matched SanPhamForm
+            this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.Font = null;
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgkhachhang.ThemeStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86))))); // Matched SanPhamForm
-            this.dgkhachhang.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86))))); // Matched SanPhamForm
-            this.dgkhachhang.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139))))); // Matched SanPhamForm
+            this.dgkhachhang.ThemeStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            this.dgkhachhang.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            this.dgkhachhang.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139)))));
             this.dgkhachhang.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgkhachhang.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
+            this.dgkhachhang.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgkhachhang.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgkhachhang.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing; // Matched SanPhamForm
-            this.dgkhachhang.ThemeStyle.HeaderStyle.Height = 50; // Matched SanPhamForm height
-            this.dgkhachhang.ThemeStyle.ReadOnly = true; // Matched SanPhamForm
-            this.dgkhachhang.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86))))); // Matched SanPhamForm color
+            this.dgkhachhang.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgkhachhang.ThemeStyle.HeaderStyle.Height = 50;
+            this.dgkhachhang.ThemeStyle.ReadOnly = true;
+            this.dgkhachhang.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             this.dgkhachhang.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgkhachhang.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
-            this.dgkhachhang.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Silver; // Matched SanPhamForm color
-            this.dgkhachhang.ThemeStyle.RowsStyle.Height = 40; // Matched SanPhamForm height
-            this.dgkhachhang.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255))))); // Matched SanPhamForm color
-            this.dgkhachhang.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94))))); // Matched SanPhamForm color
-            //
-            // searchHK
-            //
-            this.searchHK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))); // Matched SanPhamForm anchor
-            this.searchHK.BorderColor = System.Drawing.Color.WhiteSmoke; // Matched SanPhamForm border color
-            this.searchHK.BorderRadius = 10; // Matched SanPhamForm border radius
-            this.searchHK.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.searchHK.DefaultText = "";
-            this.searchHK.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208))))); // Matched SanPhamForm disabled state
-            this.searchHK.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226))))); // Matched SanPhamForm disabled state
-            this.searchHK.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138))))); // Matched SanPhamForm disabled state
-            this.searchHK.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138))))); // Matched SanPhamForm disabled state
-            this.searchHK.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63))))); // Matched SanPhamForm fill color
-            this.searchHK.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173))))); // Matched SanPhamForm focused border color
-            this.searchHK.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
-            this.searchHK.ForeColor = System.Drawing.Color.WhiteSmoke; // Use WhiteSmoke for visible text
-            this.searchHK.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173))))); // Matched SanPhamForm hover border color
-            this.searchHK.Location = new System.Drawing.Point(442, 22); // Adjusted location to match SanPhamForm layout
-            this.searchHK.Margin = new System.Windows.Forms.Padding(4);
-            this.searchHK.Name = "searchHK";
-            this.searchHK.Padding = new System.Windows.Forms.Padding(2);
-            this.searchHK.PlaceholderForeColor = System.Drawing.Color.LightGray; // Matched SanPhamForm placeholder color
-            this.searchHK.PlaceholderText = "Nhập tên khách hàng"; // Updated placeholder text
-            this.searchHK.SelectedText = "";
-            this.searchHK.Size = new System.Drawing.Size(429, 55); // Matched SanPhamForm size
-            this.searchHK.TabIndex = 5;
-            this.searchHK.TextChanged += new System.EventHandler(this.btnSearch_Click); // Kept existing event handler
-
-            //
-            // btnSearch
-            //
-            this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))); // Matched SanPhamForm anchor
-            this.btnSearch.BorderRadius = 10; // Matched SanPhamForm border radius
-            this.btnSearch.DisabledState.BorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.btnSearch.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.btnSearch.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169))))); // Matched SanPhamForm disabled state
-            this.btnSearch.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141))))); // Matched SanPhamForm disabled state
-            this.btnSearch.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173))))); // Matched SanPhamForm search button color (Blue)
-            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
-            this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Image = global::Eden.Properties.Resources.seach; // Matched SanPhamForm image (ensure resource exists)
-            this.btnSearch.Location = new System.Drawing.Point(877, 22); // Adjusted location to match SanPhamForm layout
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(55, 55); // Matched SanPhamForm size
-            this.btnSearch.TabIndex = 6;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-
-            //
+            this.dgkhachhang.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgkhachhang.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Silver;
+            this.dgkhachhang.ThemeStyle.RowsStyle.Height = 40;
+            this.dgkhachhang.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgkhachhang.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
             // btnPreviousPage
-            //
-            this.btnPreviousPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom; // Matched SanPhamForm anchor
-            this.btnPreviousPage.BorderRadius = 10; // Matched SanPhamForm border radius
-            this.btnPreviousPage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173))))); // Matched SanPhamForm pagination button color (Blue)
-            this.btnPreviousPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
+            // 
+            this.btnPreviousPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnPreviousPage.BorderRadius = 10;
+            this.btnPreviousPage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.btnPreviousPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPreviousPage.ForeColor = System.Drawing.Color.White;
-            this.btnPreviousPage.Location = new System.Drawing.Point(370, 590); // Adjusted location to match SanPhamForm layout
+            this.btnPreviousPage.Location = new System.Drawing.Point(370, 590);
             this.btnPreviousPage.Margin = new System.Windows.Forms.Padding(2);
             this.btnPreviousPage.Name = "btnPreviousPage";
             this.btnPreviousPage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnPreviousPage.Size = new System.Drawing.Size(40, 40); // Matched SanPhamForm size
+            this.btnPreviousPage.Size = new System.Drawing.Size(40, 40);
             this.btnPreviousPage.TabIndex = 7;
-            this.btnPreviousPage.Text = "<"; // Matched SanPhamForm text
+            this.btnPreviousPage.Text = "<";
             this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
-
-            //
+            // 
             // btnNextPage
-            //
-            this.btnNextPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom; // Matched SanPhamForm anchor
-            this.btnNextPage.BorderRadius = 10; // Matched SanPhamForm border radius
-            this.btnNextPage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173))))); // Matched SanPhamForm pagination button color (Blue)
-            this.btnNextPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
+            // 
+            this.btnNextPage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnNextPage.BorderRadius = 10;
+            this.btnNextPage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.btnNextPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNextPage.ForeColor = System.Drawing.Color.White;
-            this.btnNextPage.Location = new System.Drawing.Point(522, 590); // Adjusted location to match SanPhamForm layout
+            this.btnNextPage.Location = new System.Drawing.Point(522, 590);
             this.btnNextPage.Margin = new System.Windows.Forms.Padding(2);
             this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(40, 40); // Matched SanPhamForm size
+            this.btnNextPage.Size = new System.Drawing.Size(40, 40);
             this.btnNextPage.TabIndex = 8;
-            this.btnNextPage.Text = ">"; // Matched SanPhamForm text
+            this.btnNextPage.Text = ">";
             this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
-
-            //
+            // 
             // lblPageInfo
-            //
-            this.lblPageInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom; // Matched SanPhamForm anchor
+            // 
+            this.lblPageInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblPageInfo.BackColor = System.Drawing.Color.Transparent;
-            this.lblPageInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
-            this.lblPageInfo.ForeColor = System.Drawing.Color.WhiteSmoke; // Matched SanPhamForm color
-            this.lblPageInfo.Location = new System.Drawing.Point(432, 599); // Adjusted location to match SanPhamForm layout
+            this.lblPageInfo.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPageInfo.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblPageInfo.Location = new System.Drawing.Point(426, 596);
             this.lblPageInfo.Margin = new System.Windows.Forms.Padding(2);
             this.lblPageInfo.Name = "lblPageInfo";
-            this.lblPageInfo.Size = new System.Drawing.Size(71, 23); // Matched SanPhamForm size
+            this.lblPageInfo.Size = new System.Drawing.Size(84, 27);
             this.lblPageInfo.TabIndex = 9;
-            this.lblPageInfo.Text = "Trang 1/1"; // Matched SanPhamForm text format
-
-            //
+            this.lblPageInfo.Text = "Trang 1/1";
+            // 
             // btnExportExcel
-            //
-            this.btnExportExcel.Anchor = System.Windows.Forms.AnchorStyles.Bottom; // Matched SanPhamForm anchor
-            this.btnExportExcel.BorderRadius = 10; // Matched SanPhamForm border radius
-            this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray; // Matched SanPhamForm disabled state
-            this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169))))); // Matched SanPhamForm disabled state
-            this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141))))); // Matched SanPhamForm disabled state
-            this.btnExportExcel.FillColor = System.Drawing.Color.Green; // Matched SanPhamForm export button color (Green)
-            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))); // Matched SanPhamForm font
+            // 
+            this.btnExportExcel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnExportExcel.BorderRadius = 10;
+            this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportExcel.FillColor = System.Drawing.Color.Green;
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
-            this.btnExportExcel.Image = global::Eden.Properties.Resources.exel; // Matched SanPhamForm image (ensure resource exists)
-            this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left; // Matched SanPhamForm image align
-            this.btnExportExcel.Location = new System.Drawing.Point(696, 661); // Matched SanPhamForm location
+            this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
+            this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnExportExcel.Location = new System.Drawing.Point(696, 661);
             this.btnExportExcel.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(160, 55); // Matched SanPhamForm size
+            this.btnExportExcel.Size = new System.Drawing.Size(160, 55);
             this.btnExportExcel.TabIndex = 10;
-
-            //
+            this.btnExportExcel.Text = "Xuất Exel";
+            // 
             // labelTitle
-            //
+            // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(18, 22); // Matched SanPhamForm location
+            this.labelTitle.Location = new System.Drawing.Point(18, 22);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(280, 40); // Adjusted size based on text
-            this.labelTitle.TabIndex = 11; // Adjusted TabIndex
-            this.labelTitle.Text = "Quản Lý Khách Hàng"; // Set Title Text
-
-
-            //
+            this.labelTitle.Size = new System.Drawing.Size(302, 40);
+            this.labelTitle.TabIndex = 11;
+            this.labelTitle.Text = "Quản Lý Khách Hàng";
+            // 
+            // searchHK
+            // 
+            this.searchHK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchHK.BorderColor = System.Drawing.Color.WhiteSmoke;
+            this.searchHK.BorderRadius = 10;
+            this.searchHK.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.searchHK.DefaultText = "";
+            this.searchHK.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.searchHK.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.searchHK.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.searchHK.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.searchHK.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.searchHK.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.searchHK.Font = new System.Drawing.Font("Segoe UI", 14.25F);
+            this.searchHK.ForeColor = System.Drawing.Color.Transparent;
+            this.searchHK.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.searchHK.IconLeft = global::Eden.Properties.Resources.seach;
+            this.searchHK.IconLeftOffset = new System.Drawing.Point(10, 0);
+            this.searchHK.Location = new System.Drawing.Point(490, 22);
+            this.searchHK.Margin = new System.Windows.Forms.Padding(4);
+            this.searchHK.Name = "searchHK";
+            this.searchHK.Padding = new System.Windows.Forms.Padding(2);
+            this.searchHK.PlaceholderForeColor = System.Drawing.Color.LightGray;
+            this.searchHK.PlaceholderText = "";
+            this.searchHK.SelectedText = "";
+            this.searchHK.Size = new System.Drawing.Size(452, 55);
+            this.searchHK.TabIndex = 19;
+            this.searchHK.TextOffset = new System.Drawing.Point(5, 0);
+            this.searchHK.TextChanged += new System.EventHandler(this.searchHK_TextChanged_1);
+            // 
             // KhachHangForm
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63))))); // Matched SanPhamForm background
-            this.ClientSize = new System.Drawing.Size(962, 749); // Matched SanPhamForm size
-            this.Controls.Add(this.labelTitle); // Added Title Label to controls
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.ClientSize = new System.Drawing.Size(962, 749);
+            this.Controls.Add(this.searchHK);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnExportExcel);
             this.Controls.Add(this.lblPageInfo);
             this.Controls.Add(this.btnNextPage);
             this.Controls.Add(this.btnPreviousPage);
-            this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.searchHK);
-            // Removed guna2HtmlLabel1
             this.Controls.Add(this.dgkhachhang);
             this.Controls.Add(this.xoakhachhang);
             this.Controls.Add(this.suakhachhang);
             this.Controls.Add(this.addkhachhang);
-            this.ForeColor = System.Drawing.Color.WhiteSmoke; // Matched SanPhamForm fore color
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None; // Matched SanPhamForm border style
+            this.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "KhachHangForm";
-            this.Text = "Quản Lý Khách Hàng"; // Updated form title
+            this.Text = "Quản Lý Khách Hàng";
             ((System.ComponentModel.ISupportInitialize)(this.dgkhachhang)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout(); // Added PerformLayout for controls
+            this.PerformLayout();
 
         }
 
@@ -339,13 +311,11 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2Button suakhachhang; // Button "Sửa"
         private Guna.UI2.WinForms.Guna2Button xoakhachhang; // Button "Xóa"
         private Guna.UI2.WinForms.Guna2DataGridView dgkhachhang;
-        // Removed guna2HtmlLabel1
-        private Guna.UI2.WinForms.Guna2TextBox searchHK; // Search Textbox
-        private Guna.UI2.WinForms.Guna2Button btnSearch; // Search Button
         private Guna.UI2.WinForms.Guna2Button btnPreviousPage; // Previous Page Button
         private Guna.UI2.WinForms.Guna2Button btnNextPage; // Next Page Button
         private Guna.UI2.WinForms.Guna2HtmlLabel lblPageInfo; // Page Info Label
         private Guna.UI2.WinForms.Guna2Button btnExportExcel; // Export Excel Button
         private System.Windows.Forms.Label labelTitle; // Declaration for the title label
+        private Guna.UI2.WinForms.Guna2TextBox searchHK;
     }
 }

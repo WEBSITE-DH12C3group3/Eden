@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -51,7 +50,6 @@
             this.guna2CirclePictureBoxAnh = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             this.guna2ChonAnh = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TextAnh = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBoxAnh)).BeginInit();
             this.SuspendLayout();
             // 
@@ -411,16 +409,12 @@
             this.guna2TextAnh.TabIndex = 14;
             this.guna2TextAnh.Visible = false;
             // 
-            // guna2Elipse1
-            // 
-            this.guna2Elipse1.TargetControl = this;
-            // 
             // SanPhamFormAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
-            this.ClientSize = new System.Drawing.Size(900, 700);
+            this.ClientSize = new System.Drawing.Size(626, 519);
             this.Controls.Add(this.guna2TextAnh);
             this.Controls.Add(this.guna2ChonAnh);
             this.Controls.Add(this.guna2CirclePictureBoxAnh);
@@ -444,7 +438,6 @@
             this.Controls.Add(this.guna2HtmlLabel2);
             this.Controls.Add(this.guna2HtmlLabel1);
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SanPhamFormAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -479,6 +472,5 @@
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBoxAnh;
         private Guna.UI2.WinForms.Guna2Button guna2ChonAnh;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextAnh;
-        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
     }
 }
