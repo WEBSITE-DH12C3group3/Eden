@@ -31,6 +31,16 @@ namespace Eden
             LoadData();
         }
 
+        public List<NHACUNGCAP> GetAll()
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                var list = db.NHACUNGCAPs.ToList();
+                Console.WriteLine($"Số nhà cung cấp: {list.Count}");
+                return list;
+            }
+        }
+
         private void LoadData()
         {
             try
@@ -156,7 +166,6 @@ namespace Eden
                 }
             }
         }
-
         private void guna2Button3_Click(object sender, EventArgs e)
         {
             if (guna2DataGridViewNCC.CurrentRow != null)
@@ -168,7 +177,8 @@ namespace Eden
                     return;
                 }
 
-                DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa nhà cung cấp này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                Console.WriteLine($"MaNCC được chọn: {maNCC}");
+                DialogResult result = MessageBox.Show($"Bạn có chắc muốn xóa nhà cung cấp với mã {maNCC}?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     try
@@ -176,18 +186,19 @@ namespace Eden
                         var existingNCC = nhaCungCapBLL.GetAll().FirstOrDefault(n => n.MaNhaCungCap == maNCC);
                         if (existingNCC != null)
                         {
+                            Console.WriteLine($"Đang xóa nhà cung cấp: {maNCC}");
                             nhaCungCapBLL.Delete(existingNCC);
                             LoadData();
                             MessageBox.Show("Xóa nhà cung cấp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            MessageBox.Show("Không tìm thấy nhà cung cấp cần xóa.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"Không tìm thấy nhà cung cấp với mã {maNCC}.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Lỗi khi xóa nhà cung cấp: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Lỗi khi xóa nhà cung cấp: {ex.Message}\nInner Exception: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
