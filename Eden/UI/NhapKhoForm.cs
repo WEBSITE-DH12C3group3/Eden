@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,6 +12,7 @@ namespace Eden
     {
         private PHIEUNHAPBLL phieuNhapBLL;
         private PHIEUNHAPDAL phieuNhapDAL;
+        private SANPHAMBLL sanPHAMBLL;
         private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL;
         private int currentPage = 1;
         private int pageSize = 10;
@@ -23,6 +25,7 @@ namespace Eden
             InitializeComponent();
             phieuNhapBLL = new PHIEUNHAPBLL();
             phieuNhapDAL = new PHIEUNHAPDAL();
+            sanPHAMBLL = new SANPHAMBLL();
             chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL();
             LoadData();
         }
@@ -188,40 +191,134 @@ namespace Eden
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            foreach (DataGridViewColumn column in dgvPhieuNhap.Columns)
+            try
             {
-                dt.Columns.Add(column.HeaderText, typeof(string));
-            }
-
-            foreach (DataGridViewRow row in dgvPhieuNhap.Rows)
-            {
-                if (!row.IsNewRow)
+                // Lấy danh sách phiếu nhập
+                var allPhieuNhap = phieuNhapBLL.GetAll();
+                if (allPhieuNhap == null)
                 {
-                    DataRow dr = dt.NewRow();
-                    for (int i = 0; i < dgvPhieuNhap.Columns.Count; i++)
+                    MessageBox.Show("Danh sách phiếu nhập trả về null. Kiểm tra phương thức GetAll trong PHIEUNHAPBLL.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (allPhieuNhap.Count == 0)
+                {
+                    MessageBox.Show("Không có dữ liệu phiếu nhập trong cơ sở dữ liệu. Vui lòng thêm phiếu nhập trước.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Tạo DataTable
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Mã Phiếu Nhập");
+                dt.Columns.Add("Ngày Nhập");
+                dt.Columns.Add("Mã Nhà Cung Cấp");
+                dt.Columns.Add("Tên Nhà Cung Cấp");
+                dt.Columns.Add("Tên Người Dùng");
+                dt.Columns.Add("Tổng Tiền");
+                dt.Columns.Add("Mã Sản Phẩm");
+                dt.Columns.Add("Tên Sản Phẩm");
+                dt.Columns.Add("Số Lượng");
+                dt.Columns.Add("Đơn Giá");
+                dt.Columns.Add("Thành Tiền");
+
+                foreach (var pn in allPhieuNhap)
+                {
+                    var chiTietList = phieuNhapBLL.GetChiTietByPhieuNhap(pn.id);
+                    if (chiTietList != null && chiTietList.Any())
                     {
-                        dr[i] = row.Cells[i].Value?.ToString();
+                        foreach (var chiTiet in chiTietList)
+                        {
+                            var sanPham = sanPHAMBLL.GetById(chiTiet.idSanPham);
+                            if (sanPham == null)
+                            {
+                                // Ghi log nếu sản phẩm không tìm thấy
+                                System.Diagnostics.Debug.WriteLine($"Sản phẩm với id {chiTiet.idSanPham} không tìm thấy cho phiếu nhập {pn.MaPhieuNhap}.");
+                            }
+                            dt.Rows.Add(
+                                pn.MaPhieuNhap,
+                                pn.NgayNhap.ToString("dd/MM/yyyy"),
+                                pn.NHACUNGCAP?.MaNhaCungCap ?? "N/A",
+                                pn.NHACUNGCAP?.TenNhaCungCap ?? "N/A",
+                                pn.NGUOIDUNG?.TenNguoiDung ?? "N/A",
+                                pn.TongTien,
+                                sanPham?.MaSanPham ?? "N/A",
+                                sanPham?.TenSanPham ?? "N/A",
+                                chiTiet.SoLuong,
+                                chiTiet.DonGia,
+                                chiTiet.ThanhTien
+                            );
+                        }
                     }
-                    dt.Rows.Add(dr);
+                    else
+                    {
+                        dt.Rows.Add(
+                            pn.MaPhieuNhap,
+                            pn.NgayNhap.ToString("dd/MM/yyyy"),
+                            pn.NHACUNGCAP?.MaNhaCungCap ?? "N/A",
+                            pn.NHACUNGCAP?.TenNhaCungCap ?? "N/A",
+                            pn.NGUOIDUNG?.TenNguoiDung ?? "N/A",
+                            pn.TongTien,
+                            "", "", "", "", ""
+                        );
+                    }
+                }
+
+                // Hiển thị SaveFileDialog
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+                saveFileDialog.Title = "Lưu file Excel";
+                saveFileDialog.FileName = $"DanhSachPhieuNhap_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var ws = wb.Worksheets.Add("PhieuNhap");
+
+                        ws.Cell(1, 1).Value = "Danh Sách Phiếu Nhập";
+                        ws.Cell(1, 1).Style.Font.Bold = true;
+                        ws.Cell(1, 1).Style.Font.FontSize = 16;
+                        ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                        ws.Range(1, 1, 1, 11).Merge();
+
+                        ws.Cell(2, 1).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                        ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        ws.Range(2, 1, 2, 11).Merge();
+
+                        var dataRange = ws.Cell(4, 1).InsertTable(dt.AsEnumerable()).AsRange();
+
+                        var headerRow = dataRange.FirstRow();
+                        headerRow.Style.Font.Bold = true;
+                        headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
+                        headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                        var ngayNhapColumn = ws.Column(2);
+                        ngayNhapColumn.Style.DateFormat.Format = "dd/MM/yyyy";
+
+                        ws.Column(9).Style.NumberFormat.Format = "0";
+                        ws.Column(10).Style.NumberFormat.Format = "0";
+                        ws.Column(11).Style.NumberFormat.Format = "0";
+                        ws.Column(6).Style.NumberFormat.Format = "0";
+
+                        var lastRow = dataRange.LastRow().RowNumber();
+                        ws.Cell(lastRow + 1, 5).Value = "Tổng cộng:";
+                        ws.Cell(lastRow + 1, 6).Value = allPhieuNhap.Sum(pn => pn.TongTien);
+                        ws.Cell(lastRow + 1, 5).Style.Font.Bold = true;
+                        ws.Cell(lastRow + 1, 6).Style.Font.Bold = true;
+                        ws.Cell(lastRow + 1, 6).Style.NumberFormat.Format = "0";
+
+                        ws.Columns().AdjustToContents();
+
+                        dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                        wb.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            catch (Exception ex)
             {
-                Filter = "Excel Workbook|*.xlsx",
-                Title = "Lưu file Excel",
-                FileName = "DanhSachPhieuNhap.xlsx"
-            };
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (XLWorkbook wb = new XLWorkbook())
-                {
-                    wb.Worksheets.Add(dt, "PhieuNhap");
-                    wb.SaveAs(saveFileDialog.FileName);
-                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

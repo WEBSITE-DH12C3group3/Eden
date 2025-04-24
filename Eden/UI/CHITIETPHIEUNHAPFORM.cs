@@ -39,30 +39,38 @@ namespace Eden.UI
 
         private void LoadData()
         {
-            using (var db = new QLBanHoaEntities())
+            try
             {
-                var data = dal.GetChiTietByPhieuNhap(_idPhieuNhap)
-                              .Select(c => new
-                              {
-                                  MaPhieuNhap = db.PHIEUNHAPs
-                                                 .Where(p => p.id == c.idPhieuNhap)
-                                                 .Select(p => p.MaPhieuNhap)
-                                                 .FirstOrDefault() ?? "N/A",
-                                  c.idSanPham,
-                                  TenSanPham = c.SANPHAM != null ? c.SANPHAM.TenSanPham : "",
-                                  c.SoLuong,
-                                  c.DonGia,
-                                  c.ThanhTien
-                              }).ToList();
+                using (var db = new QLBanHoaEntities())
+                {
+                    var data = dal.GetChiTietByPhieuNhap(_idPhieuNhap)
+                                  .Select(c => new
+                                  {
+                                      MaPhieuNhap = db.PHIEUNHAPs
+                                                     .Where(p => p.id == c.idPhieuNhap)
+                                                     .Select(p => p.MaPhieuNhap)
+                                                     .FirstOrDefault() ?? "N/A",
+                                      MaSanPham = c.SANPHAM != null ? c.SANPHAM.MaSanPham : "N/A", // Thay idSanPham bằng MaSanPham
+                                      TenSanPham = c.SANPHAM != null ? c.SANPHAM.TenSanPham : "N/A",
+                                      c.SoLuong,
+                                      c.DonGia,
+                                      c.ThanhTien
+                                  }).ToList();
 
-                dgvChiTiet.DataSource = data;
+                    dgvChiTiet.DataSource = data;
 
-                dgvChiTiet.Columns["MaPhieuNhap"].HeaderText = "Mã Phiếu Nhập";
-                dgvChiTiet.Columns["idSanPham"].HeaderText = "Mã Sản Phẩm";
-                dgvChiTiet.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
-                dgvChiTiet.Columns["SoLuong"].HeaderText = "Số Lượng";
-                dgvChiTiet.Columns["DonGia"].HeaderText = "Đơn Giá";
-                dgvChiTiet.Columns["ThanhTien"].HeaderText = "Thành Tiền";
+                    // Cập nhật tiêu đề cột
+                    dgvChiTiet.Columns["MaPhieuNhap"].HeaderText = "Mã Phiếu Nhập";
+                    dgvChiTiet.Columns["MaSanPham"].HeaderText = "Mã Sản Phẩm"; // Cập nhật tiêu đề
+                    dgvChiTiet.Columns["TenSanPham"].HeaderText = "Tên Sản Phẩm";
+                    dgvChiTiet.Columns["SoLuong"].HeaderText = "Số Lượng";
+                    dgvChiTiet.Columns["DonGia"].HeaderText = "Đơn Giá";
+                    dgvChiTiet.Columns["ThanhTien"].HeaderText = "Thành Tiền";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải dữ liệu chi tiết phiếu nhập: {ex.Message}\nInner Exception: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

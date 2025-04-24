@@ -33,6 +33,10 @@ namespace Eden
                 nguoiDungBLL = new NGUOIDUNGBLL();
                 chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL();
 
+                // Ẩn txtMaPhieuNhap
+                txtMaPhieuNhap.Visible = false;
+                txtMaPhieuNhap.Enabled = false;
+
                 // Gán sự kiện SelectedIndexChanged cho cmbTenSP
                 cmbTenSP.SelectedIndexChanged += CmbTenSP_SelectedIndexChanged;
 
@@ -218,8 +222,7 @@ namespace Eden
                     Close();
                     return;
                 }
-                txtMaPhieuNhap.Text = phieuNhap.MaPhieuNhap;
-                txtMaPhieuNhap.Visible = true;
+                // Không gán txtMaPhieuNhap vì đã ẩn
                 dtpNgayNhap.Value = phieuNhap.NgayNhap;
                 cmbNhaCungCap.SelectedValue = phieuNhap.idNhaCungCap;
                 cmbIDNguoiDung.SelectedValue = phieuNhap.idNguoiDung;
@@ -372,6 +375,7 @@ namespace Eden
         {
             try
             {
+                // Kiểm tra đầu vào
                 if (cmbNhaCungCap.SelectedValue == null || !int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
                 {
                     MessageBox.Show("Vui lòng chọn nhà cung cấp hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -393,19 +397,14 @@ namespace Eden
                     db.Database.BeginTransaction();
                     try
                     {
-                        var phieuNhap = new PHIEUNHAP
-                        {
-                            NgayNhap = dtpNgayNhap.Value,
-                            idNhaCungCap = idNhaCungCap,
-                            idNguoiDung = idNguoiDung,
-                            TongTien = 0
-                        };
+                        PHIEUNHAP phieuNhap;
+                        bool isNew = string.IsNullOrEmpty(maPhieuNhap);
 
-                        bool isSuccess = false;
-                        if (string.IsNullOrEmpty(maPhieuNhap))
+                        if (isNew)
                         {
-                            var phieuNhapList = db.PHIEUNHAPs.ToList();
+                            // Sinh MaPhieuNhap mới
                             string newMaPN = "PN001";
+                            var phieuNhapList = db.PHIEUNHAPs.ToList();
                             if (phieuNhapList.Any())
                             {
                                 var validPhieuNhaps = phieuNhapList
@@ -420,29 +419,36 @@ namespace Eden
                                     newMaPN = $"PN{(lastNumber + 1):D3}";
                                 }
                             }
-                            phieuNhap.MaPhieuNhap = newMaPN;
+
+                            // Kiểm tra MaPhieuNhap trùng
+                            if (db.PHIEUNHAPs.Any(p => p.MaPhieuNhap == newMaPN))
+                            {
+                                throw new Exception($"Mã phiếu nhập {newMaPN} đã tồn tại!");
+                            }
+
+                            phieuNhap = new PHIEUNHAP
+                            {
+                                MaPhieuNhap = newMaPN,
+                                NgayNhap = dtpNgayNhap.Value,
+                                idNhaCungCap = idNhaCungCap,
+                                idNguoiDung = idNguoiDung,
+                                TongTien = 0
+                            };
                             db.PHIEUNHAPs.Add(phieuNhap);
-                            db.SaveChanges();
-                            isSuccess = true;
                         }
                         else
                         {
-                            var existingPhieuNhap = db.PHIEUNHAPs.FirstOrDefault(p => p.MaPhieuNhap == maPhieuNhap);
-                            if (existingPhieuNhap == null)
+                            phieuNhap = db.PHIEUNHAPs.FirstOrDefault(p => p.MaPhieuNhap == maPhieuNhap);
+                            if (phieuNhap == null)
                             {
-                                MessageBox.Show($"Phiếu nhập với mã {maPhieuNhap} không tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
+                                throw new Exception($"Phiếu nhập với mã {maPhieuNhap} không tồn tại!");
                             }
-                            existingPhieuNhap.NgayNhap = phieuNhap.NgayNhap;
-                            existingPhieuNhap.idNhaCungCap = phieuNhap.idNhaCungCap;
-                            existingPhieuNhap.idNguoiDung = phieuNhap.idNguoiDung;
-                            phieuNhap.id = existingPhieuNhap.id;
-                            db.SaveChanges();
-                            isSuccess = true;
-                        }
+                            phieuNhap.NgayNhap = dtpNgayNhap.Value;
+                            phieuNhap.idNhaCungCap = idNhaCungCap;
+                            phieuNhap.idNguoiDung = idNguoiDung;
+                            phieuNhap.TongTien = 0;
 
-                        if (!string.IsNullOrEmpty(maPhieuNhap))
-                        {
+                            // Xóa chi tiết cũ
                             var oldChiTiet = db.CHITIETPHIEUNHAPs.Where(c => c.idPhieuNhap == phieuNhap.id).ToList();
                             foreach (var chiTiet in oldChiTiet)
                             {
@@ -450,22 +456,31 @@ namespace Eden
                                 if (sanPham != null)
                                 {
                                     sanPham.SoLuong -= chiTiet.SoLuong;
+                                    if (sanPham.SoLuong < 0)
+                                    {
+                                        throw new Exception($"Số lượng sản phẩm {sanPham.TenSanPham} không đủ để xóa (số lượng âm).");
+                                    }
                                 }
                             }
                             db.CHITIETPHIEUNHAPs.RemoveRange(oldChiTiet);
-                            db.SaveChanges();
                         }
 
+                        // Kiểm tra và thêm chi tiết phiếu nhập
+                        decimal tongTien = 0;
                         foreach (var chiTiet in chiTietList)
                         {
-                            var newChiTiet = new CHITIETPHIEUNHAP
+                            if (chiTiet.SoLuong <= 0)
                             {
-                                idSanPham = chiTiet.idSanPham,
-                                SoLuong = chiTiet.SoLuong,
-                                DonGia = chiTiet.DonGia,
-                                ThanhTien = chiTiet.ThanhTien,
-                                idPhieuNhap = phieuNhap.id
-                            };
+                                throw new Exception($"Số lượng của sản phẩm {chiTiet.TenSanPham} phải lớn hơn 0.");
+                            }
+                            if (chiTiet.DonGia <= 0)
+                            {
+                                throw new Exception($"Đơn giá của sản phẩm {chiTiet.TenSanPham} phải lớn hơn 0.");
+                            }
+                            if (Math.Abs(chiTiet.ThanhTien - chiTiet.SoLuong * chiTiet.DonGia) > 0.01m)
+                            {
+                                throw new Exception($"Thành tiền của sản phẩm {chiTiet.TenSanPham} không đúng.");
+                            }
 
                             var sanPham = db.SANPHAMs.Find(chiTiet.idSanPham);
                             if (sanPham == null)
@@ -473,6 +488,7 @@ namespace Eden
                                 throw new Exception($"Sản phẩm với ID {chiTiet.idSanPham} không tồn tại!");
                             }
 
+                            // Kiểm tra nhà cung cấp
                             if (sanPham.idNhaCungCap != idNhaCungCap)
                             {
                                 var result = MessageBox.Show($"Sản phẩm {sanPham.TenSanPham} thuộc nhà cung cấp khác. Cập nhật nhà cung cấp?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -482,16 +498,24 @@ namespace Eden
                                 }
                             }
 
+                            var newChiTiet = new CHITIETPHIEUNHAP
+                            {
+                                idPhieuNhap = phieuNhap.id,
+                                idSanPham = chiTiet.idSanPham,
+                                SoLuong = chiTiet.SoLuong,
+                                DonGia = chiTiet.DonGia,
+                                ThanhTien = chiTiet.ThanhTien
+                            };
                             db.CHITIETPHIEUNHAPs.Add(newChiTiet);
                             sanPham.SoLuong += chiTiet.SoLuong;
+                            tongTien += chiTiet.ThanhTien;
                         }
 
-                        db.SaveChanges();
-                        phieuNhap.TongTien = db.CHITIETPHIEUNHAPs
-                            .Where(c => c.idPhieuNhap == phieuNhap.id)
-                            .Sum(c => c.ThanhTien);
-                        db.SaveChanges();
+                        // Cập nhật TongTien
+                        phieuNhap.TongTien = tongTien;
 
+                        // Lưu tất cả thay đổi
+                        db.SaveChanges();
                         db.Database.CurrentTransaction.Commit();
                         MessageBox.Show("Lưu phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         DialogResult = DialogResult.OK;
@@ -499,8 +523,13 @@ namespace Eden
                     }
                     catch (Exception ex)
                     {
-                        db.Database.CurrentTransaction.Rollback();
-                        MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        db.Database.CurrentTransaction?.Rollback();
+                        var dbUpdateEx = ex.InnerException as System.Data.Entity.Infrastructure.DbUpdateException;
+                        var sqlEx = dbUpdateEx?.InnerException as System.Data.SqlClient.SqlException;
+                        string errorDetails = sqlEx != null
+                            ? $"SQL Error: {sqlEx.Message}\nError Number: {sqlEx.Number}\nLine Number: {sqlEx.LineNumber}"
+                            : ex.InnerException?.Message ?? "Không có chi tiết lỗi cụ thể.";
+                        MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}\nInner Exception: {errorDetails}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

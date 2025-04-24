@@ -124,10 +124,20 @@ namespace Eden
         // Lấy chi tiết theo mã phiếu nhập
         public List<CHITIETPHIEUNHAP> GetChiTietByPhieuNhap(int idPhieuNhap)
         {
-            return db.CHITIETPHIEUNHAPs
-                     .Where(c => c.idPhieuNhap == idPhieuNhap)
-                     .Include(c => c.SANPHAM) // nếu cần tên sản phẩm, đơn giá,...
-                     .ToList();
+            try
+            {
+                using (var db = new QLBanHoaEntities())
+                {
+                    return db.CHITIETPHIEUNHAPs
+                             .Include(c => c.SANPHAM) // Tải trước SANPHAM
+                             .Where(c => c.idPhieuNhap == idPhieuNhap)
+                             .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy chi tiết phiếu nhập: {ex.Message}", ex);
+            }
         }
 
         // Thêm chi tiết phiếu nhập

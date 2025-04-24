@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Eden.Eden;
+using System.Data.Entity;
 
 namespace Eden
 {
@@ -18,8 +19,23 @@ namespace Eden
         // Lấy tất cả phiếu nhập (có tên nhà cung cấp)
         public List<PHIEUNHAP> GetAll()
         {
-            return dal.GetAll();
+            try
+            {
+                using (var db = new QLBanHoaEntities())
+                {
+                    return db.PHIEUNHAPs
+                        .Include(p => p.NHACUNGCAP) // Tải trước NHACUNGCAP
+                        .Include(p => p.NGUOIDUNG)  // Tải trước NGUOIDUNG
+                        .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy danh sách phiếu nhập: {ex.Message}", ex);
+            }
         }
+
+
         public PHIEUNHAP GetById(int id)
         {
             if (id <= 0)
