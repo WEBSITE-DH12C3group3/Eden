@@ -27,7 +27,7 @@ namespace Eden
             LoadData();
         }
 
-        private void LoadData(string searchTerm = "")
+       private void LoadData(string searchTerm = "")
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Eden
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}\nInner Exception: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -86,6 +86,7 @@ namespace Eden
             txtSearch.Text = "";
             currentPage = 1;
             LoadData();
+            Console.WriteLine("Đã làm mới dữ liệu");
         }
 
         private void btnPrev_Click(object sender, EventArgs e)

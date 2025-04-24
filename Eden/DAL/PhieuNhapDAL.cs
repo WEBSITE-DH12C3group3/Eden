@@ -18,25 +18,36 @@ namespace Eden
                      .ToList();
         }
 
-        public List<PHIEUNHAP> GetPagedPhieuNhap(int pageNumber, int pageSize, out int totalRecords, string searchTerm = "")
+        public List<PHIEUNHAP> GetPagedPhieuNhap(int pageNumber, int pageSize, out int totalRecords, string searchTerm)
         {
-            var query = db.PHIEUNHAPs.AsQueryable();
-
-            // Lọc theo MaPhieuNhap nếu có searchTerm
-            if (!string.IsNullOrEmpty(searchTerm))
+            try
             {
-                query = query.Where(p => p.MaPhieuNhap.Contains(searchTerm));
+                using (var db = new QLBanHoaEntities())
+                {
+                    Console.WriteLine($"GetPagedPhieuNhap: page={pageNumber}, size={pageSize}, search={searchTerm}");
+                    var query = db.PHIEUNHAPs.AsNoTracking()
+                                            .Include(p => p.NHACUNGCAP)
+                                            .AsQueryable();
+                    if (!string.IsNullOrEmpty(searchTerm))
+                    {
+                        query = query.Where(p => p.MaPhieuNhap.Contains(searchTerm) ||
+                                                (p.NHACUNGCAP != null && p.NHACUNGCAP.TenNhaCungCap.Contains(searchTerm)));
+                    }
+
+                    totalRecords = query.Count();
+                    var result = query.OrderBy(p => p.MaPhieuNhap)
+                                     .Skip((pageNumber - 1) * pageSize)
+                                     .Take(pageSize)
+                                     .ToList();
+                    Console.WriteLine($"GetPagedPhieuNhap: Tìm thấy {result.Count} bản ghi, tổng: {totalRecords}");
+                    return result;
+                }
             }
-
-            // Lấy tổng số bản ghi
-            totalRecords = query.Count();
-
-            // Phân trang
-            return query
-                   .OrderBy(p => p.id)
-                   .Skip((pageNumber - 1) * pageSize)
-                   .Take(pageSize)
-                   .ToList();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi GetPagedPhieuNhap: {ex.Message}\nInner Exception: {ex.InnerException?.Message}");
+                throw;
+            }
         }
 
         public PHIEUNHAP GetById(int id)
