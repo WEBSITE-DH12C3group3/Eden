@@ -14,6 +14,7 @@ namespace Eden
         public NhomNguoiDungForm()
         {
             InitializeComponent();
+            guna2TextBoxTimKiem.TextChanged += new EventHandler(guna2TextBoxTimKiem_TextChanged); // Gán sự kiện TextChanged
             LoadData();
         }
 
@@ -22,16 +23,39 @@ namespace Eden
             try
             {
                 nhomNguoiDungList = nhomNguoiDungBll.GetAll();
+                FilterData(); // Gọi hàm lọc để hiển thị dữ liệu
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FilterData()
+        {
+            try
+            {
                 dataGridViewNhomNguoiDung.Rows.Clear();
-                foreach (var nhom in nhomNguoiDungList)
+                string searchText = guna2TextBoxTimKiem.Text.Trim().ToLower();
+
+                var filteredList = string.IsNullOrEmpty(searchText)
+                    ? nhomNguoiDungList
+                    : nhomNguoiDungList.FindAll(n => n.TenNhomNguoiDung.ToLower().Contains(searchText));
+
+                foreach (var nhom in filteredList)
                 {
                     dataGridViewNhomNguoiDung.Rows.Add(nhom.MaNhomNguoiDung, nhom.TenNhomNguoiDung);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi lọc dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void guna2TextBoxTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            FilterData(); // Lọc lại dữ liệu mỗi khi text thay đổi
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -62,8 +86,8 @@ namespace Eden
                     return;
                 }
 
-                int id = Convert.ToInt32(dataGridViewNhomNguoiDung.SelectedRows[0].Cells["colNhomId"].Value);
-                var nhom = nhomNguoiDungList.Find(n => n.id == id);
+                string maNhom = dataGridViewNhomNguoiDung.SelectedRows[0].Cells["colNhomId"].Value.ToString();
+                var nhom = nhomNguoiDungList.Find(n => n.MaNhomNguoiDung == maNhom);
                 if (nhom == null)
                 {
                     MessageBox.Show("Nhóm không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -94,8 +118,8 @@ namespace Eden
                     return;
                 }
 
-                int id = Convert.ToInt32(dataGridViewNhomNguoiDung.SelectedRows[0].Cells["colNhomId"].Value);
-                var nhom = nhomNguoiDungList.Find(n => n.id == id);
+                string maNhom = dataGridViewNhomNguoiDung.SelectedRows[0].Cells["colNhomId"].Value.ToString();
+                var nhom = nhomNguoiDungList.Find(n => n.MaNhomNguoiDung == maNhom);
                 if (nhom == null)
                 {
                     MessageBox.Show("Nhóm không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -117,6 +141,7 @@ namespace Eden
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            guna2TextBoxTimKiem.Text = string.Empty; // Xóa nội dung tìm kiếm
             LoadData();
         }
     }

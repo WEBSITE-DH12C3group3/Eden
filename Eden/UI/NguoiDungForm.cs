@@ -20,6 +20,7 @@ namespace Eden
             this.nhomNguoiDungList = nhomNguoiDungDal.GetAll();
             InitializeComponent();
             LoadData();
+            txtSearch.TextChanged += new EventHandler(txtSearch_TextChanged);
         }
 
         // Constructor hiện tại (giữ nguyên để tương thích)
@@ -28,26 +29,40 @@ namespace Eden
             this.nhomNguoiDungList = nhomNguoiDungList;
             InitializeComponent();
             LoadData();
+            txtSearch.TextChanged += new EventHandler(txtSearch_TextChanged);
         }
 
-        private void LoadData()
+        private void LoadData(string searchTerm = "")
         {
             try
             {
                 var nguoiDungList = nguoiDungBll.GetAll();
-                dgvNguoiDung.DataSource = nguoiDungList.Select(nd => new
-                {
-                    ID = nd.id,
-                    MaNguoiDung = nd.MaNguoiDung,
-                    TenNguoiDung = nd.TenNguoiDung,
-                    TenDangNhap = nd.TenDangNhap,
-                    NhomNguoiDung = nd.NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A"
-                }).ToList();
+                var filteredList = nguoiDungList
+                    .Where(nd => string.IsNullOrEmpty(searchTerm) ||
+                                nd.TenNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
+                                nd.MaNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
+                                nd.TenDangNhap.ToLower().Contains(searchTerm.ToLower()))
+                    .Select(nd => new
+                    {
+                        MaNguoiDung = nd.MaNguoiDung, // Thay ID bằng MaNguoiDung
+                        TenNguoiDung = nd.TenNguoiDung,
+                        TenDangNhap = nd.TenDangNhap,
+                        NhomNguoiDung = nd.NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A"
+                    })
+                    .ToList();
+
+                dgvNguoiDung.DataSource = filteredList;
+                lblPageInfo.Text = $"Trang 1/1";
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi tải dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            LoadData(txtSearch.Text.Trim());
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -56,7 +71,7 @@ namespace Eden
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    LoadData();
+                    LoadData(txtSearch.Text.Trim());
                 }
             }
         }
@@ -69,14 +84,21 @@ namespace Eden
                 return;
             }
 
-            int selectedId = Convert.ToInt32(dgvNguoiDung.SelectedRows[0].Cells["ID"].Value);
-            var nguoiDung = nguoiDungBll.GetById(selectedId);
+            string selectedMaNguoiDung = dgvNguoiDung.SelectedRows[0].Cells["MaNguoiDung"].Value.ToString();
+            var nguoiDungList = nguoiDungBll.GetAll();
+            var nguoiDung = nguoiDungList.FirstOrDefault(nd => nd.MaNguoiDung == selectedMaNguoiDung);
+
+            if (nguoiDung == null)
+            {
+                MessageBox.Show("Không tìm thấy người dùng với mã này.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             using (var form = new AddEditNguoiDungForm(nguoiDung, nhomNguoiDungList))
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    LoadData();
+                    LoadData(txtSearch.Text.Trim());
                 }
             }
         }
@@ -93,10 +115,19 @@ namespace Eden
             {
                 try
                 {
-                    int selectedId = Convert.ToInt32(dgvNguoiDung.SelectedRows[0].Cells["ID"].Value);
-                    nguoiDungBll.Delete(selectedId);
+                    string selectedMaNguoiDung = dgvNguoiDung.SelectedRows[0].Cells["MaNguoiDung"].Value.ToString();
+                    var nguoiDungList = nguoiDungBll.GetAll();
+                    var nguoiDung = nguoiDungList.FirstOrDefault(nd => nd.MaNguoiDung == selectedMaNguoiDung);
+
+                    if (nguoiDung == null)
+                    {
+                        MessageBox.Show("Không tìm thấy người dùng với mã này.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    nguoiDungBll.Delete(nguoiDung.id); // Vẫn sử dụng ID để xóa
                     MessageBox.Show("Xóa người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadData();
+                    LoadData(txtSearch.Text.Trim());
                 }
                 catch (Exception ex)
                 {
