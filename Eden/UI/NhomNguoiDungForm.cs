@@ -195,7 +195,7 @@ namespace Eden
                             worksheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                             // Thông tin người xuất và ngày xuất (căn phải)
-                            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name; // Lấy tên người dùng từ hệ thống
+                            string userName = CurrentUser.Username ?? "Không xác định";
                             string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                             worksheet.Cell(2, 2).Value = $"Người xuất: {userName}";
                             worksheet.Cell(2, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
@@ -223,22 +223,19 @@ namespace Eden
                                 worksheet.Cell(i + 6, 1).Value = filteredList[i].MaNhomNguoiDung;
                                 worksheet.Cell(i + 6, 2).Value = filteredList[i].TenNhomNguoiDung;
 
-                                // Căn giữa dữ liệu và thêm viền
                                 var rowRange = worksheet.Range(i + 6, 1, i + 6, 2);
                                 rowRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                                 rowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                                 rowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
-                                // Tô màu xen kẽ cho các ô dữ liệu
                                 if (i % 2 == 0)
                                 {
-                                    rowRange.Style.Fill.BackgroundColor = XLColor.FromArgb(216, 228, 188); // Màu xanh nhạt xen kẽ
+                                    rowRange.Style.Fill.BackgroundColor = XLColor.FromArgb(216, 228, 188);
                                 }
                             }
 
-                            // Căn chỉnh độ rộng cột
-                            worksheet.Column(1).Width = 20; // Mã Nhóm Người Dùng
-                            worksheet.Column(2).Width = 30; // Tên Nhóm Người Dùng
+                            worksheet.Column(1).Width = 20;
+                            worksheet.Column(2).Width = 30;
 
                             workbook.SaveAs(sfd.FileName);
                         }
