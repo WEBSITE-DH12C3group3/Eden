@@ -1,4 +1,7 @@
-﻿namespace Eden.UI // Note: This file is in the Eden.UI namespace
+﻿using System.Windows.Forms;
+using Guna.UI2.WinForms;
+
+namespace Eden.UI // Note: This file is in the Eden.UI namespace
 {
     partial class NhaCungCapFormAdd
     {
@@ -297,6 +300,9 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+
+
+           
         }
 
         #endregion
@@ -314,5 +320,6 @@
         private System.Windows.Forms.Label labelTitle; // Added
         private Guna.UI2.WinForms.Guna2Button btnCancel;
         private Guna.UI2.WinForms.Guna2Button btnSave;
+       
     }
 }

@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using Eden.DALCustom;
 using Eden.BLLCustom;
+using ClosedXML.Excel; // Thêm thư viện ClosedXML
+using System.IO;
 
 namespace Eden
 {
@@ -12,8 +14,9 @@ namespace Eden
     {
         private NGUOIDUNGBLL nguoiDungBll = new NGUOIDUNGBLL();
         private List<NHOMNGUOIDUNG> nhomNguoiDungList;
+        private int currentPage = 1;
+        private const int pageSize = 10;
 
-        // Constructor không tham số
         public NguoiDungForm()
         {
             var nhomNguoiDungDal = new NHOMNGUOIDUNGDAL();
@@ -49,18 +52,23 @@ namespace Eden
 
             LoadData();
             txtSearch.TextChanged += new EventHandler(txtSearch_TextChanged);
+            btnNext.Click += new EventHandler(btnNext_Click);
+            btnPrevious.Click += new EventHandler(btnPrevious_Click);
+            btnExportExcel.Click += new EventHandler(btnExportExcel_Click); // Thêm sự kiện cho btnExportExcel
         }
 
-        // Constructor hiện tại (giữ nguyên để tương thích)
         public NguoiDungForm(List<NHOMNGUOIDUNG> nhomNguoiDungList)
         {
             this.nhomNguoiDungList = nhomNguoiDungList;
             InitializeComponent();
             LoadData();
             txtSearch.TextChanged += new EventHandler(txtSearch_TextChanged);
+            btnNext.Click += new EventHandler(btnNext_Click);
+            btnPrevious.Click += new EventHandler(btnPrevious_Click);
+            btnExportExcel.Click += new EventHandler(btnExportExcel_Click); // Thêm sự kiện cho btnExportExcel
         }
 
-        private void LoadData(string searchTerm = "")
+        private void LoadData(string searchTerm = "", int page = 1)
         {
             try
             {
@@ -70,17 +78,28 @@ namespace Eden
                                 nd.TenNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
                                 nd.MaNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
                                 nd.TenDangNhap.ToLower().Contains(searchTerm.ToLower()))
+                    .ToList();
+
+                int totalItems = filteredList.Count;
+                int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+                currentPage = Math.Max(1, Math.Min(page, totalPages));
+
+                var pagedList = filteredList
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
                     .Select(nd => new
                     {
-                        MaNguoiDung = nd.MaNguoiDung, // Thay ID bằng MaNguoiDung
+                        MaNguoiDung = nd.MaNguoiDung,
                         TenNguoiDung = nd.TenNguoiDung,
                         TenDangNhap = nd.TenDangNhap,
                         NhomNguoiDung = nd.NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A"
                     })
                     .ToList();
 
-                dgvNguoiDung.DataSource = filteredList;
-                lblPageInfo.Text = $"Trang 1/1";
+                dgvNguoiDung.DataSource = pagedList;
+                lblPageInfo.Text = $"Trang {currentPage}/{totalPages}";
+                btnPrevious.Enabled = currentPage > 1;
+                btnNext.Enabled = currentPage < totalPages;
             }
             catch (Exception ex)
             {
@@ -90,7 +109,20 @@ namespace Eden
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            LoadData(txtSearch.Text.Trim());
+            currentPage = 1;
+            LoadData(txtSearch.Text.Trim(), currentPage);
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            currentPage++;
+            LoadData(txtSearch.Text.Trim(), currentPage);
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            currentPage--;
+            LoadData(txtSearch.Text.Trim(), currentPage);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -99,7 +131,7 @@ namespace Eden
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    LoadData(txtSearch.Text.Trim());
+                    LoadData(txtSearch.Text.Trim(), currentPage);
                 }
             }
         }
@@ -126,7 +158,7 @@ namespace Eden
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    LoadData(txtSearch.Text.Trim());
+                    LoadData(txtSearch.Text.Trim(), currentPage);
                 }
             }
         }
@@ -153,14 +185,65 @@ namespace Eden
                         return;
                     }
 
-                    nguoiDungBll.Delete(nguoiDung.id); // Vẫn sử dụng ID để xóa
+                    nguoiDungBll.Delete(nguoiDung.id);
                     MessageBox.Show("Xóa người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadData(txtSearch.Text.Trim());
+                    LoadData(txtSearch.Text.Trim(), currentPage);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Lỗi khi xóa người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Excel Files|*.xlsx";
+                    sfd.FileName = "DanhSachNguoiDung.xlsx";
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        using (var workbook = new XLWorkbook())
+                        {
+                            var worksheet = workbook.Worksheets.Add("NguoiDung");
+                            // Thêm tiêu đề cột
+                            worksheet.Cell(1, 1).Value = "Mã Người Dùng";
+                            worksheet.Cell(1, 2).Value = "Tên Người Dùng";
+                            worksheet.Cell(1, 3).Value = "Tên Đăng Nhập";
+                            worksheet.Cell(1, 4).Value = "Nhóm Người Dùng";
+
+                            // Lấy dữ liệu (bao gồm cả bộ lọc tìm kiếm, nhưng xuất toàn bộ danh sách)
+                            var nguoiDungList = nguoiDungBll.GetAll();
+                            var filteredList = nguoiDungList
+                                .Where(nd => string.IsNullOrEmpty(txtSearch.Text.Trim()) ||
+                                            nd.TenNguoiDung.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
+                                            nd.MaNguoiDung.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
+                                            nd.TenDangNhap.ToLower().Contains(txtSearch.Text.Trim().ToLower()))
+                                .ToList();
+
+                            // Thêm dữ liệu vào Excel
+                            for (int i = 0; i < filteredList.Count; i++)
+                            {
+                                worksheet.Cell(i + 2, 1).Value = filteredList[i].MaNguoiDung;
+                                worksheet.Cell(i + 2, 2).Value = filteredList[i].TenNguoiDung;
+                                worksheet.Cell(i + 2, 3).Value = filteredList[i].TenDangNhap;
+                                worksheet.Cell(i + 2, 4).Value = filteredList[i].NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A";
+                            }
+
+                            // Tự động điều chỉnh độ rộng cột
+                            worksheet.Columns().AdjustToContents();
+                            workbook.SaveAs(sfd.FileName);
+                        }
+                        MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

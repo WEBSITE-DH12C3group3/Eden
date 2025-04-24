@@ -86,7 +86,6 @@ namespace Eden
             txtSearch.Text = "";
             currentPage = 1;
             LoadData();
-            Console.WriteLine("Đã làm mới dữ liệu");
         }
 
         private void btnPrev_Click(object sender, EventArgs e)

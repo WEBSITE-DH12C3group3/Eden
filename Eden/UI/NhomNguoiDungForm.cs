@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Eden.BLLCustom;
 using Guna.UI2.WinForms;
+using ClosedXML.Excel; // Thêm thư viện ClosedXML
+using System.IO;
+using System.Linq;
 
 namespace Eden
 {
@@ -10,11 +13,16 @@ namespace Eden
     {
         private NHOMNGUOIDUNGBLL nhomNguoiDungBll = new NHOMNGUOIDUNGBLL();
         private List<NHOMNGUOIDUNG> nhomNguoiDungList;
+        private int currentPage = 1;
+        private const int pageSize = 10;
 
         public NhomNguoiDungForm()
         {
             InitializeComponent();
-            guna2TextBoxTimKiem.TextChanged += new EventHandler(guna2TextBoxTimKiem_TextChanged); // Gán sự kiện TextChanged
+            guna2TextBoxTimKiem.TextChanged += new EventHandler(guna2TextBoxTimKiem_TextChanged);
+            btnNext.Click += new EventHandler(btnNext_Click);
+            btnPrevious.Click += new EventHandler(btnPrevious_Click);
+            btnExportExcel.Click += new EventHandler(btnExportExcel_Click); // Thêm sự kiện cho btnExportExcel
             LoadData();
         }
 
@@ -23,7 +31,7 @@ namespace Eden
             try
             {
                 nhomNguoiDungList = nhomNguoiDungBll.GetAll();
-                FilterData(); // Gọi hàm lọc để hiển thị dữ liệu
+                FilterData();
             }
             catch (Exception ex)
             {
@@ -31,21 +39,34 @@ namespace Eden
             }
         }
 
-        private void FilterData()
+        private void FilterData(string searchText = "", int page = 1)
         {
             try
             {
                 dataGridViewNhomNguoiDung.Rows.Clear();
-                string searchText = guna2TextBoxTimKiem.Text.Trim().ToLower();
+                searchText = searchText.Trim().ToLower();
 
                 var filteredList = string.IsNullOrEmpty(searchText)
                     ? nhomNguoiDungList
                     : nhomNguoiDungList.FindAll(n => n.TenNhomNguoiDung.ToLower().Contains(searchText));
 
-                foreach (var nhom in filteredList)
+                int totalItems = filteredList.Count;
+                int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+                currentPage = Math.Max(1, Math.Min(page, totalPages));
+
+                var pagedList = filteredList
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                foreach (var nhom in pagedList)
                 {
                     dataGridViewNhomNguoiDung.Rows.Add(nhom.MaNhomNguoiDung, nhom.TenNhomNguoiDung);
                 }
+
+                lblPageInfo.Text = $"Trang {currentPage}/{totalPages}";
+                btnPrevious.Enabled = currentPage > 1;
+                btnNext.Enabled = currentPage < totalPages;
             }
             catch (Exception ex)
             {
@@ -55,7 +76,20 @@ namespace Eden
 
         private void guna2TextBoxTimKiem_TextChanged(object sender, EventArgs e)
         {
-            FilterData(); // Lọc lại dữ liệu mỗi khi text thay đổi
+            currentPage = 1;
+            FilterData(guna2TextBoxTimKiem.Text);
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            currentPage++;
+            FilterData(guna2TextBoxTimKiem.Text, currentPage);
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            currentPage--;
+            FilterData(guna2TextBoxTimKiem.Text, currentPage);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -139,10 +173,47 @@ namespace Eden
             }
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            guna2TextBoxTimKiem.Text = string.Empty; // Xóa nội dung tìm kiếm
-            LoadData();
+            try
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Excel Files|*.xlsx";
+                    sfd.FileName = "DanhSachNhomNguoiDung.xlsx";
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        using (var workbook = new XLWorkbook())
+                        {
+                            var worksheet = workbook.Worksheets.Add("NhomNguoiDung");
+                            // Thêm tiêu đề cột
+                            worksheet.Cell(1, 1).Value = "Mã Nhóm Người Dùng";
+                            worksheet.Cell(1, 2).Value = "Tên Nhóm Người Dùng";
+
+                            // Lấy dữ liệu (bao gồm cả bộ lọc tìm kiếm, nhưng xuất toàn bộ danh sách)
+                            var filteredList = string.IsNullOrEmpty(guna2TextBoxTimKiem.Text.Trim())
+                                ? nhomNguoiDungList
+                                : nhomNguoiDungList.FindAll(n => n.TenNhomNguoiDung.ToLower().Contains(guna2TextBoxTimKiem.Text.Trim().ToLower()));
+
+                            // Thêm dữ liệu vào Excel
+                            for (int i = 0; i < filteredList.Count; i++)
+                            {
+                                worksheet.Cell(i + 2, 1).Value = filteredList[i].MaNhomNguoiDung;
+                                worksheet.Cell(i + 2, 2).Value = filteredList[i].TenNhomNguoiDung;
+                            }
+
+                            // Tự động điều chỉnh độ rộng cột
+                            worksheet.Columns().AdjustToContents();
+                            workbook.SaveAs(sfd.FileName);
+                        }
+                        MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
