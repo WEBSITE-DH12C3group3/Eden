@@ -61,6 +61,13 @@ namespace Eden.UI
         {
             try
             {
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrWhiteSpace(txtTenNhaCungCap.Text))
+                {
+                    MessageBox.Show("Tên nhà cung cấp không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 NHACUNGCAP ncc = new NHACUNGCAP
                 {
                     MaNhaCungCap = maNCC,
@@ -73,18 +80,12 @@ namespace Eden.UI
                 nhaCungCapBLL.Update(ncc);
 
                 MessageBox.Show("Cập nhật nhà cung cấp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Cập nhật lại DataGridView trên form cha
-                if (this.Owner is NhaCungCapForm parentForm)
-                {
-                    parentForm.UpdateDataGridView(ncc);
-                }
-
-                this.Close();
+                DialogResult = DialogResult.OK; // Báo hiệu sửa thành công
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi cập nhật: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật: {ex.Message}\nInner Exception: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -59,6 +59,13 @@ namespace Eden.UI
         {
             try
             {
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrWhiteSpace(txtMaNhaCungCap.Text) || string.IsNullOrWhiteSpace(txtTenNhaCungCap.Text))
+                {
+                    MessageBox.Show("Mã và tên nhà cung cấp không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 NHACUNGCAP ncc = new NHACUNGCAP
                 {
                     MaNhaCungCap = txtMaNhaCungCap.Text.Trim(),
@@ -68,13 +75,22 @@ namespace Eden.UI
                     Email = txtEmail.Text.Trim()
                 };
 
+                // Kiểm tra trùng MaNhaCungCap
+                var existingNCC = nhaCungCapBLL.GetAll().FirstOrDefault(n => n.MaNhaCungCap == ncc.MaNhaCungCap);
+                if (existingNCC != null)
+                {
+                    MessageBox.Show($"Mã nhà cung cấp {ncc.MaNhaCungCap} đã tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 nhaCungCapBLL.Add(ncc);
                 MessageBox.Show("Thêm nhà cung cấp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                DialogResult = DialogResult.OK; // Báo hiệu thêm thành công
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm nhà cung cấp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi thêm nhà cung cấp: {ex.Message}\nInner Exception: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

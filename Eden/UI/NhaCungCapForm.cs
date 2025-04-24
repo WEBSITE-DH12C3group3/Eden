@@ -152,20 +152,7 @@ namespace Eden
             }
         }
 
-        public void UpdateDataGridView(NHACUNGCAP updatedNCC)
-        {
-            foreach (DataGridViewRow row in guna2DataGridViewNCC.Rows)
-            {
-                if (row.Cells["MaNhaCungCap"].Value?.ToString() == updatedNCC.MaNhaCungCap)
-                {
-                    row.Cells["TenNhaCungCap"].Value = updatedNCC.TenNhaCungCap;
-                    row.Cells["DiaChi"].Value = updatedNCC.DiaChi;
-                    row.Cells["SoDienThoai"].Value = updatedNCC.SoDienThoai;
-                    row.Cells["Email"].Value = updatedNCC.Email;
-                    break;
-                }
-            }
-        }
+       
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
