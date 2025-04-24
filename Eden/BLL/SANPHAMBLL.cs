@@ -27,6 +27,21 @@ namespace Eden
             }
         }
 
+        public SANPHAM GetById(int id)
+        {
+            try
+            {
+                using (var db = new QLBanHoaEntities())
+                {
+                    return db.SANPHAMs.Find(id);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy sản phẩm theo ID: {ex.Message}", ex);
+            }
+        }
+
         public void Add(SANPHAM sp)
         {
             dal.Add(sp);

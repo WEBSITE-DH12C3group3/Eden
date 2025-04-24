@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms; // Keep original using directives
-using System; // Keep original using directives
-using Guna.UI2.WinForms; // Ensure Guna namespace is included
+﻿using System.Windows.Forms;
+using System;
+using Guna.UI2.WinForms;
 
 namespace Eden
 {
@@ -17,10 +17,8 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2ComboBox cmbTenSP;
         private Guna.UI2.WinForms.Guna2TextBox txtSoLuong;
         private Guna.UI2.WinForms.Guna2TextBox txtDonGia;
-        private Guna.UI2.WinForms.Guna2Button btnThem; // Button to add item details
+        private Guna.UI2.WinForms.Guna2Button btnThem;
         private Guna.UI2.WinForms.Guna2ComboBox cmbIDNguoiDung;
-
-        // Added labels for clarity and consistency with other forms
         private System.Windows.Forms.Label labelTitle;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNgayNhap;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNhaCungCap;
@@ -28,10 +26,13 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2HtmlLabel lblSoLuong;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblDonGia;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNguoiDung;
-
-        // Uncommented txtMaPhieuNhap declaration in case it's used later
         private Guna.UI2.WinForms.Guna2TextBox txtMaPhieuNhap;
-
+        private Guna.UI2.WinForms.Guna2Button btnCancel;
+        private Guna.UI2.WinForms.Guna2Button btnSave;
+        // New controls
+        private Guna.UI2.WinForms.Guna2DataGridView dgvChiTiet;
+        private Guna.UI2.WinForms.Guna2Button btnAddChiTiet;
+        private Guna.UI2.WinForms.Guna2Button btnRemoveChiTiet;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -54,6 +55,9 @@ namespace Eden
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnThem = new Guna.UI2.WinForms.Guna2Button();
             this.dtpNgayNhap = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.cmbNhaCungCap = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -71,6 +75,10 @@ namespace Eden
             this.txtMaPhieuNhap = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
+            this.dgvChiTiet = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.btnAddChiTiet = new Guna.UI2.WinForms.Guna2Button();
+            this.btnRemoveChiTiet = new Guna.UI2.WinForms.Guna2Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTiet)).BeginInit();
             this.SuspendLayout();
             // 
             // btnThem
@@ -83,10 +91,10 @@ namespace Eden
             this.btnThem.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnThem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(185, 246);
+            this.btnThem.Location = new System.Drawing.Point(225, 238);
             this.btnThem.Margin = new System.Windows.Forms.Padding(2);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(157, 29);
+            this.btnThem.Size = new System.Drawing.Size(151, 29);
             this.btnThem.TabIndex = 7;
             this.btnThem.Text = "Thêm sản phẩm";
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
@@ -184,7 +192,7 @@ namespace Eden
             this.txtDonGia.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDonGia.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtDonGia.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtDonGia.Location = new System.Drawing.Point(185, 328);
+            this.txtDonGia.Location = new System.Drawing.Point(185, 340);
             this.txtDonGia.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDonGia.Name = "txtDonGia";
             this.txtDonGia.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -192,6 +200,7 @@ namespace Eden
             this.txtDonGia.SelectedText = "";
             this.txtDonGia.Size = new System.Drawing.Size(131, 29);
             this.txtDonGia.TabIndex = 6;
+            this.txtDonGia.TextChanged += new System.EventHandler(this.txtDonGia_TextChanged);
             // 
             // cmbIDNguoiDung
             // 
@@ -217,7 +226,7 @@ namespace Eden
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(15, 16);
+            this.labelTitle.Location = new System.Drawing.Point(111, 17);
             this.labelTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(265, 32);
@@ -277,7 +286,7 @@ namespace Eden
             this.lblDonGia.BackColor = System.Drawing.Color.Transparent;
             this.lblDonGia.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDonGia.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblDonGia.Location = new System.Drawing.Point(38, 331);
+            this.lblDonGia.Location = new System.Drawing.Point(38, 346);
             this.lblDonGia.Margin = new System.Windows.Forms.Padding(2);
             this.lblDonGia.Name = "lblDonGia";
             this.lblDonGia.Size = new System.Drawing.Size(58, 23);
@@ -298,15 +307,27 @@ namespace Eden
             // 
             // txtMaPhieuNhap
             // 
+            this.txtMaPhieuNhap.BorderColor = System.Drawing.Color.WhiteSmoke;
+            this.txtMaPhieuNhap.BorderRadius = 10;
             this.txtMaPhieuNhap.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtMaPhieuNhap.DefaultText = "";
-            this.txtMaPhieuNhap.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtMaPhieuNhap.Location = new System.Drawing.Point(0, 0);
+            this.txtMaPhieuNhap.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtMaPhieuNhap.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtMaPhieuNhap.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtMaPhieuNhap.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            this.txtMaPhieuNhap.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.txtMaPhieuNhap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaPhieuNhap.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.txtMaPhieuNhap.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.txtMaPhieuNhap.Location = new System.Drawing.Point(185, 20);
+            this.txtMaPhieuNhap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtMaPhieuNhap.Name = "txtMaPhieuNhap";
-            this.txtMaPhieuNhap.PlaceholderText = "";
+            this.txtMaPhieuNhap.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.txtMaPhieuNhap.PlaceholderText = "Mã phiếu nhập";
             this.txtMaPhieuNhap.SelectedText = "";
-            this.txtMaPhieuNhap.Size = new System.Drawing.Size(200, 36);
+            this.txtMaPhieuNhap.Size = new System.Drawing.Size(150, 29);
             this.txtMaPhieuNhap.TabIndex = 0;
+            this.txtMaPhieuNhap.Visible = false;
             // 
             // btnCancel
             // 
@@ -320,7 +341,7 @@ namespace Eden
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Image = global::Eden.Properties.Resources.del;
             this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCancel.Location = new System.Drawing.Point(73, 399);
+            this.btnCancel.Location = new System.Drawing.Point(73, 600);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(126, 40);
@@ -340,7 +361,7 @@ namespace Eden
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Eden.Properties.Resources.edit;
             this.btnSave.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnSave.Location = new System.Drawing.Point(250, 399);
+            this.btnSave.Location = new System.Drawing.Point(250, 600);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(126, 40);
@@ -348,12 +369,103 @@ namespace Eden
             this.btnSave.Text = "Lưu";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // dgvChiTiet
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvChiTiet.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvChiTiet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvChiTiet.ColumnHeadersHeight = 4;
+            this.dgvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvChiTiet.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvChiTiet.Location = new System.Drawing.Point(38, 423);
+            this.dgvChiTiet.Name = "dgvChiTiet";
+            this.dgvChiTiet.RowHeadersVisible = false;
+            this.dgvChiTiet.Size = new System.Drawing.Size(400, 172);
+            this.dgvChiTiet.TabIndex = 10;
+            this.dgvChiTiet.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvChiTiet.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvChiTiet.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvChiTiet.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvChiTiet.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvChiTiet.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvChiTiet.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvChiTiet.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dgvChiTiet.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvChiTiet.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvChiTiet.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvChiTiet.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvChiTiet.ThemeStyle.HeaderStyle.Height = 4;
+            this.dgvChiTiet.ThemeStyle.ReadOnly = false;
+            this.dgvChiTiet.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvChiTiet.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvChiTiet.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvChiTiet.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvChiTiet.ThemeStyle.RowsStyle.Height = 22;
+            this.dgvChiTiet.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvChiTiet.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
+            // btnAddChiTiet
+            // 
+            this.btnAddChiTiet.BorderRadius = 10;
+            this.btnAddChiTiet.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddChiTiet.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddChiTiet.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAddChiTiet.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAddChiTiet.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnAddChiTiet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddChiTiet.ForeColor = System.Drawing.Color.White;
+            this.btnAddChiTiet.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnAddChiTiet.Location = new System.Drawing.Point(73, 375);
+            this.btnAddChiTiet.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddChiTiet.Name = "btnAddChiTiet";
+            this.btnAddChiTiet.Size = new System.Drawing.Size(156, 29);
+            this.btnAddChiTiet.TabIndex = 11;
+            this.btnAddChiTiet.Text = "Thêm Sản Phẩm";
+            this.btnAddChiTiet.Click += new System.EventHandler(this.btnAddChiTiet_Click);
+            // 
+            // btnRemoveChiTiet
+            // 
+            this.btnRemoveChiTiet.BorderRadius = 10;
+            this.btnRemoveChiTiet.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnRemoveChiTiet.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnRemoveChiTiet.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnRemoveChiTiet.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnRemoveChiTiet.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnRemoveChiTiet.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveChiTiet.ForeColor = System.Drawing.Color.White;
+            this.btnRemoveChiTiet.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnRemoveChiTiet.Location = new System.Drawing.Point(250, 375);
+            this.btnRemoveChiTiet.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRemoveChiTiet.Name = "btnRemoveChiTiet";
+            this.btnRemoveChiTiet.Size = new System.Drawing.Size(161, 29);
+            this.btnRemoveChiTiet.TabIndex = 12;
+            this.btnRemoveChiTiet.Text = "Xóa Sản Phẩm";
+            this.btnRemoveChiTiet.Click += new System.EventHandler(this.btnRemoveChiTiet_Click);
+            // 
             // NhapKhoFormAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(443, 469);
+            this.ClientSize = new System.Drawing.Size(480, 660);
+            this.Controls.Add(this.btnRemoveChiTiet);
+            this.Controls.Add(this.btnAddChiTiet);
+            this.Controls.Add(this.dgvChiTiet);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.labelTitle);
@@ -370,21 +482,20 @@ namespace Eden
             this.Controls.Add(this.lblDonGia);
             this.Controls.Add(this.txtDonGia);
             this.Controls.Add(this.btnThem);
+            this.Controls.Add(this.txtMaPhieuNhap);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NhapKhoFormAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Thêm Sửa Phiếu Nhập";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTiet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-
-
         #endregion
 
-        private Guna2Button btnCancel;
-        private Guna2Button btnSave;
+       
     }
 }

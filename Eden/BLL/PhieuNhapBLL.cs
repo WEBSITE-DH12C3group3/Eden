@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Eden.Eden;
 
 namespace Eden
@@ -25,16 +26,24 @@ namespace Eden
                 throw new ArgumentException("ID phiếu nhập không hợp lệ!");
             return dal.GetById(id);
         }
-    // Các phương thức khác...
+        // Các phương thức khác...
 
 
         // Lấy phiếu nhập theo mã phiếu
         public PHIEUNHAP GetByMaPhieuNhap(string maPhieuNhap)
         {
-            if (string.IsNullOrEmpty(maPhieuNhap))
-                throw new ArgumentException("Mã phiếu nhập không được để trống!");
-
-            return dal.GetByMaPhieuNhap(maPhieuNhap);
+            try
+            {
+                using (var db = new QLBanHoaEntities())
+                {
+                    return db.PHIEUNHAPs
+                        .FirstOrDefault(p => p.MaPhieuNhap == maPhieuNhap);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy phiếu nhập theo mã: {ex.Message}", ex);
+            }
         }
 
         // Thêm phiếu nhập
@@ -122,10 +131,19 @@ namespace Eden
         // Lấy chi tiết phiếu nhập theo ID phiếu nhập
         public List<CHITIETPHIEUNHAP> GetChiTietByPhieuNhap(int idPhieuNhap)
         {
-            if (idPhieuNhap <= 0)
-                throw new ArgumentException("ID phiếu nhập không hợp lệ!");
-
-            return dal.GetChiTietByPhieuNhap(idPhieuNhap);
+            try
+            {
+                using (var db = new QLBanHoaEntities())
+                {
+                    return db.CHITIETPHIEUNHAPs
+                        .Where(c => c.idPhieuNhap == idPhieuNhap)
+                        .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi lấy chi tiết phiếu nhập: {ex.Message}", ex);
+            }
         }
 
         // Thêm chi tiết phiếu nhập
