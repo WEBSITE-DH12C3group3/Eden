@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Eden.BLLCustom;
 using Guna.UI2.WinForms;
-using ClosedXML.Excel; // Thêm thư viện ClosedXML
+using ClosedXML.Excel;
 using System.IO;
 using System.Linq;
 
@@ -22,7 +22,7 @@ namespace Eden
             guna2TextBoxTimKiem.TextChanged += new EventHandler(guna2TextBoxTimKiem_TextChanged);
             btnNext.Click += new EventHandler(btnNext_Click);
             btnPrevious.Click += new EventHandler(btnPrevious_Click);
-            btnExportExcel.Click += new EventHandler(btnExportExcel_Click); // Thêm sự kiện cho btnExportExcel
+            btnExportExcel.Click += new EventHandler(btnExportExcel_Click);
             LoadData();
         }
 
@@ -186,11 +186,33 @@ namespace Eden
                         using (var workbook = new XLWorkbook())
                         {
                             var worksheet = workbook.Worksheets.Add("NhomNguoiDung");
-                            // Thêm tiêu đề cột
-                            worksheet.Cell(1, 1).Value = "Mã Nhóm Người Dùng";
-                            worksheet.Cell(1, 2).Value = "Tên Nhóm Người Dùng";
 
-                            // Lấy dữ liệu (bao gồm cả bộ lọc tìm kiếm, nhưng xuất toàn bộ danh sách)
+                            // Tiêu đề chính
+                            worksheet.Cell(1, 1).Value = "Danh Sách Nhóm Người Dùng";
+                            worksheet.Cell(1, 1).Style.Font.Bold = true;
+                            worksheet.Cell(1, 1).Style.Font.FontSize = 16;
+                            worksheet.Range(1, 1, 1, 2).Merge();
+                            worksheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            // Thông tin người xuất và ngày xuất (căn phải)
+                            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name; // Lấy tên người dùng từ hệ thống
+                            string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                            worksheet.Cell(2, 2).Value = $"Người xuất: {userName}";
+                            worksheet.Cell(2, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            worksheet.Cell(3, 2).Value = $"Ngày xuất: {exportDateTime}";
+                            worksheet.Cell(3, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                            // Tiêu đề cột
+                            worksheet.Cell(5, 1).Value = "Mã Nhóm Người Dùng";
+                            worksheet.Cell(5, 2).Value = "Tên Nhóm Người Dùng";
+                            var headerRange = worksheet.Range(5, 1, 5, 2);
+                            headerRange.Style.Fill.BackgroundColor = XLColor.FromArgb(146, 208, 80); // Màu xanh nhạt
+                            headerRange.Style.Font.Bold = true;
+                            headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            headerRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            headerRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                            // Lấy dữ liệu
                             var filteredList = string.IsNullOrEmpty(guna2TextBoxTimKiem.Text.Trim())
                                 ? nhomNguoiDungList
                                 : nhomNguoiDungList.FindAll(n => n.TenNhomNguoiDung.ToLower().Contains(guna2TextBoxTimKiem.Text.Trim().ToLower()));
@@ -198,12 +220,26 @@ namespace Eden
                             // Thêm dữ liệu vào Excel
                             for (int i = 0; i < filteredList.Count; i++)
                             {
-                                worksheet.Cell(i + 2, 1).Value = filteredList[i].MaNhomNguoiDung;
-                                worksheet.Cell(i + 2, 2).Value = filteredList[i].TenNhomNguoiDung;
+                                worksheet.Cell(i + 6, 1).Value = filteredList[i].MaNhomNguoiDung;
+                                worksheet.Cell(i + 6, 2).Value = filteredList[i].TenNhomNguoiDung;
+
+                                // Căn giữa dữ liệu và thêm viền
+                                var rowRange = worksheet.Range(i + 6, 1, i + 6, 2);
+                                rowRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                rowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                rowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                // Tô màu xen kẽ cho các ô dữ liệu
+                                if (i % 2 == 0)
+                                {
+                                    rowRange.Style.Fill.BackgroundColor = XLColor.FromArgb(216, 228, 188); // Màu xanh nhạt xen kẽ
+                                }
                             }
 
-                            // Tự động điều chỉnh độ rộng cột
-                            worksheet.Columns().AdjustToContents();
+                            // Căn chỉnh độ rộng cột
+                            worksheet.Column(1).Width = 20; // Mã Nhóm Người Dùng
+                            worksheet.Column(2).Width = 30; // Tên Nhóm Người Dùng
+
                             workbook.SaveAs(sfd.FileName);
                         }
                         MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
