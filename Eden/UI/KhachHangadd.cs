@@ -24,33 +24,32 @@ namespace Eden.UI
             {
                 var lastCustomer = customers.OrderByDescending(c => c.MaKhachHang).FirstOrDefault();
                 int lastNumber = int.Parse(lastCustomer.MaKhachHang.Substring(2)); // Lấy số từ KHxxxx
-                guna2TextBox1.Text = $"KH{(lastNumber + 1):D4}"; // Tạo mã mới KHxxxx
+                txtTenKhachHang.Text = $"KH{(lastNumber + 1):D4}"; // Tạo mã mới KHxxxx
             }
             else
             {
-                guna2TextBox1.Text = "KH0001"; // Nếu chưa có khách hàng nào
+                txtTenKhachHang.Text = "KH0001"; // Nếu chưa có khách hàng nào
             }
-            guna2TextBox1.ReadOnly = true; // Không cho phép chỉnh sửa mã khách hàng
+            txtTenKhachHang.ReadOnly = true; // Không cho phép chỉnh sửa mã khách hàng
         }
 
-        // Hủy bỏ
-        private void guna2Button1_Click(object sender, EventArgs e)
+
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        // Lưu khách hàng mới
-        private void guna2Button2_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 KHACHHANG kh = new KHACHHANG
                 {
-                    MaKhachHang = guna2TextBox1.Text.Trim(),
-                    TenKhachHang = guna2TextBox2.Text.Trim(),
-                    DiaChi = guna2TextBox3.Text.Trim(),
-                    SoDienThoai = guna2TextBox4.Text.Trim(),
-                    Email = guna2TextBox5.Text.Trim()
+                    MaKhachHang = txtMaKhachHang.Text.Trim(),
+                    TenKhachHang = txtTenKhachHang.Text.Trim(),
+                    DiaChi = txtDiaChi.Text.Trim(),
+                    SoDienThoai = txtSoDienThoai.Text.Trim(),
+                    Email = txtEmail.Text.Trim()
                 };
 
                 khachHangBLL.Add(kh);

@@ -65,19 +65,10 @@ namespace Eden.UI
                 dgvChiTiet.Columns["ThanhTien"].HeaderText = "Thành Tiền";
             }
         }
-        
 
         private void btnQuayLai_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void CHITIETPHIEUNHAPFORM_Load(object sender, EventArgs e)
-        {
-        }
-
-        private Guna.UI2.WinForms.Guna2DataGridView dgvChiTiet;
-        private Guna.UI2.WinForms.Guna2Button btnQuayLai;
-        //private string maPhieuNhap;
     }
 }

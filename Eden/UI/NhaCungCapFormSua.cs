@@ -14,6 +14,7 @@ namespace Eden.UI
     {
         private NHACUNGCAPBLL nhaCungCapBLL;
         private string maNCC;
+
         public NhaCungCapFormSua(string maNCC)
         {
             InitializeComponent();
@@ -21,6 +22,7 @@ namespace Eden.UI
             this.maNCC = maNCC;
             LoadNhaCungCap();
         }
+
         private void LoadNhaCungCap()
         {
             try
@@ -30,12 +32,12 @@ namespace Eden.UI
 
                 if (ncc != null) // Nếu tìm thấy nhà cung cấp
                 {
-                    guna2TextBox1.Text = ncc.MaNhaCungCap;
-                    guna2TextBox1.ReadOnly = true; // Không cho phép sửa mã NCC
-                    guna2TextBox2.Text = ncc.TenNhaCungCap;
-                    guna2TextBox3.Text = ncc.DiaChi;
-                    guna2TextBox4.Text = ncc.SoDienThoai;
-                    guna2TextBox5.Text = ncc.Email;
+                    txtMaNhaCungCap.Text = ncc.MaNhaCungCap;
+                    txtMaNhaCungCap.ReadOnly = true; // Không cho phép sửa mã NCC
+                    txtTenNhaCungCap.Text = ncc.TenNhaCungCap;
+                    txtDiaChi.Text = ncc.DiaChi;
+                    txtSoDienThoai.Text = ncc.SoDienThoai;
+                    txtEmail.Text = ncc.Email;
                 }
                 else
                 {
@@ -50,17 +52,22 @@ namespace Eden.UI
             }
         }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 NHACUNGCAP ncc = new NHACUNGCAP
                 {
                     MaNhaCungCap = maNCC,
-                    TenNhaCungCap = guna2TextBox2.Text.Trim(),
-                    DiaChi = guna2TextBox3.Text.Trim(),
-                    SoDienThoai = guna2TextBox4.Text.Trim(),
-                    Email = guna2TextBox5.Text.Trim()
+                    TenNhaCungCap = txtTenNhaCungCap.Text.Trim(),
+                    DiaChi = txtDiaChi.Text.Trim(),
+                    SoDienThoai = txtSoDienThoai.Text.Trim(),
+                    Email = txtEmail.Text.Trim()
                 };
 
                 nhaCungCapBLL.Update(ncc);
@@ -79,11 +86,6 @@ namespace Eden.UI
             {
                 MessageBox.Show("Lỗi khi cập nhật: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

@@ -27,12 +27,12 @@ namespace Eden.UI
 
                 if (khDTO != null) // Nếu tìm thấy khách hàng
                 {
-                    guna2TextBox1.Text = khDTO.MaKhachHang;
-                    guna2TextBox1.ReadOnly = true; // Ngăn sửa mã khách hàng
-                    guna2TextBox2.Text = khDTO.TenKhachHang;
-                    guna2TextBox3.Text = khDTO.DiaChi;
-                    guna2TextBox4.Text = khDTO.SoDienThoai;
-                    guna2TextBox5.Text = khDTO.Email;
+                    txtTenKhachHang.Text = khDTO.MaKhachHang;
+                    txtTenKhachHang.ReadOnly = true; // Ngăn sửa mã khách hàng
+                    txtTenKhachHang.Text = khDTO.TenKhachHang;
+                    txtDiaChi.Text = khDTO.DiaChi;
+                    txtSoDienThoai.Text = khDTO.SoDienThoai;
+                    txtEmail.Text = khDTO.Email;
                 }
                 else // Nếu không tìm thấy khách hàng
                 {
@@ -47,17 +47,22 @@ namespace Eden.UI
             }
         }
 
-        private void add_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 KHACHHANG kh = new KHACHHANG
                 {
                     MaKhachHang = maKH,
-                    TenKhachHang = guna2TextBox2.Text.Trim(),
-                    DiaChi = guna2TextBox3.Text.Trim(),// Sửa lại đây
-                    SoDienThoai = guna2TextBox4.Text.Trim(),  // Sửa lại đây
-                    Email = guna2TextBox5.Text.Trim()          // Thêm Email
+                    TenKhachHang = txtTenKhachHang.Text.Trim(),
+                    DiaChi = txtDiaChi.Text.Trim(),// Sửa lại đây
+                    SoDienThoai = txtSoDienThoai.Text.Trim(),  // Sửa lại đây
+                    Email = txtEmail.Text.Trim()          // Thêm Email
                 };
 
                 khachHangBLL.Update(kh);
@@ -68,11 +73,6 @@ namespace Eden.UI
             {
                 MessageBox.Show("Lỗi khi cập nhật: " + ex.Message);
             }
-        }
-
-        private void btnHuy_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

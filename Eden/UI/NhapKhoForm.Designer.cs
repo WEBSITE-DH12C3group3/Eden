@@ -124,7 +124,9 @@ namespace Eden
             this.btnAdd.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-            this.btnAdd.Location = new System.Drawing.Point(126, 680);
+            this.btnAdd.Image = global::Eden.Properties.Resources.add;
+            this.btnAdd.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnAdd.Location = new System.Drawing.Point(38, 665);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(160, 55);
             this.btnAdd.TabIndex = 3;
@@ -142,7 +144,9 @@ namespace Eden
             this.btnEdit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.Color.White;
-            this.btnEdit.Location = new System.Drawing.Point(316, 680);
+            this.btnEdit.Image = global::Eden.Properties.Resources.edit;
+            this.btnEdit.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnEdit.Location = new System.Drawing.Point(214, 665);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(160, 55);
             this.btnEdit.TabIndex = 4;
@@ -160,7 +164,9 @@ namespace Eden
             this.btnDelete.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(506, 680);
+            this.btnDelete.Image = global::Eden.Properties.Resources.del;
+            this.btnDelete.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnDelete.Location = new System.Drawing.Point(390, 665);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(160, 55);
             this.btnDelete.TabIndex = 5;
@@ -203,6 +209,7 @@ namespace Eden
             this.btnRefresh.FillColor = System.Drawing.Color.LightGray;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.Black;
+            this.btnRefresh.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnRefresh.Location = new System.Drawing.Point(792, 557);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(160, 40);
@@ -221,7 +228,9 @@ namespace Eden
             this.btnExportExcel.FillColor = System.Drawing.Color.Green;
             this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
-            this.btnExportExcel.Location = new System.Drawing.Point(696, 680);
+            this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
+            this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnExportExcel.Location = new System.Drawing.Point(566, 665);
             this.btnExportExcel.Name = "btnExportExcel";
             this.btnExportExcel.Size = new System.Drawing.Size(160, 55);
             this.btnExportExcel.TabIndex = 6;
@@ -239,9 +248,11 @@ namespace Eden
             this.btnXemChiTiet.FillColor = System.Drawing.Color.MediumSlateBlue;
             this.btnXemChiTiet.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXemChiTiet.ForeColor = System.Drawing.Color.White;
-            this.btnXemChiTiet.Location = new System.Drawing.Point(696, 610);
+            this.btnXemChiTiet.Image = global::Eden.Properties.Resources.info;
+            this.btnXemChiTiet.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnXemChiTiet.Location = new System.Drawing.Point(742, 665);
             this.btnXemChiTiet.Name = "btnXemChiTiet";
-            this.btnXemChiTiet.Size = new System.Drawing.Size(160, 55);
+            this.btnXemChiTiet.Size = new System.Drawing.Size(190, 55);
             this.btnXemChiTiet.TabIndex = 8;
             this.btnXemChiTiet.Text = "Xem Chi Tiết";
             this.btnXemChiTiet.Click += new System.EventHandler(this.btnXemChiTiet_Click);

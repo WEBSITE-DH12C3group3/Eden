@@ -37,9 +37,6 @@ namespace Eden
             }
         }
 
-        
- 
-
         private void LoadNhaCungCap()
         {
             try
@@ -66,7 +63,6 @@ namespace Eden
             }
             catch (Exception ex)
             {
-              
             }
         }
 
@@ -99,10 +95,9 @@ namespace Eden
             {
                 MessageBox.Show($"Không tìm thấy phiếu nhập với mã {maPhieuNhap}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            } 
+            }
             //txtMaPhieuNhap.Text = phieuNhap.MaPhieuNhap;
 
-           
             //txtMaPhieuNhap.ReadOnly = true; // Ngăn chỉnh sửa MaPhieuNhap
             dtpNgayNhap.Value = phieuNhap.NgayNhap;
 
@@ -143,9 +138,6 @@ namespace Eden
                 txtDonGia.Text = "";
             }
         }
-
-
-
 
         // Lưu phiếu nhập (Thêm hoặc Sửa)
         private void btnSave_Click(object sender, EventArgs e)
@@ -303,7 +295,6 @@ namespace Eden
             this.Close();
         }
 
-
         private void btnThem_Click(object sender, EventArgs e)
         {
             using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
@@ -335,27 +326,5 @@ namespace Eden
                 formAdd.ShowDialog();
             }
         }
-
-
-
-        //private Guna.UI2.WinForms.Guna2TextBox txtMaPhieuNhap;
-        private Guna.UI2.WinForms.Guna2DateTimePicker dtpNgayNhap;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbNhaCungCap;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbIDNguoiDung;
-
-        // Các textbox chi tiết sản phẩm
-        private Guna.UI2.WinForms.Guna2Button btnThem;
-
-        private Guna.UI2.WinForms.Guna2ComboBox cmbTenSP;
-        private Guna.UI2.WinForms.Guna2TextBox txtSoLuong;
-        private Guna.UI2.WinForms.Guna2TextBox txtDonGia;
-
-        private Guna.UI2.WinForms.Guna2Button btnSave;
-        private Guna.UI2.WinForms.Guna2Button btnCancel;
-
-
-
-
-
     }
 }

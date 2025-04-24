@@ -1,4 +1,4 @@
-﻿namespace Eden.UI
+﻿namespace Eden.UI // Note: This file is in the Eden.UI namespace
 {
     partial class HoaDonChiTiet
     {
@@ -28,121 +28,153 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dgchitietHD = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.back = new Guna.UI2.WinForms.Guna2Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dgvChiTietHD = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.btnBack = new Guna.UI2.WinForms.Guna2Button();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.btnExportExcel = new Guna.UI2.WinForms.Guna2Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgchitietHD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietHD)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgchitietHD
+            // dgvChiTietHD
             // 
-            this.dgchitietHD.AllowUserToAddRows = false;
-            this.dgchitietHD.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.AliceBlue;
-            this.dgchitietHD.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgchitietHD.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgchitietHD.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgchitietHD.ColumnHeadersHeight = 29;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.LightBlue;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgchitietHD.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgchitietHD.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgchitietHD.Location = new System.Drawing.Point(3, 1);
-            this.dgchitietHD.Name = "dgchitietHD";
-            this.dgchitietHD.ReadOnly = true;
-            this.dgchitietHD.RowHeadersVisible = false;
-            this.dgchitietHD.RowHeadersWidth = 51;
-            this.dgchitietHD.RowTemplate.Height = 29;
-            this.dgchitietHD.Size = new System.Drawing.Size(795, 290);
-            this.dgchitietHD.TabIndex = 3;
-            this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.AliceBlue;
-            this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgchitietHD.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgchitietHD.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgchitietHD.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgchitietHD.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.dgchitietHD.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgchitietHD.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dgchitietHD.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgchitietHD.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgchitietHD.ThemeStyle.HeaderStyle.Height = 29;
-            this.dgchitietHD.ThemeStyle.ReadOnly = true;
-            this.dgchitietHD.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgchitietHD.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgchitietHD.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dgchitietHD.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgchitietHD.ThemeStyle.RowsStyle.Height = 29;
-            this.dgchitietHD.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.LightBlue;
-            this.dgchitietHD.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvChiTietHD.AllowUserToAddRows = false;
+            this.dgvChiTietHD.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(75)))));
+            this.dgvChiTietHD.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvChiTietHD.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvChiTietHD.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvChiTietHD.ColumnHeadersHeight = 40;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvChiTietHD.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvChiTietHD.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvChiTietHD.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(81)))));
+            this.dgvChiTietHD.Location = new System.Drawing.Point(9, 49);
+            this.dgvChiTietHD.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvChiTietHD.Name = "dgvChiTietHD";
+            this.dgvChiTietHD.ReadOnly = true;
+            this.dgvChiTietHD.RowHeadersVisible = false;
+            this.dgvChiTietHD.RowHeadersWidth = 51;
+            this.dgvChiTietHD.RowTemplate.Height = 35;
+            this.dgvChiTietHD.Size = new System.Drawing.Size(582, 244);
+            this.dgvChiTietHD.TabIndex = 1;
+            this.dgvChiTietHD.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(75)))));
+            this.dgvChiTietHD.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvChiTietHD.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvChiTietHD.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvChiTietHD.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvChiTietHD.ThemeStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.dgvChiTietHD.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(81)))));
+            this.dgvChiTietHD.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            this.dgvChiTietHD.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvChiTietHD.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvChiTietHD.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvChiTietHD.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvChiTietHD.ThemeStyle.HeaderStyle.Height = 40;
+            this.dgvChiTietHD.ThemeStyle.ReadOnly = true;
+            this.dgvChiTietHD.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.dgvChiTietHD.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvChiTietHD.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dgvChiTietHD.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvChiTietHD.ThemeStyle.RowsStyle.Height = 35;
+            this.dgvChiTietHD.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.dgvChiTietHD.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
             // 
-            // back
+            // btnBack
             // 
-            this.back.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.back.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.back.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.back.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.back.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.back.ForeColor = System.Drawing.Color.White;
-            this.back.Location = new System.Drawing.Point(12, 312);
-            this.back.Name = "back";
-            this.back.Size = new System.Drawing.Size(180, 45);
-            this.back.TabIndex = 1;
-            this.back.Text = "Quay lại";
-            this.back.Click += new System.EventHandler(this.back_Click);
+            this.btnBack.BorderRadius = 10;
+            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBack.FillColor = System.Drawing.Color.Gray;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Image = global::Eden.Properties.Resources.left;
+            this.btnBack.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnBack.Location = new System.Drawing.Point(101, 308);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(135, 47);
+            this.btnBack.TabIndex = 2;
+            this.btnBack.Text = "Quay lại";
+            this.btnBack.Click += new System.EventHandler(this.back_Click);
+            // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.labelTitle.Location = new System.Drawing.Point(15, 11);
+            this.labelTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(208, 32);
+            this.labelTitle.TabIndex = 0;
+            this.labelTitle.Text = "Chi Tiết Hóa Đơn";
             // 
             // btnExportExcel
             // 
+            this.btnExportExcel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnExportExcel.BorderRadius = 10;
             this.btnExportExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnExportExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnExportExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnExportExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExportExcel.FillColor = System.Drawing.Color.Green;
+            this.btnExportExcel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
-            this.btnExportExcel.Location = new System.Drawing.Point(608, 312);
+            this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
+            this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnExportExcel.Location = new System.Drawing.Point(358, 308);
+            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(180, 45);
-            this.btnExportExcel.TabIndex = 4;
-            this.btnExportExcel.Text = "Xuất excel";
+            this.btnExportExcel.Size = new System.Drawing.Size(152, 47);
+            this.btnExportExcel.TabIndex = 18;
+            this.btnExportExcel.Text = "Xuất Excel";
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // HoaDonChiTiet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.btnExportExcel);
-            this.Controls.Add(this.back);
-            this.Controls.Add(this.dgchitietHD);
+            this.Controls.Add(this.labelTitle);
+            this.Controls.Add(this.btnBack);
+            this.Controls.Add(this.dgvChiTietHD);
+            this.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HoaDonChiTiet";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "HoaDonChiTiet";
+            this.Text = "Chi Tiết Hóa Đơn";
             this.Load += new System.EventHandler(this.HoaDonChiTiet_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgchitietHD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiTietHD)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2DataGridView dgchitietHD;
-        private Guna.UI2.WinForms.Guna2Button back;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvChiTietHD; // Renamed
+        private Guna.UI2.WinForms.Guna2Button btnBack; // Renamed from back
+        private System.Windows.Forms.Label labelTitle; // Added
         private Guna.UI2.WinForms.Guna2Button btnExportExcel;
     }
 }

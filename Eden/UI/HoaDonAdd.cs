@@ -204,7 +204,7 @@ namespace Eden.UI
 
             // Cập nhật tổng tiền
             decimal tongTien = chiTietList.Sum(ct => ct.ThanhTien);
-            lblTongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
+            lblTongTien.Text = $" {tongTien:N0} VNĐ";
 
             // Reset số lượng
             txtSoLuong.Text = "";
@@ -283,6 +283,21 @@ namespace Eden.UI
                 }
                 MessageBox.Show("Lỗi khi thêm hóa đơn: " + errorMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void lblTongTienLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTongTien_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbSanPham_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

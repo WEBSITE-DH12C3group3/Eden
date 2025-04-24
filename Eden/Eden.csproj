@@ -185,6 +185,9 @@
     <Compile Include="UI\SanPhamFormSua.Designer.cs">
       <DependentUpon>SanPhamFormSua.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\AddEditNhomNguoiDungForm.resx">
+      <DependentUpon>AddEditNhomNguoiDungForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CHITIETPHIEUNHAPFORM.resx">
       <DependentUpon>CHITIETPHIEUNHAPFORM.cs</DependentUpon>
     </EmbeddedResource>
@@ -543,6 +546,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\info.png" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\seach.png" />
     <None Include="Resources\right.png" />

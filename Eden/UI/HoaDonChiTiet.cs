@@ -24,34 +24,34 @@ namespace Eden.UI
             chiTietHoaDonBLL = new CHITIETHOADONBLL();
 
             // Cấu hình DataGridView
-            dgchitietHD.AutoGenerateColumns = false;
-            dgchitietHD.Columns.Clear();
-            dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
+            dgvChiTietHD.AutoGenerateColumns = false;
+            dgvChiTietHD.Columns.Clear();
+            dgvChiTietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "MaHoaDon",
                 HeaderText = "Mã Hóa Đơn"
             });
-            dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
+            dgvChiTietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "MaSanPham",
                 HeaderText = "Mã Sản Phẩm"
             });
-            dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
+            dgvChiTietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "TenSanPham",
                 HeaderText = "Tên Sản Phẩm"
             });
-            dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
+            dgvChiTietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "SoLuong",
                 HeaderText = "Số Lượng"
             });
-            dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
+            dgvChiTietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "DonGia",
                 HeaderText = "Đơn Giá"
             });
-            dgchitietHD.Columns.Add(new DataGridViewTextBoxColumn
+            dgvChiTietHD.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "ThanhTien",
                 HeaderText = "Thành Tiền"
@@ -65,8 +65,8 @@ namespace Eden.UI
             try
             {
                 var chiTietList = chiTietHoaDonBLL.GetByHoaDonId(idHoaDon);
-                dgchitietHD.DataSource = null;
-                dgchitietHD.DataSource = chiTietList;
+                dgvChiTietHD.DataSource = null;
+                dgvChiTietHD.DataSource = chiTietList;
             }
             catch (Exception ex)
             {
@@ -74,7 +74,7 @@ namespace Eden.UI
             }
         }
 
-        private void dgchitietHD_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvChiTietHD_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Có thể thêm xử lý nếu cần (ví dụ: hiển thị thông tin chi tiết hơn)
         }
@@ -87,24 +87,24 @@ namespace Eden.UI
 
         private void HoaDonChiTiet_Load(object sender, EventArgs e)
         {
-
         }
+
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
             // Tạo DataTable từ DataGridView
             DataTable dt = new DataTable();
 
-            foreach (DataGridViewColumn column in dgchitietHD.Columns)
+            foreach (DataGridViewColumn column in dgvChiTietHD.Columns)
             {
                 dt.Columns.Add(column.HeaderText, typeof(string));
             }
 
-            foreach (DataGridViewRow row in dgchitietHD.Rows)
+            foreach (DataGridViewRow row in dgvChiTietHD.Rows)
             {
                 if (!row.IsNewRow)
                 {
                     DataRow dr = dt.NewRow();
-                    for (int i = 0; i < dgchitietHD.Columns.Count; i++)
+                    for (int i = 0; i < dgvChiTietHD.Columns.Count; i++)
                     {
                         dr[i] = row.Cells[i].Value?.ToString();
                     }

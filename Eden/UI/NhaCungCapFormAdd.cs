@@ -13,6 +13,7 @@ namespace Eden.UI
     public partial class NhaCungCapFormAdd : Form
     {
         private NHACUNGCAPBLL nhaCungCapBLL;
+
         public NhaCungCapFormAdd()
         {
             InitializeComponent();
@@ -34,33 +35,37 @@ namespace Eden.UI
                 if (lastNhaCungCap != null)
                 {
                     int lastNumber = int.Parse(lastNhaCungCap.MaNhaCungCap.Substring(3));
-                    guna2TextBox1.Text = $"NCC{(lastNumber + 1):D3}";
+                    txtMaNhaCungCap.Text = $"NCC{(lastNumber + 1):D3}";
                 }
                 else
                 {
-                    guna2TextBox1.Text = "NCC001";
+                    txtMaNhaCungCap.Text = "NCC001";
                 }
             }
             else
             {
-                guna2TextBox1.Text = "NCC001";
+                txtMaNhaCungCap.Text = "NCC001";
             }
 
-            guna2TextBox1.ReadOnly = true;
+            txtMaNhaCungCap.ReadOnly = true;
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
                 NHACUNGCAP ncc = new NHACUNGCAP
                 {
-                    MaNhaCungCap = guna2TextBox1.Text.Trim(),
-                    TenNhaCungCap = guna2TextBox2.Text.Trim(),
-                    DiaChi = guna2TextBox3.Text.Trim(),
-                    SoDienThoai = guna2TextBox4.Text.Trim(),
-                    Email = guna2TextBox5.Text.Trim()
+                    MaNhaCungCap = txtMaNhaCungCap.Text.Trim(),
+                    TenNhaCungCap = txtTenNhaCungCap.Text.Trim(),
+                    DiaChi = txtDiaChi.Text.Trim(),
+                    SoDienThoai = txtSoDienThoai.Text.Trim(),
+                    Email = txtEmail.Text.Trim()
                 };
 
                 nhaCungCapBLL.Add(ncc);
@@ -71,11 +76,6 @@ namespace Eden.UI
             {
                 MessageBox.Show("Lỗi khi thêm nhà cung cấp: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }
