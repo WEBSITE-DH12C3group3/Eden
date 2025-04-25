@@ -294,90 +294,88 @@ namespace Eden
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            try
+            List<SanPhamDTO> allSanPham = sanphamBLL.GetAll();
+
+            if (allSanPham == null || allSanPham.Count == 0)
             {
-                // Kiểm tra xem có dữ liệu để xuất không
-                if (dgvSanPham.Rows.Count == 0)
-                {
-                    MessageBox.Show("Không có dữ liệu để xuất ra Excel.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Tạo DataTable từ DataGridView
-                DataTable dt = new DataTable("DanhSachSanPham");
-
-                // Định nghĩa các cột với kiểu dữ liệu phù hợp
-                dt.Columns.Add("Mã Sản Phẩm", typeof(string));
-                dt.Columns.Add("Tên Sản Phẩm", typeof(string));
-                dt.Columns.Add("Mô Tả", typeof(string));
-                dt.Columns.Add("Giá", typeof(decimal));
-                dt.Columns.Add("Số Lượng", typeof(int));
-                dt.Columns.Add("Màu Sắc", typeof(string));
-                dt.Columns.Add("Ảnh Chi Tiết", typeof(string));
-                dt.Columns.Add("Tên Nhà Cung Cấp", typeof(string));
-                dt.Columns.Add("Tên Loại Sản Phẩm", typeof(string));
-                dt.Columns.Add("Đã Bán", typeof(int));
-
-                // Duyệt qua từng dòng trong DataGridView và thêm vào DataTable
-                foreach (DataGridViewRow row in dgvSanPham.Rows)
-                {
-                    if (!row.IsNewRow)
-                    {
-                        DataRow dr = dt.NewRow();
-                        dr["Mã Sản Phẩm"] = row.Cells["MaSanPham"].Value?.ToString() ?? "";
-                        dr["Tên Sản Phẩm"] = row.Cells["TenSanPham"].Value?.ToString() ?? "";
-                        dr["Mô Tả"] = row.Cells["MoTa"].Value?.ToString() ?? "";
-                        dr["Giá"] = row.Cells["Gia"].Value != null ? Convert.ToDecimal(row.Cells["Gia"].Value) : 0;
-                        dr["Số Lượng"] = row.Cells["SoLuong"].Value != null ? Convert.ToInt32(row.Cells["SoLuong"].Value) : 0;
-                        dr["Màu Sắc"] = row.Cells["MauSac"].Value?.ToString() ?? "";
-                        dr["Ảnh Chi Tiết"] = row.Cells["AnhChiTiet"].Value?.ToString() ?? "";
-                        dr["Tên Nhà Cung Cấp"] = row.Cells["TenNhaCungCap"].Value?.ToString() ?? "";
-                        dr["Tên Loại Sản Phẩm"] = row.Cells["TenLoaiSanPham"].Value?.ToString() ?? "";
-                        dr["Đã Bán"] = row.Cells["SoLuongDaBan"].Value != null ? Convert.ToInt32(row.Cells["SoLuongDaBan"].Value) : 0;
-                        dt.Rows.Add(dr);
-                    }
-                }
-
-                // Hiển thị hộp thoại lưu file
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    Filter = "Excel Workbook|*.xlsx",
-                    Title = "Lưu file Excel",
-                    FileName = $"DanhSachSanPham_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
-                };
-
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    using (XLWorkbook wb = new XLWorkbook())
-                    {
-                        var worksheet = wb.Worksheets.Add(dt, "DanhSachSanPham");
-
-                        // Định dạng tiêu đề
-                        var titleRow = worksheet.Row(1);
-                        titleRow.Style.Font.Bold = true;
-                        titleRow.Style.Fill.BackgroundColor = XLColor.LightGray;
-                        titleRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-
-                        // Định dạng cột "Giá" (dạng tiền tệ)
-                        var giaColumn = worksheet.Column(4);
-                        giaColumn.Style.NumberFormat.Format = "#,##0 VNĐ";
-
-                        // Định dạng cột "Số Lượng" (dạng số nguyên)
-                        var soLuongColumn = worksheet.Column(5);
-                        soLuongColumn.Style.NumberFormat.Format = "#,##0";
-
-                        // Tự động điều chỉnh độ rộng cột
-                        worksheet.Columns().AdjustToContents();
-
-                        // Lưu file Excel
-                        wb.SaveAs(saveFileDialog.FileName);
-                        MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+            // Tạo DataTable
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Tên Sản Phẩm");
+            dt.Columns.Add("Mô Tả");
+            dt.Columns.Add("Giá", typeof(decimal));
+            dt.Columns.Add("Số Lượng", typeof(int));
+            dt.Columns.Add("Màu Sắc");
+            dt.Columns.Add("Ảnh Chi Tiết");
+            dt.Columns.Add("Mã Nhà Cung Cấp");
+            dt.Columns.Add("Mã Loại Sản Phẩm");
+            dt.Columns.Add("Mã Sản Phẩm");
+
+            foreach (var sp in allSanPham)
             {
-                MessageBox.Show("Lỗi khi xuất file Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dt.Rows.Add(
+                    sp.TenSanPham,
+                    sp.MoTa,
+                    sp.Gia,
+                    sp.SoLuong,
+                    sp.MauSac,
+                    sp.AnhChiTiet,
+                    sp.TenNhaCungCap.ToString(),
+                    sp.TenLoaiSanPham.ToString(),
+                    sp.MaSanPham
+                );
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+            saveFileDialog.Title = "Lưu file Excel";
+            saveFileDialog.FileName = $"DanhSachSanPham_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    var ws = wb.Worksheets.Add("SanPham");
+
+                    // Tiêu đề chính
+                    ws.Cell(1, 1).Value = "Danh Sách Sản Phẩm";
+                    ws.Cell(1, 1).Style.Font.Bold = true;
+                    ws.Cell(1, 1).Style.Font.FontSize = 16;
+                    ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    ws.Range(1, 1, 1, 9).Merge();
+
+                    // Ngày xuất
+                    ws.Cell(2, 1).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, 9).Merge();
+
+                    // Dữ liệu
+                    var dataRange = ws.Cell(4, 1).InsertTable(dt.AsEnumerable()).AsRange();
+
+                    // Định dạng tiêu đề cột
+                    var headerRow = dataRange.FirstRow();
+                    headerRow.Style.Font.Bold = true;
+                    headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
+                    headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    // Định dạng số
+                    ws.Column(3).Style.NumberFormat.Format = "0"; // Giá
+                    ws.Column(4).Style.NumberFormat.Format = "0"; // Số lượng
+
+                    // Tự động chỉnh độ rộng
+                    ws.Columns().AdjustToContents();
+
+                    // Đường viền bảng
+                    dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                    dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                    // Lưu file
+                    wb.SaveAs(saveFileDialog.FileName);
+                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
