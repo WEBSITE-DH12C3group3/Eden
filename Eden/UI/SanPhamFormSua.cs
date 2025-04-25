@@ -97,7 +97,13 @@ namespace Eden.UI
                     parentForm.UpdateDataGridViewSP(sanPham);
                 }
 
-                this.Close();
+                SanPhamForm form = new SanPhamForm();
+                this.Controls.Clear();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
             }
             catch (Exception ex)
             {
@@ -107,11 +113,13 @@ namespace Eden.UI
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
-
-        private void guna2HtmlLabel8_Click(object sender, EventArgs e)
-        {
+            SanPhamForm form = new SanPhamForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void guna2ChonAnh_Click(object sender, EventArgs e)

@@ -90,7 +90,13 @@ namespace Eden.UI
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            SanPhamForm form = new SanPhamForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
@@ -117,7 +123,13 @@ namespace Eden.UI
 
                 sanPhamBLL.Add(sp);
                 MessageBox.Show("Thêm sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                SanPhamForm form = new SanPhamForm();
+                this.Controls.Clear();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
             }
             catch (FormatException)
             {

@@ -16,6 +16,8 @@ namespace Eden
         {
             this.nguoiDung = nguoiDung;
             this.nhomNguoiDungList = nhomNguoiDungList;
+            //this.WindowState = FormWindowState.Maximized;
+
             InitializeComponent();
             LoadNhomNguoiDung();
             if (nguoiDung != null)

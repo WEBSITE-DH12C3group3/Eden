@@ -136,11 +136,14 @@ namespace Eden
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
-            {
-                formAdd.ShowDialog();
-                LoadSanPham();
-            }
+            SanPhamFormAdd formAdd = new SanPhamFormAdd();
+
+            this.Controls.Clear();
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
 
         public void UpdateDataGridViewSP(SANPHAM updatedSP)
@@ -174,8 +177,13 @@ namespace Eden
                 if (sanPham != null)
                 {
                     SanPhamFormSua formSua = new SanPhamFormSua(sanPham);
-                    formSua.Owner = this;
-                    formSua.ShowDialog();
+
+                    this.Controls.Clear();
+                    formSua.TopLevel = false;
+                    formSua.FormBorderStyle = FormBorderStyle.None;
+                    formSua.Dock = DockStyle.Fill;
+                    this.Controls.Add(formSua);
+                    formSua.Show();
                 }
                 else
                 {

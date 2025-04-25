@@ -92,6 +92,7 @@
             this.guna2ChonAnh.Size = new System.Drawing.Size(91, 26);
             this.guna2ChonAnh.TabIndex = 35;
             this.guna2ChonAnh.Text = "Chọn ảnh";
+            this.guna2ChonAnh.Click += new System.EventHandler(this.guna2ChonAnh_Click);
             // 
             // guna2CirclePictureBoxAnh
             // 
