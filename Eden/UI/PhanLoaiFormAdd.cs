@@ -66,7 +66,29 @@ namespace Eden
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            PhanLoaiForm form = new PhanLoaiForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
+        }
+
+        private void txtTenLoai_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void lblTenLoai_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void txtMaLoai_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void lblMaLoai_Click(object sender, EventArgs e)
+        {
         }
     }
 }

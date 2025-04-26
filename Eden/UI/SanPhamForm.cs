@@ -272,10 +272,10 @@ namespace Eden
                 string tenFileAnh = row.Cells["AnhChiTiet"].Value?.ToString();
 
                 // Gán vào các label hiển thị
-                lblTenSanPham.Text = "Tên: " + tenSP;
-                lblGia.Text = "Giá: " + gia;
-                lblSoLuong.Text = "Số lượng: " + soLuong;
-                lblMauSac.Text = "Màu sắc: " + mauSac;
+                lblTenSanPham.Text = tenSP;
+                lblGia.Text = gia;
+                lblSoLuong.Text = soLuong;
+                lblMauSac.Text = mauSac;
 
                 // Hiển thị ảnh
                 if (!string.IsNullOrEmpty(tenFileAnh))

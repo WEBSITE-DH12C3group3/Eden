@@ -75,7 +75,13 @@ namespace Eden.UI
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            PhanLoaiForm form = new PhanLoaiForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
     }
 }

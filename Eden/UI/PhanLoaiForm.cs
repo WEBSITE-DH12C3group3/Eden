@@ -38,6 +38,7 @@ namespace Eden
                 HeaderText = "Tên Loại Sản Phẩm",
                 Name = "TenLoaiSanPham"
             });
+            dgvLoaiSanPham.Columns[0].Width = 200;
 
             LoadLoaiSanPham();
             ConfigureLoaiSanPhamGridView();
@@ -96,11 +97,13 @@ namespace Eden
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            using (PhanLoaiFormAdd formAdd = new PhanLoaiFormAdd())
-            {
-                formAdd.ShowDialog();
-                LoadLoaiSanPham(); // Cập nhật danh sách sau khi thêm
-            }
+            PhanLoaiFormAdd formAdd = new PhanLoaiFormAdd();
+            this.Controls.Clear();
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
@@ -108,12 +111,13 @@ namespace Eden
             if (dgvLoaiSanPham.CurrentRow != null)
             {
                 string maLSP = dgvLoaiSanPham.CurrentRow.Cells["MaLoaiSanPham"].Value.ToString();
-                PhanLoaiFormSua phanLoaiFormSua = new PhanLoaiFormSua(maLSP);
-
-                // Truyền form cha để có thể gọi UpdateDataGridView
-                phanLoaiFormSua.Owner = this;
-
-                phanLoaiFormSua.ShowDialog();
+                PhanLoaiFormSua formSua = new PhanLoaiFormSua(maLSP);
+                this.Controls.Clear();
+                formSua.TopLevel = false;
+                formSua.FormBorderStyle = FormBorderStyle.None;
+                formSua.Dock = DockStyle.Fill;
+                this.Controls.Add(formSua);
+                formSua.Show();
             }
             else
             {
@@ -268,7 +272,8 @@ namespace Eden
             }
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e) {
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
             string tuKhoa = txtSearch.Text.Trim();
             var ketQua = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
             dgvLoaiSanPham.DataSource = ketQua;
