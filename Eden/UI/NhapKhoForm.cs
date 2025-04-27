@@ -357,7 +357,6 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2Button btnAdd;
         private Guna.UI2.WinForms.Guna2Button btnEdit;
         private Guna.UI2.WinForms.Guna2Button btnDelete;
-        private Guna.UI2.WinForms.Guna2Button btnRefresh;
         private Guna.UI2.WinForms.Guna2Button btnExportExcel;
         private Guna.UI2.WinForms.Guna2Button btnXemChiTiet;
         private Guna.UI2.WinForms.Guna2Button btnPrev;

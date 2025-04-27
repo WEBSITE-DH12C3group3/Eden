@@ -281,5 +281,11 @@ namespace Eden
                 MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            currentPage = 1;
+            LoadData();
+        }
     }
 }

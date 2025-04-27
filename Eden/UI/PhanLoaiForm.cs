@@ -278,5 +278,12 @@ namespace Eden
             var ketQua = loaiSanPhamBLL.TimKiemTheoTen(tuKhoa);
             dgvLoaiSanPham.DataSource = ketQua;
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            
+            currentPage = 1;
+            LoadLoaiSanPham();
+        }
     }
 }

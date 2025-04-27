@@ -10,6 +10,7 @@ using System.Drawing.Printing;
 using System.Data;
 using Eden.DTO;
 using System.Collections.Generic;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Eden
 {
@@ -229,7 +230,6 @@ namespace Eden
         //luu excel
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-
             List<KhachHangDTO> allKhachHang = khachHangBLL.GetAll();
 
             if (allKhachHang == null || allKhachHang.Count == 0)
@@ -238,23 +238,17 @@ namespace Eden
                 return;
             }
 
-            // Tạo DataTable để lưu dữ liệu
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Mã khách hàng");
-            dt.Columns.Add("Tên khách hàng");
-            dt.Columns.Add("Tên địa chỉ");
-            dt.Columns.Add("Email");
-            dt.Columns.Add("Số điện thoại");
-
-            foreach (var kh in allKhachHang)
+            // Kiểm tra và log thông tin người dùng
+            string userName = CurrentUser.Username;
+            if (string.IsNullOrEmpty(userName))
             {
-                dt.Rows.Add(
-                    kh.MaKhachHang,
-                    kh.TenKhachHang,
-                    kh.DiaChi,
-                    kh.Email,
-                    kh.SoDienThoai
-                );
+                userName = Environment.UserName; // Giá trị thay thế
+                MessageBox.Show($"Không tìm thấy thông tin người dùng. Sử dụng tên hệ thống: {userName}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Diagnostics.Debug.WriteLine($"[KhachHangForm] Xuất Excel: CurrentUser.Username is null, sử dụng {userName} at {DateTime.Now}");
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"[KhachHangForm] Xuất Excel: CurrentUser.Username = {userName} at {DateTime.Now}");
             }
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -268,20 +262,59 @@ namespace Eden
                 {
                     var ws = wb.Worksheets.Add("KhachHang");
 
-                    // Thêm tiêu đề chính
-                    ws.Cell(1, 1).Value = "Danh Sách khách hàng";
+                    // Thiết lập kích thước giấy A4 và các cài đặt in
+                    ws.PageSetup.PaperSize = XLPaperSize.A4Paper;
+                    ws.PageSetup.Margins.Left = 0.5; // Lề trái 0.5 inch
+                    ws.PageSetup.Margins.Right = 0.5; // Lề phải 0.5 inch
+                    ws.PageSetup.Margins.Top = 0.75; // Lề trên 0.75 inch
+                    ws.PageSetup.Margins.Bottom = 0.75; // Lề dưới 0.75 inch
+                    ws.PageSetup.CenterHorizontally = true; // Căn giữa ngang khi in
+                    ws.PageSetup.PageOrientation = XLPageOrientation.Portrait; // Hướng giấy dọc
+
+                    // Thêm tiêu đề chính: Tên cửa hàng
+                    ws.Cell(1, 1).Value = "Cửa Hàng Hoa Tươi EDEN";
                     ws.Cell(1, 1).Style.Font.Bold = true;
-                    ws.Cell(1, 1).Style.Font.FontSize = 16;
-                    ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                    ws.Range(1, 1, 1, 6).Merge();
+                    ws.Cell(1, 1).Style.Font.FontSize = 18;
+                    ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                    ws.Range(1, 1, 1, 5).Merge();
 
-                    // Thêm ngày xuất file
-                    ws.Cell(2, 1).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
-                    ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-                    ws.Range(2, 1, 2, 6).Merge();
+                    // Thêm tiêu đề danh sách
+                    ws.Cell(2, 1).Value = "Danh Sách Khách Hàng";
+                    ws.Cell(2, 1).Style.Font.Bold = true;
+                    ws.Cell(2, 1).Style.Font.FontSize = 16;
+                    ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                    ws.Range(2, 1, 2, 5).Merge();
 
-                    // Thêm dữ liệu từ DataTable (bắt đầu từ hàng 4)
-                    var dataRange = ws.Cell(4, 1).InsertTable(dt.AsEnumerable()).AsRange();
+                    // Thông tin người xuất và ngày xuất
+                    string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                    ws.Cell(3, 4).Value = $"Người xuất: {userName}";
+                    ws.Cell(3, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(3, 4, 3, 5).Merge();
+                    ws.Cell(4, 4).Value = $"Ngày xuất: {exportDateTime}";
+                    ws.Cell(4, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(4, 4, 4, 5).Merge();
+
+                    // Tạo DataTable để lưu dữ liệu
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Mã khách hàng");
+                    dt.Columns.Add("Tên khách hàng");
+                    dt.Columns.Add("Địa chỉ");
+                    dt.Columns.Add("Email");
+                    dt.Columns.Add("Số điện thoại");
+
+                    foreach (var kh in allKhachHang)
+                    {
+                        dt.Rows.Add(
+                            kh.MaKhachHang,
+                            kh.TenKhachHang,
+                            kh.DiaChi,
+                            kh.Email,
+                            kh.SoDienThoai
+                        );
+                    }
+
+                    // Thêm dữ liệu từ DataTable, bắt đầu từ hàng 6
+                    var dataRange = ws.Cell(6, 1).InsertTable(dt.AsEnumerable()).AsRange();
 
                     // Định dạng tiêu đề cột
                     var headerRow = dataRange.FirstRow();
@@ -289,9 +322,17 @@ namespace Eden
                     headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
                     headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                    // Định dạng cột "Ngày Lập"
-                    var ngayLapColumn = ws.Column(2);
-                    ngayLapColumn.Style.DateFormat.Format = "dd/MM/yyyy";
+                    // Thêm thông tin cửa hàng ở dưới cùng
+                    int lastRow = dataRange.LastRow().RowNumber();
+                    ws.Cell(lastRow + 2, 1).Value = "Địa chỉ: Cây nhà lá vườn";
+                    ws.Cell(lastRow + 2, 1).Style.Font.Bold = true;
+                    ws.Cell(lastRow + 2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                    ws.Range(lastRow + 2, 1, lastRow + 2, 5).Merge();
+
+                    ws.Cell(lastRow + 3, 1).Value = "Sdt: 0909090909";
+                    ws.Cell(lastRow + 3, 1).Style.Font.Bold = true;
+                    ws.Cell(lastRow + 3, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                    ws.Range(lastRow + 3, 1, lastRow + 3, 5).Merge();
 
                     // Tự động điều chỉnh độ rộng cột
                     ws.Columns().AdjustToContents();
@@ -305,6 +346,13 @@ namespace Eden
                     MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+          
+            currentPage = 1;
+            LoadData();
         }
 
         private void searchHK_TextChanged_1(object sender, EventArgs e)

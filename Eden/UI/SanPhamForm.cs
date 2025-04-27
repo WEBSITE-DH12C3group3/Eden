@@ -439,5 +439,12 @@ namespace Eden
             // Cập nhật lại DataGridView với danh sách đã lọc
             dgvSanPham.DataSource = filteredList;
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+           
+            currentPage = 1;
+            LoadSanPham();
+        }
     }
 }
