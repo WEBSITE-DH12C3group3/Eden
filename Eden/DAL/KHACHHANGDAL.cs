@@ -22,6 +22,8 @@ namespace Eden
             return db.KHACHHANGs.ToList();
         }
 
+
+
         // Lấy danh sách khách hàng theo trang
         public (List<KhachHangDTO> Data, int TotalRecords) GetPaged(int page, int pageSize)
         {

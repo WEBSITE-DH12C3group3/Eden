@@ -31,9 +31,9 @@ namespace Eden
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.addkhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.suakhachhang = new Guna.UI2.WinForms.Guna2Button();
             this.xoakhachhang = new Guna.UI2.WinForms.Guna2Button();
@@ -61,10 +61,10 @@ namespace Eden
             this.addkhachhang.ForeColor = System.Drawing.Color.White;
             this.addkhachhang.Image = global::Eden.Properties.Resources.add;
             this.addkhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.addkhachhang.Location = new System.Drawing.Point(126, 661);
-            this.addkhachhang.Margin = new System.Windows.Forms.Padding(2);
+            this.addkhachhang.Location = new System.Drawing.Point(168, 814);
+            this.addkhachhang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addkhachhang.Name = "addkhachhang";
-            this.addkhachhang.Size = new System.Drawing.Size(160, 55);
+            this.addkhachhang.Size = new System.Drawing.Size(213, 68);
             this.addkhachhang.TabIndex = 1;
             this.addkhachhang.Text = "Thêm";
             this.addkhachhang.Click += new System.EventHandler(this.addkhachhang_Click);
@@ -82,10 +82,10 @@ namespace Eden
             this.suakhachhang.ForeColor = System.Drawing.Color.White;
             this.suakhachhang.Image = global::Eden.Properties.Resources.edit;
             this.suakhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.suakhachhang.Location = new System.Drawing.Point(316, 661);
-            this.suakhachhang.Margin = new System.Windows.Forms.Padding(2);
+            this.suakhachhang.Location = new System.Drawing.Point(421, 814);
+            this.suakhachhang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.suakhachhang.Name = "suakhachhang";
-            this.suakhachhang.Size = new System.Drawing.Size(160, 55);
+            this.suakhachhang.Size = new System.Drawing.Size(213, 68);
             this.suakhachhang.TabIndex = 2;
             this.suakhachhang.Text = "Sửa";
             this.suakhachhang.Click += new System.EventHandler(this.suakhachhang_Click);
@@ -103,10 +103,10 @@ namespace Eden
             this.xoakhachhang.ForeColor = System.Drawing.Color.White;
             this.xoakhachhang.Image = global::Eden.Properties.Resources.del;
             this.xoakhachhang.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.xoakhachhang.Location = new System.Drawing.Point(506, 661);
-            this.xoakhachhang.Margin = new System.Windows.Forms.Padding(2);
+            this.xoakhachhang.Location = new System.Drawing.Point(675, 814);
+            this.xoakhachhang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.xoakhachhang.Name = "xoakhachhang";
-            this.xoakhachhang.Size = new System.Drawing.Size(160, 55);
+            this.xoakhachhang.Size = new System.Drawing.Size(213, 68);
             this.xoakhachhang.TabIndex = 3;
             this.xoakhachhang.Text = "Xóa";
             this.xoakhachhang.Click += new System.EventHandler(this.xoakhachhang_Click);
@@ -115,34 +115,34 @@ namespace Eden
             // 
             this.dgkhachhang.AllowUserToAddRows = false;
             this.dgkhachhang.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
-            this.dgkhachhang.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
+            this.dgkhachhang.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgkhachhang.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgkhachhang.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgkhachhang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgkhachhang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgkhachhang.ColumnHeadersHeight = 50;
             this.dgkhachhang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgkhachhang.Cursor = System.Windows.Forms.Cursors.Arrow;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgkhachhang.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgkhachhang.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgkhachhang.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.dgkhachhang.Location = new System.Drawing.Point(21, 104);
-            this.dgkhachhang.Margin = new System.Windows.Forms.Padding(2);
+            this.dgkhachhang.Location = new System.Drawing.Point(28, 128);
+            this.dgkhachhang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgkhachhang.Name = "dgkhachhang";
             this.dgkhachhang.ReadOnly = true;
             this.dgkhachhang.RowHeadersVisible = false;
@@ -150,7 +150,7 @@ namespace Eden
             this.dgkhachhang.RowTemplate.Height = 40;
             this.dgkhachhang.RowTemplate.ReadOnly = true;
             this.dgkhachhang.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgkhachhang.Size = new System.Drawing.Size(921, 474);
+            this.dgkhachhang.Size = new System.Drawing.Size(1228, 583);
             this.dgkhachhang.TabIndex = 4;
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
             this.dgkhachhang.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -181,11 +181,11 @@ namespace Eden
             this.btnPreviousPage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnPreviousPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPreviousPage.ForeColor = System.Drawing.Color.White;
-            this.btnPreviousPage.Location = new System.Drawing.Point(370, 590);
-            this.btnPreviousPage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPreviousPage.Location = new System.Drawing.Point(493, 726);
+            this.btnPreviousPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPreviousPage.Name = "btnPreviousPage";
             this.btnPreviousPage.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnPreviousPage.Size = new System.Drawing.Size(40, 40);
+            this.btnPreviousPage.Size = new System.Drawing.Size(53, 49);
             this.btnPreviousPage.TabIndex = 7;
             this.btnPreviousPage.Text = "<";
             this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
@@ -197,10 +197,10 @@ namespace Eden
             this.btnNextPage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnNextPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNextPage.ForeColor = System.Drawing.Color.White;
-            this.btnNextPage.Location = new System.Drawing.Point(522, 590);
-            this.btnNextPage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnNextPage.Location = new System.Drawing.Point(696, 726);
+            this.btnNextPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNextPage.Name = "btnNextPage";
-            this.btnNextPage.Size = new System.Drawing.Size(40, 40);
+            this.btnNextPage.Size = new System.Drawing.Size(53, 49);
             this.btnNextPage.TabIndex = 8;
             this.btnNextPage.Text = ">";
             this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
@@ -211,10 +211,10 @@ namespace Eden
             this.lblPageInfo.BackColor = System.Drawing.Color.Transparent;
             this.lblPageInfo.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPageInfo.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPageInfo.Location = new System.Drawing.Point(426, 596);
-            this.lblPageInfo.Margin = new System.Windows.Forms.Padding(2);
+            this.lblPageInfo.Location = new System.Drawing.Point(568, 734);
+            this.lblPageInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lblPageInfo.Name = "lblPageInfo";
-            this.lblPageInfo.Size = new System.Drawing.Size(84, 27);
+            this.lblPageInfo.Size = new System.Drawing.Size(106, 34);
             this.lblPageInfo.TabIndex = 9;
             this.lblPageInfo.Text = "Trang 1/1";
             // 
@@ -231,21 +231,23 @@ namespace Eden
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
             this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
             this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnExportExcel.Location = new System.Drawing.Point(696, 661);
-            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExportExcel.Location = new System.Drawing.Point(928, 814);
+            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(160, 55);
+            this.btnExportExcel.Size = new System.Drawing.Size(213, 68);
             this.btnExportExcel.TabIndex = 10;
             this.btnExportExcel.Text = "Xuất Exel";
+            this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(18, 22);
+            this.labelTitle.Location = new System.Drawing.Point(24, 27);
+            this.labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(302, 40);
+            this.labelTitle.Size = new System.Drawing.Size(381, 50);
             this.labelTitle.TabIndex = 11;
             this.labelTitle.Text = "Quản Lý Khách Hàng";
             // 
@@ -267,24 +269,24 @@ namespace Eden
             this.searchHK.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.searchHK.IconLeft = global::Eden.Properties.Resources.seach;
             this.searchHK.IconLeftOffset = new System.Drawing.Point(10, 0);
-            this.searchHK.Location = new System.Drawing.Point(490, 22);
-            this.searchHK.Margin = new System.Windows.Forms.Padding(4);
+            this.searchHK.Location = new System.Drawing.Point(653, 27);
+            this.searchHK.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.searchHK.Name = "searchHK";
-            this.searchHK.Padding = new System.Windows.Forms.Padding(2);
+            this.searchHK.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.searchHK.PlaceholderForeColor = System.Drawing.Color.LightGray;
             this.searchHK.PlaceholderText = "";
             this.searchHK.SelectedText = "";
-            this.searchHK.Size = new System.Drawing.Size(452, 55);
+            this.searchHK.Size = new System.Drawing.Size(603, 68);
             this.searchHK.TabIndex = 19;
             this.searchHK.TextOffset = new System.Drawing.Point(5, 0);
             this.searchHK.TextChanged += new System.EventHandler(this.searchHK_TextChanged_1);
             // 
             // KhachHangForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(962, 749);
+            this.ClientSize = new System.Drawing.Size(1283, 922);
             this.Controls.Add(this.searchHK);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnExportExcel);
@@ -297,7 +299,7 @@ namespace Eden
             this.Controls.Add(this.addkhachhang);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "KhachHangForm";
             this.Text = "Quản Lý Khách Hàng";
             ((System.ComponentModel.ISupportInitialize)(this.dgkhachhang)).EndInit();

@@ -226,9 +226,10 @@ namespace Eden
         {
             // Có thể thêm xử lý nếu cần
         }
-
+        //luu excel
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
+
             List<KhachHangDTO> allKhachHang = khachHangBLL.GetAll();
 
             if (allKhachHang == null || allKhachHang.Count == 0)
@@ -265,7 +266,7 @@ namespace Eden
             {
                 using (XLWorkbook wb = new XLWorkbook())
                 {
-                    var ws = wb.Worksheets.Add("HoaDon");
+                    var ws = wb.Worksheets.Add("KhachHang");
 
                     // Thêm tiêu đề chính
                     ws.Cell(1, 1).Value = "Danh Sách khách hàng";

@@ -22,6 +22,33 @@ namespace Eden
             var nhomNguoiDungDal = new NHOMNGUOIDUNGDAL();
             this.nhomNguoiDungList = nhomNguoiDungDal.GetAll();
             InitializeComponent();
+            dgvNguoiDung.AutoGenerateColumns = false;
+            dgvNguoiDung.Columns.Clear();
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaNguoiDung",
+                HeaderText = "Mã Người Dùng",
+                Name = "MaNguoiDung"
+            });
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenNguoiDung",
+                HeaderText = "Tên Người Dùng",
+                Name = "TenNguoiDung"
+            });
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenDangNhap",
+                HeaderText = "Tên Đăng Nhập",
+                Name = "TenDangNhap"
+            });
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NhomNguoiDung",
+                HeaderText = "Nhóm Người Dùng",
+                Name = "NhomNguoiDung"
+            });
+
             LoadData();
             txtSearch.TextChanged += new EventHandler(txtSearch_TextChanged);
             btnNext.Click += new EventHandler(btnNext_Click);
