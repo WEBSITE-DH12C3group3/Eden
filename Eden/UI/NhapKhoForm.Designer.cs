@@ -7,15 +7,8 @@ namespace Eden
 {
     partial class NhapKhoForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -25,12 +18,6 @@ namespace Eden
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -48,6 +35,17 @@ namespace Eden
             this.lblPage = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.cmbLoc = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.dtpTuNgay = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.dtpDenNgay = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.cmbNhaCungCap = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.txtTongTienTu = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtTongTienDen = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnLoc = new Guna.UI2.WinForms.Guna2Button();
+            this.lblTuNgay = new System.Windows.Forms.Label();
+            this.lblDenNgay = new System.Windows.Forms.Label();
+            this.lblTongTienTu = new System.Windows.Forms.Label();
+            this.lblTongTienDen = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuNhap)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,7 +87,7 @@ namespace Eden
             this.dgvPhieuNhap.RowTemplate.Height = 40;
             this.dgvPhieuNhap.RowTemplate.ReadOnly = true;
             this.dgvPhieuNhap.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPhieuNhap.Size = new System.Drawing.Size(932, 385);
+            this.dgvPhieuNhap.Size = new System.Drawing.Size(1773, 418);
             this.dgvPhieuNhap.TabIndex = 2;
             this.dgvPhieuNhap.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
             this.dgvPhieuNhap.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -126,7 +124,7 @@ namespace Eden
             this.btnAdd.ForeColor = System.Drawing.Color.White;
             this.btnAdd.Image = global::Eden.Properties.Resources.add;
             this.btnAdd.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnAdd.Location = new System.Drawing.Point(38, 665);
+            this.btnAdd.Location = new System.Drawing.Point(458, 784);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(160, 55);
             this.btnAdd.TabIndex = 3;
@@ -146,7 +144,7 @@ namespace Eden
             this.btnEdit.ForeColor = System.Drawing.Color.White;
             this.btnEdit.Image = global::Eden.Properties.Resources.edit;
             this.btnEdit.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnEdit.Location = new System.Drawing.Point(214, 665);
+            this.btnEdit.Location = new System.Drawing.Point(634, 784);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(160, 55);
             this.btnEdit.TabIndex = 4;
@@ -166,7 +164,7 @@ namespace Eden
             this.btnDelete.ForeColor = System.Drawing.Color.White;
             this.btnDelete.Image = global::Eden.Properties.Resources.del;
             this.btnDelete.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnDelete.Location = new System.Drawing.Point(390, 665);
+            this.btnDelete.Location = new System.Drawing.Point(810, 784);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(160, 55);
             this.btnDelete.TabIndex = 5;
@@ -190,10 +188,10 @@ namespace Eden
             this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.txtSearch.IconLeft = global::Eden.Properties.Resources.seach;
             this.txtSearch.IconLeftOffset = new System.Drawing.Point(10, 0);
-            this.txtSearch.Location = new System.Drawing.Point(452, 22);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSearch.Location = new System.Drawing.Point(1293, 22);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(4);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSearch.Padding = new System.Windows.Forms.Padding(2);
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.LightGray;
             this.txtSearch.PlaceholderText = "Nhập thông tin tìm kiếm";
             this.txtSearch.SelectedText = "";
@@ -215,7 +213,7 @@ namespace Eden
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
             this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
             this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnExportExcel.Location = new System.Drawing.Point(566, 665);
+            this.btnExportExcel.Location = new System.Drawing.Point(986, 784);
             this.btnExportExcel.Name = "btnExportExcel";
             this.btnExportExcel.Size = new System.Drawing.Size(160, 55);
             this.btnExportExcel.TabIndex = 6;
@@ -235,7 +233,7 @@ namespace Eden
             this.btnXemChiTiet.ForeColor = System.Drawing.Color.White;
             this.btnXemChiTiet.Image = global::Eden.Properties.Resources.info;
             this.btnXemChiTiet.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnXemChiTiet.Location = new System.Drawing.Point(742, 665);
+            this.btnXemChiTiet.Location = new System.Drawing.Point(1162, 784);
             this.btnXemChiTiet.Name = "btnXemChiTiet";
             this.btnXemChiTiet.Size = new System.Drawing.Size(190, 55);
             this.btnXemChiTiet.TabIndex = 8;
@@ -249,7 +247,7 @@ namespace Eden
             this.btnPrev.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrev.ForeColor = System.Drawing.Color.White;
-            this.btnPrev.Location = new System.Drawing.Point(624, 480);
+            this.btnPrev.Location = new System.Drawing.Point(776, 508);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnPrev.Size = new System.Drawing.Size(40, 40);
@@ -264,7 +262,7 @@ namespace Eden
             this.btnNext.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(779, 480);
+            this.btnNext.Location = new System.Drawing.Point(930, 508);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(40, 40);
             this.btnNext.TabIndex = 10;
@@ -277,7 +275,7 @@ namespace Eden
             this.lblPage.BackColor = System.Drawing.Color.Transparent;
             this.lblPage.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPage.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPage.Location = new System.Drawing.Point(679, 486);
+            this.lblPage.Location = new System.Drawing.Point(831, 514);
             this.lblPage.Name = "lblPage";
             this.lblPage.Size = new System.Drawing.Size(84, 27);
             this.lblPage.TabIndex = 11;
@@ -306,20 +304,210 @@ namespace Eden
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(837, 486);
-            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.guna2Button1.Location = new System.Drawing.Point(1003, 514);
+            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(107, 34);
             this.guna2Button1.TabIndex = 21;
             this.guna2Button1.Text = "Làm mới";
             this.guna2Button1.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // cmbLoc
+            // 
+            this.cmbLoc.BackColor = System.Drawing.Color.Transparent;
+            this.cmbLoc.BorderRadius = 10;
+            this.cmbLoc.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbLoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLoc.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.cmbLoc.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.cmbLoc.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.cmbLoc.ForeColor = System.Drawing.Color.Black;
+            this.cmbLoc.ItemHeight = 30;
+            this.cmbLoc.Location = new System.Drawing.Point(3, 786);
+            this.cmbLoc.Name = "cmbLoc";
+            this.cmbLoc.Size = new System.Drawing.Size(228, 36);
+            this.cmbLoc.TabIndex = 22;
+            this.cmbLoc.SelectedIndexChanged += new System.EventHandler(this.cmbLoc_SelectedIndexChanged);
+            // 
+            // dtpTuNgay
+            // 
+            this.dtpTuNgay.BorderRadius = 10;
+            this.dtpTuNgay.Checked = true;
+            this.dtpTuNgay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.dtpTuNgay.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.dtpTuNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.dtpTuNgay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpTuNgay.Location = new System.Drawing.Point(3, 945);
+            this.dtpTuNgay.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpTuNgay.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpTuNgay.Name = "dtpTuNgay";
+            this.dtpTuNgay.Size = new System.Drawing.Size(150, 36);
+            this.dtpTuNgay.TabIndex = 23;
+            this.dtpTuNgay.Value = new System.DateTime(2025, 4, 27, 18, 2, 11, 795);
+            this.dtpTuNgay.Visible = false;
+            // 
+            // dtpDenNgay
+            // 
+            this.dtpDenNgay.BorderRadius = 10;
+            this.dtpDenNgay.Checked = true;
+            this.dtpDenNgay.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.dtpDenNgay.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.dtpDenNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.dtpDenNgay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDenNgay.Location = new System.Drawing.Point(185, 945);
+            this.dtpDenNgay.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtpDenNgay.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtpDenNgay.Name = "dtpDenNgay";
+            this.dtpDenNgay.Size = new System.Drawing.Size(150, 36);
+            this.dtpDenNgay.TabIndex = 24;
+            this.dtpDenNgay.Value = new System.DateTime(2025, 4, 27, 18, 2, 11, 810);
+            this.dtpDenNgay.Visible = false;
+            // 
+            // cmbNhaCungCap
+            // 
+            this.cmbNhaCungCap.BackColor = System.Drawing.Color.Transparent;
+            this.cmbNhaCungCap.BorderRadius = 10;
+            this.cmbNhaCungCap.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbNhaCungCap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbNhaCungCap.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.cmbNhaCungCap.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.cmbNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.cmbNhaCungCap.ForeColor = System.Drawing.Color.Black;
+            this.cmbNhaCungCap.ItemHeight = 30;
+            this.cmbNhaCungCap.Location = new System.Drawing.Point(3, 828);
+            this.cmbNhaCungCap.Name = "cmbNhaCungCap";
+            this.cmbNhaCungCap.Size = new System.Drawing.Size(196, 36);
+            this.cmbNhaCungCap.TabIndex = 25;
+            this.cmbNhaCungCap.Visible = false;
+            // 
+            // txtTongTienTu
+            // 
+            this.txtTongTienTu.BorderColor = System.Drawing.Color.WhiteSmoke;
+            this.txtTongTienTu.BorderRadius = 10;
+            this.txtTongTienTu.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtTongTienTu.DefaultText = "";
+            this.txtTongTienTu.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtTongTienTu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtTongTienTu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTongTienTu.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.txtTongTienTu.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.txtTongTienTu.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtTongTienTu.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.txtTongTienTu.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.txtTongTienTu.Location = new System.Drawing.Point(93, 871);
+            this.txtTongTienTu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTongTienTu.Name = "txtTongTienTu";
+            this.txtTongTienTu.PlaceholderText = "";
+            this.txtTongTienTu.SelectedText = "";
+            this.txtTongTienTu.Size = new System.Drawing.Size(150, 36);
+            this.txtTongTienTu.TabIndex = 26;
+            this.txtTongTienTu.Visible = false;
+            // 
+            // txtTongTienDen
+            // 
+            this.txtTongTienDen.BorderColor = System.Drawing.Color.WhiteSmoke;
+            this.txtTongTienDen.BorderRadius = 10;
+            this.txtTongTienDen.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtTongTienDen.DefaultText = "";
+            this.txtTongTienDen.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtTongTienDen.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtTongTienDen.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtTongTienDen.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.txtTongTienDen.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.txtTongTienDen.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtTongTienDen.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.txtTongTienDen.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.txtTongTienDen.Location = new System.Drawing.Point(283, 871);
+            this.txtTongTienDen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTongTienDen.Name = "txtTongTienDen";
+            this.txtTongTienDen.PlaceholderText = "";
+            this.txtTongTienDen.SelectedText = "";
+            this.txtTongTienDen.Size = new System.Drawing.Size(150, 36);
+            this.txtTongTienDen.TabIndex = 27;
+            this.txtTongTienDen.Visible = false;
+            // 
+            // btnLoc
+            // 
+            this.btnLoc.BorderRadius = 10;
+            this.btnLoc.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLoc.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLoc.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLoc.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLoc.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.btnLoc.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoc.ForeColor = System.Drawing.Color.White;
+            this.btnLoc.Location = new System.Drawing.Point(3, 987);
+            this.btnLoc.Name = "btnLoc";
+            this.btnLoc.Size = new System.Drawing.Size(80, 36);
+            this.btnLoc.TabIndex = 28;
+            this.btnLoc.Text = "Lọc";
+            this.btnLoc.Click += new System.EventHandler(this.btnLoc_Click);
+            // 
+            // lblTuNgay
+            // 
+            this.lblTuNgay.AutoSize = true;
+            this.lblTuNgay.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblTuNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTuNgay.Location = new System.Drawing.Point(-1, 923);
+            this.lblTuNgay.Name = "lblTuNgay";
+            this.lblTuNgay.Size = new System.Drawing.Size(61, 19);
+            this.lblTuNgay.TabIndex = 29;
+            this.lblTuNgay.Text = "Từ ngày:";
+            this.lblTuNgay.Visible = false;
+            // 
+            // lblDenNgay
+            // 
+            this.lblDenNgay.AutoSize = true;
+            this.lblDenNgay.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblDenNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblDenNgay.Location = new System.Drawing.Point(181, 923);
+            this.lblDenNgay.Name = "lblDenNgay";
+            this.lblDenNgay.Size = new System.Drawing.Size(71, 19);
+            this.lblDenNgay.TabIndex = 30;
+            this.lblDenNgay.Text = "Đến ngày:";
+            this.lblDenNgay.Visible = false;
+            // 
+            // lblTongTienTu
+            // 
+            this.lblTongTienTu.AutoSize = true;
+            this.lblTongTienTu.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblTongTienTu.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTongTienTu.Location = new System.Drawing.Point(-1, 879);
+            this.lblTongTienTu.Name = "lblTongTienTu";
+            this.lblTongTienTu.Size = new System.Drawing.Size(87, 19);
+            this.lblTongTienTu.TabIndex = 31;
+            this.lblTongTienTu.Text = "Tổng tiền từ:";
+            this.lblTongTienTu.Visible = false;
+            // 
+            // lblTongTienDen
+            // 
+            this.lblTongTienDen.AutoSize = true;
+            this.lblTongTienDen.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblTongTienDen.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTongTienDen.Location = new System.Drawing.Point(249, 879);
+            this.lblTongTienDen.Name = "lblTongTienDen";
+            this.lblTongTienDen.Size = new System.Drawing.Size(37, 19);
+            this.lblTongTienDen.TabIndex = 32;
+            this.lblTongTienDen.Text = "Đến:";
+            this.lblTongTienDen.Visible = false;
+            // 
             // NhapKhoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(962, 749);
+            this.ClientSize = new System.Drawing.Size(1803, 868);
+            this.Controls.Add(this.lblTongTienDen);
+            this.Controls.Add(this.lblTongTienTu);
+            this.Controls.Add(this.lblDenNgay);
+            this.Controls.Add(this.lblTuNgay);
+            this.Controls.Add(this.btnLoc);
+            this.Controls.Add(this.txtTongTienDen);
+            this.Controls.Add(this.txtTongTienTu);
+            this.Controls.Add(this.cmbNhaCungCap);
+            this.Controls.Add(this.dtpDenNgay);
+            this.Controls.Add(this.dtpTuNgay);
+            this.Controls.Add(this.cmbLoc);
             this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.txtSearch);
@@ -342,9 +530,30 @@ namespace Eden
 
         }
 
-        #endregion
-
+        #region Windows Form Designer generated code
+        private Guna2DataGridView dgvPhieuNhap;
+        private Guna2Button btnAdd;
+        private Guna2Button btnEdit;
+        private Guna2Button btnDelete;
+        private Guna2TextBox txtSearch;
+        private Guna2Button btnExportExcel;
+        private Guna2Button btnXemChiTiet;
+        private Guna2Button btnPrev;
+        private Guna2Button btnNext;
+        private Guna2HtmlLabel lblPage;
         private Label labelTitle;
         private Guna2Button guna2Button1;
+        private Guna2ComboBox cmbLoc;
+        private Guna2DateTimePicker dtpTuNgay;
+        private Guna2DateTimePicker dtpDenNgay;
+        private Guna2ComboBox cmbNhaCungCap;
+        private Guna2TextBox txtTongTienTu;
+        private Guna2TextBox txtTongTienDen;
+        private Guna2Button btnLoc;
+        private Label lblTuNgay;
+        private Label lblDenNgay;
+        private Label lblTongTienTu;
+        private Label lblTongTienDen;
+        #endregion
     }
 }

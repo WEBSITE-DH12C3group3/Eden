@@ -4,6 +4,10 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using Eden.BLLCustom;
+using Eden.Eden;
+using Guna.UI2.WinForms;
+using System.Data.Entity;
 using Eden.UI;
 
 namespace Eden
@@ -14,6 +18,7 @@ namespace Eden
         private PHIEUNHAPDAL phieuNhapDAL;
         private SANPHAMBLL sanPHAMBLL;
         private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL;
+        private NHACUNGCAPBLL nhaCungCapBLL;
         private int currentPage = 1;
         private int pageSize = 10;
         private int totalRecords = 0;
@@ -27,28 +32,145 @@ namespace Eden
             phieuNhapDAL = new PHIEUNHAPDAL();
             sanPHAMBLL = new SANPHAMBLL();
             chiTietPhieuNhapBLL = new CHITIETPHIEUNHAPBLL();
+            nhaCungCapBLL = new NHACUNGCAPBLL();
+
+            // Thiết lập ComboBox lọc
+            cmbLoc.Items.AddRange(new string[] { "Tất cả", "Lọc theo ngày", "Lọc theo nhà cung cấp", "Lọc theo tổng tiền" });
+            cmbLoc.SelectedIndex = 0;
+
+            // Ẩn các điều khiển lọc ban đầu
+            dtpTuNgay.Visible = false;
+            dtpDenNgay.Visible = false;
+            lblTuNgay.Visible = false;
+            lblDenNgay.Visible = false;
+            cmbNhaCungCap.Visible = false;
+            txtTongTienTu.Visible = false;
+            txtTongTienDen.Visible = false;
+            lblTongTienTu.Visible = false;
+            lblTongTienDen.Visible = false;
+
+            // Tải danh sách nhà cung cấp và dữ liệu phiếu nhập
+            LoadNhaCungCap();
             LoadData();
         }
 
-       private void LoadData(string searchTerm = "")
+        private void LoadNhaCungCap()
         {
             try
             {
-                // Lấy dữ liệu phân trang
-                var phieuNhapList = phieuNhapDAL.GetPagedPhieuNhap(currentPage, pageSize, out totalRecords, searchTerm);
+                var list = nhaCungCapBLL.GetAll();
+                if (list == null || !list.Any())
+                {
+                    MessageBox.Show("Không tìm thấy nhà cung cấp!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbNhaCungCap.DataSource = null;
+                    return;
+                }
+                cmbNhaCungCap.DataSource = null;
+                cmbNhaCungCap.Items.Clear();
+                cmbNhaCungCap.DisplayMember = "TenNhaCungCap";
+                cmbNhaCungCap.ValueMember = "id";
+                cmbNhaCungCap.DataSource = list;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tải nhà cung cấp: {ex.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbNhaCungCap.DataSource = null;
+            }
+        }
+
+        private List<PHIEUNHAP> GetFilteredPhieuNhapList(string searchTerm)
+        {
+            using (var db = new QLBanHoaEntities())
+            {
+                // Tải trước NHACUNGCAP và NGUOIDUNG để tránh lazy loading
+                var phieuNhapList = db.PHIEUNHAPs
+                    .Include(p => p.NHACUNGCAP)
+                    .Include(p => p.NGUOIDUNG)
+                    .AsQueryable();
+
+                // Áp dụng tìm kiếm
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    searchTerm = searchTerm.ToLower();
+                    phieuNhapList = phieuNhapList.Where(p =>
+                        p.MaPhieuNhap.ToLower().Contains(searchTerm) ||
+                        p.NHACUNGCAP.TenNhaCungCap.ToLower().Contains(searchTerm) ||
+                        p.NGUOIDUNG.TenNguoiDung.ToLower().Contains(searchTerm));
+                }
+
+                // Áp dụng lọc
+                switch (cmbLoc.SelectedItem?.ToString())
+                {
+                    case "Lọc theo ngày":
+                        if (dtpTuNgay.Value > dtpDenNgay.Value)
+                        {
+                            MessageBox.Show("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return new List<PHIEUNHAP>();
+                        }
+                        var tuNgay = dtpTuNgay.Value.Date;
+                        var denNgay = dtpDenNgay.Value.Date;
+                        phieuNhapList = phieuNhapList
+                            .Where(p => DbFunctions.TruncateTime(p.NgayNhap) >= tuNgay
+                                     && DbFunctions.TruncateTime(p.NgayNhap) <= denNgay);
+                        break;
+                    case "Lọc theo nhà cung cấp":
+                        if (cmbNhaCungCap.SelectedValue != null && int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
+                        {
+                            phieuNhapList = phieuNhapList
+                                .Where(p => p.idNhaCungCap == idNhaCungCap);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Vui lòng chọn nhà cung cấp hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return new List<PHIEUNHAP>();
+                        }
+                        break;
+                    case "Lọc theo tổng tiền":
+                        if (!decimal.TryParse(txtTongTienTu.Text, out decimal tongTienTu) || tongTienTu < 0)
+                        {
+                            MessageBox.Show("Tổng tiền từ phải là số không âm!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return new List<PHIEUNHAP>();
+                        }
+                        if (!decimal.TryParse(txtTongTienDen.Text, out decimal tongTienDen) || tongTienDen < tongTienTu)
+                        {
+                            MessageBox.Show("Tổng tiền đến phải lớn hơn hoặc bằng tổng tiền từ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return new List<PHIEUNHAP>();
+                        }
+                        phieuNhapList = phieuNhapList
+                            .Where(p => p.TongTien >= tongTienTu && p.TongTien <= tongTienDen);
+                        break;
+                }
+
+                return phieuNhapList.ToList();
+            }
+        }
+
+        private void LoadData(string searchTerm = "")
+        {
+            try
+            {
+                // Lấy danh sách đã lọc
+                var filteredList = GetFilteredPhieuNhapList(searchTerm);
+                totalRecords = filteredList.Count;
+
+                // Phân trang
+                var pagedList = filteredList
+                    .Skip((currentPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(p => new
+                    {
+                        p.MaPhieuNhap,
+                        NgayNhap = p.NgayNhap.ToString("dd/MM/yyyy"),
+                        TenNhaCungCap = p.NHACUNGCAP != null ? p.NHACUNGCAP.TenNhaCungCap : "N/A",
+                        p.TongTien
+                    }).ToList();
 
                 // Tính tổng số trang
                 totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
                 if (totalPages == 0) totalPages = 1;
 
                 // Gán dữ liệu cho DataGridView
-                dgvPhieuNhap.DataSource = phieuNhapList.Select(p => new
-                {
-                    p.MaPhieuNhap,
-                    NgayNhap = p.NgayNhap.ToString("dd/MM/yyyy"),
-                    TenNhaCungCap = p.NHACUNGCAP != null ? p.NHACUNGCAP.TenNhaCungCap : "N/A",
-                    p.TongTien
-                }).ToList();
+                dgvPhieuNhap.DataSource = pagedList;
 
                 // Cập nhật tiêu đề cột
                 dgvPhieuNhap.Columns["MaPhieuNhap"].HeaderText = "Mã Phiếu Nhập";
@@ -69,14 +191,59 @@ namespace Eden
             }
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void cmbLoc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            searchTerm = txtSearch.Text.Trim();
-            currentPage = 1;
-            LoadData(searchTerm);
+            try
+            {
+                dtpTuNgay.Visible = false;
+                dtpDenNgay.Visible = false;
+                lblTuNgay.Visible = false;
+                lblDenNgay.Visible = false;
+                cmbNhaCungCap.Visible = false;
+                txtTongTienTu.Visible = false;
+                txtTongTienDen.Visible = false;
+                lblTongTienTu.Visible = false;
+                lblTongTienDen.Visible = false;
+
+                switch (cmbLoc.SelectedItem?.ToString())
+                {
+                    case "Lọc theo ngày":
+                        dtpTuNgay.Visible = true;
+                        dtpDenNgay.Visible = true;
+                        lblTuNgay.Visible = true;
+                        lblDenNgay.Visible = true;
+                        break;
+                    case "Lọc theo nhà cung cấp":
+                        cmbNhaCungCap.Visible = true;
+                        break;
+                    case "Lọc theo tổng tiền":
+                        txtTongTienTu.Visible = true;
+                        txtTongTienDen.Visible = true;
+                        lblTongTienTu.Visible = true;
+                        lblTongTienDen.Visible = true;
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thay đổi tùy chọn lọc: {ex.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnLoc_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                currentPage = 1;
+                LoadData(searchTerm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lọc phiếu nhập: {ex.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             searchTerm = txtSearch.Text.Trim();
             currentPage = 1;
@@ -85,10 +252,22 @@ namespace Eden
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            searchTerm = "";
-            txtSearch.Text = "";
-            currentPage = 1;
-            LoadData();
+            try
+            {
+                searchTerm = "";
+                txtSearch.Text = "";
+                cmbLoc.SelectedIndex = 0;
+                dtpTuNgay.Value = DateTime.Now;
+                dtpDenNgay.Value = DateTime.Now;
+                txtTongTienTu.Text = "";
+                txtTongTienDen.Text = "";
+                currentPage = 1;
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi làm mới: {ex.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
@@ -193,16 +372,11 @@ namespace Eden
         {
             try
             {
-                // Lấy danh sách phiếu nhập
-                var allPhieuNhap = phieuNhapBLL.GetAll();
-                if (allPhieuNhap == null)
+                // Lấy danh sách phiếu nhập đã lọc
+                var filteredPhieuNhap = GetFilteredPhieuNhapList(searchTerm);
+                if (filteredPhieuNhap == null || filteredPhieuNhap.Count == 0)
                 {
-                    MessageBox.Show("Danh sách phiếu nhập trả về null. Kiểm tra phương thức GetAll trong PHIEUNHAPBLL.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                if (allPhieuNhap.Count == 0)
-                {
-                    MessageBox.Show("Không có dữ liệu phiếu nhập trong cơ sở dữ liệu. Vui lòng thêm phiếu nhập trước.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Không có dữ liệu phiếu nhập để xuất. Vui lòng kiểm tra điều kiện lọc hoặc thêm dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -220,7 +394,7 @@ namespace Eden
                 dt.Columns.Add("Đơn Giá");
                 dt.Columns.Add("Thành Tiền");
 
-                foreach (var pn in allPhieuNhap)
+                foreach (var pn in filteredPhieuNhap)
                 {
                     var chiTietList = phieuNhapBLL.GetChiTietByPhieuNhap(pn.id);
                     if (chiTietList != null && chiTietList.Any())
@@ -230,7 +404,6 @@ namespace Eden
                             var sanPham = sanPHAMBLL.GetById(chiTiet.idSanPham);
                             if (sanPham == null)
                             {
-                                // Ghi log nếu sản phẩm không tìm thấy
                                 System.Diagnostics.Debug.WriteLine($"Sản phẩm với id {chiTiet.idSanPham} không tìm thấy cho phiếu nhập {pn.MaPhieuNhap}.");
                             }
                             dt.Rows.Add(
@@ -301,7 +474,7 @@ namespace Eden
 
                         var lastRow = dataRange.LastRow().RowNumber();
                         ws.Cell(lastRow + 1, 5).Value = "Tổng cộng:";
-                        ws.Cell(lastRow + 1, 6).Value = allPhieuNhap.Sum(pn => pn.TongTien);
+                        ws.Cell(lastRow + 1, 6).Value = filteredPhieuNhap.Sum(pn => pn.TongTien);
                         ws.Cell(lastRow + 1, 5).Style.Font.Bold = true;
                         ws.Cell(lastRow + 1, 6).Style.Font.Bold = true;
                         ws.Cell(lastRow + 1, 6).Style.NumberFormat.Format = "0";
@@ -350,17 +523,5 @@ namespace Eden
                 MessageBox.Show("Vui lòng chọn một phiếu nhập để xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        private Guna.UI2.WinForms.Guna2DataGridView dgvPhieuNhap;
-        private Guna.UI2.WinForms.Guna2TextBox txtSearch;
-        private Guna.UI2.WinForms.Guna2Button btnSearch;
-        private Guna.UI2.WinForms.Guna2Button btnAdd;
-        private Guna.UI2.WinForms.Guna2Button btnEdit;
-        private Guna.UI2.WinForms.Guna2Button btnDelete;
-        private Guna.UI2.WinForms.Guna2Button btnExportExcel;
-        private Guna.UI2.WinForms.Guna2Button btnXemChiTiet;
-        private Guna.UI2.WinForms.Guna2Button btnPrev;
-        private Guna.UI2.WinForms.Guna2Button btnNext;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblPage;
     }
 }
