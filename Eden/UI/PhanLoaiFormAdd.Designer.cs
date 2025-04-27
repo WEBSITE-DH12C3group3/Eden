@@ -70,7 +70,7 @@
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Eden.Properties.Resources.add;
             this.btnSave.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnSave.Location = new System.Drawing.Point(64, 575);
+            this.btnSave.Location = new System.Drawing.Point(64, 605);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(174, 61);
@@ -80,7 +80,7 @@
             // 
             // txtMaLoai
             // 
-            this.txtMaLoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMaLoai.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtMaLoai.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtMaLoai.BorderRadius = 10;
             this.txtMaLoai.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -99,7 +99,7 @@
             this.txtMaLoai.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtMaLoai.PlaceholderText = "Nhập mã loại";
             this.txtMaLoai.SelectedText = "";
-            this.txtMaLoai.Size = new System.Drawing.Size(275, 38);
+            this.txtMaLoai.Size = new System.Drawing.Size(350, 38);
             this.txtMaLoai.TabIndex = 2;
             this.txtMaLoai.TextChanged += new System.EventHandler(this.txtMaLoai_TextChanged);
             // 
@@ -119,7 +119,7 @@
             // 
             // txtTenLoai
             // 
-            this.txtTenLoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTenLoai.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtTenLoai.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenLoai.BorderRadius = 10;
             this.txtTenLoai.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -138,7 +138,7 @@
             this.txtTenLoai.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtTenLoai.PlaceholderText = "Nhập tên loại";
             this.txtTenLoai.SelectedText = "";
-            this.txtTenLoai.Size = new System.Drawing.Size(275, 38);
+            this.txtTenLoai.Size = new System.Drawing.Size(350, 38);
             this.txtTenLoai.TabIndex = 5;
             this.txtTenLoai.TextChanged += new System.EventHandler(this.txtTenLoai_TextChanged);
             // 
@@ -155,7 +155,7 @@
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Image = global::Eden.Properties.Resources.del;
             this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCancel.Location = new System.Drawing.Point(233, 575);
+            this.btnCancel.Location = new System.Drawing.Point(229, 605);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(174, 61);

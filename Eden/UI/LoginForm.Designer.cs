@@ -268,7 +268,6 @@
             this.guna2PictureBox2.Size = new System.Drawing.Size(662, 688);
             this.guna2PictureBox2.TabIndex = 0;
             this.guna2PictureBox2.TabStop = false;
-            this.guna2PictureBox2.Click += new System.EventHandler(this.guna2PictureBox2_Click);
             // 
             // guna2DragControl2
             // 

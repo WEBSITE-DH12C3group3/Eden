@@ -176,7 +176,7 @@
             this.guna2ButtonAdd.ForeColor = System.Drawing.Color.White;
             this.guna2ButtonAdd.Image = global::Eden.Properties.Resources.add;
             this.guna2ButtonAdd.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2ButtonAdd.Location = new System.Drawing.Point(87, 652);
+            this.guna2ButtonAdd.Location = new System.Drawing.Point(113, 662);
             this.guna2ButtonAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2ButtonAdd.Name = "guna2ButtonAdd";
             this.guna2ButtonAdd.Size = new System.Drawing.Size(174, 61);
@@ -197,7 +197,7 @@
             this.guna2ButtonCancel.ForeColor = System.Drawing.Color.White;
             this.guna2ButtonCancel.Image = global::Eden.Properties.Resources.del;
             this.guna2ButtonCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2ButtonCancel.Location = new System.Drawing.Point(223, 652);
+            this.guna2ButtonCancel.Location = new System.Drawing.Point(197, 662);
             this.guna2ButtonCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2ButtonCancel.Name = "guna2ButtonCancel";
             this.guna2ButtonCancel.Size = new System.Drawing.Size(174, 61);

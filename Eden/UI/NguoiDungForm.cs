@@ -99,13 +99,13 @@ namespace Eden
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var form = new AddEditNguoiDungForm(null, nhomNguoiDungList))
-            {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData(txtSearch.Text.Trim(), currentPage);
-                }
-            }
+            var form = new AddEditNguoiDungForm(null, nhomNguoiDungList);
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -126,13 +126,14 @@ namespace Eden
                 return;
             }
 
-            using (var form = new AddEditNguoiDungForm(nguoiDung, nhomNguoiDungList))
-            {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData(txtSearch.Text.Trim(), currentPage);
-                }
-            }
+            var form = new AddEditNguoiDungForm(nguoiDung, nhomNguoiDungList);
+
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -253,6 +254,5 @@ namespace Eden
                 MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }
