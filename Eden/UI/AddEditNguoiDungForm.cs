@@ -19,6 +19,7 @@ namespace Eden
             //this.WindowState = FormWindowState.Maximized;
 
             InitializeComponent();
+            txtMatKhau.UseSystemPasswordChar = false;
             LoadNhomNguoiDung();
             if (nguoiDung != null)
             {
