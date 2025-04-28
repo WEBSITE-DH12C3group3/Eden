@@ -167,11 +167,18 @@ namespace Eden
         // Mở form thêm khách hàng
         private void addkhachhang_Click(object sender, EventArgs e)
         {
-            using (KhachHangadd formAdd = new KhachHangadd())
-            {
-                formAdd.ShowDialog();
-                LoadData();
-            }
+            //using (KhachHangadd formAdd = new KhachHangadd())
+            //{
+            //    formAdd.ShowDialog();
+            //    LoadData();
+            //}
+            KhachHangadd formAdd = new KhachHangadd();
+            this.Controls.Clear();
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
 
         // Mở form sửa khách hàng
@@ -227,6 +234,7 @@ namespace Eden
         {
             // Có thể thêm xử lý nếu cần
         }
+
         //luu excel
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
@@ -350,7 +358,6 @@ namespace Eden
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-          
             currentPage = 1;
             LoadData();
         }

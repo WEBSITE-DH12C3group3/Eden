@@ -1,4 +1,4 @@
-﻿namespace Eden.UI // Note: This file is in the Eden.UI namespace
+﻿namespace Eden.UI
 {
     partial class KhachHangadd
     {
@@ -41,15 +41,24 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.guna2Panel1.SuspendLayout();
+            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblMaKhachHang
             // 
+            this.lblMaKhachHang.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblMaKhachHang.BackColor = System.Drawing.Color.Transparent;
             this.lblMaKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblMaKhachHang.Location = new System.Drawing.Point(55, 65);
-            this.lblMaKhachHang.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblMaKhachHang.Location = new System.Drawing.Point(240, 242);
+            this.lblMaKhachHang.Margin = new System.Windows.Forms.Padding(2);
             this.lblMaKhachHang.Name = "lblMaKhachHang";
             this.lblMaKhachHang.Size = new System.Drawing.Size(112, 23);
             this.lblMaKhachHang.TabIndex = 1;
@@ -57,11 +66,12 @@
             // 
             // lblTenKhachHang
             // 
+            this.lblTenKhachHang.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenKhachHang.BackColor = System.Drawing.Color.Transparent;
             this.lblTenKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTenKhachHang.Location = new System.Drawing.Point(55, 114);
-            this.lblTenKhachHang.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblTenKhachHang.Location = new System.Drawing.Point(240, 312);
+            this.lblTenKhachHang.Margin = new System.Windows.Forms.Padding(2);
             this.lblTenKhachHang.Name = "lblTenKhachHang";
             this.lblTenKhachHang.Size = new System.Drawing.Size(115, 23);
             this.lblTenKhachHang.TabIndex = 2;
@@ -69,11 +79,12 @@
             // 
             // lblDiaChi
             // 
+            this.lblDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblDiaChi.BackColor = System.Drawing.Color.Transparent;
             this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblDiaChi.Location = new System.Drawing.Point(55, 162);
-            this.lblDiaChi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblDiaChi.Location = new System.Drawing.Point(240, 382);
+            this.lblDiaChi.Margin = new System.Windows.Forms.Padding(2);
             this.lblDiaChi.Name = "lblDiaChi";
             this.lblDiaChi.Size = new System.Drawing.Size(53, 23);
             this.lblDiaChi.TabIndex = 3;
@@ -81,11 +92,12 @@
             // 
             // lblSoDienThoai
             // 
+            this.lblSoDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblSoDienThoai.BackColor = System.Drawing.Color.Transparent;
             this.lblSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblSoDienThoai.Location = new System.Drawing.Point(55, 211);
-            this.lblSoDienThoai.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblSoDienThoai.Location = new System.Drawing.Point(240, 452);
+            this.lblSoDienThoai.Margin = new System.Windows.Forms.Padding(2);
             this.lblSoDienThoai.Name = "lblSoDienThoai";
             this.lblSoDienThoai.Size = new System.Drawing.Size(99, 23);
             this.lblSoDienThoai.TabIndex = 4;
@@ -93,11 +105,12 @@
             // 
             // lblEmail
             // 
+            this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblEmail.BackColor = System.Drawing.Color.Transparent;
             this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblEmail.Location = new System.Drawing.Point(51, 260);
-            this.lblEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblEmail.Location = new System.Drawing.Point(240, 522);
+            this.lblEmail.Margin = new System.Windows.Forms.Padding(2);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(41, 23);
             this.lblEmail.TabIndex = 5;
@@ -105,6 +118,7 @@
             // 
             // txtMaKhachHang
             // 
+            this.txtMaKhachHang.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtMaKhachHang.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtMaKhachHang.BorderRadius = 10;
             this.txtMaKhachHang.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -117,17 +131,18 @@
             this.txtMaKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMaKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtMaKhachHang.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtMaKhachHang.Location = new System.Drawing.Point(208, 61);
+            this.txtMaKhachHang.Location = new System.Drawing.Point(30, 237);
             this.txtMaKhachHang.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtMaKhachHang.Name = "txtMaKhachHang";
             this.txtMaKhachHang.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtMaKhachHang.PlaceholderText = "Nhập mã khách hàng";
             this.txtMaKhachHang.SelectedText = "";
-            this.txtMaKhachHang.Size = new System.Drawing.Size(225, 32);
+            this.txtMaKhachHang.Size = new System.Drawing.Size(300, 36);
             this.txtMaKhachHang.TabIndex = 6;
             // 
             // txtTenKhachHang
             // 
+            this.txtTenKhachHang.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtTenKhachHang.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenKhachHang.BorderRadius = 10;
             this.txtTenKhachHang.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -140,17 +155,18 @@
             this.txtTenKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTenKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenKhachHang.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtTenKhachHang.Location = new System.Drawing.Point(208, 110);
+            this.txtTenKhachHang.Location = new System.Drawing.Point(30, 307);
             this.txtTenKhachHang.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTenKhachHang.Name = "txtTenKhachHang";
             this.txtTenKhachHang.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtTenKhachHang.PlaceholderText = "Nhập tên khách hàng";
             this.txtTenKhachHang.SelectedText = "";
-            this.txtTenKhachHang.Size = new System.Drawing.Size(225, 32);
+            this.txtTenKhachHang.Size = new System.Drawing.Size(300, 36);
             this.txtTenKhachHang.TabIndex = 7;
             // 
             // txtDiaChi
             // 
+            this.txtDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtDiaChi.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtDiaChi.BorderRadius = 10;
             this.txtDiaChi.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -163,17 +179,18 @@
             this.txtDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtDiaChi.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtDiaChi.Location = new System.Drawing.Point(208, 158);
+            this.txtDiaChi.Location = new System.Drawing.Point(30, 377);
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtDiaChi.PlaceholderText = "Nhập địa chỉ";
             this.txtDiaChi.SelectedText = "";
-            this.txtDiaChi.Size = new System.Drawing.Size(225, 32);
+            this.txtDiaChi.Size = new System.Drawing.Size(300, 36);
             this.txtDiaChi.TabIndex = 8;
             // 
             // txtSoDienThoai
             // 
+            this.txtSoDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtSoDienThoai.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtSoDienThoai.BorderRadius = 10;
             this.txtSoDienThoai.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -186,17 +203,18 @@
             this.txtSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtSoDienThoai.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtSoDienThoai.Location = new System.Drawing.Point(208, 207);
+            this.txtSoDienThoai.Location = new System.Drawing.Point(30, 447);
             this.txtSoDienThoai.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSoDienThoai.Name = "txtSoDienThoai";
             this.txtSoDienThoai.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtSoDienThoai.PlaceholderText = "Nhập số điện thoại";
             this.txtSoDienThoai.SelectedText = "";
-            this.txtSoDienThoai.Size = new System.Drawing.Size(225, 32);
+            this.txtSoDienThoai.Size = new System.Drawing.Size(300, 36);
             this.txtSoDienThoai.TabIndex = 9;
             // 
             // txtEmail
             // 
+            this.txtEmail.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtEmail.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtEmail.BorderRadius = 10;
             this.txtEmail.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -209,13 +227,13 @@
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtEmail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtEmail.Location = new System.Drawing.Point(208, 256);
+            this.txtEmail.Location = new System.Drawing.Point(30, 517);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtEmail.PlaceholderText = "Nhập email";
             this.txtEmail.SelectedText = "";
-            this.txtEmail.Size = new System.Drawing.Size(225, 32);
+            this.txtEmail.Size = new System.Drawing.Size(300, 36);
             this.txtEmail.TabIndex = 10;
             // 
             // labelTitle
@@ -223,7 +241,7 @@
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(15, 16);
+            this.labelTitle.Location = new System.Drawing.Point(20, 20);
             this.labelTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(273, 32);
@@ -232,6 +250,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.BorderRadius = 10;
             this.btnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -242,16 +261,17 @@
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Image = global::Eden.Properties.Resources.del;
             this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCancel.Location = new System.Drawing.Point(87, 305);
+            this.btnCancel.Location = new System.Drawing.Point(243, 34);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(126, 40);
-            this.btnCancel.TabIndex = 12;
+            this.btnCancel.Size = new System.Drawing.Size(156, 54);
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSave.BorderRadius = 10;
             this.btnSave.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnSave.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -262,38 +282,85 @@
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Eden.Properties.Resources.add;
             this.btnSave.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnSave.Location = new System.Drawing.Point(264, 305);
+            this.btnSave.Location = new System.Drawing.Point(568, 34);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(126, 40);
-            this.btnSave.TabIndex = 11;
+            this.btnSave.Size = new System.Drawing.Size(156, 54);
+            this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Thêm";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.Controls.Add(this.btnCancel);
+            this.guna2Panel3.Controls.Add(this.btnSave);
+            this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.guna2Panel3.Location = new System.Drawing.Point(0, 675);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(978, 113);
+            this.guna2Panel3.TabIndex = 11;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.Controls.Add(this.guna2Panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.guna2Panel4, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(978, 675);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.Controls.Add(this.lblMaKhachHang);
+            this.guna2Panel1.Controls.Add(this.lblTenKhachHang);
+            this.guna2Panel1.Controls.Add(this.lblDiaChi);
+            this.guna2Panel1.Controls.Add(this.lblSoDienThoai);
+            this.guna2Panel1.Controls.Add(this.lblEmail);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel1.Location = new System.Drawing.Point(3, 3);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(385, 669);
+            this.guna2Panel1.TabIndex = 0;
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.Controls.Add(this.txtMaKhachHang);
+            this.guna2Panel4.Controls.Add(this.txtTenKhachHang);
+            this.guna2Panel4.Controls.Add(this.txtDiaChi);
+            this.guna2Panel4.Controls.Add(this.txtSoDienThoai);
+            this.guna2Panel4.Controls.Add(this.txtEmail);
+            this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel4.Location = new System.Drawing.Point(394, 3);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(581, 669);
+            this.guna2Panel4.TabIndex = 1;
             // 
             // KhachHangadd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(488, 366);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
+            this.ClientSize = new System.Drawing.Size(978, 788);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.txtSoDienThoai);
-            this.Controls.Add(this.txtDiaChi);
-            this.Controls.Add(this.txtTenKhachHang);
-            this.Controls.Add(this.txtMaKhachHang);
-            this.Controls.Add(this.lblEmail);
-            this.Controls.Add(this.lblSoDienThoai);
-            this.Controls.Add(this.lblDiaChi);
-            this.Controls.Add(this.lblTenKhachHang);
-            this.Controls.Add(this.lblMaKhachHang);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.guna2Panel3);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "KhachHangadd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Thêm Khách Hàng";
+            this.guna2Panel3.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel1.PerformLayout();
+            this.guna2Panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,18 +368,24 @@
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblMaKhachHang; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblTenKhachHang; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblDiaChi; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblSoDienThoai; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblEmail; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtMaKhachHang; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtTenKhachHang; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtDiaChi; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtSoDienThoai; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtEmail; // Renamed
-        private System.Windows.Forms.Label labelTitle; // Added
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblMaKhachHang;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblTenKhachHang;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblDiaChi;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblSoDienThoai;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblEmail;
+        private Guna.UI2.WinForms.Guna2TextBox txtMaKhachHang;
+        private Guna.UI2.WinForms.Guna2TextBox txtTenKhachHang;
+        private Guna.UI2.WinForms.Guna2TextBox txtDiaChi;
+        private Guna.UI2.WinForms.Guna2TextBox txtSoDienThoai;
+        private Guna.UI2.WinForms.Guna2TextBox txtEmail;
+        private System.Windows.Forms.Label labelTitle;
         private Guna.UI2.WinForms.Guna2Button btnCancel;
         private Guna.UI2.WinForms.Guna2Button btnSave;
+
+        // Added panel and table layout controls
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
     }
 }

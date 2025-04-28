@@ -33,10 +33,15 @@ namespace Eden.UI
             txtTenKhachHang.ReadOnly = true; // Không cho phép chỉnh sửa mã khách hàng
         }
 
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            KhachHangForm formAdd = new KhachHangForm();
+            this.Controls.Clear();
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

@@ -136,6 +136,11 @@ namespace Eden
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            // using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
+            // {
+            //     formAdd.ShowDialog();
+            //     LoadSanPham();
+            // }
             SanPhamFormAdd formAdd = new SanPhamFormAdd();
 
             this.Controls.Clear();

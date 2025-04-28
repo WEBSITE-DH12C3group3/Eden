@@ -181,7 +181,6 @@
             this.txtPw.Location = new System.Drawing.Point(31, 343);
             this.txtPw.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPw.Name = "txtPw";
-            this.txtPw.PasswordChar = '*';
             this.txtPw.PlaceholderForeColor = System.Drawing.Color.White;
             this.txtPw.PlaceholderText = "Password";
             this.txtPw.SelectedText = "";

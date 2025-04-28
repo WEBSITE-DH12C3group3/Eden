@@ -97,6 +97,11 @@ namespace Eden
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
+            // using (PhanLoaiFormAdd formAdd = new PhanLoaiFormAdd())
+            // {
+            //     formAdd.ShowDialog();
+            //     LoadLoaiSanPham(); // Cập nhật danh sách sau khi thêm
+            // }
             PhanLoaiFormAdd formAdd = new PhanLoaiFormAdd();
             this.Controls.Clear();
             formAdd.TopLevel = false;

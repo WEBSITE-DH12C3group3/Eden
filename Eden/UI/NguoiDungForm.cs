@@ -126,6 +126,13 @@ namespace Eden
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //     using (var form = new AddEditNguoiDungForm(null, nhomNguoiDungList))
+            // {
+            //     if (form.ShowDialog() == DialogResult.OK)
+            //     {
+            //         LoadData(txtSearch.Text.Trim(), currentPage);
+            //     }
+            // }
             var form = new AddEditNguoiDungForm(null, nhomNguoiDungList);
             this.Controls.Clear();
             form.TopLevel = false;

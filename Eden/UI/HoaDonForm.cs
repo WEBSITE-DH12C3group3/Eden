@@ -365,7 +365,6 @@ namespace Eden
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            
             currentPage = 1;
             LoadData();
         }
