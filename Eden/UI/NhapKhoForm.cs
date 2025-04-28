@@ -523,5 +523,10 @@ namespace Eden
                 MessageBox.Show("Vui lòng chọn một phiếu nhập để xem chi tiết.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void txtTongTienTu_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

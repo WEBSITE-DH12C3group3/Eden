@@ -8,6 +8,8 @@ using Eden.Eden;
 using Eden.DTO;
 using Guna.UI2.WinForms;
 using Eden.UI;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 
 namespace Eden
 {
@@ -20,6 +22,7 @@ namespace Eden
         private NGUOIDUNGBLL nguoiDungBLL;
         private CHITIETPHIEUNHAPBLL chiTietPhieuNhapBLL;
         private BindingList<CHITIETPHIEUNHAP> chiTietList = new BindingList<CHITIETPHIEUNHAP>();
+        private const decimal MAX_MONEY_VALUE = 9999999999999999.99m; // Giới hạn cho DECIMAL(18,2)
 
         public NhapKhoFormAdd(string maPhieuNhap = "")
         {
@@ -73,19 +76,7 @@ namespace Eden
             {
                 if (cmbNhaCungCap.SelectedValue != null && int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
                 {
-                    using (var db = new QLBanHoaEntities())
-                    {
-                        var nhaCungCap = db.NHACUNGCAPs.FirstOrDefault(ncc => ncc.id == idNhaCungCap);
-                        if (nhaCungCap != null)
-                        {
-                            LoadSanPham(nhaCungCap.TenNhaCungCap);
-                        }
-                        else
-                        {
-                            cmbTenSP.DataSource = null;
-                            cmbTenSP.Items.Clear();
-                        }
-                    }
+                    LoadSanPham(idNhaCungCap);
                 }
                 else
                 {
@@ -191,43 +182,54 @@ namespace Eden
             }
         }
 
-        private void LoadSanPham(string tenNhaCungCap = null)
+        private void LoadSanPham(int? idNhaCungCap = null)
         {
             try
             {
-                var list = sanPHAMBLL.GetAll();
-                if (list == null)
+                using (var db = new QLBanHoaEntities())
                 {
-                    MessageBox.Show("Danh sách sản phẩm trả về null. Kiểm tra phương thức GetAll trong SANPHAMBLL.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var query = db.SANPHAMs.AsQueryable();
+                    if (idNhaCungCap.HasValue)
+                    {
+                        query = query.Where(sp => sp.idNhaCungCap == idNhaCungCap.Value);
+                    }
+
+                    var list = query.Select(sp => new SanPhamDTO
+                    {
+                        idSanPham = sp.id, // Thay 'IDSanPham' bằng tên cột thực tế trong bảng SANPHAM
+                        TenSanPham = sp.TenSanPham,
+                        Gia = sp.Gia,
+                        TenNhaCungCap = sp.NHACUNGCAP.TenNhaCungCap
+                    }).ToList();
+
+                    if (list == null || !list.Any())
+                    {
+                        MessageBox.Show("Không có sản phẩm nào cho nhà cung cấp này. Vui lòng thêm sản phẩm trước!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cmbTenSP.DataSource = null;
+                        return;
+                    }
+
+                    if (list.Any(sp => sp.idSanPham == 0))
+                    {
+                        MessageBox.Show("Có sản phẩm với idSanPham không hợp lệ (0). Kiểm tra dữ liệu trong bảng SANPHAM.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cmbTenSP.DataSource = null;
+                        return;
+                    }
+
+                    // Kiểm tra giá sản phẩm
+                    if (list.Any(sp => sp.Gia > MAX_MONEY_VALUE))
+                    {
+                        MessageBox.Show("Có sản phẩm với giá vượt quá giới hạn cho phép (9999999999999999,99). Vui lòng kiểm tra dữ liệu sản phẩm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        cmbTenSP.DataSource = null;
+                        return;
+                    }
+
                     cmbTenSP.DataSource = null;
-                    return;
+                    cmbTenSP.Items.Clear();
+                    cmbTenSP.DisplayMember = "TenSanPham";
+                    cmbTenSP.ValueMember = "idSanPham";
+                    cmbTenSP.DataSource = list;
                 }
-
-                // Lọc sản phẩm theo TenNhaCungCap nếu có
-                if (!string.IsNullOrEmpty(tenNhaCungCap))
-                {
-                    list = list.Where(sp => sp.TenNhaCungCap == tenNhaCungCap).ToList();
-                }
-
-                if (!list.Any())
-                {
-                    MessageBox.Show("Không có sản phẩm nào cho nhà cung cấp này. Vui lòng thêm sản phẩm trước!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    cmbTenSP.DataSource = null;
-                    return;
-                }
-
-                if (list.Any(sp => sp.idSanPham == 0))
-                {
-                    MessageBox.Show("Có sản phẩm với idSanPham không hợp lệ (0). Kiểm tra dữ liệu trong bảng SANPHAM.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    cmbTenSP.DataSource = null;
-                    return;
-                }
-
-                cmbTenSP.DataSource = null;
-                cmbTenSP.Items.Clear();
-                cmbTenSP.DisplayMember = "TenSanPham";
-                cmbTenSP.ValueMember = "idSanPham";
-                cmbTenSP.DataSource = list;
             }
             catch (Exception ex)
             {
@@ -278,19 +280,8 @@ namespace Eden
                 cmbNhaCungCap.SelectedValue = phieuNhap.idNhaCungCap;
                 cmbIDNguoiDung.SelectedValue = phieuNhap.idNguoiDung;
 
-                // Tải sản phẩm dựa trên TenNhaCungCap
-                using (var db = new QLBanHoaEntities())
-                {
-                    var nhaCungCap = db.NHACUNGCAPs.FirstOrDefault(ncc => ncc.id == phieuNhap.idNhaCungCap);
-                    if (nhaCungCap != null)
-                    {
-                        LoadSanPham(nhaCungCap.TenNhaCungCap);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không tìm thấy nhà cung cấp!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
+                // Tải sản phẩm dựa trên idNhaCungCap
+                LoadSanPham(phieuNhap.idNhaCungCap);
 
                 var chiTietListDb = phieuNhapBLL.GetChiTietByPhieuNhap(phieuNhap.id);
                 if (chiTietListDb == null || !chiTietListDb.Any())
@@ -367,6 +358,20 @@ namespace Eden
                     return;
                 }
 
+                // Kiểm tra giới hạn giá trị
+                if (donGia > MAX_MONEY_VALUE)
+                {
+                    MessageBox.Show($"Đơn giá vượt quá giới hạn cho phép ({MAX_MONEY_VALUE:N0}). Vui lòng nhập giá trị nhỏ hơn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                decimal thanhTien = soLuong * donGia;
+                if (thanhTien > MAX_MONEY_VALUE)
+                {
+                    MessageBox.Show($"Thành tiền ({thanhTien:N0}) vượt quá giới hạn cho phép ({MAX_MONEY_VALUE:N0}). Vui lòng giảm số lượng hoặc đơn giá!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Kiểm tra xem sản phẩm đã tồn tại trong chiTietList chưa
                 var existingChiTiet = chiTietList.FirstOrDefault(c => c.idSanPham == selectedSanPham.idSanPham);
                 if (existingChiTiet != null)
@@ -385,7 +390,7 @@ namespace Eden
                         idSanPham = selectedSanPham.idSanPham,
                         SoLuong = soLuong,
                         DonGia = donGia,
-                        ThanhTien = soLuong * donGia
+                        ThanhTien = thanhTien
                     };
                     chiTietList.Add(chiTiet);
                     MessageBox.Show($"Thêm sản phẩm {selectedSanPham.TenSanPham} thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -467,19 +472,19 @@ namespace Eden
                         {
                             // Sinh MaPhieuNhap mới
                             string newMaPN = "PN001";
-                            var phieuNhapList = db.PHIEUNHAPs.ToList();
-                            if (phieuNhapList.Any())
+                            var lastPhieuNhap = db.PHIEUNHAPs
+                                .Where(p => p.MaPhieuNhap != null && p.MaPhieuNhap.StartsWith("PN"))
+                                .OrderByDescending(p => p.MaPhieuNhap)
+                                .FirstOrDefault();
+                            if (lastPhieuNhap != null)
                             {
-                                var validPhieuNhaps = phieuNhapList
-                                    .Where(p => p.MaPhieuNhap != null && p.MaPhieuNhap.StartsWith("PN") && int.TryParse(p.MaPhieuNhap.Substring(2), out _))
-                                    .ToList();
-                                if (validPhieuNhaps.Any())
+                                if (int.TryParse(lastPhieuNhap.MaPhieuNhap.Substring(2), out int lastNumber))
                                 {
-                                    var lastPhieuNhap = validPhieuNhaps
-                                        .OrderByDescending(p => int.Parse(p.MaPhieuNhap.Substring(2)))
-                                        .First();
-                                    int lastNumber = int.Parse(lastPhieuNhap.MaPhieuNhap.Substring(2));
                                     newMaPN = $"PN{(lastNumber + 1):D3}";
+                                }
+                                else
+                                {
+                                    throw new Exception($"Mã phiếu nhập cuối cùng {lastPhieuNhap.MaPhieuNhap} không đúng định dạng!");
                                 }
                             }
 
@@ -534,6 +539,10 @@ namespace Eden
                         decimal tongTien = 0;
                         foreach (var chiTiet in chiTietList)
                         {
+                            if (chiTiet.idSanPham <= 0)
+                            {
+                                throw new Exception($"ID sản phẩm {chiTiet.idSanPham} không hợp lệ.");
+                            }
                             if (chiTiet.SoLuong <= 0)
                             {
                                 throw new Exception($"Số lượng của sản phẩm ID {chiTiet.idSanPham} phải lớn hơn 0.");
@@ -585,18 +594,33 @@ namespace Eden
                     catch (Exception ex)
                     {
                         db.Database.CurrentTransaction?.Rollback();
-                        var dbUpdateEx = ex.InnerException as System.Data.Entity.Infrastructure.DbUpdateException;
-                        var sqlEx = dbUpdateEx?.InnerException as System.Data.SqlClient.SqlException;
-                        string errorDetails = sqlEx != null
-                            ? $"SQL Error: {sqlEx.Message}\nError Number: {sqlEx.Number}\nLine Number: {sqlEx.LineNumber}"
-                            : ex.InnerException?.Message ?? "Không có chi tiết lỗi cụ thể.";
-                        MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}\nInner Exception: {errorDetails}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string errorDetails = "";
+                        var innerEx = ex;
+                        while (innerEx != null)
+                        {
+                            errorDetails += $"\nInner Exception: {innerEx.Message}";
+                            if (innerEx is DbUpdateException dbUpdateEx && dbUpdateEx.InnerException is SqlException sqlEx)
+                            {
+                                errorDetails += $"\nSQL Error Number: {sqlEx.Number}, Line: {sqlEx.LineNumber}";
+                            }
+                            innerEx = innerEx.InnerException;
+                        }
+                        errorDetails += $"\nStack Trace: {ex.StackTrace}";
+                        MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}{errorDetails}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string errorDetails = "";
+                var innerEx = ex;
+                while (innerEx != null)
+                {
+                    errorDetails += $"\nInner Exception: {innerEx.Message}";
+                    innerEx = innerEx.InnerException;
+                }
+                errorDetails += $"\nStack Trace: {ex.StackTrace}";
+                MessageBox.Show($"Lỗi khi lưu phiếu nhập: {ex.Message}{errorDetails}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -617,18 +641,7 @@ namespace Eden
                         {
                             if (cmbNhaCungCap.SelectedValue != null && int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
                             {
-                                using (var db = new QLBanHoaEntities())
-                                {
-                                    var nhaCungCap = db.NHACUNGCAPs.FirstOrDefault(ncc => ncc.id == idNhaCungCap);
-                                    if (nhaCungCap != null)
-                                    {
-                                        LoadSanPham(nhaCungCap.TenNhaCungCap);
-                                    }
-                                    else
-                                    {
-                                        LoadSanPham();
-                                    }
-                                }
+                                LoadSanPham(idNhaCungCap);
                             }
                             else
                             {
@@ -651,7 +664,11 @@ namespace Eden
 
         private void txtDonGia_TextChanged(object sender, EventArgs e)
         {
-            // Có thể thêm logic kiểm tra định dạng đơn giá tại đây
+            if (decimal.TryParse(txtDonGia.Text, out decimal donGia) && donGia > MAX_MONEY_VALUE)
+            {
+                MessageBox.Show($"Đơn giá vượt quá giới hạn ({MAX_MONEY_VALUE:N0}). Vui lòng nhập giá trị nhỏ hơn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDonGia.Text = MAX_MONEY_VALUE.ToString("F0");
+            }
         }
     }
 }

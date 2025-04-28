@@ -20,9 +20,9 @@ namespace Eden
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvPhieuNhap = new Guna.UI2.WinForms.Guna2DataGridView();
             this.btnAdd = new Guna.UI2.WinForms.Guna2Button();
             this.btnEdit = new Guna.UI2.WinForms.Guna2Button();
@@ -53,31 +53,31 @@ namespace Eden
             // 
             this.dgvPhieuNhap.AllowUserToAddRows = false;
             this.dgvPhieuNhap.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
-            this.dgvPhieuNhap.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
+            this.dgvPhieuNhap.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPhieuNhap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPhieuNhap.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPhieuNhap.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPhieuNhap.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPhieuNhap.ColumnHeadersHeight = 50;
             this.dgvPhieuNhap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvPhieuNhap.Cursor = System.Windows.Forms.Cursors.Arrow;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPhieuNhap.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPhieuNhap.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvPhieuNhap.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             this.dgvPhieuNhap.Location = new System.Drawing.Point(12, 84);
             this.dgvPhieuNhap.Name = "dgvPhieuNhap";
@@ -87,7 +87,7 @@ namespace Eden
             this.dgvPhieuNhap.RowTemplate.Height = 40;
             this.dgvPhieuNhap.RowTemplate.ReadOnly = true;
             this.dgvPhieuNhap.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPhieuNhap.Size = new System.Drawing.Size(1773, 418);
+            this.dgvPhieuNhap.Size = new System.Drawing.Size(1773, 241);
             this.dgvPhieuNhap.TabIndex = 2;
             this.dgvPhieuNhap.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
             this.dgvPhieuNhap.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -124,7 +124,7 @@ namespace Eden
             this.btnAdd.ForeColor = System.Drawing.Color.White;
             this.btnAdd.Image = global::Eden.Properties.Resources.add;
             this.btnAdd.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnAdd.Location = new System.Drawing.Point(458, 784);
+            this.btnAdd.Location = new System.Drawing.Point(458, 607);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(160, 55);
             this.btnAdd.TabIndex = 3;
@@ -144,7 +144,7 @@ namespace Eden
             this.btnEdit.ForeColor = System.Drawing.Color.White;
             this.btnEdit.Image = global::Eden.Properties.Resources.edit;
             this.btnEdit.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnEdit.Location = new System.Drawing.Point(634, 784);
+            this.btnEdit.Location = new System.Drawing.Point(634, 607);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(160, 55);
             this.btnEdit.TabIndex = 4;
@@ -164,7 +164,7 @@ namespace Eden
             this.btnDelete.ForeColor = System.Drawing.Color.White;
             this.btnDelete.Image = global::Eden.Properties.Resources.del;
             this.btnDelete.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnDelete.Location = new System.Drawing.Point(810, 784);
+            this.btnDelete.Location = new System.Drawing.Point(810, 607);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(160, 55);
             this.btnDelete.TabIndex = 5;
@@ -213,7 +213,7 @@ namespace Eden
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
             this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
             this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnExportExcel.Location = new System.Drawing.Point(986, 784);
+            this.btnExportExcel.Location = new System.Drawing.Point(986, 607);
             this.btnExportExcel.Name = "btnExportExcel";
             this.btnExportExcel.Size = new System.Drawing.Size(160, 55);
             this.btnExportExcel.TabIndex = 6;
@@ -233,7 +233,7 @@ namespace Eden
             this.btnXemChiTiet.ForeColor = System.Drawing.Color.White;
             this.btnXemChiTiet.Image = global::Eden.Properties.Resources.info;
             this.btnXemChiTiet.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnXemChiTiet.Location = new System.Drawing.Point(1162, 784);
+            this.btnXemChiTiet.Location = new System.Drawing.Point(1162, 607);
             this.btnXemChiTiet.Name = "btnXemChiTiet";
             this.btnXemChiTiet.Size = new System.Drawing.Size(190, 55);
             this.btnXemChiTiet.TabIndex = 8;
@@ -247,7 +247,7 @@ namespace Eden
             this.btnPrev.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrev.ForeColor = System.Drawing.Color.White;
-            this.btnPrev.Location = new System.Drawing.Point(776, 508);
+            this.btnPrev.Location = new System.Drawing.Point(776, 331);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnPrev.Size = new System.Drawing.Size(40, 40);
@@ -262,7 +262,7 @@ namespace Eden
             this.btnNext.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(930, 508);
+            this.btnNext.Location = new System.Drawing.Point(930, 331);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(40, 40);
             this.btnNext.TabIndex = 10;
@@ -275,7 +275,7 @@ namespace Eden
             this.lblPage.BackColor = System.Drawing.Color.Transparent;
             this.lblPage.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPage.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPage.Location = new System.Drawing.Point(831, 514);
+            this.lblPage.Location = new System.Drawing.Point(831, 337);
             this.lblPage.Name = "lblPage";
             this.lblPage.Size = new System.Drawing.Size(84, 27);
             this.lblPage.TabIndex = 11;
@@ -304,7 +304,7 @@ namespace Eden
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(1003, 514);
+            this.guna2Button1.Location = new System.Drawing.Point(1003, 337);
             this.guna2Button1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(107, 34);
@@ -337,7 +337,7 @@ namespace Eden
             this.dtpTuNgay.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.dtpTuNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.dtpTuNgay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpTuNgay.Location = new System.Drawing.Point(3, 945);
+            this.dtpTuNgay.Location = new System.Drawing.Point(3, 850);
             this.dtpTuNgay.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtpTuNgay.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpTuNgay.Name = "dtpTuNgay";
@@ -354,7 +354,7 @@ namespace Eden
             this.dtpDenNgay.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.dtpDenNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.dtpDenNgay.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDenNgay.Location = new System.Drawing.Point(185, 945);
+            this.dtpDenNgay.Location = new System.Drawing.Point(161, 851);
             this.dtpDenNgay.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtpDenNgay.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpDenNgay.Name = "dtpDenNgay";
@@ -394,7 +394,7 @@ namespace Eden
             this.txtTongTienTu.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtTongTienTu.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtTongTienTu.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtTongTienTu.Location = new System.Drawing.Point(93, 871);
+            this.txtTongTienTu.Location = new System.Drawing.Point(3, 851);
             this.txtTongTienTu.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTongTienTu.Name = "txtTongTienTu";
             this.txtTongTienTu.PlaceholderText = "";
@@ -402,6 +402,7 @@ namespace Eden
             this.txtTongTienTu.Size = new System.Drawing.Size(150, 36);
             this.txtTongTienTu.TabIndex = 26;
             this.txtTongTienTu.Visible = false;
+            this.txtTongTienTu.TextChanged += new System.EventHandler(this.txtTongTienTu_TextChanged);
             // 
             // txtTongTienDen
             // 
@@ -417,7 +418,7 @@ namespace Eden
             this.txtTongTienDen.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.txtTongTienDen.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtTongTienDen.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtTongTienDen.Location = new System.Drawing.Point(283, 871);
+            this.txtTongTienDen.Location = new System.Drawing.Point(161, 851);
             this.txtTongTienDen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtTongTienDen.Name = "txtTongTienDen";
             this.txtTongTienDen.PlaceholderText = "";
@@ -436,7 +437,7 @@ namespace Eden
             this.btnLoc.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnLoc.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoc.ForeColor = System.Drawing.Color.White;
-            this.btnLoc.Location = new System.Drawing.Point(3, 987);
+            this.btnLoc.Location = new System.Drawing.Point(3, 892);
             this.btnLoc.Name = "btnLoc";
             this.btnLoc.Size = new System.Drawing.Size(80, 36);
             this.btnLoc.TabIndex = 28;
@@ -448,7 +449,7 @@ namespace Eden
             this.lblTuNgay.AutoSize = true;
             this.lblTuNgay.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblTuNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTuNgay.Location = new System.Drawing.Point(-1, 923);
+            this.lblTuNgay.Location = new System.Drawing.Point(-1, 828);
             this.lblTuNgay.Name = "lblTuNgay";
             this.lblTuNgay.Size = new System.Drawing.Size(61, 19);
             this.lblTuNgay.TabIndex = 29;
@@ -460,7 +461,7 @@ namespace Eden
             this.lblDenNgay.AutoSize = true;
             this.lblDenNgay.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblDenNgay.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblDenNgay.Location = new System.Drawing.Point(181, 923);
+            this.lblDenNgay.Location = new System.Drawing.Point(162, 828);
             this.lblDenNgay.Name = "lblDenNgay";
             this.lblDenNgay.Size = new System.Drawing.Size(71, 19);
             this.lblDenNgay.TabIndex = 30;
@@ -472,7 +473,7 @@ namespace Eden
             this.lblTongTienTu.AutoSize = true;
             this.lblTongTienTu.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblTongTienTu.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTongTienTu.Location = new System.Drawing.Point(-1, 879);
+            this.lblTongTienTu.Location = new System.Drawing.Point(-1, 828);
             this.lblTongTienTu.Name = "lblTongTienTu";
             this.lblTongTienTu.Size = new System.Drawing.Size(87, 19);
             this.lblTongTienTu.TabIndex = 31;
@@ -484,7 +485,7 @@ namespace Eden
             this.lblTongTienDen.AutoSize = true;
             this.lblTongTienDen.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblTongTienDen.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTongTienDen.Location = new System.Drawing.Point(249, 879);
+            this.lblTongTienDen.Location = new System.Drawing.Point(162, 828);
             this.lblTongTienDen.Name = "lblTongTienDen";
             this.lblTongTienDen.Size = new System.Drawing.Size(37, 19);
             this.lblTongTienDen.TabIndex = 32;
@@ -496,7 +497,7 @@ namespace Eden
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(1803, 868);
+            this.ClientSize = new System.Drawing.Size(1803, 691);
             this.Controls.Add(this.lblTongTienDen);
             this.Controls.Add(this.lblTongTienTu);
             this.Controls.Add(this.lblDenNgay);
