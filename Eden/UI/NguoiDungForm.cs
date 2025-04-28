@@ -198,6 +198,88 @@ namespace Eden
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
+            try
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Excel Files|*.xlsx";
+                    sfd.FileName = "DanhSachNguoiDung.xlsx";
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        using (var workbook = new XLWorkbook())
+                        {
+                            var worksheet = workbook.Worksheets.Add("NguoiDung");
+
+                            // Tiêu đề chính
+                            worksheet.Cell(1, 1).Value = "Danh Sách Người Dùng";
+                            worksheet.Cell(1, 1).Style.Font.Bold = true;
+                            worksheet.Cell(1, 1).Style.Font.FontSize = 16;
+                            worksheet.Range(1, 1, 1, 4).Merge();
+                            worksheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            // Thông tin người xuất và ngày xuất (căn phải)
+                            string userName = CurrentUser.Username ?? "Không xác định";
+                            string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                            worksheet.Cell(2, 4).Value = $"Người xuất: {userName}";
+                            worksheet.Cell(2, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            worksheet.Cell(3, 4).Value = $"Ngày xuất: {exportDateTime}";
+                            worksheet.Cell(3, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+                            // Tiêu đề cột
+                            worksheet.Cell(5, 1).Value = "Mã Người Dùng";
+                            worksheet.Cell(5, 2).Value = "Tên Người Dùng";
+                            worksheet.Cell(5, 3).Value = "Tên Đăng Nhập";
+                            worksheet.Cell(5, 4).Value = "Nhóm Người Dùng";
+                            var headerRange = worksheet.Range(5, 1, 5, 4);
+                            headerRange.Style.Fill.BackgroundColor = XLColor.FromArgb(146, 208, 80); // Màu xanh nhạt
+                            headerRange.Style.Font.Bold = true;
+                            headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            headerRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            headerRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                            // Lấy dữ liệu
+                            var nguoiDungList = nguoiDungBll.GetAll();
+                            var filteredList = nguoiDungList
+                                .Where(nd => string.IsNullOrEmpty(txtSearch.Text.Trim()) ||
+                                            nd.TenNguoiDung.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
+                                            nd.MaNguoiDung.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
+                                            nd.TenDangNhap.ToLower().Contains(txtSearch.Text.Trim().ToLower()))
+                                .ToList();
+
+                            // Thêm dữ liệu vào Excel
+                            for (int i = 0; i < filteredList.Count; i++)
+                            {
+                                worksheet.Cell(i + 6, 1).Value = filteredList[i].MaNguoiDung;
+                                worksheet.Cell(i + 6, 2).Value = filteredList[i].TenNguoiDung;
+                                worksheet.Cell(i + 6, 3).Value = filteredList[i].TenDangNhap;
+                                worksheet.Cell(i + 6, 4).Value = filteredList[i].NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A";
+
+                                var rowRange = worksheet.Range(i + 6, 1, i + 6, 4);
+                                rowRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                rowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                rowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                                if (i % 2 == 0)
+                                {
+                                    rowRange.Style.Fill.BackgroundColor = XLColor.FromArgb(216, 228, 188);
+                                }
+                            }
+
+                            worksheet.Column(1).Width = 15;
+                            worksheet.Column(2).Width = 25;
+                            worksheet.Column(3).Width = 20;
+                            worksheet.Column(4).Width = 25;
+
+                            workbook.SaveAs(sfd.FileName);
+                        }
+                        MessageBox.Show("Xuất file Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
