@@ -117,13 +117,20 @@ namespace Eden
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            using (NhaCungCapFormAdd formAdd = new NhaCungCapFormAdd())
-            {
-                if (formAdd.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
-            }
+            //    using (NhaCungCapFormAdd formAdd = new NhaCungCapFormAdd())
+            //    {
+            //        if (formAdd.ShowDialog() == DialogResult.OK)
+            //        {
+            //            LoadData();
+            //        }
+            //    }
+            NhaCungCapFormAdd formAdd = new NhaCungCapFormAdd();
+            this.Controls.Clear();
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
@@ -137,22 +144,28 @@ namespace Eden
                     return;
                 }
 
-                using (NhaCungCapFormSua nhaCungCapFormSua = new NhaCungCapFormSua(maNCC))
-                {
-                    nhaCungCapFormSua.Owner = this;
-                    if (nhaCungCapFormSua.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
-                }
+                //using (NhaCungCapFormSua nhaCungCapFormSua = new NhaCungCapFormSua(maNCC))
+                //{
+                //    nhaCungCapFormSua.Owner = this;
+                //    if (nhaCungCapFormSua.ShowDialog() == DialogResult.OK)
+                //    {
+                //        LoadData();
+                //    }
+                //}
+                NhaCungCapFormSua form = new NhaCungCapFormSua(maNCC);
+                this.Controls.Clear();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
+                LoadData();
             }
             else
             {
                 MessageBox.Show("Vui lòng chọn nhà cung cấp cần sửa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-       
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {

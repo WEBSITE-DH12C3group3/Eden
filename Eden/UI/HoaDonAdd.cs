@@ -221,7 +221,7 @@ namespace Eden.UI
 
                 // Cập nhật tổng tiền
                 decimal tongTien = chiTietList.Sum(ct => ct.ThanhTien);
-                lblTongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
+                lblTongTien.Text = $" {tongTien:N0} VNĐ";
             }
             else
             {
@@ -285,19 +285,16 @@ namespace Eden.UI
             }
         }
 
-        private void lblTongTienLabel_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void lblTongTien_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbSanPham_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            //his.Close();
+            HoaDonForm formAdd = new HoaDonForm();
+            this.Controls.Clear();
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
     }
 }

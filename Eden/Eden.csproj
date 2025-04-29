@@ -188,6 +188,9 @@
     <EmbeddedResource Include="UI\AddEditNguoiDungForm.resx">
       <DependentUpon>AddEditNguoiDungForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\AddEditNhomNguoiDungForm.resx">
+      <DependentUpon>AddEditNhomNguoiDungForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CHITIETPHIEUNHAPFORM.resx">
       <DependentUpon>CHITIETPHIEUNHAPFORM.cs</DependentUpon>
     </EmbeddedResource>

@@ -31,6 +31,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblMaNhaCungCap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTenNhaCungCap = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDiaChi = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -44,15 +45,25 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.labelTitle = new System.Windows.Forms.Label();
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
+            this.guna2Panel3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.guna2Panel1.SuspendLayout();
+            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblMaNhaCungCap
             // 
+            this.lblMaNhaCungCap.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblMaNhaCungCap.BackColor = System.Drawing.Color.Transparent;
             this.lblMaNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaNhaCungCap.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblMaNhaCungCap.Location = new System.Drawing.Point(46, 61);
-            this.lblMaNhaCungCap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblMaNhaCungCap.Location = new System.Drawing.Point(235, 219);
+            this.lblMaNhaCungCap.Margin = new System.Windows.Forms.Padding(2);
             this.lblMaNhaCungCap.Name = "lblMaNhaCungCap";
             this.lblMaNhaCungCap.Size = new System.Drawing.Size(130, 23);
             this.lblMaNhaCungCap.TabIndex = 1;
@@ -60,11 +71,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // lblTenNhaCungCap
             // 
+            this.lblTenNhaCungCap.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenNhaCungCap.BackColor = System.Drawing.Color.Transparent;
             this.lblTenNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenNhaCungCap.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTenNhaCungCap.Location = new System.Drawing.Point(46, 110);
-            this.lblTenNhaCungCap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblTenNhaCungCap.Location = new System.Drawing.Point(232, 289);
+            this.lblTenNhaCungCap.Margin = new System.Windows.Forms.Padding(2);
             this.lblTenNhaCungCap.Name = "lblTenNhaCungCap";
             this.lblTenNhaCungCap.Size = new System.Drawing.Size(133, 23);
             this.lblTenNhaCungCap.TabIndex = 2;
@@ -72,11 +84,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // lblDiaChi
             // 
+            this.lblDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblDiaChi.BackColor = System.Drawing.Color.Transparent;
             this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblDiaChi.Location = new System.Drawing.Point(46, 158);
-            this.lblDiaChi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblDiaChi.Location = new System.Drawing.Point(312, 359);
+            this.lblDiaChi.Margin = new System.Windows.Forms.Padding(2);
             this.lblDiaChi.Name = "lblDiaChi";
             this.lblDiaChi.Size = new System.Drawing.Size(53, 23);
             this.lblDiaChi.TabIndex = 3;
@@ -84,11 +97,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // lblSoDienThoai
             // 
+            this.lblSoDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblSoDienThoai.BackColor = System.Drawing.Color.Transparent;
             this.lblSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblSoDienThoai.Location = new System.Drawing.Point(46, 207);
-            this.lblSoDienThoai.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblSoDienThoai.Location = new System.Drawing.Point(266, 429);
+            this.lblSoDienThoai.Margin = new System.Windows.Forms.Padding(2);
             this.lblSoDienThoai.Name = "lblSoDienThoai";
             this.lblSoDienThoai.Size = new System.Drawing.Size(99, 23);
             this.lblSoDienThoai.TabIndex = 4;
@@ -96,11 +110,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // lblEmail
             // 
+            this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblEmail.BackColor = System.Drawing.Color.Transparent;
             this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblEmail.Location = new System.Drawing.Point(42, 256);
-            this.lblEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblEmail.Location = new System.Drawing.Point(324, 499);
+            this.lblEmail.Margin = new System.Windows.Forms.Padding(2);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(41, 23);
             this.lblEmail.TabIndex = 5;
@@ -108,6 +123,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // txtMaNhaCungCap
             // 
+            this.txtMaNhaCungCap.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtMaNhaCungCap.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtMaNhaCungCap.BorderRadius = 10;
             this.txtMaNhaCungCap.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -120,17 +136,18 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.txtMaNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMaNhaCungCap.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtMaNhaCungCap.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtMaNhaCungCap.Location = new System.Drawing.Point(208, 61);
+            this.txtMaNhaCungCap.Location = new System.Drawing.Point(32, 213);
             this.txtMaNhaCungCap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtMaNhaCungCap.Name = "txtMaNhaCungCap";
             this.txtMaNhaCungCap.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtMaNhaCungCap.PlaceholderText = "Nhập mã nhà cung cấp";
             this.txtMaNhaCungCap.SelectedText = "";
-            this.txtMaNhaCungCap.Size = new System.Drawing.Size(225, 32);
-            this.txtMaNhaCungCap.TabIndex = 6;
+            this.txtMaNhaCungCap.Size = new System.Drawing.Size(300, 36);
+            this.txtMaNhaCungCap.TabIndex = 0;
             // 
             // txtTenNhaCungCap
             // 
+            this.txtTenNhaCungCap.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtTenNhaCungCap.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenNhaCungCap.BorderRadius = 10;
             this.txtTenNhaCungCap.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -143,17 +160,18 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.txtTenNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTenNhaCungCap.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenNhaCungCap.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtTenNhaCungCap.Location = new System.Drawing.Point(208, 110);
+            this.txtTenNhaCungCap.Location = new System.Drawing.Point(32, 283);
             this.txtTenNhaCungCap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTenNhaCungCap.Name = "txtTenNhaCungCap";
             this.txtTenNhaCungCap.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtTenNhaCungCap.PlaceholderText = "Nhập tên nhà cung cấp";
             this.txtTenNhaCungCap.SelectedText = "";
-            this.txtTenNhaCungCap.Size = new System.Drawing.Size(225, 32);
-            this.txtTenNhaCungCap.TabIndex = 7;
+            this.txtTenNhaCungCap.Size = new System.Drawing.Size(300, 36);
+            this.txtTenNhaCungCap.TabIndex = 1;
             // 
             // txtDiaChi
             // 
+            this.txtDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtDiaChi.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtDiaChi.BorderRadius = 10;
             this.txtDiaChi.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -166,17 +184,18 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.txtDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtDiaChi.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtDiaChi.Location = new System.Drawing.Point(208, 158);
+            this.txtDiaChi.Location = new System.Drawing.Point(32, 353);
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtDiaChi.PlaceholderText = "Nhập địa chỉ";
             this.txtDiaChi.SelectedText = "";
-            this.txtDiaChi.Size = new System.Drawing.Size(225, 32);
-            this.txtDiaChi.TabIndex = 8;
+            this.txtDiaChi.Size = new System.Drawing.Size(300, 36);
+            this.txtDiaChi.TabIndex = 2;
             // 
             // txtSoDienThoai
             // 
+            this.txtSoDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtSoDienThoai.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtSoDienThoai.BorderRadius = 10;
             this.txtSoDienThoai.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -189,17 +208,18 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.txtSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtSoDienThoai.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtSoDienThoai.Location = new System.Drawing.Point(208, 207);
+            this.txtSoDienThoai.Location = new System.Drawing.Point(32, 423);
             this.txtSoDienThoai.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSoDienThoai.Name = "txtSoDienThoai";
             this.txtSoDienThoai.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtSoDienThoai.PlaceholderText = "Nhập số điện thoại";
             this.txtSoDienThoai.SelectedText = "";
-            this.txtSoDienThoai.Size = new System.Drawing.Size(225, 32);
-            this.txtSoDienThoai.TabIndex = 9;
+            this.txtSoDienThoai.Size = new System.Drawing.Size(300, 36);
+            this.txtSoDienThoai.TabIndex = 3;
             // 
             // txtEmail
             // 
+            this.txtEmail.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtEmail.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtEmail.BorderRadius = 10;
             this.txtEmail.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -212,21 +232,21 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtEmail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtEmail.Location = new System.Drawing.Point(208, 256);
+            this.txtEmail.Location = new System.Drawing.Point(32, 493);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.PlaceholderForeColor = System.Drawing.Color.DarkGray;
             this.txtEmail.PlaceholderText = "Nhập email";
             this.txtEmail.SelectedText = "";
-            this.txtEmail.Size = new System.Drawing.Size(225, 32);
-            this.txtEmail.TabIndex = 10;
+            this.txtEmail.Size = new System.Drawing.Size(300, 36);
+            this.txtEmail.TabIndex = 4;
             // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(15, 16);
+            this.labelTitle.Location = new System.Drawing.Point(20, 20);
             this.labelTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(299, 32);
@@ -235,6 +255,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.BorderRadius = 10;
             this.btnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -245,16 +266,17 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Image = global::Eden.Properties.Resources.del;
             this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCancel.Location = new System.Drawing.Point(91, 306);
+            this.btnCancel.Location = new System.Drawing.Point(258, 18);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(126, 40);
-            this.btnCancel.TabIndex = 12;
+            this.btnCancel.Size = new System.Drawing.Size(174, 61);
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSave.BorderRadius = 10;
             this.btnSave.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnSave.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -265,61 +287,116 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Eden.Properties.Resources.add;
             this.btnSave.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnSave.Location = new System.Drawing.Point(268, 306);
+            this.btnSave.Location = new System.Drawing.Point(572, 18);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(126, 40);
-            this.btnSave.TabIndex = 11;
+            this.btnSave.Size = new System.Drawing.Size(174, 61);
+            this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Thêm";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.Controls.Add(this.btnCancel);
+            this.guna2Panel3.Controls.Add(this.btnSave);
+            this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.guna2Panel3.Location = new System.Drawing.Point(0, 675);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(978, 113);
+            this.guna2Panel3.TabIndex = 11;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.Controls.Add(this.guna2Panel1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.guna2Panel4, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(978, 675);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.Controls.Add(this.lblMaNhaCungCap);
+            this.guna2Panel1.Controls.Add(this.lblTenNhaCungCap);
+            this.guna2Panel1.Controls.Add(this.lblDiaChi);
+            this.guna2Panel1.Controls.Add(this.lblSoDienThoai);
+            this.guna2Panel1.Controls.Add(this.lblEmail);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel1.Location = new System.Drawing.Point(3, 3);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(385, 669);
+            this.guna2Panel1.TabIndex = 0;
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.Controls.Add(this.txtMaNhaCungCap);
+            this.guna2Panel4.Controls.Add(this.txtTenNhaCungCap);
+            this.guna2Panel4.Controls.Add(this.txtDiaChi);
+            this.guna2Panel4.Controls.Add(this.txtSoDienThoai);
+            this.guna2Panel4.Controls.Add(this.txtEmail);
+            this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel4.Location = new System.Drawing.Point(394, 3);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(581, 669);
+            this.guna2Panel4.TabIndex = 1;
+            // 
+            // guna2Elipse1
+            // 
+            this.guna2Elipse1.TargetControl = this;
             // 
             // NhaCungCapFormAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(488, 366);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
+            this.ClientSize = new System.Drawing.Size(978, 788);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.txtSoDienThoai);
-            this.Controls.Add(this.txtDiaChi);
-            this.Controls.Add(this.txtTenNhaCungCap);
-            this.Controls.Add(this.txtMaNhaCungCap);
-            this.Controls.Add(this.lblEmail);
-            this.Controls.Add(this.lblSoDienThoai);
-            this.Controls.Add(this.lblDiaChi);
-            this.Controls.Add(this.lblTenNhaCungCap);
-            this.Controls.Add(this.lblMaNhaCungCap);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.guna2Panel3);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NhaCungCapFormAdd";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Thêm Nhà Cung Cấp";
+            this.guna2Panel3.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel1.PerformLayout();
+            this.guna2Panel4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
-
-
-           
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblMaNhaCungCap; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblTenNhaCungCap; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblDiaChi; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblSoDienThoai; // Renamed
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblEmail; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtMaNhaCungCap; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtTenNhaCungCap; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtDiaChi; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtSoDienThoai; // Renamed
-        private Guna.UI2.WinForms.Guna2TextBox txtEmail; // Renamed
-        private System.Windows.Forms.Label labelTitle; // Added
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblMaNhaCungCap;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblTenNhaCungCap;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblDiaChi;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblSoDienThoai;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblEmail;
+        private Guna.UI2.WinForms.Guna2TextBox txtMaNhaCungCap;
+        private Guna.UI2.WinForms.Guna2TextBox txtTenNhaCungCap;
+        private Guna.UI2.WinForms.Guna2TextBox txtDiaChi;
+        private Guna.UI2.WinForms.Guna2TextBox txtSoDienThoai;
+        private Guna.UI2.WinForms.Guna2TextBox txtEmail;
+        private System.Windows.Forms.Label labelTitle;
         private Guna.UI2.WinForms.Guna2Button btnCancel;
-        private Guna.UI2.WinForms.Guna2Button btnSave;
-       
+        private Guna.UI2.WinForms.Guna2Button btnSave; // Kept name btnSave, will update text/color for Add
+
+        // Added panel and table layout controls
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
+        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1; // Added Guna2Elipse
+
     }
 }

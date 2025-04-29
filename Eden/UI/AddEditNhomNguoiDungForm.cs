@@ -133,8 +133,15 @@ namespace Eden
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            //this.DialogResult = DialogResult.Cancel;
+            //this.Close();
+            NhomNguoiDungForm form = new NhomNguoiDungForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
     }
 }

@@ -52,7 +52,14 @@ namespace Eden.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+            NhaCungCapForm form = new NhaCungCapForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

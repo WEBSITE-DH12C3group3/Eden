@@ -169,11 +169,18 @@ namespace Eden
         // Mở form thêm hóa đơn
         private void addhoadon_Click(object sender, EventArgs e)
         {
-            using (HoaDonAdd formAdd = new HoaDonAdd())
-            {
-                formAdd.FormClosed += (s, args) => LoadData(); // Làm mới danh sách sau khi thêm
-                formAdd.ShowDialog();
-            }
+            //using (HoaDonAdd formAdd = new HoaDonAdd())
+            //{
+            //    formAdd.FormClosed += (s, args) => LoadData(); // Làm mới danh sách sau khi thêm
+            //    formAdd.ShowDialog();
+            //}
+            var form = new HoaDonAdd();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         // Xóa hóa đơn
@@ -212,10 +219,17 @@ namespace Eden
             {
                 string maHoaDon = dghoadon.CurrentRow.Cells["MaHoaDon"].Value.ToString();
                 int idHoaDon = int.Parse(maHoaDon.Replace("HD", ""));
-                using (HoaDonChiTiet formCT = new HoaDonChiTiet(idHoaDon))
-                {
-                    formCT.ShowDialog();
-                }
+                //using (HoaDonChiTiet formCT = new HoaDonChiTiet(idHoaDon))
+                //{
+                //    formCT.ShowDialog();
+                //}
+                var form = new HoaDonChiTiet(idHoaDon);
+                this.Controls.Clear();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
             }
             else
             {

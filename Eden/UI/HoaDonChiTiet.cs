@@ -82,7 +82,14 @@ namespace Eden.UI
         private void back_Click(object sender, EventArgs e)
         {
             // Đóng form hiện tại và quay lại HoaDonForm
-            this.Close();
+            // this.Close();
+            HoaDonForm form = new HoaDonForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void HoaDonChiTiet_Load(object sender, EventArgs e)

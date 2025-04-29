@@ -96,13 +96,21 @@ namespace Eden
         {
             try
             {
-                using (var form = new AddEditNhomNguoiDungForm(null))
-                {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
-                }
+                //using (var form = new AddEditNhomNguoiDungForm(null))
+                //{
+                //    if (form.ShowDialog() == DialogResult.OK)
+                //    {
+                //        LoadData();
+                //    }
+                //}
+                var form = new AddEditNhomNguoiDungForm(null);
+                this.Controls.Clear();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
+                LoadData();
             }
             catch (Exception ex)
             {
@@ -128,13 +136,21 @@ namespace Eden
                     return;
                 }
 
-                using (var form = new AddEditNhomNguoiDungForm(nhom))
-                {
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
-                }
+                //using (var form = new AddEditNhomNguoiDungForm(nhom))
+                //{
+                //    if (form.ShowDialog() == DialogResult.OK)
+                //    {
+                //        LoadData();
+                //    }
+                //}
+                var form = new AddEditNhomNguoiDungForm(nhom);
+                this.Controls.Clear();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
+                LoadData();
             }
             catch (Exception ex)
             {
@@ -251,7 +267,6 @@ namespace Eden
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            
             currentPage = 1;
             LoadData();
         }

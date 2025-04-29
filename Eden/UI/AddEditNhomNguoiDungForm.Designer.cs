@@ -32,14 +32,25 @@
             this.labelTitle = new System.Windows.Forms.Label();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.guna2Panel2.SuspendLayout();
+            this.guna2Panel3.SuspendLayout();
+            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTenNhom
             // 
+            this.lblTenNhom.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenNhom.AutoSize = true;
             this.lblTenNhom.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenNhom.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTenNhom.Location = new System.Drawing.Point(50, 80);
+            this.lblTenNhom.Location = new System.Drawing.Point(223, 148);
             this.lblTenNhom.Name = "lblTenNhom";
             this.lblTenNhom.Size = new System.Drawing.Size(81, 21);
             this.lblTenNhom.TabIndex = 1;
@@ -47,6 +58,7 @@
             // 
             // txtTenNhom
             // 
+            this.txtTenNhom.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txtTenNhom.BorderColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenNhom.BorderRadius = 10;
             this.txtTenNhom.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -59,7 +71,7 @@
             this.txtTenNhom.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTenNhom.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenNhom.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtTenNhom.Location = new System.Drawing.Point(149, 75);
+            this.txtTenNhom.Location = new System.Drawing.Point(22, 143);
             this.txtTenNhom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTenNhom.Name = "txtTenNhom";
             this.txtTenNhom.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -70,10 +82,11 @@
             // 
             // lblQuyen
             // 
+            this.lblQuyen.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblQuyen.AutoSize = true;
             this.lblQuyen.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQuyen.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblQuyen.Location = new System.Drawing.Point(50, 130);
+            this.lblQuyen.Location = new System.Drawing.Point(223, 238);
             this.lblQuyen.Name = "lblQuyen";
             this.lblQuyen.Size = new System.Drawing.Size(56, 21);
             this.lblQuyen.TabIndex = 3;
@@ -81,13 +94,14 @@
             // 
             // listViewQuyen
             // 
+            this.listViewQuyen.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.listViewQuyen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             this.listViewQuyen.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewQuyen.CheckBoxes = true;
             this.listViewQuyen.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewQuyen.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.listViewQuyen.HideSelection = false;
-            this.listViewQuyen.Location = new System.Drawing.Point(149, 130);
+            this.listViewQuyen.Location = new System.Drawing.Point(22, 198);
             this.listViewQuyen.Name = "listViewQuyen";
             this.listViewQuyen.Size = new System.Drawing.Size(261, 264);
             this.listViewQuyen.TabIndex = 4;
@@ -100,7 +114,7 @@
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(20, 20);
+            this.labelTitle.Location = new System.Drawing.Point(21, 19);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(428, 32);
             this.labelTitle.TabIndex = 0;
@@ -108,6 +122,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSave.BorderRadius = 10;
             this.btnSave.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnSave.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -118,16 +133,17 @@
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Eden.Properties.Resources.edit;
             this.btnSave.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnSave.Location = new System.Drawing.Point(274, 418);
+            this.btnSave.Location = new System.Drawing.Point(579, 29);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(126, 40);
+            this.btnSave.Size = new System.Drawing.Size(174, 61);
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Lưu";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnCancel.BorderRadius = 10;
             this.btnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -138,27 +154,77 @@
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Image = global::Eden.Properties.Resources.del;
             this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCancel.Location = new System.Drawing.Point(92, 418);
+            this.btnCancel.Location = new System.Drawing.Point(247, 29);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(126, 40);
+            this.btnCancel.Size = new System.Drawing.Size(174, 61);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.Controls.Add(this.btnCancel);
+            this.guna2Panel1.Controls.Add(this.btnSave);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 631);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(962, 118);
+            this.guna2Panel1.TabIndex = 12;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.tableLayoutPanel1.Controls.Add(this.guna2Panel3, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.guna2Panel2, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(962, 631);
+            this.tableLayoutPanel1.TabIndex = 13;
+            // 
+            // guna2Panel2
+            // 
+            this.guna2Panel2.Controls.Add(this.lblTenNhom);
+            this.guna2Panel2.Controls.Add(this.lblQuyen);
+            this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel2.Location = new System.Drawing.Point(3, 3);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(330, 625);
+            this.guna2Panel2.TabIndex = 0;
+            // 
+            // guna2Panel3
+            // 
+            this.guna2Panel3.Controls.Add(this.txtTenNhom);
+            this.guna2Panel3.Controls.Add(this.listViewQuyen);
+            this.guna2Panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel3.Location = new System.Drawing.Point(339, 3);
+            this.guna2Panel3.Name = "guna2Panel3";
+            this.guna2Panel3.Size = new System.Drawing.Size(620, 625);
+            this.guna2Panel3.TabIndex = 1;
+            // 
+            // guna2Panel4
+            // 
+            this.guna2Panel4.Controls.Add(this.labelTitle);
+            this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.guna2Panel4.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(962, 64);
+            this.guna2Panel4.TabIndex = 14;
             // 
             // AddEditNhomNguoiDungForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(467, 478);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.listViewQuyen);
-            this.Controls.Add(this.lblQuyen);
-            this.Controls.Add(this.txtTenNhom);
-            this.Controls.Add(this.lblTenNhom);
+            this.ClientSize = new System.Drawing.Size(962, 749);
+            this.Controls.Add(this.guna2Panel4);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.guna2Panel1);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -166,12 +232,23 @@
             this.Name = "AddEditNhomNguoiDungForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Thêm/Chỉnh Sửa Nhóm Người Dùng";
+            this.guna2Panel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel2.PerformLayout();
+            this.guna2Panel3.ResumeLayout(false);
+            this.guna2Panel4.ResumeLayout(false);
+            this.guna2Panel4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         private Guna2Button btnSave;
         private Guna2Button btnCancel;
+        private Guna2Panel guna2Panel1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Guna2Panel guna2Panel3;
+        private Guna2Panel guna2Panel2;
+        private Guna2Panel guna2Panel4;
     }
 }
