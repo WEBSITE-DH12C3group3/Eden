@@ -49,7 +49,14 @@ namespace Eden.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+            KhachHangForm formAdd = new KhachHangForm();
+            this.Controls.Clear();
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

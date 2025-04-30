@@ -626,7 +626,14 @@ namespace Eden
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            //Close();
+            var form = new NhapKhoForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -669,6 +676,14 @@ namespace Eden
                 MessageBox.Show($"Đơn giá vượt quá giới hạn ({MAX_MONEY_VALUE:N0}). Vui lòng nhập giá trị nhỏ hơn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDonGia.Text = MAX_MONEY_VALUE.ToString("F0");
             }
+        }
+
+        private void guna2PanelItem_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+        private void guna2PanelTop_Paint(object sender, PaintEventArgs e)
+        {
         }
     }
 }

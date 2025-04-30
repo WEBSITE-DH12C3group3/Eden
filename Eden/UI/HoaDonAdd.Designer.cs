@@ -209,10 +209,11 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // lblTongTienLabel
             // 
+            this.lblTongTienLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTongTienLabel.BackColor = System.Drawing.Color.Transparent;
             this.lblTongTienLabel.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTongTienLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTongTienLabel.Location = new System.Drawing.Point(56, 31);
+            this.lblTongTienLabel.Location = new System.Drawing.Point(741, 35);
             this.lblTongTienLabel.Margin = new System.Windows.Forms.Padding(2);
             this.lblTongTienLabel.Name = "lblTongTienLabel";
             this.lblTongTienLabel.Size = new System.Drawing.Size(94, 27);
@@ -221,15 +222,17 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // lblTongTien
             // 
+            this.lblTongTien.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTongTien.BackColor = System.Drawing.Color.Transparent;
             this.lblTongTien.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTongTien.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTongTien.Location = new System.Drawing.Point(156, 31);
+            this.lblTongTien.Location = new System.Drawing.Point(839, 35);
             this.lblTongTien.Margin = new System.Windows.Forms.Padding(2);
             this.lblTongTien.Name = "lblTongTien";
             this.lblTongTien.Size = new System.Drawing.Size(33, 27);
             this.lblTongTien.TabIndex = 11;
             this.lblTongTien.Text = "0 Đ";
+            this.lblTongTien.Click += new System.EventHandler(this.lblTongTien_Click);
             // 
             // btnSave
             // 
@@ -244,7 +247,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.Image = global::Eden.Properties.Resources.add;
             this.btnSave.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnSave.Location = new System.Drawing.Point(625, 14);
+            this.btnSave.Location = new System.Drawing.Point(588, 14);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(174, 61);
@@ -370,8 +373,6 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             this.guna2PanelBottom.Controls.Add(this.btnCancel);
             this.guna2PanelBottom.Controls.Add(this.btnSave);
-            this.guna2PanelBottom.Controls.Add(this.lblTongTien);
-            this.guna2PanelBottom.Controls.Add(this.lblTongTienLabel);
             this.guna2PanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.guna2PanelBottom.Location = new System.Drawing.Point(0, 632);
             this.guna2PanelBottom.Name = "guna2PanelBottom";
@@ -391,7 +392,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.btnCancel.ForeColor = System.Drawing.Color.White;
             this.btnCancel.Image = global::Eden.Properties.Resources.del;
             this.btnCancel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnCancel.Location = new System.Drawing.Point(298, 14);
+            this.btnCancel.Location = new System.Drawing.Point(227, 14);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(174, 61);
@@ -401,9 +402,13 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // guna2PanelItem
             // 
+            this.guna2PanelItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2PanelItem.Controls.Add(this.btnXoaChiTiet);
             this.guna2PanelItem.Controls.Add(this.lblSanPham);
+            this.guna2PanelItem.Controls.Add(this.lblTongTien);
             this.guna2PanelItem.Controls.Add(this.cbSanPham);
+            this.guna2PanelItem.Controls.Add(this.lblTongTienLabel);
             this.guna2PanelItem.Controls.Add(this.lblSoLuongLabel);
             this.guna2PanelItem.Controls.Add(this.txtSoLuong);
             this.guna2PanelItem.Controls.Add(this.btnAddItem);
@@ -449,7 +454,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.dgvChiTiet.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.WhiteSmoke;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.WhiteSmoke;
@@ -457,13 +462,13 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvChiTiet.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvChiTiet.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(81)))));
-            this.dgvChiTiet.Location = new System.Drawing.Point(34, 0);
+            this.dgvChiTiet.Location = new System.Drawing.Point(34, 13);
             this.dgvChiTiet.Margin = new System.Windows.Forms.Padding(2);
             this.dgvChiTiet.Name = "dgvChiTiet";
             this.dgvChiTiet.RowHeadersVisible = false;
             this.dgvChiTiet.RowHeadersWidth = 51;
             this.dgvChiTiet.RowTemplate.Height = 35;
-            this.dgvChiTiet.Size = new System.Drawing.Size(900, 294);
+            this.dgvChiTiet.Size = new System.Drawing.Size(900, 276);
             this.dgvChiTiet.TabIndex = 9;
             this.dgvChiTiet.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             this.dgvChiTiet.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -514,7 +519,6 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.guna2PanelTop.ResumeLayout(false);
             this.guna2PanelTop.PerformLayout();
             this.guna2PanelBottom.ResumeLayout(false);
-            this.guna2PanelBottom.PerformLayout();
             this.guna2PanelItem.ResumeLayout(false);
             this.guna2PanelItem.PerformLayout();
             this.guna2Panel1.ResumeLayout(false);

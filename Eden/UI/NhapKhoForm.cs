@@ -113,6 +113,7 @@ namespace Eden
                             .Where(p => DbFunctions.TruncateTime(p.NgayNhap) >= tuNgay
                                      && DbFunctions.TruncateTime(p.NgayNhap) <= denNgay);
                         break;
+
                     case "Lọc theo nhà cung cấp":
                         if (cmbNhaCungCap.SelectedValue != null && int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
                         {
@@ -125,6 +126,7 @@ namespace Eden
                             return new List<PHIEUNHAP>();
                         }
                         break;
+
                     case "Lọc theo tổng tiền":
                         if (!decimal.TryParse(txtTongTienTu.Text, out decimal tongTienTu) || tongTienTu < 0)
                         {
@@ -213,9 +215,11 @@ namespace Eden
                         lblTuNgay.Visible = true;
                         lblDenNgay.Visible = true;
                         break;
+
                     case "Lọc theo nhà cung cấp":
                         cmbNhaCungCap.Visible = true;
                         break;
+
                     case "Lọc theo tổng tiền":
                         txtTongTienTu.Visible = true;
                         txtTongTienDen.Visible = true;
@@ -290,13 +294,20 @@ namespace Eden
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var formAdd = new NhapKhoFormAdd())
-            {
-                if (formAdd.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData(searchTerm);
-                }
-            }
+            //using (var formAdd = new NhapKhoFormAdd())
+            //{
+            //    if (formAdd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        LoadData(searchTerm);
+            //    }
+            //}
+            var form = new NhapKhoFormAdd();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -314,13 +325,20 @@ namespace Eden
                 return;
             }
 
-            using (var formAdd = new NhapKhoFormAdd(maPhieuNhap))
-            {
-                if (formAdd.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData(searchTerm);
-                }
-            }
+            //using (var formAdd = new NhapKhoFormAdd(maPhieuNhap))
+            //{
+            //    if (formAdd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        LoadData(searchTerm);
+            //    }
+            //}
+            var form = new NhapKhoFormAdd(maPhieuNhap);
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -506,7 +524,13 @@ namespace Eden
                     try
                     {
                         var form = new CHITIETPHIEUNHAPFORM(maPhieuNhap);
-                        form.ShowDialog();
+                        //form.ShowDialog();
+                        this.Controls.Clear();
+                        form.TopLevel = false;
+                        form.FormBorderStyle = FormBorderStyle.None;
+                        form.Dock = DockStyle.Fill;
+                        this.Controls.Add(form);
+                        form.Show();
                     }
                     catch (Exception ex)
                     {
@@ -526,7 +550,6 @@ namespace Eden
 
         private void txtTongTienTu_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

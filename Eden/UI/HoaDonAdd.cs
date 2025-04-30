@@ -296,5 +296,10 @@ namespace Eden.UI
             this.Controls.Add(formAdd);
             formAdd.Show();
         }
+
+        private void lblTongTien_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

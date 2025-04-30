@@ -188,11 +188,19 @@ namespace Eden
             {
                 string maKH = dgkhachhang.CurrentRow.Cells["MaKhachHang"].Value.ToString();
 
-                using (KhachHangsua formSua = new KhachHangsua(maKH))
-                {
-                    formSua.FormClosed += (s, args) => LoadData();
-                    formSua.ShowDialog();
-                }
+                //using (KhachHangsua formSua = new KhachHangsua(maKH))
+                //{
+                //    formSua.FormClosed += (s, args) => LoadData();
+                //    formSua.ShowDialog();
+                //}
+
+                KhachHangsua formSua = new KhachHangsua(maKH);
+                this.Controls.Clear();
+                formSua.TopLevel = false;
+                formSua.FormBorderStyle = FormBorderStyle.None;
+                formSua.Dock = DockStyle.Fill;
+                this.Controls.Add(formSua);
+                formSua.Show();
             }
             else
             {

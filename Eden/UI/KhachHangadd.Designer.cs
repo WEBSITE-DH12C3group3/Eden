@@ -57,12 +57,12 @@
             this.lblMaKhachHang.BackColor = System.Drawing.Color.Transparent;
             this.lblMaKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblMaKhachHang.Location = new System.Drawing.Point(240, 242);
+            this.lblMaKhachHang.Location = new System.Drawing.Point(240, 202);
             this.lblMaKhachHang.Margin = new System.Windows.Forms.Padding(2);
             this.lblMaKhachHang.Name = "lblMaKhachHang";
-            this.lblMaKhachHang.Size = new System.Drawing.Size(112, 23);
+            this.lblMaKhachHang.Size = new System.Drawing.Size(115, 23);
             this.lblMaKhachHang.TabIndex = 1;
-            this.lblMaKhachHang.Text = "Mã Khách Hàng";
+            this.lblMaKhachHang.Text = "Mã Khách Hàng:";
             // 
             // lblTenKhachHang
             // 
@@ -70,12 +70,12 @@
             this.lblTenKhachHang.BackColor = System.Drawing.Color.Transparent;
             this.lblTenKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTenKhachHang.Location = new System.Drawing.Point(240, 312);
+            this.lblTenKhachHang.Location = new System.Drawing.Point(240, 272);
             this.lblTenKhachHang.Margin = new System.Windows.Forms.Padding(2);
             this.lblTenKhachHang.Name = "lblTenKhachHang";
-            this.lblTenKhachHang.Size = new System.Drawing.Size(115, 23);
+            this.lblTenKhachHang.Size = new System.Drawing.Size(118, 23);
             this.lblTenKhachHang.TabIndex = 2;
-            this.lblTenKhachHang.Text = "Tên Khách Hàng";
+            this.lblTenKhachHang.Text = "Tên Khách Hàng:";
             // 
             // lblDiaChi
             // 
@@ -83,12 +83,12 @@
             this.lblDiaChi.BackColor = System.Drawing.Color.Transparent;
             this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblDiaChi.Location = new System.Drawing.Point(240, 382);
+            this.lblDiaChi.Location = new System.Drawing.Point(240, 342);
             this.lblDiaChi.Margin = new System.Windows.Forms.Padding(2);
             this.lblDiaChi.Name = "lblDiaChi";
-            this.lblDiaChi.Size = new System.Drawing.Size(53, 23);
+            this.lblDiaChi.Size = new System.Drawing.Size(56, 23);
             this.lblDiaChi.TabIndex = 3;
-            this.lblDiaChi.Text = "Địa Chỉ";
+            this.lblDiaChi.Text = "Địa Chỉ:";
             // 
             // lblSoDienThoai
             // 
@@ -96,12 +96,12 @@
             this.lblSoDienThoai.BackColor = System.Drawing.Color.Transparent;
             this.lblSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblSoDienThoai.Location = new System.Drawing.Point(240, 452);
+            this.lblSoDienThoai.Location = new System.Drawing.Point(240, 412);
             this.lblSoDienThoai.Margin = new System.Windows.Forms.Padding(2);
             this.lblSoDienThoai.Name = "lblSoDienThoai";
-            this.lblSoDienThoai.Size = new System.Drawing.Size(99, 23);
+            this.lblSoDienThoai.Size = new System.Drawing.Size(102, 23);
             this.lblSoDienThoai.TabIndex = 4;
-            this.lblSoDienThoai.Text = "Số Điện Thoại";
+            this.lblSoDienThoai.Text = "Số Điện Thoại:";
             // 
             // lblEmail
             // 
@@ -109,12 +109,12 @@
             this.lblEmail.BackColor = System.Drawing.Color.Transparent;
             this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblEmail.Location = new System.Drawing.Point(240, 522);
+            this.lblEmail.Location = new System.Drawing.Point(240, 482);
             this.lblEmail.Margin = new System.Windows.Forms.Padding(2);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(41, 23);
+            this.lblEmail.Size = new System.Drawing.Size(44, 23);
             this.lblEmail.TabIndex = 5;
-            this.lblEmail.Text = "Email";
+            this.lblEmail.Text = "Email:";
             // 
             // txtMaKhachHang
             // 
@@ -131,7 +131,7 @@
             this.txtMaKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMaKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtMaKhachHang.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtMaKhachHang.Location = new System.Drawing.Point(30, 237);
+            this.txtMaKhachHang.Location = new System.Drawing.Point(35, 199);
             this.txtMaKhachHang.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtMaKhachHang.Name = "txtMaKhachHang";
             this.txtMaKhachHang.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -155,7 +155,7 @@
             this.txtTenKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTenKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtTenKhachHang.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtTenKhachHang.Location = new System.Drawing.Point(30, 307);
+            this.txtTenKhachHang.Location = new System.Drawing.Point(35, 269);
             this.txtTenKhachHang.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTenKhachHang.Name = "txtTenKhachHang";
             this.txtTenKhachHang.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -179,7 +179,7 @@
             this.txtDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtDiaChi.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtDiaChi.Location = new System.Drawing.Point(30, 377);
+            this.txtDiaChi.Location = new System.Drawing.Point(35, 339);
             this.txtDiaChi.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -203,7 +203,7 @@
             this.txtSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtSoDienThoai.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtSoDienThoai.Location = new System.Drawing.Point(30, 447);
+            this.txtSoDienThoai.Location = new System.Drawing.Point(35, 409);
             this.txtSoDienThoai.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtSoDienThoai.Name = "txtSoDienThoai";
             this.txtSoDienThoai.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -227,7 +227,7 @@
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtEmail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.txtEmail.Location = new System.Drawing.Point(30, 517);
+            this.txtEmail.Location = new System.Drawing.Point(35, 479);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -303,8 +303,8 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.guna2Panel1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.guna2Panel4, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -325,7 +325,7 @@
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.Location = new System.Drawing.Point(3, 3);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(385, 669);
+            this.guna2Panel1.Size = new System.Drawing.Size(483, 669);
             this.guna2Panel1.TabIndex = 0;
             // 
             // guna2Panel4
@@ -336,9 +336,9 @@
             this.guna2Panel4.Controls.Add(this.txtSoDienThoai);
             this.guna2Panel4.Controls.Add(this.txtEmail);
             this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel4.Location = new System.Drawing.Point(394, 3);
+            this.guna2Panel4.Location = new System.Drawing.Point(492, 3);
             this.guna2Panel4.Name = "guna2Panel4";
-            this.guna2Panel4.Size = new System.Drawing.Size(581, 669);
+            this.guna2Panel4.Size = new System.Drawing.Size(483, 669);
             this.guna2Panel4.TabIndex = 1;
             // 
             // KhachHangadd

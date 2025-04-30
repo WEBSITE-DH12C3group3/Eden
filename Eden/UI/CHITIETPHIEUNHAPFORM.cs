@@ -76,7 +76,14 @@ namespace Eden.UI
 
         private void btnQuayLai_Click(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+            NhapKhoForm form = new NhapKhoForm();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
     }
 }
