@@ -229,7 +229,245 @@ namespace Eden
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
-            ExportThongKeToExcel();
+            try
+            {
+                // --- 1. Chuẩn bị dữ liệu (Giữ nguyên từ mã gốc của bạn) ---
+                DataTable dt = new DataTable("DoanhThu");
+                dt.Columns.Add("Ngày", typeof(string)); // Hoặc typeof(DateTime) nếu item.Date là DateTime
+                dt.Columns.Add("Tổng Doanh Thu", typeof(decimal));
+
+                // Giả định 'model' và 'model.GrossRevenueList' đã có dữ liệu
+                foreach (var item in model.GrossRevenueList)
+                {
+                    dt.Rows.Add(item.Date, item.TotalAmount);
+                }
+
+                DataTable dtUnderstock = new DataTable("TonKhoThap");
+                dtUnderstock.Columns.Add("Tên Sản Phẩm", typeof(string));
+                dtUnderstock.Columns.Add("Số Lượng", typeof(double)); // Hoặc typeof(int) tùy loại dữ liệu
+
+                // Giả định 'model' và 'model.UnderstockList' đã có dữ liệu
+                foreach (var row in model.UnderstockList)
+                {
+                    dtUnderstock.Rows.Add(row.Name, row.Quantity);
+                }
+
+                // Kiểm tra dữ liệu trước khi xuất
+                if ((dt.Rows.Count == 0) && (dtUnderstock.Rows.Count == 0))
+                {
+                    MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // --- 2. Chọn vị trí lưu file ---
+                SaveFileDialog saveDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Workbook|*.xlsx",
+                    FileName = $"ThongKeChiTiet_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx",
+                    Title = "Lưu file Excel Thống Kê Chi Tiết" // Thêm tiêu đề cho dialog
+                };
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // --- 3. Tạo và điền dữ liệu vào Workbook sử dụng ClosedXML ---
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        // --- Xử lý Sheet "Doanh Thu" ---
+                        var ws1 = wb.Worksheets.Add("Doanh Thu");
+
+                        // Thiết lập kích thước giấy A4 và các cài đặt in (từ mã mẫu)
+                        ws1.PageSetup.PaperSize = XLPaperSize.A4Paper;
+                        ws1.PageSetup.Margins.Left = 0.5; // Lề trái 0.5 inch
+                        ws1.PageSetup.Margins.Right = 0.5; // Lề phải 0.5 inch
+                        ws1.PageSetup.Margins.Top = 0.75; // Lề trên 0.75 inch
+                        ws1.PageSetup.Margins.Bottom = 0.75; // Lề dưới 0.75 inch
+                        ws1.PageSetup.CenterHorizontally = true; // Căn giữa ngang khi in
+                        ws1.PageSetup.PageOrientation = XLPageOrientation.Portrait; // Hướng giấy dọc
+
+                        // Thêm tiêu đề chính (từ mã mẫu - áp dụng cho báo cáo chung)
+                        ws1.Cell(1, 1).Value = "BÁO CÁO THỐNG KÊ";
+                        ws1.Cell(1, 1).Style.Font.Bold = true;
+                        ws1.Cell(1, 1).Style.Font.FontSize = 18;
+                        ws1.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; // Căn giữa
+                        ws1.Range(1, 1, 1, dt.Columns.Count).Merge(); // Merge các cột tương ứng với dữ liệu
+
+                        // Thêm tiêu đề Sheet (từ mã mẫu - áp dụng cho sheet này)
+                        ws1.Cell(2, 1).Value = "Báo Cáo Doanh Từ " + dtpStartDate.Value.ToString("dd/MM/yyyy") + " đến " + dtpEndDate.Value.ToString("dd/MM/yyyy");
+                        ws1.Cell(2, 1).Style.Font.Bold = true;
+                        ws1.Cell(2, 1).Style.Font.FontSize = 14;
+                        ws1.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; // Căn giữa
+                        ws1.Range(2, 1, 2, dt.Columns.Count).Merge(); // Merge các cột tương ứng với dữ liệu
+
+                        // Thông tin người xuất và ngày xuất (từ mã mẫu)
+                        string userName = CurrentUser.Username; // Lấy thông tin người dùng
+                        string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                        // Đặt thông tin người xuất và ngày xuất ở góc phải, căn chỉnh phù hợp với số cột dữ liệu
+                        int lastColumn1 = dt.Columns.Count;
+                        ws1.Cell(3, lastColumn1 - 1).Value = $"Người xuất: {userName}"; // Đặt ở cột cuối - 1
+                        ws1.Cell(3, lastColumn1 - 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        ws1.Cell(3, lastColumn1 - 1).Style.Font.Bold = true;
+                        ws1.Range(3, lastColumn1 - 1, 3, lastColumn1).Merge();
+
+                        ws1.Cell(4, lastColumn1 - 1).Value = $"Ngày xuất: {exportDateTime}"; // Đặt ở cột cuối - 1
+                        ws1.Cell(4, lastColumn1 - 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        ws1.Cell(4, lastColumn1 - 1).Style.Font.Bold = true;
+                        ws1.Range(4, lastColumn1 - 1, 4, lastColumn1).Merge();
+
+                        // Thêm dữ liệu từ DataTable, bắt đầu từ hàng 6 để chừa chỗ cho tiêu đề (từ mã mẫu)
+                        // Sử dụng InsertTable để tạo cấu trúc bảng và dễ dàng định dạng
+                        var dataRange1 = ws1.Cell(6, 1).InsertTable(dt.AsEnumerable(), "tblDoanhThu").AsRange();
+
+                        // Định dạng tiêu đề cột (từ mã mẫu)
+                        var headerRow1 = dataRange1.FirstRow();
+                        headerRow1.Style.Font.Bold = true;
+                        headerRow1.Style.Fill.BackgroundColor = XLColor.LightGray;
+                        headerRow1.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                        // Định dạng cột "Ngày" (Cột 1 trong DataTable)
+                        // ClosedXML nhận diện cột Ngày khi InsertTable, nhưng ta có thể định dạng lại nếu cần
+                        var ngayColumn1 = dataRange1.Column(1);
+                        // Kiểm tra nếu dữ liệu trong cột là chuỗi ngày tháng, có thể cần parse hoặc định dạng lại
+                        // Ví dụ: nếu dữ liệu là string "yyyy-MM-dd", bạn có thể muốn nó hiển thị "dd/MM/yyyy"
+                        // Nếu dt.Columns.Add("Ngày", typeof(string)); thì dữ liệu đã là chuỗi, có thể không cần format này
+                        // Nếu dt.Columns.Add("Ngày", typeof(DateTime)); thì dòng dưới sẽ có tác dụng
+                        // ngayColumn1.Style.DateFormat.Format = "dd/MM/yyyy";
+
+                        // Định dạng cột "Tổng Doanh Thu" (Cột 2 trong DataTable)
+                        var tongDoanhThuColumn = dataRange1.Column(2);
+                        tongDoanhThuColumn.Style.NumberFormat.Format = "#,##0"; // Định dạng số có dấu phân cách hàng nghìn
+
+                        // Thêm hàng tổng cộng ở cuối bảng (từ mã mẫu)
+                        var lastRow1 = dataRange1.LastRow().RowNumber();
+                        ws1.Cell(lastRow1 + 1, dataRange1.FirstColumn().ColumnNumber()).Value = "Tổng cộng:"; // Căn chỉnh cột tổng cộng
+                        ws1.Cell(lastRow1 + 1, dataRange1.Column(2).ColumnNumber()).FormulaA1 = $"=SUM({dataRange1.Column(2).RangeAddress.ToString()})"; // Công thức tính tổng
+                        ws1.Cell(lastRow1 + 1, dataRange1.FirstColumn().ColumnNumber()).Style.Font.Bold = true;
+                        ws1.Cell(lastRow1 + 1, dataRange1.Column(2).ColumnNumber()).Style.Font.Bold = true;
+                        ws1.Cell(lastRow1 + 1, dataRange1.Column(2).ColumnNumber()).Style.NumberFormat.Format = "#,##0"; // Định dạng số tổng cộng
+
+                        // Fix for the CS1061 error: 'IXLCell' does not contain a definition for 'RowNumber'.
+                        // The issue is that 'IXLCell' does not have a 'RowNumber' property. Instead, you can use the 'Address.RowNumber' property of the cell's address.
+
+                        int lastContentRow1 = ws1.LastCellUsed().Address.RowNumber; // Corrected to use Address.RowNumber
+                        ws1.Cell(lastContentRow1 + 2, 1).Value = "Địa chỉ: Cây nhà lá vườn";
+                        ws1.Cell(lastContentRow1 + 2, 1).Style.Font.Bold = true;
+                        ws1.Cell(lastContentRow1 + 2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                        ws1.Range(lastContentRow1 + 2, 1, lastContentRow1 + 2, lastColumn1).Merge(); // Merge các cột
+
+                        ws1.Cell(lastContentRow1 + 3, 1).Value = "Sdt: 0909090909";
+                        ws1.Cell(lastContentRow1 + 3, 1).Style.Font.Bold = true;
+                        ws1.Cell(lastContentRow1 + 3, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                        ws1.Range(lastContentRow1 + 3, 1, lastContentRow1 + 3, lastColumn1).Merge(); // Merge các cột
+
+                        // Tự động điều chỉnh độ rộng cột cho ws1
+                        //ws1.Columns().AdjustToContents();
+
+                        // Tăng độ rộng của cột thứ 2 ("Tổng Doanh Thu")
+                        // Bạn có thể thay đổi giá trị 20.0 này tùy theo độ rộng mong muốn
+                        ws1.Column(2).Width = 50.0;
+                        // Thêm đường viền cho bảng dữ liệu (từ mã mẫu)
+                        dataRange1.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        dataRange1.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                        // --- Xử lý Sheet "Tồn Kho Thấp" ---
+                        var ws2 = wb.Worksheets.Add("Tồn Kho Thấp");
+
+                        // Thiết lập kích thước giấy A4 và các cài đặt in (copy từ ws1)
+                        ws2.PageSetup.PaperSize = XLPaperSize.A4Paper;
+                        ws2.PageSetup.Margins.Left = 0.5; // Lề trái 0.5 inch
+                        ws2.PageSetup.Margins.Right = 0.5; // Lề phải 0.5 inch
+                        ws2.PageSetup.Margins.Top = 0.75; // Lề trên 0.75 inch
+                        ws2.PageSetup.Margins.Bottom = 0.75; // Lề dưới 0.75 inch
+                        ws2.PageSetup.CenterHorizontally = true; // Căn giữa ngang khi in
+                        ws2.PageSetup.PageOrientation = XLPageOrientation.Portrait; // Hướng giấy dọc
+
+                        // Thêm tiêu đề chính (giống ws1)
+                        ws2.Cell(1, 1).Value = "BÁO CÁO THỐNG KÊ";
+                        ws2.Cell(1, 1).Style.Font.Bold = true;
+                        ws2.Cell(1, 1).Style.Font.FontSize = 18;
+                        ws2.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; // Căn giữa
+                        ws2.Range(1, 1, 1, dtUnderstock.Columns.Count).Merge(); // Merge các cột tương ứng với dữ liệu
+
+                        // Thêm tiêu đề Sheet
+                        ws2.Cell(2, 1).Value = "Danh Sách Sản Phẩm Tồn Kho Thấp";
+                        ws2.Cell(2, 1).Style.Font.Bold = true;
+                        ws2.Cell(2, 1).Style.Font.FontSize = 14;
+                        ws2.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; // Căn giữa
+                        ws2.Range(2, 1, 2, dtUnderstock.Columns.Count).Merge(); // Merge các cột tương ứng với dữ liệu
+
+                        // Thông tin người xuất và ngày xuất (giống ws1)
+                        int lastColumn2 = dtUnderstock.Columns.Count;
+                        ws2.Cell(3, lastColumn2 - 1).Value = $"Người xuất: {userName}"; // Đặt ở cột cuối - 1
+                        ws2.Cell(3, lastColumn2 - 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        ws2.Cell(3, lastColumn2 - 1).Style.Font.Bold = true;
+                        ws2.Range(3, lastColumn2 - 1, 3, lastColumn2).Merge();
+
+                        ws2.Cell(4, lastColumn2 - 1).Value = $"Ngày xuất: {exportDateTime}"; // Đặt ở cột cuối - 1
+                        ws2.Cell(4, lastColumn2 - 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                        ws2.Cell(4, lastColumn2 - 1).Style.Font.Bold = true;
+                        ws2.Range(4, lastColumn2 - 1, 4, lastColumn2).Merge();
+
+                        // Thêm dữ liệu từ DataTable, bắt đầu từ hàng 6 (chừa chỗ cho tiêu đề)
+                        var dataRange2 = ws2.Cell(6, 1).InsertTable(dtUnderstock.AsEnumerable(), "tblTonKhoThap").AsRange();
+
+                        // Định dạng tiêu đề cột
+                        var headerRow2 = dataRange2.FirstRow();
+                        headerRow2.Style.Font.Bold = true;
+                        headerRow2.Style.Fill.BackgroundColor = XLColor.LightGray;
+                        headerRow2.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                        // Định dạng cột "Số Lượng" (Cột 2 trong DataTable)
+                        var soLuongColumn = dataRange2.Column(2);
+                        soLuongColumn.Style.NumberFormat.Format = "0"; // Định dạng số nguyên
+
+                        // Thêm hàng tổng cộng Số Lượng ở cuối bảng (nếu cần)
+                        // Lưu ý: Tính tổng số lượng các sản phẩm tồn kho thấp có thể không có ý nghĩa kinh doanh cao
+                        // nhưng chúng ta thêm vào để đáp ứng yêu cầu "đủ thông tin như ws1".
+                        var lastRow2 = dataRange2.LastRow().RowNumber();
+                        ws2.Cell(lastRow2 + 1, dataRange2.FirstColumn().ColumnNumber()).Value = "Tổng số lượng:"; // Căn chỉnh cột
+                        ws2.Cell(lastRow2 + 1, dataRange2.Column(2).ColumnNumber()).FormulaA1 = $"=SUM({dataRange2.Column(2).RangeAddress.ToString()})"; // Công thức tính tổng
+                        ws2.Cell(lastRow2 + 1, dataRange2.FirstColumn().ColumnNumber()).Style.Font.Bold = true;
+                        ws2.Cell(lastRow2 + 1, dataRange2.Column(2).ColumnNumber()).Style.Font.Bold = true;
+                        ws2.Cell(lastRow2 + 1, dataRange2.Column(2).ColumnNumber()).Style.NumberFormat.Format = "0"; // Định dạng số nguyên tổng
+
+                        // Thêm thông tin cửa hàng ở dưới cùng (giống ws1)
+                        int lastContentRow2 = ws2.LastCellUsed().Address.RowNumber; // Lấy hàng cuối cùng có nội dung
+                        ws2.Cell(lastContentRow2 + 2, 1).Value = "Địa chỉ: Cây nhà lá vườn";
+                        ws2.Cell(lastContentRow2 + 2, 1).Style.Font.Bold = true;
+                        ws2.Cell(lastContentRow2 + 2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                        ws2.Range(lastContentRow2 + 2, 1, lastContentRow2 + 2, lastColumn2).Merge(); // Merge các cột
+
+                        ws2.Cell(lastContentRow2 + 3, 1).Value = "Sdt: 0909090909";
+                        ws2.Cell(lastContentRow2 + 3, 1).Style.Font.Bold = true;
+                        ws2.Cell(lastContentRow2 + 3, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                        ws2.Range(lastContentRow2 + 3, 1, lastContentRow2 + 3, lastColumn2).Merge(); // Merge các cột
+
+                        // Thêm đường viền cho bảng dữ liệu
+                        dataRange2.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        dataRange2.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                        // Tự động điều chỉnh độ rộng cột cho ws2
+                        //ws2.Columns().AdjustToContents();
+
+                        // Tăng độ rộng của cột thứ 2 ("Số Lượng")
+                        // Bạn có thể thay đổi giá trị 15.0 này tùy theo độ rộng mong muốn
+                        ws2.Column(1).Width = 30.0;
+                        ws2.Column(2).Width = 20.0;
+
+                        // Lưu file
+                        wb.SaveAs(saveDialog.FileName);
+
+                        // Thông báo thành công (từ mã gốc và mã mẫu)
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi
+                MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Ghi log lỗi chi tiết nếu cần
+                System.Diagnostics.Debug.WriteLine($"[Export Excel Error] {ex.Message}\n{ex.StackTrace}");
+            }
         }
 
         private Bitmap CaptureForm()
@@ -277,55 +515,6 @@ namespace Eden
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi xuất PDF: " + ex.Message);
-            }
-        }
-
-        private void ExportThongKeToExcel()
-        {
-            try
-            {
-                DataTable dt = new DataTable("DoanhThu");
-                dt.Columns.Add("Ngày", typeof(string));
-                dt.Columns.Add("Tổng Doanh Thu", typeof(decimal));
-
-                foreach (var item in model.GrossRevenueList)
-                {
-                    dt.Rows.Add(item.Date, item.TotalAmount);
-                }
-
-                DataTable dtUnderstock = new DataTable("TonKhoThap");
-                dtUnderstock.Columns.Add("Tên Sản Phẩm", typeof(string));
-                dtUnderstock.Columns.Add("Số Lượng", typeof(double));
-
-                foreach (var row in model.UnderstockList)
-                {
-                    dtUnderstock.Rows.Add(row.Name, row.Quantity);
-                }
-
-                SaveFileDialog saveDialog = new SaveFileDialog
-                {
-                    Filter = "Excel Workbook|*.xlsx",
-                    FileName = $"ThongKeChiTiet_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
-                };
-
-                if (saveDialog.ShowDialog() == DialogResult.OK)
-                {
-                    using (XLWorkbook wb = new XLWorkbook())
-                    {
-                        var ws1 = wb.Worksheets.Add(dt, "Doanh Thu");
-                        var ws2 = wb.Worksheets.Add(dtUnderstock, "Tồn Kho Thấp");
-
-                        ws1.Columns().AdjustToContents();
-                        ws2.Columns().AdjustToContents();
-
-                        wb.SaveAs(saveDialog.FileName);
-                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
             }
         }
     }
