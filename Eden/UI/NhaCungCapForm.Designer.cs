@@ -70,8 +70,8 @@ namespace Eden
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.guna2DataGridViewNCC.DefaultCellStyle = dataGridViewCellStyle3;
             this.guna2DataGridViewNCC.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.guna2DataGridViewNCC.Location = new System.Drawing.Point(28, 123);
-            this.guna2DataGridViewNCC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2DataGridViewNCC.Location = new System.Drawing.Point(21, 100);
+            this.guna2DataGridViewNCC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.guna2DataGridViewNCC.Name = "guna2DataGridViewNCC";
             this.guna2DataGridViewNCC.ReadOnly = true;
             this.guna2DataGridViewNCC.RowHeadersVisible = false;
@@ -79,7 +79,7 @@ namespace Eden
             this.guna2DataGridViewNCC.RowTemplate.Height = 40;
             this.guna2DataGridViewNCC.RowTemplate.ReadOnly = true;
             this.guna2DataGridViewNCC.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.guna2DataGridViewNCC.Size = new System.Drawing.Size(1228, 533);
+            this.guna2DataGridViewNCC.Size = new System.Drawing.Size(921, 433);
             this.guna2DataGridViewNCC.TabIndex = 0;
             this.guna2DataGridViewNCC.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(54)))), ((int)(((byte)(93)))));
             this.guna2DataGridViewNCC.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -117,10 +117,10 @@ namespace Eden
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.Image = global::Eden.Properties.Resources.add;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(168, 837);
-            this.guna2Button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2Button1.Location = new System.Drawing.Point(126, 680);
+            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(213, 68);
+            this.guna2Button1.Size = new System.Drawing.Size(160, 55);
             this.guna2Button1.TabIndex = 1;
             this.guna2Button1.Text = "Thêm";
             this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
@@ -138,10 +138,10 @@ namespace Eden
             this.guna2Button2.ForeColor = System.Drawing.Color.White;
             this.guna2Button2.Image = global::Eden.Properties.Resources.edit;
             this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button2.Location = new System.Drawing.Point(421, 837);
-            this.guna2Button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2Button2.Location = new System.Drawing.Point(316, 680);
+            this.guna2Button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(213, 68);
+            this.guna2Button2.Size = new System.Drawing.Size(160, 55);
             this.guna2Button2.TabIndex = 2;
             this.guna2Button2.Text = "Sửa";
             this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
@@ -159,10 +159,10 @@ namespace Eden
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
             this.guna2Button3.Image = global::Eden.Properties.Resources.del;
             this.guna2Button3.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button3.Location = new System.Drawing.Point(675, 837);
-            this.guna2Button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2Button3.Location = new System.Drawing.Point(506, 680);
+            this.guna2Button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.Size = new System.Drawing.Size(213, 68);
+            this.guna2Button3.Size = new System.Drawing.Size(160, 55);
             this.guna2Button3.TabIndex = 3;
             this.guna2Button3.Text = "Xóa";
             this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
@@ -180,10 +180,10 @@ namespace Eden
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
             this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
             this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnExportExcel.Location = new System.Drawing.Point(928, 837);
-            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnExportExcel.Location = new System.Drawing.Point(696, 680);
+            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(213, 68);
+            this.btnExportExcel.Size = new System.Drawing.Size(160, 55);
             this.btnExportExcel.TabIndex = 4;
             this.btnExportExcel.Text = "Xuất Excel";
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
@@ -193,10 +193,9 @@ namespace Eden
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(24, 27);
-            this.labelTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTitle.Location = new System.Drawing.Point(18, 22);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(419, 50);
+            this.labelTitle.Size = new System.Drawing.Size(333, 40);
             this.labelTitle.TabIndex = 5;
             this.labelTitle.Text = "Quản Lý Nhà Cung Cấp";
             // 
@@ -218,14 +217,14 @@ namespace Eden
             this.txtSearch.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.txtSearch.IconLeft = global::Eden.Properties.Resources.seach;
             this.txtSearch.IconLeftOffset = new System.Drawing.Point(10, 0);
-            this.txtSearch.Location = new System.Drawing.Point(589, 27);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(5);
+            this.txtSearch.Location = new System.Drawing.Point(442, 22);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtSearch.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.LightGray;
             this.txtSearch.PlaceholderText = "Nhập tên nhà cung cấp";
             this.txtSearch.SelectedText = "";
-            this.txtSearch.Size = new System.Drawing.Size(667, 68);
+            this.txtSearch.Size = new System.Drawing.Size(500, 55);
             this.txtSearch.TabIndex = 11;
             this.txtSearch.TextOffset = new System.Drawing.Point(5, 0);
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -236,10 +235,10 @@ namespace Eden
             this.lblPageInfo.BackColor = System.Drawing.Color.Transparent;
             this.lblPageInfo.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPageInfo.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPageInfo.Location = new System.Drawing.Point(545, 693);
-            this.lblPageInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lblPageInfo.Location = new System.Drawing.Point(409, 563);
+            this.lblPageInfo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lblPageInfo.Name = "lblPageInfo";
-            this.lblPageInfo.Size = new System.Drawing.Size(106, 34);
+            this.lblPageInfo.Size = new System.Drawing.Size(84, 27);
             this.lblPageInfo.TabIndex = 14;
             this.lblPageInfo.Text = "Trang 1/1";
             // 
@@ -250,10 +249,9 @@ namespace Eden
             this.btnNext.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(675, 686);
-            this.btnNext.Margin = new System.Windows.Forms.Padding(4);
+            this.btnNext.Location = new System.Drawing.Point(506, 557);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(53, 49);
+            this.btnNext.Size = new System.Drawing.Size(40, 40);
             this.btnNext.TabIndex = 13;
             this.btnNext.Text = ">";
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -265,11 +263,10 @@ namespace Eden
             this.btnPrevious.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnPrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrevious.ForeColor = System.Drawing.Color.White;
-            this.btnPrevious.Location = new System.Drawing.Point(472, 686);
-            this.btnPrevious.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPrevious.Location = new System.Drawing.Point(354, 557);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnPrevious.Size = new System.Drawing.Size(53, 49);
+            this.btnPrevious.Size = new System.Drawing.Size(40, 40);
             this.btnPrevious.TabIndex = 12;
             this.btnPrevious.Text = "<";
             this.btnPrevious.Click += new System.EventHandler(this.btnPrev_Click);
@@ -282,23 +279,24 @@ namespace Eden
             this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button4.FillColor = System.Drawing.Color.Silver;
+            this.guna2Button4.FillColor = System.Drawing.Color.Gray;
             this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button4.ForeColor = System.Drawing.Color.White;
+            this.guna2Button4.Image = global::Eden.Properties.Resources._ref;
             this.guna2Button4.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button4.Location = new System.Drawing.Point(832, 686);
-            this.guna2Button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.guna2Button4.Location = new System.Drawing.Point(574, 557);
+            this.guna2Button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.guna2Button4.Name = "guna2Button4";
-            this.guna2Button4.Size = new System.Drawing.Size(143, 42);
+            this.guna2Button4.Size = new System.Drawing.Size(146, 40);
             this.guna2Button4.TabIndex = 15;
             this.guna2Button4.Text = "Làm mới";
             // 
             // NhaCungCapForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(1283, 922);
+            this.ClientSize = new System.Drawing.Size(962, 749);
             this.Controls.Add(this.guna2Button4);
             this.Controls.Add(this.lblPageInfo);
             this.Controls.Add(this.btnNext);
@@ -312,7 +310,7 @@ namespace Eden
             this.Controls.Add(this.guna2DataGridViewNCC);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "NhaCungCapForm";
             this.Text = "NhaCungCapForm";
             this.Load += new System.EventHandler(this.btnRefresh_Click);

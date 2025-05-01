@@ -81,7 +81,7 @@ namespace Eden
             if (switch1.Checked)
                 txtPw.PasswordChar = (char)0;
             else
-                txtPw.PasswordChar = '*';
+                txtPw.PasswordChar = '・';
         }
 
         protected override CreateParams CreateParams

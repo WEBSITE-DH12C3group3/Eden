@@ -112,7 +112,7 @@
             this.btnLog.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnLog.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnLog.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(115)))), ((int)(((byte)(173)))));
-            this.btnLog.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnLog.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLog.ForeColor = System.Drawing.Color.White;
             this.btnLog.Location = new System.Drawing.Point(104, 536);
             this.btnLog.Name = "btnLog";
@@ -125,11 +125,11 @@
             // 
             this.forgot.AutoSize = true;
             this.forgot.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.forgot.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.forgot.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.forgot.ForeColor = System.Drawing.Color.White;
-            this.forgot.Location = new System.Drawing.Point(229, 418);
+            this.forgot.Location = new System.Drawing.Point(227, 414);
             this.forgot.Name = "forgot";
-            this.forgot.Size = new System.Drawing.Size(95, 15);
+            this.forgot.Size = new System.Drawing.Size(120, 20);
             this.forgot.TabIndex = 4;
             this.forgot.Text = "Forgot password";
             this.forgot.Click += new System.EventHandler(this.forgot_Click);
@@ -137,11 +137,11 @@
             // guna2HtmlLabel1
             // 
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(91, 416);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(80, 412);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(85, 17);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(106, 22);
             this.guna2HtmlLabel1.TabIndex = 3;
             this.guna2HtmlLabel1.Text = "Show password";
             // 
@@ -175,12 +175,13 @@
             this.txtPw.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtPw.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(22)))), ((int)(((byte)(43)))));
             this.txtPw.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPw.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtPw.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPw.ForeColor = System.Drawing.Color.White;
             this.txtPw.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPw.Location = new System.Drawing.Point(31, 343);
             this.txtPw.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPw.Name = "txtPw";
+            this.txtPw.PasswordChar = '・';
             this.txtPw.PlaceholderForeColor = System.Drawing.Color.White;
             this.txtPw.PlaceholderText = "Password";
             this.txtPw.SelectedText = "";
@@ -199,7 +200,7 @@
             this.txtUser.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtUser.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(22)))), ((int)(((byte)(43)))));
             this.txtUser.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtUser.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtUser.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUser.ForeColor = System.Drawing.Color.White;
             this.txtUser.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtUser.Location = new System.Drawing.Point(31, 275);
