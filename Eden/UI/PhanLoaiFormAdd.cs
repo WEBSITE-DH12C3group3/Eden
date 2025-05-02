@@ -56,7 +56,14 @@ namespace Eden
 
                 loaiSanPhamBLL.Add(lsp);
                 MessageBox.Show("Thêm loại sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                //this.Close();
+                PhanLoaiForm formAdd = new PhanLoaiForm();
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (Exception ex)
             {

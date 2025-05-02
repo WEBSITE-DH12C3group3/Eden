@@ -59,7 +59,14 @@ namespace Eden.UI
 
                 khachHangBLL.Add(kh);
                 MessageBox.Show("Thêm khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close(); // Đóng form sau khi thêm thành công
+                // this.Close(); // Đóng form sau khi thêm thành công
+                KhachHangForm formAdd = new KhachHangForm();
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (Exception ex)
             {

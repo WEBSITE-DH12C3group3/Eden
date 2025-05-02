@@ -588,8 +588,15 @@ namespace Eden
                         db.SaveChanges();
                         db.Database.CurrentTransaction.Commit();
                         MessageBox.Show("Lưu phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        DialogResult = DialogResult.OK;
-                        Close();
+                        //DialogResult = DialogResult.OK;
+                        //Close();
+                        NhapKhoForm formAdd = new NhapKhoForm();
+                        this.Controls.Clear();
+                        formAdd.TopLevel = false;
+                        formAdd.FormBorderStyle = FormBorderStyle.None;
+                        formAdd.Dock = DockStyle.Fill;
+                        this.Controls.Add(formAdd);
+                        formAdd.Show();
                     }
                     catch (Exception ex)
                     {

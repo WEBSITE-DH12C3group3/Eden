@@ -17,7 +17,7 @@ namespace Eden
         public LoginForm()
         {
             InitializeComponent();
-            txtPw.Text = "1";
+            txtPw.Text = "123456";
             txtUser.Text = "admin";
             this.AcceptButton = btnLog;
             // Tắt các tính năng không cần thiết ban đầu
@@ -46,12 +46,6 @@ namespace Eden
             string username = txtUser.Text.Trim();
             string password = txtPw.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             LoginBLL loginBLL = new LoginBLL();
             if (loginBLL.ValidateUser(username, password))
             {
@@ -70,7 +64,6 @@ namespace Eden
             }
             else
             {
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPw.Clear();
                 txtUser.Focus();
             }

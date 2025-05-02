@@ -110,8 +110,15 @@ namespace Eden
                     MessageBox.Show("Đã cập nhật nhóm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                //this.DialogResult = DialogResult.OK;
+                //this.Close();
+                NhomNguoiDungForm formAdd = new NhomNguoiDungForm();
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (DbEntityValidationException dbEx)
             {

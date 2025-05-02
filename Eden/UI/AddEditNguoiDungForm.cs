@@ -102,8 +102,15 @@ namespace Eden
                     MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                //this.DialogResult = DialogResult.OK;
+                //this.Close();
+                NguoiDungForm formAdd = new NguoiDungForm();
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (Exception ex)
             {

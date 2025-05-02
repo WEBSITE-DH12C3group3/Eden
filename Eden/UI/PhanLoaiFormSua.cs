@@ -65,7 +65,14 @@ namespace Eden.UI
                     parentForm.UpdateDataGridView(lsp);
                 }
 
-                this.Close();
+                //this.Close();
+                PhanLoaiForm formAdd = new PhanLoaiForm();
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (Exception ex)
             {

@@ -92,8 +92,15 @@ namespace Eden.UI
 
                 nhaCungCapBLL.Add(ncc);
                 MessageBox.Show("Thêm nhà cung cấp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult = DialogResult.OK; // Báo hiệu thêm thành công
-                Close();
+                //DialogResult = DialogResult.OK; // Báo hiệu thêm thành công
+                //Close();
+                NhaCungCapForm formAdd = new NhaCungCapForm();
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (Exception ex)
             {

@@ -271,7 +271,14 @@ namespace Eden.UI
                 hoaDonBLL.Add(hoaDon, chiTietList);
 
                 MessageBox.Show("Thêm hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                // this.Close();'
+                HoaDonForm formAdd = new HoaDonForm();
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (Exception ex)
             {
@@ -299,7 +306,6 @@ namespace Eden.UI
 
         private void lblTongTien_Click(object sender, EventArgs e)
         {
-
         }
     }
 }
