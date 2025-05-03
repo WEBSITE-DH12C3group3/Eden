@@ -186,7 +186,7 @@ namespace Eden.UI
                 MessageBox.Show($"Số lượng tồn của sản phẩm {sanPham.TenSanPham} không đủ. Hiện tại chỉ còn {sanPham.SoLuong} sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            
             // Tạo chi tiết hóa đơn
             var chiTiet = new ChiTietHoaDonDTO
             {
