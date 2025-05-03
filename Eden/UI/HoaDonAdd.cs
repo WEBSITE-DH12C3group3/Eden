@@ -117,25 +117,52 @@ namespace Eden.UI
             });
         }
 
+        //private void btnThemKhachHang_Click(object sender, EventArgs e)
+        //{
+        //    using (KhachHangadd formAdd = new KhachHangadd())
+        //    {
+        //        formAdd.FormClosed += (s, args) =>
+        //        {
+        //            var khachHangList = khachHangBLL.GetAll();
+        //            cbKhachHang.DataSource = khachHangList;
+        //            cbKhachHang.DisplayMember = "MaKhachHang";
+        //            cbKhachHang.ValueMember = "MaKhachHang";
+        //            var lastKhachHang = khachHangList.LastOrDefault();
+        //            if (lastKhachHang != null)
+        //            {
+        //                cbKhachHang.SelectedValue = lastKhachHang.MaKhachHang;
+        //            }
+        //        };
+        //        formAdd.ShowDialog();
+        //    }
+        //}
+
         private void btnThemKhachHang_Click(object sender, EventArgs e)
         {
-            using (KhachHangadd formAdd = new KhachHangadd())
-            {
-                formAdd.FormClosed += (s, args) =>
-                {
-                    var khachHangList = khachHangBLL.GetAll();
-                    cbKhachHang.DataSource = khachHangList;
-                    cbKhachHang.DisplayMember = "MaKhachHang";
-                    cbKhachHang.ValueMember = "MaKhachHang";
+            var formAdd = new KhachHangadd();
 
-                    var lastKhachHang = khachHangList.LastOrDefault();
-                    if (lastKhachHang != null)
-                    {
-                        cbKhachHang.SelectedValue = lastKhachHang.MaKhachHang;
-                    }
-                };
-                formAdd.ShowDialog();
-            }
+            // Gắn sự kiện khi formAdd đóng lại (bạn phải gọi this.Close() trong KhachHangadd)
+            formAdd.FormClosed += (s, args) =>
+            {
+                var khachHangList = khachHangBLL.GetAll();
+                cbKhachHang.DataSource = khachHangList;
+                cbKhachHang.DisplayMember = "MaKhachHang";
+                cbKhachHang.ValueMember = "MaKhachHang";
+
+                var lastKhachHang = khachHangList.LastOrDefault();
+                if (lastKhachHang != null)
+                {
+                    cbKhachHang.SelectedValue = lastKhachHang.MaKhachHang;
+                }
+            };
+
+            // Nhúng form vào panel chính (nên có một panel riêng thay vì this.Controls)
+            this.Controls.Clear(); // nếu bạn có một panel chính
+            formAdd.TopLevel = false;
+            formAdd.FormBorderStyle = FormBorderStyle.None;
+            formAdd.Dock = DockStyle.Fill;
+            this.Controls.Add(formAdd);
+            formAdd.Show();
         }
 
         private void cbKhachHang_SelectedIndexChanged(object sender, EventArgs e)
@@ -186,7 +213,7 @@ namespace Eden.UI
                 MessageBox.Show($"Số lượng tồn của sản phẩm {sanPham.TenSanPham} không đủ. Hiện tại chỉ còn {sanPham.SoLuong} sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             // Tạo chi tiết hóa đơn
             var chiTiet = new ChiTietHoaDonDTO
             {
