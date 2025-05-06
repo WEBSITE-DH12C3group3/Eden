@@ -60,12 +60,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             this.lblMaNhaCungCap.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblMaNhaCungCap.BackColor = System.Drawing.Color.Transparent;
-            this.lblMaNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaNhaCungCap.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblMaNhaCungCap.Location = new System.Drawing.Point(235, 219);
+            this.lblMaNhaCungCap.Location = new System.Drawing.Point(203, 219);
             this.lblMaNhaCungCap.Margin = new System.Windows.Forms.Padding(2);
             this.lblMaNhaCungCap.Name = "lblMaNhaCungCap";
-            this.lblMaNhaCungCap.Size = new System.Drawing.Size(130, 23);
+            this.lblMaNhaCungCap.Size = new System.Drawing.Size(158, 27);
             this.lblMaNhaCungCap.TabIndex = 1;
             this.lblMaNhaCungCap.Text = "Mã Nhà Cung Cấp";
             // 
@@ -73,12 +73,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             this.lblTenNhaCungCap.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenNhaCungCap.BackColor = System.Drawing.Color.Transparent;
-            this.lblTenNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenNhaCungCap.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenNhaCungCap.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTenNhaCungCap.Location = new System.Drawing.Point(232, 289);
+            this.lblTenNhaCungCap.Location = new System.Drawing.Point(200, 289);
             this.lblTenNhaCungCap.Margin = new System.Windows.Forms.Padding(2);
             this.lblTenNhaCungCap.Name = "lblTenNhaCungCap";
-            this.lblTenNhaCungCap.Size = new System.Drawing.Size(133, 23);
+            this.lblTenNhaCungCap.Size = new System.Drawing.Size(162, 27);
             this.lblTenNhaCungCap.TabIndex = 2;
             this.lblTenNhaCungCap.Text = "Tên Nhà Cung Cấp";
             // 
@@ -86,12 +86,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             this.lblDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblDiaChi.BackColor = System.Drawing.Color.Transparent;
-            this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblDiaChi.Location = new System.Drawing.Point(312, 359);
+            this.lblDiaChi.Location = new System.Drawing.Point(280, 359);
             this.lblDiaChi.Margin = new System.Windows.Forms.Padding(2);
             this.lblDiaChi.Name = "lblDiaChi";
-            this.lblDiaChi.Size = new System.Drawing.Size(53, 23);
+            this.lblDiaChi.Size = new System.Drawing.Size(64, 27);
             this.lblDiaChi.TabIndex = 3;
             this.lblDiaChi.Text = "Địa Chỉ";
             // 
@@ -99,12 +99,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             this.lblSoDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblSoDienThoai.BackColor = System.Drawing.Color.Transparent;
-            this.lblSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblSoDienThoai.Location = new System.Drawing.Point(266, 429);
+            this.lblSoDienThoai.Location = new System.Drawing.Point(234, 429);
             this.lblSoDienThoai.Margin = new System.Windows.Forms.Padding(2);
             this.lblSoDienThoai.Name = "lblSoDienThoai";
-            this.lblSoDienThoai.Size = new System.Drawing.Size(99, 23);
+            this.lblSoDienThoai.Size = new System.Drawing.Size(120, 27);
             this.lblSoDienThoai.TabIndex = 4;
             this.lblSoDienThoai.Text = "Số Điện Thoại";
             // 
@@ -112,12 +112,12 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblEmail.BackColor = System.Drawing.Color.Transparent;
-            this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblEmail.Location = new System.Drawing.Point(324, 499);
+            this.lblEmail.Location = new System.Drawing.Point(292, 499);
             this.lblEmail.Margin = new System.Windows.Forms.Padding(2);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(41, 23);
+            this.lblEmail.Size = new System.Drawing.Size(49, 27);
             this.lblEmail.TabIndex = 5;
             this.lblEmail.Text = "Email";
             // 

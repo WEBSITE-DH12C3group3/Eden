@@ -57,12 +57,12 @@
             // 
             this.lblMaKhachHang.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblMaKhachHang.BackColor = System.Drawing.Color.Transparent;
-            this.lblMaKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaKhachHang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMaKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblMaKhachHang.Location = new System.Drawing.Point(268, 222);
             this.lblMaKhachHang.Margin = new System.Windows.Forms.Padding(2);
             this.lblMaKhachHang.Name = "lblMaKhachHang";
-            this.lblMaKhachHang.Size = new System.Drawing.Size(115, 23);
+            this.lblMaKhachHang.Size = new System.Drawing.Size(141, 27);
             this.lblMaKhachHang.TabIndex = 1;
             this.lblMaKhachHang.Text = "Mã Khách Hàng:";
             // 
@@ -70,12 +70,12 @@
             // 
             this.lblTenKhachHang.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenKhachHang.BackColor = System.Drawing.Color.Transparent;
-            this.lblTenKhachHang.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenKhachHang.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenKhachHang.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblTenKhachHang.Location = new System.Drawing.Point(268, 292);
             this.lblTenKhachHang.Margin = new System.Windows.Forms.Padding(2);
             this.lblTenKhachHang.Name = "lblTenKhachHang";
-            this.lblTenKhachHang.Size = new System.Drawing.Size(118, 23);
+            this.lblTenKhachHang.Size = new System.Drawing.Size(145, 27);
             this.lblTenKhachHang.TabIndex = 2;
             this.lblTenKhachHang.Text = "Tên Khách Hàng:";
             // 
@@ -83,12 +83,12 @@
             // 
             this.lblDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblDiaChi.BackColor = System.Drawing.Color.Transparent;
-            this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDiaChi.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblDiaChi.Location = new System.Drawing.Point(268, 362);
             this.lblDiaChi.Margin = new System.Windows.Forms.Padding(2);
             this.lblDiaChi.Name = "lblDiaChi";
-            this.lblDiaChi.Size = new System.Drawing.Size(56, 23);
+            this.lblDiaChi.Size = new System.Drawing.Size(68, 27);
             this.lblDiaChi.TabIndex = 3;
             this.lblDiaChi.Text = "Địa Chỉ:";
             // 
@@ -96,12 +96,12 @@
             // 
             this.lblSoDienThoai.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblSoDienThoai.BackColor = System.Drawing.Color.Transparent;
-            this.lblSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoDienThoai.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSoDienThoai.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblSoDienThoai.Location = new System.Drawing.Point(268, 432);
             this.lblSoDienThoai.Margin = new System.Windows.Forms.Padding(2);
             this.lblSoDienThoai.Name = "lblSoDienThoai";
-            this.lblSoDienThoai.Size = new System.Drawing.Size(102, 23);
+            this.lblSoDienThoai.Size = new System.Drawing.Size(124, 27);
             this.lblSoDienThoai.TabIndex = 4;
             this.lblSoDienThoai.Text = "Số Điện Thoại:";
             // 
@@ -109,12 +109,12 @@
             // 
             this.lblEmail.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblEmail.BackColor = System.Drawing.Color.Transparent;
-            this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmail.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblEmail.Location = new System.Drawing.Point(268, 502);
             this.lblEmail.Margin = new System.Windows.Forms.Padding(2);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(44, 23);
+            this.lblEmail.Size = new System.Drawing.Size(53, 27);
             this.lblEmail.TabIndex = 5;
             this.lblEmail.Text = "Email:";
             // 

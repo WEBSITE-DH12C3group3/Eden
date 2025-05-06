@@ -48,11 +48,11 @@
             // 
             this.lblTenNhom.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTenNhom.AutoSize = true;
-            this.lblTenNhom.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTenNhom.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTenNhom.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblTenNhom.Location = new System.Drawing.Point(246, 150);
+            this.lblTenNhom.Location = new System.Drawing.Point(245, 151);
             this.lblTenNhom.Name = "lblTenNhom";
-            this.lblTenNhom.Size = new System.Drawing.Size(84, 21);
+            this.lblTenNhom.Size = new System.Drawing.Size(102, 25);
             this.lblTenNhom.TabIndex = 1;
             this.lblTenNhom.Text = "Tên Nhóm:";
             // 
@@ -84,11 +84,11 @@
             // 
             this.lblQuyen.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblQuyen.AutoSize = true;
-            this.lblQuyen.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQuyen.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQuyen.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblQuyen.Location = new System.Drawing.Point(246, 240);
+            this.lblQuyen.Location = new System.Drawing.Point(245, 221);
             this.lblQuyen.Name = "lblQuyen";
-            this.lblQuyen.Size = new System.Drawing.Size(59, 21);
+            this.lblQuyen.Size = new System.Drawing.Size(71, 25);
             this.lblQuyen.TabIndex = 3;
             this.lblQuyen.Text = "Quyền:";
             // 

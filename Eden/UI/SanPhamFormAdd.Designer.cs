@@ -77,7 +77,7 @@
             this.guna2TextAnh.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2TextAnh.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2TextAnh.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.guna2TextAnh.Location = new System.Drawing.Point(30, 320);
+            this.guna2TextAnh.Location = new System.Drawing.Point(30, 322);
             this.guna2TextAnh.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.guna2TextAnh.Name = "guna2TextAnh";
             this.guna2TextAnh.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -100,7 +100,7 @@
             this.guna2ChonAnh.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             this.guna2ChonAnh.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2ChonAnh.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.guna2ChonAnh.Location = new System.Drawing.Point(30, 363);
+            this.guna2ChonAnh.Location = new System.Drawing.Point(30, 365);
             this.guna2ChonAnh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2ChonAnh.Name = "guna2ChonAnh";
             this.guna2ChonAnh.Size = new System.Drawing.Size(150, 36);
@@ -137,7 +137,7 @@
             this.guna2ComboBoxLoaiSP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2ComboBoxLoaiSP.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2ComboBoxLoaiSP.ItemHeight = 30;
-            this.guna2ComboBoxLoaiSP.Location = new System.Drawing.Point(184, 227);
+            this.guna2ComboBoxLoaiSP.Location = new System.Drawing.Point(195, 227);
             this.guna2ComboBoxLoaiSP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2ComboBoxLoaiSP.Name = "guna2ComboBoxLoaiSP";
             this.guna2ComboBoxLoaiSP.Size = new System.Drawing.Size(200, 36);
@@ -157,7 +157,7 @@
             this.guna2ComboBoxNCC.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2ComboBoxNCC.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2ComboBoxNCC.ItemHeight = 30;
-            this.guna2ComboBoxNCC.Location = new System.Drawing.Point(184, 168);
+            this.guna2ComboBoxNCC.Location = new System.Drawing.Point(195, 168);
             this.guna2ComboBoxNCC.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.guna2ComboBoxNCC.Name = "guna2ComboBoxNCC";
             this.guna2ComboBoxNCC.Size = new System.Drawing.Size(200, 36);
@@ -221,7 +221,7 @@
             this.guna2TextBoxMauSac.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2TextBoxMauSac.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2TextBoxMauSac.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.guna2TextBoxMauSac.Location = new System.Drawing.Point(184, 109);
+            this.guna2TextBoxMauSac.Location = new System.Drawing.Point(195, 109);
             this.guna2TextBoxMauSac.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.guna2TextBoxMauSac.Name = "guna2TextBoxMauSac";
             this.guna2TextBoxMauSac.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -246,7 +246,7 @@
             this.guna2TextBoxSoLuong.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2TextBoxSoLuong.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2TextBoxSoLuong.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.guna2TextBoxSoLuong.Location = new System.Drawing.Point(197, 345);
+            this.guna2TextBoxSoLuong.Location = new System.Drawing.Point(214, 345);
             this.guna2TextBoxSoLuong.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.guna2TextBoxSoLuong.Name = "guna2TextBoxSoLuong";
             this.guna2TextBoxSoLuong.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -271,7 +271,7 @@
             this.guna2TextBoxGia.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2TextBoxGia.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2TextBoxGia.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.guna2TextBoxGia.Location = new System.Drawing.Point(197, 286);
+            this.guna2TextBoxGia.Location = new System.Drawing.Point(214, 286);
             this.guna2TextBoxGia.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.guna2TextBoxGia.Name = "guna2TextBoxGia";
             this.guna2TextBoxGia.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -296,7 +296,7 @@
             this.guna2TextBoxMoTa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2TextBoxMoTa.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2TextBoxMoTa.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.guna2TextBoxMoTa.Location = new System.Drawing.Point(197, 227);
+            this.guna2TextBoxMoTa.Location = new System.Drawing.Point(214, 227);
             this.guna2TextBoxMoTa.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.guna2TextBoxMoTa.Name = "guna2TextBoxMoTa";
             this.guna2TextBoxMoTa.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -321,7 +321,7 @@
             this.guna2TextBoxTenSP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2TextBoxTenSP.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2TextBoxTenSP.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.guna2TextBoxTenSP.Location = new System.Drawing.Point(197, 168);
+            this.guna2TextBoxTenSP.Location = new System.Drawing.Point(214, 168);
             this.guna2TextBoxTenSP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.guna2TextBoxTenSP.Name = "guna2TextBoxTenSP";
             this.guna2TextBoxTenSP.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -347,7 +347,7 @@
             this.guna2TextBoxMaSP.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2TextBoxMaSP.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2TextBoxMaSP.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.guna2TextBoxMaSP.Location = new System.Drawing.Point(197, 109);
+            this.guna2TextBoxMaSP.Location = new System.Drawing.Point(214, 109);
             this.guna2TextBoxMaSP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.guna2TextBoxMaSP.Name = "guna2TextBoxMaSP";
             this.guna2TextBoxMaSP.PlaceholderForeColor = System.Drawing.Color.DarkGray;
@@ -360,11 +360,11 @@
             // 
             this.guna2HtmlLabel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel9.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel9.Location = new System.Drawing.Point(30, 227);
             this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
-            this.guna2HtmlLabel9.Size = new System.Drawing.Size(109, 23);
+            this.guna2HtmlLabel9.Size = new System.Drawing.Size(131, 27);
             this.guna2HtmlLabel9.TabIndex = 3;
             this.guna2HtmlLabel9.Text = "Loại Sản Phẩm:";
             // 
@@ -372,11 +372,11 @@
             // 
             this.guna2HtmlLabel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel8.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel8.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel8.Location = new System.Drawing.Point(30, 168);
             this.guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            this.guna2HtmlLabel8.Size = new System.Drawing.Size(107, 23);
+            this.guna2HtmlLabel8.Size = new System.Drawing.Size(130, 27);
             this.guna2HtmlLabel8.TabIndex = 2;
             this.guna2HtmlLabel8.Text = "Nhà Cung Cấp:";
             // 
@@ -384,11 +384,11 @@
             // 
             this.guna2HtmlLabel7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel7.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel7.Location = new System.Drawing.Point(30, 286);
             this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            this.guna2HtmlLabel7.Size = new System.Drawing.Size(90, 23);
+            this.guna2HtmlLabel7.Size = new System.Drawing.Size(110, 27);
             this.guna2HtmlLabel7.TabIndex = 6;
             this.guna2HtmlLabel7.Text = "Ảnh Chi Tiết:";
             // 
@@ -396,11 +396,11 @@
             // 
             this.guna2HtmlLabel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel6.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel6.Location = new System.Drawing.Point(30, 109);
             this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            this.guna2HtmlLabel6.Size = new System.Drawing.Size(65, 23);
+            this.guna2HtmlLabel6.Size = new System.Drawing.Size(79, 27);
             this.guna2HtmlLabel6.TabIndex = 1;
             this.guna2HtmlLabel6.Text = "Màu Sắc:";
             // 
@@ -408,11 +408,11 @@
             // 
             this.guna2HtmlLabel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel5.Location = new System.Drawing.Point(62, 345);
             this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(73, 23);
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(86, 27);
             this.guna2HtmlLabel5.TabIndex = 5;
             this.guna2HtmlLabel5.Text = "Số Lượng:";
             // 
@@ -420,11 +420,11 @@
             // 
             this.guna2HtmlLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel4.Location = new System.Drawing.Point(62, 286);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(33, 23);
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(40, 27);
             this.guna2HtmlLabel4.TabIndex = 4;
             this.guna2HtmlLabel4.Text = "Giá :";
             // 
@@ -432,11 +432,11 @@
             // 
             this.guna2HtmlLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(62, 227);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(49, 23);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(60, 27);
             this.guna2HtmlLabel3.TabIndex = 3;
             this.guna2HtmlLabel3.Text = "Mô Tả:";
             // 
@@ -444,11 +444,11 @@
             // 
             this.guna2HtmlLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel2.Location = new System.Drawing.Point(62, 168);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(105, 23);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(127, 27);
             this.guna2HtmlLabel2.TabIndex = 1;
             this.guna2HtmlLabel2.Text = "Tên Sản Phẩm:";
             // 
@@ -456,11 +456,11 @@
             // 
             this.guna2HtmlLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(62, 109);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(102, 23);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(123, 27);
             this.guna2HtmlLabel1.TabIndex = 0;
             this.guna2HtmlLabel1.Text = "Mã Sản Phẩm:";
             // 
