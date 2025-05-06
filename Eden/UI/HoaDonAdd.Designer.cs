@@ -47,7 +47,6 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.lblTongTien = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
             this.btnAddItem = new Guna.UI2.WinForms.Guna2Button();
-            this.btnAddCustomer = new Guna.UI2.WinForms.Guna2Button();
             this.lblNguoiDung = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblKhachHangInfo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnXoaChiTiet = new Guna.UI2.WinForms.Guna2Button();
@@ -60,6 +59,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvChiTiet = new Guna.UI2.WinForms.Guna2DataGridView();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnAddCustomer = new Guna.UI2.WinForms.Guna2Button();
             this.guna2PanelTop.SuspendLayout();
             this.guna2PanelBottom.SuspendLayout();
             this.guna2PanelItem.SuspendLayout();
@@ -276,24 +276,6 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.btnAddItem.Text = "Thêm";
             this.btnAddItem.Click += new System.EventHandler(this.btnThemSanPham_Click);
             // 
-            // btnAddCustomer
-            // 
-            this.btnAddCustomer.BorderRadius = 10;
-            this.btnAddCustomer.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddCustomer.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnAddCustomer.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnAddCustomer.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnAddCustomer.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
-            this.btnAddCustomer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddCustomer.ForeColor = System.Drawing.Color.White;
-            this.btnAddCustomer.Location = new System.Drawing.Point(380, 60);
-            this.btnAddCustomer.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAddCustomer.Name = "btnAddCustomer";
-            this.btnAddCustomer.Size = new System.Drawing.Size(100, 36);
-            this.btnAddCustomer.TabIndex = 4;
-            this.btnAddCustomer.Text = "Thêm KH";
-            this.btnAddCustomer.Click += new System.EventHandler(this.btnThemKhachHang_Click);
-            // 
             // lblNguoiDung
             // 
             this.lblNguoiDung.BackColor = System.Drawing.Color.Transparent;
@@ -501,6 +483,25 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.guna2Panel2.Size = new System.Drawing.Size(962, 294);
             this.guna2Panel2.TabIndex = 15;
             // 
+            // btnAddCustomer
+            // 
+            this.btnAddCustomer.BorderRadius = 10;
+            this.btnAddCustomer.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddCustomer.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAddCustomer.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAddCustomer.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAddCustomer.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.btnAddCustomer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCustomer.ForeColor = System.Drawing.Color.White;
+            this.btnAddCustomer.Image = global::Eden.Properties.Resources.add;
+            this.btnAddCustomer.Location = new System.Drawing.Point(380, 60);
+            this.btnAddCustomer.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddCustomer.Name = "btnAddCustomer";
+            this.btnAddCustomer.Size = new System.Drawing.Size(209, 36);
+            this.btnAddCustomer.TabIndex = 4;
+            this.btnAddCustomer.Text = "Thêm khách hàng mới";
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnThemKhachHang_Click);
+            // 
             // HoaDonAdd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -544,7 +545,6 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTongTien;
         private Guna.UI2.WinForms.Guna2Button btnSave; // Styled as Add
         private Guna.UI2.WinForms.Guna2Button btnAddItem; // Add item to grid button
-        private Guna.UI2.WinForms.Guna2Button btnAddCustomer; // Add customer button
         private Guna.UI2.WinForms.Guna2HtmlLabel lblNguoiDung;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblKhachHangInfo;
         private Guna.UI2.WinForms.Guna2Button btnXoaChiTiet; // Delete item from grid button
@@ -559,5 +559,6 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2DataGridView dgvChiTiet;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
+        private Guna.UI2.WinForms.Guna2Button btnAddCustomer;
     }
 }

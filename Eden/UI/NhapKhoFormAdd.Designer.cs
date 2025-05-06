@@ -58,6 +58,7 @@ namespace Eden
             this.guna2PanelTop = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2PanelBottom = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2PanelItem = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
@@ -480,12 +481,33 @@ namespace Eden
             this.guna2PanelItem.Controls.Add(this.btnRemoveChiTiet);
             this.guna2PanelItem.Controls.Add(this.lblDonGia);
             this.guna2PanelItem.Controls.Add(this.txtDonGia);
+            this.guna2PanelItem.Controls.Add(this.guna2Button1);
             this.guna2PanelItem.Controls.Add(this.btnAddChiTiet);
             this.guna2PanelItem.Location = new System.Drawing.Point(30, 206);
             this.guna2PanelItem.Name = "guna2PanelItem";
             this.guna2PanelItem.Size = new System.Drawing.Size(900, 138);
             this.guna2PanelItem.TabIndex = 4;
             this.guna2PanelItem.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2PanelItem_Paint);
+            // 
+            // guna2Button1
+            // 
+            this.guna2Button1.BorderRadius = 10;
+            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2Button1.ForeColor = System.Drawing.Color.White;
+            this.guna2Button1.Image = global::Eden.Properties.Resources.add;
+            this.guna2Button1.ImageSize = new System.Drawing.Size(15, 15);
+            this.guna2Button1.Location = new System.Drawing.Point(406, 3);
+            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.Size = new System.Drawing.Size(189, 36);
+            this.guna2Button1.TabIndex = 3;
+            this.guna2Button1.Text = "Thêm sản phẩm mới";
+            this.guna2Button1.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // guna2Elipse1
             // 
@@ -570,5 +592,6 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1; // Added Guna2Elipse
         private Guna2Panel guna2Panel1;
         private Guna2Panel guna2Panel2;
+        private Guna2Button guna2Button1;
     }
 }

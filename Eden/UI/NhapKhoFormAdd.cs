@@ -643,36 +643,76 @@ namespace Eden
             form.Show();
         }
 
+        //private void btnThem_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
+        //        {
+        //            formAdd.FormClosed += (s, args) =>
+        //            {
+        //                try
+        //                {
+        //                    if (cmbNhaCungCap.SelectedValue != null && int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
+        //                    {
+        //                        LoadSanPham(idNhaCungCap);
+        //                    }
+        //                    else
+        //                    {
+        //                        LoadSanPham();
+        //                    }
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    MessageBox.Show($"Lỗi cập nhật danh sách sản phẩm: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                }
+        //            };
+        //            formAdd.ShowDialog();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Lỗi khi mở form thêm sản phẩm: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
+                var formAdd = new SanPhamFormAdd();
+
+                // Sự kiện khi form bị đóng (tự gọi Close() trong formAdd chẳng hạn)
+                formAdd.FormClosed += (s, args) =>
                 {
-                    formAdd.FormClosed += (s, args) =>
+                    try
                     {
-                        try
+                        if (cmbNhaCungCap.SelectedValue != null && int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
                         {
-                            if (cmbNhaCungCap.SelectedValue != null && int.TryParse(cmbNhaCungCap.SelectedValue.ToString(), out int idNhaCungCap))
-                            {
-                                LoadSanPham(idNhaCungCap);
-                            }
-                            else
-                            {
-                                LoadSanPham();
-                            }
+                            LoadSanPham(idNhaCungCap);
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            MessageBox.Show($"Lỗi cập nhật danh sách sản phẩm: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            LoadSanPham();
                         }
-                    };
-                    formAdd.ShowDialog();
-                }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi cập nhật danh sách sản phẩm: {ex.Message}\nInner: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                };
+
+                // Gắn form con vào Form chính (dạng không Modal)
+                this.Controls.Clear();
+                formAdd.TopLevel = false;
+                formAdd.FormBorderStyle = FormBorderStyle.None;
+                formAdd.Dock = DockStyle.Fill;
+                this.Controls.Add(formAdd);
+                formAdd.Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi mở form thêm sản phẩm: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi mở form thêm sản phẩm: {ex.Message}\nInner: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -188,7 +188,7 @@ GO
 -- Thêm dữ liệu vào bảng NGUOIDUNG
 INSERT INTO NGUOIDUNG (TenNguoiDung, TenDangNhap, MatKhau, idNhomNguoiDung)
 VALUES 
-    (N'Admin', 'admin', '1', 1), -- Quản trị viên
+    (N'Admin', 'admin', '123456', 1), -- Quản trị viên
     (N'Nhân viên 1', 'nvien', '1', 2), -- Nhân viên bán hàng
     (N'Quản lý kho 1', 'ql', '1', 3); -- Quản lý kho
 GO
