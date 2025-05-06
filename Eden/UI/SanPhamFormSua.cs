@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -73,17 +74,71 @@ namespace Eden.UI
         {
             try
             {
-                if (string.IsNullOrEmpty(duongDanAnh))
+                if (string.IsNullOrWhiteSpace(duongDanAnh))
                 {
                     MessageBox.Show("Vui lòng chọn ảnh!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                sanPham.TenSanPham = guna2TextBoxTenSP.Text.Trim();
-                sanPham.MoTa = guna2TextBoxMoTa.Text.Trim();
-                sanPham.Gia = decimal.Parse(guna2TextBoxGia.Text.Trim());
-                sanPham.SoLuong = int.Parse(guna2TextBoxSoLuong.Text.Trim());
-                sanPham.MauSac = guna2TextBoxMauSac.Text.Trim();
+                string tenSP = guna2TextBoxTenSP.Text.Trim();
+                string moTa = guna2TextBoxMoTa.Text.Trim();
+                string giaStr = guna2TextBoxGia.Text.Trim();
+                string soLuongStr = guna2TextBoxSoLuong.Text.Trim();
+                string mauSac = guna2TextBoxMauSac.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(tenSP))
+                {
+                    MessageBox.Show("Tên sản phẩm không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (tenSP.Length > 100)
+                {
+                    MessageBox.Show("Tên sản phẩm không được vượt quá 100 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!Regex.IsMatch(tenSP, @"^[\w\sÀ-ỹ]+$"))
+                {
+                    MessageBox.Show("Tên sản phẩm không được chứa ký tự đặc biệt.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!decimal.TryParse(giaStr, out decimal gia) || gia < 0)
+                {
+                    MessageBox.Show("Giá phải là số hợp lệ và không âm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(soLuongStr, out int soLuong) || soLuong < 0)
+                {
+                    MessageBox.Show("Số lượng phải là số nguyên không âm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (mauSac.Length > 50)
+                {
+                    MessageBox.Show("Màu sắc không được vượt quá 50 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!Regex.IsMatch(mauSac, @"^[\w\sÀ-ỹ]*$"))
+                {
+                    MessageBox.Show("Màu sắc không được chứa ký tự đặc biệt.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (guna2ComboBoxNCC.SelectedValue == null || guna2ComboBoxLoaiSP.SelectedValue == null)
+                {
+                    MessageBox.Show("Vui lòng chọn nhà cung cấp và loại sản phẩm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                sanPham.TenSanPham = tenSP;
+                sanPham.MoTa = moTa;
+                sanPham.Gia = gia;
+                sanPham.SoLuong = soLuong;
+                sanPham.MauSac = mauSac;
                 sanPham.AnhChiTiet = duongDanAnh;
                 sanPham.idNhaCungCap = Convert.ToInt32(guna2ComboBoxNCC.SelectedValue);
                 sanPham.idLoaiSanPham = Convert.ToInt32(guna2ComboBoxLoaiSP.SelectedValue);
@@ -107,8 +162,9 @@ namespace Eden.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi cập nhật: " + ex.Message);
+                MessageBox.Show("Lỗi khi cập nhật: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)

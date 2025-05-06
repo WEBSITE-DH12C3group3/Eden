@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Eden
 {
@@ -48,15 +49,46 @@ namespace Eden
         {
             try
             {
+                string maLoai = txtMaLoai.Text.Trim();
+                string tenLoai = txtTenLoai.Text.Trim();
+
+                if (string.IsNullOrEmpty(maLoai) || string.IsNullOrEmpty(tenLoai))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (maLoai.Length > 50 || tenLoai.Length > 50)
+                {
+                    MessageBox.Show("Mã hoặc tên loại không được vượt quá 50 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!Regex.IsMatch(tenLoai, @"^[\w\sÀ-ỹ]+$"))
+                {
+                    MessageBox.Show("Tên loại không được chứa ký tự đặc biệt.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra mã loại có trùng không
+                List<LOAISANPHAM> danhSachLoai = loaiSanPhamBLL.GetAll();
+                if (danhSachLoai.Any(l => l.MaLoaiSanPham == maLoai))
+                {
+                    MessageBox.Show("Mã loại sản phẩm đã tồn tại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtMaLoai.Focus();
+                    return;
+                }
+
                 LOAISANPHAM lsp = new LOAISANPHAM
                 {
-                    MaLoaiSanPham = txtMaLoai.Text.Trim(),
-                    TenLoaiSanPham = txtTenLoai.Text.Trim(),
+                    MaLoaiSanPham = maLoai,
+                    TenLoaiSanPham = tenLoai,
                 };
 
                 loaiSanPhamBLL.Add(lsp);
                 MessageBox.Show("Thêm loại sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //this.Close();
+
+                // Load lại form
                 PhanLoaiForm formAdd = new PhanLoaiForm();
                 this.Controls.Clear();
                 formAdd.TopLevel = false;
@@ -69,6 +101,7 @@ namespace Eden
             {
                 MessageBox.Show("Lỗi khi thêm loại sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)

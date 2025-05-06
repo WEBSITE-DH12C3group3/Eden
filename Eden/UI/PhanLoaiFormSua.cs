@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
 
@@ -49,34 +50,54 @@ namespace Eden.UI
         {
             try
             {
-                LOAISANPHAM lsp = new LOAISANPHAM
+                string tenLoai = txtTenLoai.Text.Trim();
+
+                if (string.IsNullOrEmpty(tenLoai))
                 {
-                    MaLoaiSanPham = maLSP,
-                    TenLoaiSanPham = txtTenLoai.Text.Trim(),
-                };
-
-                loaiSanPhamBLL.Update(lsp);
-
-                MessageBox.Show("Cập nhật loại sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Gọi phương thức cập nhật DataGridView từ form cha
-                if (this.Owner is PhanLoaiForm parentForm)
-                {
-                    parentForm.UpdateDataGridView(lsp);
+                    MessageBox.Show("Vui lòng nhập tên loại sản phẩm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-                //this.Close();
-                PhanLoaiForm formAdd = new PhanLoaiForm();
-                this.Controls.Clear();
-                formAdd.TopLevel = false;
-                formAdd.FormBorderStyle = FormBorderStyle.None;
-                formAdd.Dock = DockStyle.Fill;
-                this.Controls.Add(formAdd);
-                formAdd.Show();
+                if (tenLoai.Length > 50)
+                {
+                    MessageBox.Show("Tên loại sản phẩm không được vượt quá 50 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!Regex.IsMatch(tenLoai, @"^[\w\sÀ-ỹ]+$"))
+                {
+                    MessageBox.Show("Tên loại sản phẩm không được chứa ký tự đặc biệt.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Lấy loại sản phẩm từ mã (txtMaLoai đã là ReadOnly)
+                string maLSP = txtMaLoai.Text.Trim();
+                LOAISANPHAM lsp = loaiSanPhamBLL.GetAll().FirstOrDefault(l => l.MaLoaiSanPham == maLSP);
+
+                if (lsp != null)
+                {
+                    lsp.TenLoaiSanPham = tenLoai;
+                    loaiSanPhamBLL.Update(lsp);
+
+                    MessageBox.Show("Cập nhật loại sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Quay lại form chính (nếu cần)
+                    PhanLoaiForm form = new PhanLoaiForm();
+                    this.Controls.Clear();
+                    form.TopLevel = false;
+                    form.FormBorderStyle = FormBorderStyle.None;
+                    form.Dock = DockStyle.Fill;
+                    this.Controls.Add(form);
+                    form.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy loại sản phẩm để cập nhật.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi cập nhật: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi cập nhật loại sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
