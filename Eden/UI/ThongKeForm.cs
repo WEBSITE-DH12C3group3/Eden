@@ -10,6 +10,7 @@ using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using ClosedXML.Excel;
 using System.IO;
+using DocumentFormat.OpenXml.Math;
 
 namespace Eden
 {
@@ -231,29 +232,59 @@ namespace Eden
         {
             try
             {
-                // --- 1. Chuẩn bị dữ liệu (Giữ nguyên từ mã gốc của bạn) ---
                 DataTable dt = new DataTable("DoanhThu");
                 dt.Columns.Add("Ngày", typeof(string)); // Hoặc typeof(DateTime) nếu item.Date là DateTime
                 dt.Columns.Add("Tổng Doanh Thu", typeof(decimal));
 
-                // Giả định 'model' và 'model.GrossRevenueList' đã có dữ liệu
-                foreach (var item in model.GrossRevenueList)
+                if (model != null && model.GrossRevenueList != null)
                 {
-                    dt.Rows.Add(item.Date, item.TotalAmount);
+                    foreach (var item in model.GrossRevenueList)
+                    {
+                        dt.Rows.Add(item.Date, item.TotalAmount);
+                    }
                 }
 
                 DataTable dtUnderstock = new DataTable("TonKhoThap");
                 dtUnderstock.Columns.Add("Tên Sản Phẩm", typeof(string));
                 dtUnderstock.Columns.Add("Số Lượng", typeof(double)); // Hoặc typeof(int) tùy loại dữ liệu
 
-                // Giả định 'model' và 'model.UnderstockList' đã có dữ liệu
-                foreach (var row in model.UnderstockList)
+                if (model != null && model.UnderstockList != null)
                 {
-                    dtUnderstock.Rows.Add(row.Name, row.Quantity);
+                    foreach (var row in model.UnderstockList)
+                    {
+                        dtUnderstock.Rows.Add(row.Name, row.Quantity);
+                    }
+                }
+
+                DataTable dtChartPieData = new DataTable("DuLieuBieuDoTron");
+                dtChartPieData.Columns.Add("Sản phẩm", typeof(string)); // Hoặc "Nhãn", "Tên Loại", v.v.
+                dtChartPieData.Columns.Add("Đã bán", typeof(double)); // Hoặc kiểu dữ liệu phù hợp với giá trị Y của bạn
+
+                bool hasPieChartDataForTable = false;
+                if (chartTopProducts != null && chartTopProducts.Series.Count > 0)
+                {
+                    // Giả sử bạn muốn lấy dữ liệu từ Series đầu tiên của biểu đồ tròn
+                    var pieSeries = chartTopProducts.Series.FirstOrDefault(s => s.ChartType == SeriesChartType.Pie || s.Points.Count > 0);
+                    if (pieSeries != null)
+                    {
+                        foreach (DataPoint dp in pieSeries.Points)
+                        {
+                            string label = !string.IsNullOrEmpty(dp.AxisLabel) ? dp.AxisLabel :
+                                           !string.IsNullOrEmpty(dp.LegendText) ? dp.LegendText :
+                                           !string.IsNullOrEmpty(dp.Label) ? dp.Label :
+                                           $"Điểm {pieSeries.Points.IndexOf(dp) + 1}"; // Nhãn mặc định nếu không tìm thấy
+                            double value = dp.YValues.Length > 0 ? dp.YValues[0] : 0;
+                            dtChartPieData.Rows.Add(label, value);
+                        }
+                        if (dtChartPieData.Rows.Count > 0)
+                        {
+                            hasPieChartDataForTable = true;
+                        }
+                    }
                 }
 
                 // Kiểm tra dữ liệu trước khi xuất
-                if ((dt.Rows.Count == 0) && (dtUnderstock.Rows.Count == 0))
+                if ((dt.Rows.Count == 0) && (dtUnderstock.Rows.Count == 0) && !hasPieChartDataForTable)
                 {
                     MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -272,6 +303,10 @@ namespace Eden
                     // --- 3. Tạo và điền dữ liệu vào Workbook sử dụng ClosedXML ---
                     using (XLWorkbook wb = new XLWorkbook())
                     {
+                        // Thông tin người xuất và ngày xuất (từ mã mẫu)
+                        string userName = !string.IsNullOrEmpty(CurrentUser.Username) ? CurrentUser.Username : "N/A";
+                        string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
                         // --- Xử lý Sheet "Doanh Thu" ---
                         var ws1 = wb.Worksheets.Add("Doanh Thu");
 
@@ -298,9 +333,6 @@ namespace Eden
                         ws1.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center; // Căn giữa
                         ws1.Range(2, 1, 2, dt.Columns.Count).Merge(); // Merge các cột tương ứng với dữ liệu
 
-                        // Thông tin người xuất và ngày xuất (từ mã mẫu)
-                        string userName = CurrentUser.Username; // Lấy thông tin người dùng
-                        string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
                         // Đặt thông tin người xuất và ngày xuất ở góc phải, căn chỉnh phù hợp với số cột dữ liệu
                         int lastColumn1 = dt.Columns.Count;
                         ws1.Cell(3, lastColumn1 - 1).Value = $"Người xuất: {userName}"; // Đặt ở cột cuối - 1
@@ -445,13 +477,96 @@ namespace Eden
                         dataRange2.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                         dataRange2.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
 
-                        // Tự động điều chỉnh độ rộng cột cho ws2
-                        //ws2.Columns().AdjustToContents();
-
-                        // Tăng độ rộng của cột thứ 2 ("Số Lượng")
-                        // Bạn có thể thay đổi giá trị 15.0 này tùy theo độ rộng mong muốn
                         ws2.Column(1).Width = 30.0;
                         ws2.Column(2).Width = 20.0;
+
+                        if (hasPieChartDataForTable)
+                        {
+                            var wsPieData = wb.Worksheets.Add("Bán Chạy"); // Tên sheet mới
+                            int currentRowWsPie = 1;
+
+                            // Thiết lập chung cho sheet (tùy chọn)
+                            wsPieData.PageSetup.PaperSize = XLPaperSize.A4Paper;
+                            wsPieData.PageSetup.PageOrientation = XLPageOrientation.Portrait;
+                            // wsPieData.PageSetup.CenterHorizontally = true;
+
+                            // **Sửa: Chỉ sử dụng 2 cột cho tiêu đề và nội dung chính của sheet này**
+                            int numberOfColumnsForLayout = 2;
+
+                            // Tiêu đề chính của báo cáo
+                            wsPieData.Cell(currentRowWsPie, 1).Value = "BÁO CÁO THỐNG KÊ";
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Font.Bold = true;
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Font.FontSize = 18;
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            // Merge qua 2 cột
+                            wsPieData.Range(currentRowWsPie, 1, currentRowWsPie, numberOfColumnsForLayout).Merge();
+                            currentRowWsPie++;
+
+                            // Tiêu đề của sheet dữ liệu biểu đồ
+                            // **Sửa lại tên biến chartPie nếu cần, tôi dùng chartTopProducts như trong đoạn code bạn gửi**
+                            string pieChartTitle = chartTopProducts.Titles.FirstOrDefault()?.Text ?? "Dữ Liệu Biểu Đồ"; // Lấy từ chartTopProducts hoặc chartPie
+                            wsPieData.Cell(currentRowWsPie, 1).Value = pieChartTitle;
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Font.Bold = true;
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Font.FontSize = 14;
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            // Merge qua 2 cột
+                            wsPieData.Range(currentRowWsPie, 1, currentRowWsPie, numberOfColumnsForLayout).Merge();
+                            currentRowWsPie++;
+                            currentRowWsPie++; // Thêm một dòng trống sau tiêu đề sheet
+
+                            // Người xuất
+                            wsPieData.Cell(currentRowWsPie, 1).Value = $"Người xuất: {userName}";
+                            wsPieData.Range(currentRowWsPie, 1, currentRowWsPie, numberOfColumnsForLayout).Merge();
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Font.Bold = true;
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            currentRowWsPie++;
+
+                            // Ngày xuất
+                            wsPieData.Cell(currentRowWsPie, 1).Value = $"Ngày xuất: {exportDateTime:dd/MM/yyyy HH:mm:ss}";
+                            wsPieData.Range(currentRowWsPie, 1, currentRowWsPie, numberOfColumnsForLayout).Merge();
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Font.Bold = true;
+                            wsPieData.Cell(currentRowWsPie, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            currentRowWsPie++;
+
+                            // Chèn bảng dữ liệu từ dtChartPieData
+                            var dataRangePie = wsPieData.Cell(currentRowWsPie, 1).InsertTable(dtChartPieData.AsEnumerable(), "tblDuLieuBieuDo", true).AsRange();
+
+                            // Định dạng tiêu đề bảng
+                            var headerRowPie = dataRangePie.FirstRow();
+                            headerRowPie.Style.Font.Bold = true;
+                            headerRowPie.Style.Fill.BackgroundColor = XLColor.LightGray;
+                            headerRowPie.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            // Định dạng cột giá trị (ví dụ: cột thứ 2)
+                            if (dtChartPieData.Columns.Count >= 2)
+                            {
+                                dataRangePie.Column(2).Style.NumberFormat.Format = "#,##0"; // Định dạng số, có thể thay đổi
+                            }
+
+                            // Thêm đường viền cho bảng
+                            dataRangePie.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            dataRangePie.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                            // Tự động điều chỉnh độ rộng cột
+                            wsPieData.Columns().AdjustToContents();
+                            if (dataRangePie.ColumnCount() >= 1) wsPieData.Column(1).Width = Math.Max(wsPieData.Column(1).Width, 30); // Đảm bảo cột nhãn đủ rộng
+                            if (dataRangePie.ColumnCount() >= 2) wsPieData.Column(2).Width = Math.Max(wsPieData.Column(2).Width, 20); // Đảm bảo cột giá trị đủ rộng
+
+                            // Cập nhật currentRowWsPie nếu bạn muốn thêm gì đó bên dưới bảng
+                            currentRowWsPie = dataRangePie.LastRow().RowNumber() + 2; // +2 để chừa dòng trống
+
+                            // Thêm thông tin cửa hàng ở dưới cùng (giống ws1)
+                            int lastContentRow3 = wsPieData.LastCellUsed().Address.RowNumber; // Lấy hàng cuối cùng có nội dung
+                            wsPieData.Cell(lastContentRow3 + 2, 1).Value = "Địa chỉ: Cây nhà lá vườn";
+                            wsPieData.Cell(lastContentRow3 + 2, 1).Style.Font.Bold = true;
+                            wsPieData.Cell(lastContentRow3 + 2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            wsPieData.Range(lastContentRow3 + 2, 1, lastContentRow3 + 2, lastColumn2).Merge(); // Merge các cột
+
+                            wsPieData.Cell(lastContentRow3 + 3, 1).Value = "Sdt: 0909090909";
+                            wsPieData.Cell(lastContentRow3 + 3, 1).Style.Font.Bold = true;
+                            wsPieData.Cell(lastContentRow3 + 3, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            wsPieData.Range(lastContentRow3 + 3, 1, lastContentRow3 + 3, lastColumn2).Merge(); // Merge các cột
+                        }
 
                         // Lưu file
                         wb.SaveAs(saveDialog.FileName);
