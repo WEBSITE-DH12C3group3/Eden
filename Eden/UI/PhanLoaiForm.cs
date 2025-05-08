@@ -55,7 +55,8 @@ namespace Eden
                 {
                     DataPropertyName = "Id",
                     HeaderText = "ID",
-                    Name = "Id"
+                    Name = "Id",
+                    Visible = false // Ẩn cột ID nếu không cần hiển thị
                 });
             }
 
@@ -294,7 +295,6 @@ namespace Eden
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            
             currentPage = 1;
             LoadLoaiSanPham();
         }
@@ -305,7 +305,12 @@ namespace Eden
             {
                 int idLoaiSanPham = (int)dgvLoaiSanPham.Rows[e.RowIndex].Cells["Id"].Value;
                 PhanLoaiFormListSP formListSP = new PhanLoaiFormListSP(idLoaiSanPham);
-                formListSP.ShowDialog();
+                this.Controls.Clear();
+                formListSP.TopLevel = false;
+                formListSP.FormBorderStyle = FormBorderStyle.None;
+                formListSP.Dock = DockStyle.Fill;
+                this.Controls.Add(formListSP);
+                formListSP.Show();
             }
         }
     }

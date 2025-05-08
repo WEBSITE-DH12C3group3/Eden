@@ -24,6 +24,69 @@ namespace Eden.UI
             InitializeComponent();
             this.Id = id;
             sanPhamBLL = new SANPHAMBLL();
+            sanPhamList.AutoGenerateColumns = false;
+            sanPhamList.Columns.Clear();
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaSanPham",
+                HeaderText = "Mã Sản Phẩm",
+                Name = "MaSanPham"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenSanPham",
+                HeaderText = "Tên Sản Phẩm",
+                Name = "TenSanPham"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MoTa",
+                HeaderText = "Mô tả",
+                Name = "MoTa"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Gia",
+                HeaderText = "Giá",
+                Name = "Gia"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SoLuong",
+                HeaderText = "Số Lượng",
+                Name = "SoLuong"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SoLuongDaBan",
+                HeaderText = "Số Lượng Đã Bán",
+                Name = "SoLuongDaBan"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MauSac",
+                HeaderText = "Màu Sắc",
+                Name = "MauSac"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "AnhChiTiet",
+                HeaderText = "Ảnh Chi Tiết",
+                Name = "AnhChiTiet"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenNhaCungCap",
+                HeaderText = "Tên Nhà Cung Cấp",
+                Name = "TenNhaCungCap"
+            });
+            sanPhamList.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenLoaiSanPham",
+                HeaderText = "Tên Loại Sản Phẩm",
+                Name = "TenLoaiSanPham"
+            });
+
             LoadSanPhamTheoLoai(Id);
         }
 
@@ -61,7 +124,15 @@ namespace Eden.UI
 
         private void btnClose_Click_1(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
+            PhanLoaiForm formSua = new PhanLoaiForm();
+
+            this.Controls.Clear();
+            formSua.TopLevel = false;
+            formSua.FormBorderStyle = FormBorderStyle.None;
+            formSua.Dock = DockStyle.Fill;
+            this.Controls.Add(formSua);
+            formSua.Show();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
