@@ -40,15 +40,15 @@ namespace Eden
             }
         }
 
-        public (List<HoaDonDTO> Data, int TotalRecords) SearchAndPage(string searchText, int page, int pageSize)
+        public (List<HoaDonDTO> Data, int TotalRecords) SearchAndPage(string searchText, int page, int pageSize, decimal? minPrice = null, decimal? maxPrice = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             try
             {
-                if (string.IsNullOrEmpty(searchText))
+                if (string.IsNullOrEmpty(searchText) && !minPrice.HasValue && !maxPrice.HasValue && !startDate.HasValue && !endDate.HasValue)
                 {
                     return GetPaged(page, pageSize);
                 }
-                return dal.SearchAndPage(searchText, page, pageSize);
+                return dal.SearchAndPage(searchText, page, pageSize, minPrice, maxPrice, startDate, endDate);
             }
             catch (Exception ex)
             {

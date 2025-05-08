@@ -79,13 +79,14 @@ namespace Eden
             }
         }
 
-        public (List<HoaDonDTO> Data, int TotalRecords) SearchAndPage(string searchText, int page, int pageSize)
+        public (List<HoaDonDTO> Data, int TotalRecords) SearchAndPage(string searchText, int page, int pageSize, decimal? minPrice = null, decimal? maxPrice = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             try
             {
                 int skip = (page - 1) * pageSize;
                 var query = db.HOADONs.AsQueryable();
 
+                // Lọc theo searchText
                 if (!string.IsNullOrEmpty(searchText))
                 {
                     searchText = searchText.ToLower();
@@ -93,8 +94,32 @@ namespace Eden
                                               (hd.KHACHHANG != null && hd.KHACHHANG.MaKhachHang.ToLower().Contains(searchText)));
                 }
 
+                // Lọc theo khoảng giá
+                if (minPrice.HasValue)
+                {
+                    query = query.Where(hd => hd.TongTien >= minPrice.Value);
+                }
+                if (maxPrice.HasValue)
+                {
+                    query = query.Where(hd => hd.TongTien <= maxPrice.Value);
+                }
+
+                // Lọc theo khoảng ngày
+                if (startDate.HasValue)
+                {
+                    query = query.Where(hd => hd.NgayLap >= startDate.Value);
+                }
+                if (endDate.HasValue)
+                {
+                    // Đảm bảo bao gồm cả ngày cuối (đến 23:59:59 của ngày endDate)
+                    var endDateInclusive = endDate.Value.Date.AddDays(1).AddTicks(-1);
+                    query = query.Where(hd => hd.NgayLap <= endDateInclusive);
+                }
+
+                // Tính tổng số bản ghi
                 int totalRecords = query.Count();
 
+                // Lấy dữ liệu phân trang
                 var data = query
                     .OrderBy(hd => hd.MaHoaDon)
                     .Skip(skip)
