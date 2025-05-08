@@ -74,7 +74,10 @@ namespace Eden
         {
             return dal.GetByMaSanPham(maSanPham);
         }
-
+        public List<SanPhamDTO> GetByMaLoaiSanPham(int idLoaiSanPham)
+        {
+            return dal.GetByMaLoaiSanPham(idLoaiSanPham);
+        }
         public void Dispose()
         {
             dal.Dispose();

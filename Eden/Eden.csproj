@@ -179,6 +179,12 @@
     <Compile Include="UI\HoaDonAdd.Designer.cs">
       <DependentUpon>HoaDonAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\PhanLoaiFormListSP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PhanLoaiFormListSP.Designer.cs">
+      <DependentUpon>PhanLoaiFormListSP.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SanPhamFormSua.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\HoaDonAdd.resx">
       <DependentUpon>HoaDonAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PhanLoaiFormListSP.resx">
+      <DependentUpon>PhanLoaiFormListSP.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SanPhamFormSua.resx">
       <DependentUpon>SanPhamFormSua.cs</DependentUpon>

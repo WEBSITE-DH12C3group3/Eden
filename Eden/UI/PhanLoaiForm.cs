@@ -48,26 +48,34 @@ namespace Eden
         {
             dgvLoaiSanPham.AutoGenerateColumns = false;
 
-            if (dgvLoaiSanPham.Columns.Count == 0)
+            // Thêm cột ID nếu chưa tồn tại
+            if (!dgvLoaiSanPham.Columns.Contains("Id"))
             {
                 dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
                 {
-                    DataPropertyName = "id", // hoặc MaLoaiSanPham nếu bạn dùng tên khác
+                    DataPropertyName = "Id",
                     HeaderText = "ID",
-                    Name = "id"
+                    Name = "Id"
                 });
+            }
 
+            // Đảm bảo cột Mã Loại Sản Phẩm và Tên Loại Sản Phẩm đã tồn tại
+            if (!dgvLoaiSanPham.Columns.Contains("MaLoaiSanPham"))
+            {
                 dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     DataPropertyName = "MaLoaiSanPham",
-                    HeaderText = "Mã Loại",
+                    HeaderText = "Mã Loại Sản Phẩm",
                     Name = "MaLoaiSanPham"
                 });
+            }
 
+            if (!dgvLoaiSanPham.Columns.Contains("TenLoaiSanPham"))
+            {
                 dgvLoaiSanPham.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     DataPropertyName = "TenLoaiSanPham",
-                    HeaderText = "Tên Loại",
+                    HeaderText = "Tên Loại Sản Phẩm",
                     Name = "TenLoaiSanPham"
                 });
             }
@@ -289,6 +297,16 @@ namespace Eden
             
             currentPage = 1;
             LoadLoaiSanPham();
+        }
+
+        private void dgvLoaiSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int idLoaiSanPham = (int)dgvLoaiSanPham.Rows[e.RowIndex].Cells["Id"].Value;
+                PhanLoaiFormListSP formListSP = new PhanLoaiFormListSP(idLoaiSanPham);
+                formListSP.ShowDialog();
+            }
         }
     }
 }

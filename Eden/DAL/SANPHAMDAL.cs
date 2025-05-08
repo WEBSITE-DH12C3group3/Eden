@@ -18,6 +18,26 @@ namespace Eden
                 db = null;
             }
         }
+        public List<SanPhamDTO> GetByMaLoaiSanPham(int idLoaiSanPham)
+        {
+            return db.SANPHAMs
+                .Where(sp => sp.idLoaiSanPham == idLoaiSanPham) // Sửa tại đây
+                .Select(sp => new SanPhamDTO
+                {
+                    idSanPham = sp.id,
+                    MaSanPham = sp.MaSanPham,
+                    TenSanPham = sp.TenSanPham,
+                    MoTa = sp.MoTa,
+                    Gia = sp.Gia,
+                    SoLuong = sp.SoLuong,
+                    MauSac = sp.MauSac,
+                    AnhChiTiet = sp.AnhChiTiet,
+                    TenNhaCungCap = sp.NHACUNGCAP.TenNhaCungCap,
+                    TenLoaiSanPham = sp.LOAISANPHAM.TenLoaiSanPham
+                })
+                .ToList();
+        }
+
 
         public List<SANPHAM> GetAll()
         {
