@@ -107,7 +107,7 @@
             this.listViewQuyen.TabIndex = 4;
             this.listViewQuyen.UseCompatibleStateImageBehavior = false;
             this.listViewQuyen.View = System.Windows.Forms.View.List;
-            this.listViewQuyen.OwnerDraw = true; // Enable owner draw to customize checkbox size
+            this.listViewQuyen.OwnerDraw = true;
             this.listViewQuyen.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewQuyen_DrawItem);
             this.listViewQuyen.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewQuyen_ItemChecked);
             // 
@@ -250,9 +250,29 @@
             e.DrawBackground();
 
             // Draw the checkbox manually
-            int checkBoxSize = 20; // Increased checkbox size to match the font size (14F)
+            int checkBoxSize = 20; // Keep the checkbox size
             Rectangle checkBoxRect = new Rectangle(e.Bounds.Left + 2, e.Bounds.Top + (e.Bounds.Height - checkBoxSize) / 2, checkBoxSize, checkBoxSize);
-            ControlPaint.DrawCheckBox(e.Graphics, checkBoxRect, e.Item.Checked ? ButtonState.Checked : ButtonState.Normal);
+
+            // Draw the checkbox border
+            using (Pen borderPen = new Pen(Color.WhiteSmoke, 2))
+            {
+                e.Graphics.DrawRectangle(borderPen, checkBoxRect);
+            }
+
+            // Draw the check mark if the item is checked
+            if (e.Item.Checked)
+            {
+                using (Pen checkPen = new Pen(Color.WhiteSmoke, 3))
+                {
+                    // Draw a check mark (two lines forming a "V")
+                    Point p1 = new Point(checkBoxRect.Left + 5, checkBoxRect.Top + checkBoxSize / 2);
+                    Point p2 = new Point(checkBoxRect.Left + checkBoxSize / 3, checkBoxRect.Top + checkBoxSize - 5);
+                    Point p3 = new Point(checkBoxRect.Left + checkBoxSize - 5, checkBoxRect.Top + 5);
+
+                    e.Graphics.DrawLine(checkPen, p1, p2);
+                    e.Graphics.DrawLine(checkPen, p2, p3);
+                }
+            }
 
             // Draw the text
             TextFormatFlags flags = TextFormatFlags.VerticalCenter | TextFormatFlags.Left;
