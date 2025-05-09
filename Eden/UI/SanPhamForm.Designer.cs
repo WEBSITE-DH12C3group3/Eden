@@ -44,7 +44,6 @@
             this.cmbFilterValue = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.cmbFilterCriteria = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -262,9 +261,9 @@
             this.cmbFilterValue.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cmbFilterValue.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cmbFilterValue.ItemHeight = 30;
-            this.cmbFilterValue.Location = new System.Drawing.Point(397, 37);
+            this.cmbFilterValue.Location = new System.Drawing.Point(258, 37);
             this.cmbFilterValue.Name = "cmbFilterValue";
-            this.cmbFilterValue.Size = new System.Drawing.Size(86, 36);
+            this.cmbFilterValue.Size = new System.Drawing.Size(182, 36);
             this.cmbFilterValue.TabIndex = 21;
             this.cmbFilterValue.SelectedIndexChanged += new System.EventHandler(this.cmbFilterValue_SelectedIndexChanged);
             // 
@@ -274,7 +273,6 @@
             this.guna2Panel1.Controls.Add(this.labelTitle);
             this.guna2Panel1.Controls.Add(this.cmbFilterValue);
             this.guna2Panel1.Controls.Add(this.guna2TextBoxTimKiem);
-            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel5);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -295,23 +293,11 @@
             this.cmbFilterCriteria.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.cmbFilterCriteria.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cmbFilterCriteria.ItemHeight = 30;
-            this.cmbFilterCriteria.Location = new System.Drawing.Point(291, 39);
+            this.cmbFilterCriteria.Location = new System.Drawing.Point(64, 37);
             this.cmbFilterCriteria.Name = "cmbFilterCriteria";
-            this.cmbFilterCriteria.Size = new System.Drawing.Size(86, 36);
+            this.cmbFilterCriteria.Size = new System.Drawing.Size(188, 36);
             this.cmbFilterCriteria.TabIndex = 22;
             this.cmbFilterCriteria.SelectedIndexChanged += new System.EventHandler(this.cmbFilterCriteria_SelectedIndexChanged);
-            // 
-            // guna2HtmlLabel5
-            // 
-            this.guna2HtmlLabel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(291, 10);
-            this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(44, 23);
-            this.guna2HtmlLabel5.TabIndex = 20;
-            this.guna2HtmlLabel5.Text = "Giá từ";
             // 
             // guna2Panel2
             // 
@@ -566,7 +552,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblSoLuong;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblGia;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTenSanPham;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;

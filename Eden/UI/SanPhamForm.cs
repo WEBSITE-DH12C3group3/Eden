@@ -411,46 +411,55 @@ namespace Eden
        
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-           
+            cmbFilterValue.Visible = false;
+            cmbFilterCriteria.SelectedIndex = -1;
+            cmbFilterValue.DataSource = null;
+            cmbFilterValue.Items.Clear();
+
+            // Hiển thị lại toàn bộ sản phẩm
+            var allProducts = sanphamBLL.GetAll();
+            dgvSanPham.DataSource = allProducts;
             currentPage = 1;
             LoadSanPham();
         }
 
         private void cmbFilterCriteria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbFilterValue.Visible = true;
-            cmbFilterValue.DataSource = null; // Xóa DataSource trước khi thêm Items
-            cmbFilterValue.Items.Clear();
+            if (cmbFilterCriteria.SelectedItem == null) return;
 
+            // Lấy giá trị được chọn từ ComboBox1
             string selectedCriteria = cmbFilterCriteria.SelectedItem.ToString();
+            cmbFilterValue.Visible = true;
+            cmbFilterValue.DataSource = null;
+            cmbFilterValue.Items.Clear();
 
             if (selectedCriteria == "Nhà Cung Cấp")
             {
-                var dsNCC = sanphamBLL.GetAll().Select(sp => sp.TenNhaCungCap).Distinct().ToList();
-                cmbFilterValue.DataSource = dsNCC;
+                var suppliers = sanphamBLL.GetAll().Select(sp => sp.TenNhaCungCap).Distinct().ToList();
+                cmbFilterValue.DataSource = suppliers;
             }
             else if (selectedCriteria == "Loại Sản Phẩm")
             {
-                var dsLoaiSP = sanphamBLL.GetAll().Select(sp => sp.TenLoaiSanPham).Distinct().ToList();
-                cmbFilterValue.DataSource = dsLoaiSP;
+                var categories = sanphamBLL.GetAll().Select(sp => sp.TenLoaiSanPham).Distinct().ToList();
+                cmbFilterValue.DataSource = categories;
             }
             else if (selectedCriteria == "Màu Sắc")
             {
-                var dsMauSac = sanphamBLL.GetAll().Select(sp => sp.MauSac).Distinct().ToList();
-                cmbFilterValue.DataSource = dsMauSac;
+                var colors = sanphamBLL.GetAll().Select(sp => sp.MauSac).Distinct().ToList();
+                cmbFilterValue.DataSource = colors;
             }
             else if (selectedCriteria == "Giá")
             {
-                cmbFilterValue.Items.Add("0 đến 100k");
-                cmbFilterValue.Items.Add("100k đến 500k");
-                cmbFilterValue.Items.Add("500k đến 1 triệu");
-                cmbFilterValue.Items.Add("1 triệu đến 5 triệu");
-                cmbFilterValue.Items.Add("5 triệu trở lên");
+                var priceRanges = new List<string>
+        {
+            "0 đến 100k",
+            "100k đến 500k",
+            "500k đến 1 triệu",
+            "1 triệu đến 5 triệu",
+            "5 triệu trở lên"
+        };
+                cmbFilterValue.DataSource = priceRanges;
             }
-
-            // Đặt giá trị mặc định
-            if (cmbFilterValue.Items.Count > 0)
-                cmbFilterValue.SelectedIndex = 0;
         }
 
         private void cmbFilterValue_SelectedIndexChanged(object sender, EventArgs e)
@@ -511,6 +520,11 @@ namespace Eden
             }
 
             dgvSanPham.DataSource = filteredList;
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }
