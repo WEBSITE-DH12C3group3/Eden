@@ -98,14 +98,16 @@ namespace Eden
             };
 
             // Gán danh sách vào ComboBox
-            cmbGia.DataSource = giaRanges;
+            cmbFilterValue.DataSource = giaRanges;
 
             // Chọn mục mặc định cho ComboBox
-            if (cmbGia.Items.Count > 0)
+            if (cmbFilterValue.Items.Count > 0)
             {
-                cmbGia.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
+                cmbFilterValue.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
             }
             LoadSanPham();
+            LoadFilterCriteria();
+            cmbFilterValue.Visible = false;
         }
 
         private void LoadSanPham()
@@ -126,14 +128,21 @@ namespace Eden
             {
                 Console.WriteLine($"{sp.TenSanPham} - Đã bán: {sp.SoLuongDaBan}");
             }
-            string selectedRange = cmbGia.SelectedItem?.ToString();
+            string selectedRange = cmbFilterValue.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(selectedRange))
             {
                 // Lựa chọn mặc định nếu chưa chọn gì
                 selectedRange = "Giá từ 0 đến 100k";  // Giá trị mặc định
             }
         }
-
+        private void LoadFilterCriteria()
+        {
+            cmbFilterCriteria.Items.Clear();
+            cmbFilterCriteria.Items.Add("Nhà Cung Cấp");
+            cmbFilterCriteria.Items.Add("Loại Sản Phẩm");
+            cmbFilterCriteria.Items.Add("Màu Sắc");
+            cmbFilterCriteria.Items.Add("Giá");
+        }
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             // using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
@@ -399,57 +408,109 @@ namespace Eden
             dgvSanPham.DataSource = ketQua;
         }
 
-        private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Kiểm tra nếu SelectedItem là null, không làm gì
-            if (cmbGia.SelectedItem == null) return;
-
-            // Lấy phạm vi giá được chọn từ ComboBox
-            string selectedRange = cmbGia.SelectedItem.ToString();
-
-            decimal giaFrom = 0;
-            decimal giaTo = decimal.MaxValue;
-
-            // Phân tích phạm vi giá đã chọn
-            if (selectedRange == "0 đến 100k")
-            {
-                giaFrom = 0;
-                giaTo = 100000;
-            }
-            else if (selectedRange == "100k đến 500k")
-            {
-                giaFrom = 100000;
-                giaTo = 500000;
-            }
-            else if (selectedRange == "500k đến 1 triệu")
-            {
-                giaFrom = 500000;
-                giaTo = 1000000;
-            }
-            else if (selectedRange == "1 triệu đến 5 triệu")
-            {
-                giaFrom = 1000000;
-                giaTo = 5000000;
-            }
-            else if (selectedRange == "5 triệu trở lên")
-            {
-                giaFrom = 5000000;
-                giaTo = decimal.MaxValue;
-            }
-
-            // Lọc sản phẩm theo giá đã chọn
-            var ds = sanphamBLL.GetAll(); // Lấy tất cả sản phẩm
-            var filteredList = ds.Where(sp => sp.Gia >= giaFrom && sp.Gia <= giaTo).ToList();
-
-            // Cập nhật lại DataGridView với danh sách đã lọc
-            dgvSanPham.DataSource = filteredList;
-        }
-
+       
         private void btnRefresh_Click(object sender, EventArgs e)
         {
            
             currentPage = 1;
             LoadSanPham();
+        }
+
+        private void cmbFilterCriteria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbFilterValue.Visible = true;
+            cmbFilterValue.DataSource = null; // Xóa DataSource trước khi thêm Items
+            cmbFilterValue.Items.Clear();
+
+            string selectedCriteria = cmbFilterCriteria.SelectedItem.ToString();
+
+            if (selectedCriteria == "Nhà Cung Cấp")
+            {
+                var dsNCC = sanphamBLL.GetAll().Select(sp => sp.TenNhaCungCap).Distinct().ToList();
+                cmbFilterValue.DataSource = dsNCC;
+            }
+            else if (selectedCriteria == "Loại Sản Phẩm")
+            {
+                var dsLoaiSP = sanphamBLL.GetAll().Select(sp => sp.TenLoaiSanPham).Distinct().ToList();
+                cmbFilterValue.DataSource = dsLoaiSP;
+            }
+            else if (selectedCriteria == "Màu Sắc")
+            {
+                var dsMauSac = sanphamBLL.GetAll().Select(sp => sp.MauSac).Distinct().ToList();
+                cmbFilterValue.DataSource = dsMauSac;
+            }
+            else if (selectedCriteria == "Giá")
+            {
+                cmbFilterValue.Items.Add("0 đến 100k");
+                cmbFilterValue.Items.Add("100k đến 500k");
+                cmbFilterValue.Items.Add("500k đến 1 triệu");
+                cmbFilterValue.Items.Add("1 triệu đến 5 triệu");
+                cmbFilterValue.Items.Add("5 triệu trở lên");
+            }
+
+            // Đặt giá trị mặc định
+            if (cmbFilterValue.Items.Count > 0)
+                cmbFilterValue.SelectedIndex = 0;
+        }
+
+        private void cmbFilterValue_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbFilterCriteria.SelectedItem == null || cmbFilterValue.SelectedItem == null)
+                return;
+
+            string selectedCriteria = cmbFilterCriteria.SelectedItem.ToString();
+            string selectedValue = cmbFilterValue.SelectedItem.ToString();
+
+            var ds = sanphamBLL.GetAll();
+            List<SanPhamDTO> filteredList = new List<SanPhamDTO>();
+
+            if (selectedCriteria == "Nhà Cung Cấp")
+            {
+                filteredList = ds.Where(sp => sp.TenNhaCungCap == selectedValue).ToList();
+            }
+            else if (selectedCriteria == "Loại Sản Phẩm")
+            {
+                filteredList = ds.Where(sp => sp.TenLoaiSanPham == selectedValue).ToList();
+            }
+            else if (selectedCriteria == "Màu Sắc")
+            {
+                filteredList = ds.Where(sp => sp.MauSac == selectedValue).ToList();
+            }
+            else if (selectedCriteria == "Giá")
+            {
+                decimal giaFrom = 0;
+                decimal giaTo = decimal.MaxValue;
+
+                if (selectedValue == "0 đến 100k")
+                {
+                    giaFrom = 0;
+                    giaTo = 100000;
+                }
+                else if (selectedValue == "100k đến 500k")
+                {
+                    giaFrom = 100000;
+                    giaTo = 500000;
+                }
+                else if (selectedValue == "500k đến 1 triệu")
+                {
+                    giaFrom = 500000;
+                    giaTo = 1000000;
+                }
+                else if (selectedValue == "1 triệu đến 5 triệu")
+                {
+                    giaFrom = 1000000;
+                    giaTo = 5000000;
+                }
+                else if (selectedValue == "5 triệu trở lên")
+                {
+                    giaFrom = 5000000;
+                    giaTo = decimal.MaxValue;
+                }
+
+                filteredList = ds.Where(sp => sp.Gia >= giaFrom && sp.Gia <= giaTo).ToList();
+            }
+
+            dgvSanPham.DataSource = filteredList;
         }
     }
 }
