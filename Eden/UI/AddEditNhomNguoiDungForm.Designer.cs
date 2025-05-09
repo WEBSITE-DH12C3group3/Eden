@@ -98,15 +98,17 @@
             this.listViewQuyen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
             this.listViewQuyen.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listViewQuyen.CheckBoxes = true;
-            this.listViewQuyen.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewQuyen.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewQuyen.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.listViewQuyen.HideSelection = false;
             this.listViewQuyen.Location = new System.Drawing.Point(22, 198);
             this.listViewQuyen.Name = "listViewQuyen";
-            this.listViewQuyen.Size = new System.Drawing.Size(261, 264);
+            this.listViewQuyen.Size = new System.Drawing.Size(311, 364);
             this.listViewQuyen.TabIndex = 4;
             this.listViewQuyen.UseCompatibleStateImageBehavior = false;
             this.listViewQuyen.View = System.Windows.Forms.View.List;
+            this.listViewQuyen.OwnerDraw = true; // Enable owner draw to customize checkbox size
+            this.listViewQuyen.DrawItem += new System.Windows.Forms.DrawListViewItemEventHandler(this.listViewQuyen_DrawItem);
             this.listViewQuyen.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listViewQuyen_ItemChecked);
             // 
             // labelTitle
@@ -241,6 +243,26 @@
             this.guna2Panel4.PerformLayout();
             this.ResumeLayout(false);
 
+        }
+
+        private void listViewQuyen_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            // Draw the checkbox manually
+            int checkBoxSize = 20; // Increased checkbox size to match the font size (14F)
+            Rectangle checkBoxRect = new Rectangle(e.Bounds.Left + 2, e.Bounds.Top + (e.Bounds.Height - checkBoxSize) / 2, checkBoxSize, checkBoxSize);
+            ControlPaint.DrawCheckBox(e.Graphics, checkBoxRect, e.Item.Checked ? ButtonState.Checked : ButtonState.Normal);
+
+            // Draw the text
+            TextFormatFlags flags = TextFormatFlags.VerticalCenter | TextFormatFlags.Left;
+            Rectangle textRect = new Rectangle(e.Bounds.Left + checkBoxSize + 6, e.Bounds.Top, e.Bounds.Width - checkBoxSize - 6, e.Bounds.Height);
+            TextRenderer.DrawText(e.Graphics, e.Item.Text, e.Item.Font, textRect, e.Item.ForeColor, flags);
+
+            if (e.Item.Selected)
+            {
+                e.DrawFocusRectangle();
+            }
         }
 
         private Guna2Button btnSave;
