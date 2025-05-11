@@ -16,7 +16,7 @@ namespace Eden
 {
     public partial class HoaDonForm : Form
     {
-        private HOADONBLL hoaDonBLL;
+        private HOADONBLL hoaDonBLL = new HOADONBLL();
         private int currentPage = 1; // Trang hiện tại
         private int pageSize = 10; // Số bản ghi trên mỗi trang
         private int totalPages = 1; // Tổng số trang
@@ -29,7 +29,39 @@ namespace Eden
         public HoaDonForm()
         {
             InitializeComponent();
-            hoaDonBLL = new HOADONBLL();
+            dghoadon.AutoGenerateColumns = false;
+            dghoadon.Columns.Clear();
+            dghoadon.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaHoaDon",
+                HeaderText = "Mã hóa đơn",
+                Name = "MaHoaDon"
+            });
+            dghoadon.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NgayLap",
+                HeaderText = "Ngày Lập"
+            });
+            dghoadon.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaKhachHang",
+                HeaderText = "Mã khách hàng"
+            });
+            dghoadon.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenKhachHang",
+                HeaderText = "Tên khách hàng"
+            });
+            dghoadon.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenNguoiDung",
+                HeaderText = "Tên người dùng"
+            });
+            dghoadon.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TongTien",
+                HeaderText = "Tổng tiền"
+            });
 
             // Cấu hình ComboBox để hiển thị các lựa chọn
             cbFilterType.DropDownStyle = ComboBoxStyle.DropDownList;

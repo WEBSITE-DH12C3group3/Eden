@@ -28,8 +28,8 @@ namespace Eden
                 return db.HOADONs
                     .Select(hd => new HoaDonDTO
                     {
-                        idHoaDon = hd.id,
-                        idKhachHang = hd.idKhachHang.HasValue ? hd.idKhachHang.Value : 0,
+                        //idHoaDon = hd.id,
+                        //idKhachHang = hd.idKhachHang.HasValue ? hd.idKhachHang.Value : 0,
                         MaHoaDon = hd.MaHoaDon,
                         NgayLap = hd.NgayLap,
                         MaKhachHang = hd.KHACHHANG != null ? hd.KHACHHANG.MaKhachHang : "N/A",

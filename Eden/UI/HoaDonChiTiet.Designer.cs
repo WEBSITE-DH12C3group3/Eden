@@ -71,14 +71,14 @@
             this.dgvChiTietHD.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvChiTietHD.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvChiTietHD.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.dgvChiTietHD.Location = new System.Drawing.Point(22, 94);
-            this.dgvChiTietHD.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvChiTietHD.Location = new System.Drawing.Point(29, 116);
+            this.dgvChiTietHD.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvChiTietHD.Name = "dgvChiTietHD";
             this.dgvChiTietHD.ReadOnly = true;
             this.dgvChiTietHD.RowHeadersVisible = false;
             this.dgvChiTietHD.RowHeadersWidth = 51;
             this.dgvChiTietHD.RowTemplate.Height = 50;
-            this.dgvChiTietHD.Size = new System.Drawing.Size(915, 528);
+            this.dgvChiTietHD.Size = new System.Drawing.Size(1220, 650);
             this.dgvChiTietHD.TabIndex = 1;
             this.dgvChiTietHD.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(75)))));
             this.dgvChiTietHD.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -115,10 +115,10 @@
             this.btnBack.ForeColor = System.Drawing.Color.White;
             this.btnBack.Image = global::Eden.Properties.Resources.left;
             this.btnBack.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnBack.Location = new System.Drawing.Point(220, 17);
-            this.btnBack.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBack.Location = new System.Drawing.Point(293, 21);
+            this.btnBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(174, 61);
+            this.btnBack.Size = new System.Drawing.Size(232, 75);
             this.btnBack.TabIndex = 2;
             this.btnBack.Text = "Quay lại";
             this.btnBack.Click += new System.EventHandler(this.back_Click);
@@ -128,10 +128,9 @@
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(31, 23);
-            this.labelTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTitle.Location = new System.Drawing.Point(41, 28);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(208, 32);
+            this.labelTitle.Size = new System.Drawing.Size(259, 41);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Chi Tiết Hóa Đơn";
             // 
@@ -148,12 +147,12 @@
             this.btnExportExcel.ForeColor = System.Drawing.Color.White;
             this.btnExportExcel.Image = global::Eden.Properties.Resources.exel;
             this.btnExportExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnExportExcel.Location = new System.Drawing.Point(596, 17);
-            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(2);
+            this.btnExportExcel.Location = new System.Drawing.Point(795, 21);
+            this.btnExportExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExportExcel.Name = "btnExportExcel";
-            this.btnExportExcel.Size = new System.Drawing.Size(174, 61);
+            this.btnExportExcel.Size = new System.Drawing.Size(232, 75);
             this.btnExportExcel.TabIndex = 18;
-            this.btnExportExcel.Text = "Xuất Excel";
+            this.btnExportExcel.Text = "Xuất Hóa Đơn";
             this.btnExportExcel.Click += new System.EventHandler(this.btnExportExcel_Click);
             // 
             // guna2Panel1
@@ -161,9 +160,10 @@
             this.guna2Panel1.Controls.Add(this.btnExportExcel);
             this.guna2Panel1.Controls.Add(this.btnBack);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.guna2Panel1.Location = new System.Drawing.Point(0, 646);
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 795);
+            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(962, 103);
+            this.guna2Panel1.Size = new System.Drawing.Size(1283, 127);
             this.guna2Panel1.TabIndex = 19;
             // 
             // guna2Panel2
@@ -171,21 +171,22 @@
             this.guna2Panel2.Controls.Add(this.labelTitle);
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.guna2Panel2.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(962, 76);
+            this.guna2Panel2.Size = new System.Drawing.Size(1283, 94);
             this.guna2Panel2.TabIndex = 20;
             // 
             // HoaDonChiTiet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(962, 749);
+            this.ClientSize = new System.Drawing.Size(1283, 922);
             this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.dgvChiTietHD);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "HoaDonChiTiet";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chi Tiết Hóa Đơn";

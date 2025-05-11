@@ -120,7 +120,6 @@ namespace Eden
             this.dghoadon.ThemeStyle.RowsStyle.Height = 40;
             this.dghoadon.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dghoadon.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dghoadon.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dghoadon_CellContentClick_1);
             // 
             // addhoadon
             // 
@@ -428,12 +427,7 @@ namespace Eden
         }
 
         // Add the missing event handler method definition for 'dghoadon_CellContentClick_1' in the HoaDonForm class.  
-        private void dghoadon_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            // Add your logic here. For now, this is a placeholder to resolve the error.  
-            // Example:  
-            MessageBox.Show($"Cell clicked at Row: {e.RowIndex}, Column: {e.ColumnIndex}");
-        }
+        
 
         #endregion
 
