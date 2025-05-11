@@ -276,18 +276,13 @@ namespace Eden
 
         private void addhoadon_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (var form = new HoaDonAdd())
-                {
-                    form.FormClosed += (s, args) => LoadData();
-                    form.ShowDialog();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi mở form thêm hóa đơn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var form = new HoaDonAdd();
+            this.Controls.Clear();
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+            this.Controls.Add(form);
+            form.Show();
         }
 
         private void xoahoadon_Click(object sender, EventArgs e)
@@ -338,10 +333,13 @@ namespace Eden
 
                     if (int.TryParse(maHoaDon.Replace("HD", ""), out int idHoaDon))
                     {
-                        using (var form = new HoaDonChiTiet(idHoaDon))
-                        {
-                            form.ShowDialog();
-                        }
+                        var form = new HoaDonChiTiet(idHoaDon);
+                        this.Controls.Clear();
+                        form.TopLevel = false;
+                        form.FormBorderStyle = FormBorderStyle.None;
+                        form.Dock = DockStyle.Fill;
+                        this.Controls.Add(form);
+                        form.Show();
                     }
                     else
                     {
