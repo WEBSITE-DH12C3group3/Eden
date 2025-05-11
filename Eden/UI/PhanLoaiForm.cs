@@ -248,41 +248,113 @@ namespace Eden
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            // Tạo DataTable từ DataGridView
-            DataTable dt = new DataTable();
-
-            foreach (DataGridViewColumn column in dgvLoaiSanPham.Columns)
+            try
             {
-                dt.Columns.Add(column.HeaderText, typeof(string));
-            }
-
-            foreach (DataGridViewRow row in dgvLoaiSanPham.Rows)
-            {
-                if (!row.IsNewRow)
+                // Kiểm tra dữ liệu
+                if (dgvLoaiSanPham.Rows.Count == 0)
                 {
-                    DataRow dr = dt.NewRow();
-                    for (int i = 0; i < dgvLoaiSanPham.Columns.Count; i++)
+                    MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Lấy tên người dùng
+                string userName = CurrentUser.Username;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    userName = Environment.UserName;
+                    MessageBox.Show($"Không tìm thấy thông tin người dùng. Sử dụng tên hệ thống: {userName}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                // Hộp thoại lưu file
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+                    saveFileDialog.Title = "Lưu file Excel";
+                    saveFileDialog.FileName = $"DanhSachPhanLoai_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        dr[i] = row.Cells[i].Value?.ToString();
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            var ws = wb.Worksheets.Add("LoaiSanPham");
+                            ws.PageSetup.PaperSize = XLPaperSize.A4Paper;
+                            ws.PageSetup.Margins.Left = 0.5;
+                            ws.PageSetup.Margins.Right = 0.5;
+                            ws.PageSetup.Margins.Top = 0.75;
+                            ws.PageSetup.Margins.Bottom = 0.75;
+                            ws.PageSetup.CenterHorizontally = true;
+                            ws.PageSetup.PageOrientation = XLPageOrientation.Portrait;
+
+                            // Tiêu đề cửa hàng
+                            ws.Cell(1, 1).Value = "Cửa Hàng Hoa Tươi EDEN";
+                            ws.Cell(1, 1).Style.Font.Bold = true;
+                            ws.Cell(1, 1).Style.Font.FontSize = 18;
+                            ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            ws.Range(1, 1, 1, 6).Merge();
+
+                            // Tiêu đề bảng
+                            ws.Cell(2, 1).Value = "Danh Sách Phân Loại";
+                            ws.Cell(2, 1).Style.Font.Bold = true;
+                            ws.Cell(2, 1).Style.Font.FontSize = 16;
+                            ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            ws.Range(2, 1, 2, 6).Merge();
+
+                            // Người xuất và ngày xuất
+                            ws.Cell(3, 5).Value = $"Người xuất: {userName}";
+                            ws.Cell(3, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Cell(3, 5).Style.Font.Bold = true;
+                            ws.Range(3, 5, 3, 6).Merge();
+
+                            ws.Cell(4, 5).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                            ws.Cell(4, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Cell(4, 5).Style.Font.Bold = true;
+                            ws.Range(4, 5, 4, 6).Merge();
+
+                            // Dữ liệu từ DataGridView
+                            DataTable dt = new DataTable();
+                            foreach (DataGridViewColumn column in dgvLoaiSanPham.Columns)
+                            {
+                                if (column.Visible)
+                                    dt.Columns.Add(column.HeaderText, typeof(string));
+                            }
+
+                            foreach (DataGridViewRow row in dgvLoaiSanPham.Rows)
+                            {
+                                if (!row.IsNewRow)
+                                {
+                                    DataRow dr = dt.NewRow();
+                                    for (int i = 0; i < dgvLoaiSanPham.Columns.Count; i++)
+                                    {
+                                        if (dgvLoaiSanPham.Columns[i].Visible)
+                                            dr[i] = row.Cells[i].Value?.ToString();
+                                    }
+                                    dt.Rows.Add(dr);
+                                }
+                            }
+
+                            var dataRange = ws.Cell(6, 1).InsertTable(dt.AsEnumerable()).AsRange();
+                            var headerRow = dataRange.FirstRow();
+                            headerRow.Style.Font.Bold = true;
+                            headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
+                            headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            // Tự động chỉnh cột
+                            ws.Columns().AdjustToContents();
+
+                            // Đường viền
+                            dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                            // Lưu file
+                            wb.SaveAs(saveFileDialog.FileName);
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
-                    dt.Rows.Add(dr);
                 }
             }
-
-            // Lưu Excel
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Excel Workbook|*.xlsx";
-            saveFileDialog.Title = "Lưu file Excel";
-            saveFileDialog.FileName = "DanhSach.xlsx";
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            catch (Exception ex)
             {
-                using (XLWorkbook wb = new XLWorkbook())
-                {
-                    wb.Worksheets.Add(dt, "DanhSach");
-                    wb.SaveAs(saveFileDialog.FileName);
-                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

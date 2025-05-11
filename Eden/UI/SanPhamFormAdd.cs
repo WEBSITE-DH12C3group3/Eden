@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using Guna.UI2.WinForms;
 
 //using System.Drawing;
 
@@ -104,66 +105,78 @@ namespace Eden.UI
         {
             try
             {
+                // Kiểm tra ảnh sản phẩm
                 if (string.IsNullOrWhiteSpace(duongDanAnh))
                 {
                     MessageBox.Show("Vui lòng chọn ảnh sản phẩm.", "Thiếu ảnh", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                // Lấy giá trị từ các ô nhập
                 string tenSP = guna2TextBoxTenSP.Text.Trim();
                 string moTa = guna2TextBoxMoTa.Text.Trim();
                 string giaStr = guna2TextBoxGia.Text.Trim();
                 string soLuongStr = guna2TextBoxSoLuong.Text.Trim();
                 string mauSac = guna2TextBoxMauSac.Text.Trim();
 
+                // Kiểm tra tên sản phẩm
                 if (string.IsNullOrWhiteSpace(tenSP))
                 {
                     MessageBox.Show("Tên sản phẩm không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
-                if (tenSP.Length > 100)
+                if (tenSP.Length > 255)
                 {
-                    MessageBox.Show("Tên sản phẩm không được vượt quá 100 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Tên sản phẩm không được vượt quá 255 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
                 if (!Regex.IsMatch(tenSP, @"^[\w\sÀ-ỹ]+$"))
                 {
                     MessageBox.Show("Tên sản phẩm không được chứa ký tự đặc biệt.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (!decimal.TryParse(giaStr, out decimal gia) || gia < 0)
+                // Kiểm tra mô tả
+                if (moTa.Length > 1000)
                 {
-                    MessageBox.Show("Giá phải là số hợp lệ và không âm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Mô tả không được vượt quá 1000 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (!int.TryParse(soLuongStr, out int soLuong) || soLuong < 0)
+                // Kiểm tra giá
+                if (!decimal.TryParse(giaStr, out decimal gia) || gia < 0 || gia > 9999999999.99m)
                 {
-                    MessageBox.Show("Số lượng phải là số nguyên không âm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Giá phải là số hợp lệ, không âm và không vượt quá 9,999,999,999.99.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                // Kiểm tra số lượng
+                if (!int.TryParse(soLuongStr, out int soLuong) || soLuong < 0 || soLuong > 1000000)
+                {
+                    MessageBox.Show("Số lượng phải là số nguyên không âm và không vượt quá 1,000,000.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra màu sắc
                 if (mauSac.Length > 50)
                 {
                     MessageBox.Show("Màu sắc không được vượt quá 50 ký tự.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
                 if (!Regex.IsMatch(mauSac, @"^[\w\sÀ-ỹ]*$"))
                 {
                     MessageBox.Show("Màu sắc không được chứa ký tự đặc biệt.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                // Kiểm tra nhà cung cấp và loại sản phẩm
                 if (guna2ComboBoxNCC.SelectedValue == null || guna2ComboBoxLoaiSP.SelectedValue == null)
                 {
                     MessageBox.Show("Vui lòng chọn nhà cung cấp và loại sản phẩm.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                // Tạo đối tượng sản phẩm
                 SANPHAM sp = new SANPHAM
                 {
                     TenSanPham = tenSP,
@@ -176,9 +189,20 @@ namespace Eden.UI
                     idLoaiSanPham = Convert.ToInt32(guna2ComboBoxLoaiSP.SelectedValue)
                 };
 
+                // Thêm sản phẩm
                 sanPhamBLL.Add(sp);
                 MessageBox.Show("Thêm sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // Đặt lại form sau khi thêm thành công
+                guna2TextBoxTenSP.Clear();
+                guna2TextBoxMoTa.Clear();
+                guna2TextBoxGia.Clear();
+                guna2TextBoxSoLuong.Clear();
+                guna2TextBoxMauSac.Clear();
+                duongDanAnh = null;
+                guna2CirclePictureBoxAnh.Image = null;
+
+                // Tải lại form sản phẩm
                 SanPhamForm form = new SanPhamForm();
                 this.Controls.Clear();
                 form.TopLevel = false;
@@ -191,7 +215,6 @@ namespace Eden.UI
             {
                 MessageBox.Show("Lỗi khi thêm sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void guna2ChonAnh_Click(object sender, EventArgs e)
