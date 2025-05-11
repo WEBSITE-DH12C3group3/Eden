@@ -119,7 +119,7 @@ namespace Eden
             dtpStartDate.Visible = false;
             dtpEndDate.Visible = false;
             btnApplyFilter.Visible = false;
-            guna2Button1.Visible = false;
+            //guna2Button1.Visible = false;
 
             switch (cbFilterType.SelectedIndex)
             {
@@ -127,13 +127,13 @@ namespace Eden
                     nudMinPrice.Visible = true;
                     nudMaxPrice.Visible = true;
                     btnApplyFilter.Visible = true;
-                    guna2Button1.Visible = true;
+                    //guna2Button1.Visible = true;
                     break;
                 case 2: // Theo ngày
                     dtpStartDate.Visible = true;
                     dtpEndDate.Visible = true;
                     btnApplyFilter.Visible = true;
-                    guna2Button1.Visible = true;
+                    //guna2Button1.Visible = true;
                     break;
                 case 0: // Tất cả
                 default:
@@ -152,12 +152,20 @@ namespace Eden
             {
                 if (cbFilterType.SelectedIndex == 1) // Theo giá
                 {
-                    minPrice = nudMinPrice.Value > 0 ? nudMinPrice.Value : (decimal?)null;
-                    maxPrice = nudMaxPrice.Value > 0 ? nudMaxPrice.Value : (decimal?)null;
+                    // Đặt phạm vi cho numericUpDown nếu muốn tự do nhập
+                    nudMinPrice.Minimum = 0; // hoặc giá trị thấp nhất
+                    nudMinPrice.Maximum = 100000000; // hoặc một giá trị lớn phù hợp
+                    nudMaxPrice.Minimum = 0;
+                    nudMaxPrice.Maximum = 100000000;
+
+                    // Lấy giá trị nhập vào
+                    minPrice = nudMinPrice.Value;
+                    maxPrice = nudMaxPrice.Value;
+
                     startDate = null;
                     endDate = null;
 
-                    if (minPrice.HasValue && maxPrice.HasValue && minPrice > maxPrice)
+                    if (minPrice > maxPrice)
                     {
                         MessageBox.Show("Giá tối thiểu không được lớn hơn giá tối đa.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
@@ -184,7 +192,6 @@ namespace Eden
                 MessageBox.Show($"Lỗi khi áp dụng bộ lọc: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void btnResetFilter_Click(object sender, EventArgs e)
         {
             try
@@ -356,10 +363,23 @@ namespace Eden
         {
             try
             {
-                List<HoaDonDTO> allHoaDon = hoaDonBLL.GetAll();
-                if (allHoaDon == null || allHoaDon.Count == 0)
+                // Gọi SearchAndPage để lấy TotalRecords trước
+                var result = hoaDonBLL.SearchAndPage(currentSearchText, 1, pageSize, minPrice, maxPrice, startDate, endDate);
+                int totalRecords = result.TotalRecords;
+
+                if (totalRecords == 0)
                 {
-                    MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Không có dữ liệu để xuất sau khi áp dụng bộ lọc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Gọi lại SearchAndPage với pageSize = totalRecords để lấy toàn bộ dữ liệu
+                var fullResult = hoaDonBLL.SearchAndPage(currentSearchText, 1, totalRecords, minPrice, maxPrice, startDate, endDate);
+                List<HoaDonDTO> filteredHoaDon = fullResult.Data;
+
+                if (filteredHoaDon == null || filteredHoaDon.Count == 0)
+                {
+                    MessageBox.Show("Không có dữ liệu để xuất sau khi áp dụng bộ lọc.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -424,7 +444,7 @@ namespace Eden
                             dt.Columns.Add("Tên Người Dùng");
                             dt.Columns.Add("Tổng Tiền");
 
-                            foreach (var hd in allHoaDon)
+                            foreach (var hd in filteredHoaDon)
                             {
                                 dt.Rows.Add(
                                     hd.MaHoaDon,
@@ -447,7 +467,7 @@ namespace Eden
 
                             var lastRow = dataRange.LastRow().RowNumber();
                             ws.Cell(lastRow + 1, 5).Value = "Tổng cộng:";
-                            ws.Cell(lastRow + 1, 6).Value = allHoaDon.Sum(hd => hd.TongTien);
+                            ws.Cell(lastRow + 1, 6).Value = filteredHoaDon.Sum(hd => hd.TongTien);
                             ws.Cell(lastRow + 1, 5).Style.Font.Bold = true;
                             ws.Cell(lastRow + 1, 6).Style.Font.Bold = true;
                             ws.Cell(lastRow + 1, 6).Style.NumberFormat.Format = "#,##0";
@@ -477,5 +497,11 @@ namespace Eden
                 MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void btnrefresh_Click(object sender, EventArgs e)
+        {
+            currentPage = 1;
+            LoadData();
+        }
+
     }
 }

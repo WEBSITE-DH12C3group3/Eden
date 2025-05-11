@@ -27,6 +27,8 @@ namespace Eden
             }
         }
 
+
+
         public (List<HoaDonDTO> Data, int TotalRecords) GetPaged(int page, int pageSize)
         {
             try

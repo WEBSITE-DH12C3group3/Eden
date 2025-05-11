@@ -160,13 +160,25 @@ namespace Eden.UI
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Excel Workbook|*.xlsx";
             saveFileDialog.Title = "Lưu file Excel";
-            saveFileDialog.FileName = "ChiTietPhieuNhap.xlsx"; // Đổi tên file cho phù hợp
+            saveFileDialog.FileName = "ChiTietHoaDon.xlsx"; // Đổi tên file cho phù hợp
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
+
             {
+                string userName = CurrentUser.Username;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    userName = Environment.UserName;
+                    MessageBox.Show($"Không tìm thấy thông tin người dùng. Sử dụng tên hệ thống: {userName}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    System.Diagnostics.Debug.WriteLine($"[HoaDonForm] Xuất Excel: CurrentUser.Username is null, sử dụng {userName} at {DateTime.Now}");
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"[HoaDonForm] Xuất Excel: CurrentUser.Username = {userName} at {DateTime.Now}");
+                }
                 using (XLWorkbook wb = new XLWorkbook())
                 {
-                    var ws = wb.Worksheets.Add("Chi Tiết Phiếu Nhập"); // Đổi tên worksheet
+                    var ws = wb.Worksheets.Add("Chi Tiết Hóa Đơn"); // Đổi tên worksheet
 
                     // Tiêu đề
                     ws.Cell("A1").Value = "Cửa hàng bán hoa EDEN";
@@ -174,9 +186,15 @@ namespace Eden.UI
                     ws.Cell("A1").Style.Font.FontSize = 16;
 
 
-                    // Ngày xuất Excel
-                    ws.Cell("A2").Value = "Ngày xuất: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                    ws.Cell("A2").Style.Font.Italic = true;
+                    string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                    ws.Cell(2, 5).Value = $"Người xuất: {userName}";
+                    ws.Cell(2, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Cell(2, 5).Style.Font.Bold = true;
+                    ws.Range(2, 5, 2, 6).Merge();
+                    ws.Cell(3, 5).Value = $"Ngày xuất: {exportDateTime}";
+                    ws.Cell(3, 5).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Cell(3, 5).Style.Font.Bold = true;
+                    ws.Range(3, 5, 3, 6).Merge();
 
                     // Đổ dữ liệu từ DataTable
                     ws.Cell("A4").InsertTable(dt.AsEnumerable());
