@@ -126,13 +126,6 @@ namespace Eden
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            //     using (var form = new AddEditNguoiDungForm(null, nhomNguoiDungList))
-            // {
-            //     if (form.ShowDialog() == DialogResult.OK)
-            //     {
-            //         LoadData(txtSearch.Text.Trim(), currentPage);
-            //     }
-            // }
             var form = new AddEditNguoiDungForm(null, nhomNguoiDungList);
             this.Controls.Clear();
             form.TopLevel = false;
@@ -161,7 +154,6 @@ namespace Eden
             }
 
             var form = new AddEditNguoiDungForm(nguoiDung, nhomNguoiDungList);
-
             this.Controls.Clear();
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
@@ -217,27 +209,36 @@ namespace Eden
                         {
                             var worksheet = workbook.Worksheets.Add("NguoiDung");
 
-                            // Tiêu đề chính
-                            worksheet.Cell(1, 1).Value = "Danh Sách Người Dùng";
+                            // Thêm tiêu đề cửa hàng
+                            worksheet.Cell(1, 1).Value = "Cửa Hàng Hoa Tươi EDEN";
                             worksheet.Cell(1, 1).Style.Font.Bold = true;
-                            worksheet.Cell(1, 1).Style.Font.FontSize = 16;
+                            worksheet.Cell(1, 1).Style.Font.FontSize = 18;
+                            worksheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
                             worksheet.Range(1, 1, 1, 4).Merge();
-                            worksheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            // Tiêu đề chính
+                            worksheet.Cell(2, 1).Value = "Danh Sách Người Dùng";
+                            worksheet.Cell(2, 1).Style.Font.Bold = true;
+                            worksheet.Cell(2, 1).Style.Font.FontSize = 16;
+                            worksheet.Range(2, 1, 2, 4).Merge();
+                            worksheet.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                             // Thông tin người xuất và ngày xuất (căn phải)
                             string userName = CurrentUser.Username ?? "Không xác định";
                             string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                            worksheet.Cell(2, 4).Value = $"Người xuất: {userName}";
-                            worksheet.Cell(2, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-                            worksheet.Cell(3, 4).Value = $"Ngày xuất: {exportDateTime}";
+                            worksheet.Cell(3, 4).Value = $"Người xuất: {userName}";
                             worksheet.Cell(3, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            worksheet.Range(3, 4, 3, 4).Merge();
+                            worksheet.Cell(4, 4).Value = $"Ngày xuất: {exportDateTime}";
+                            worksheet.Cell(4, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            worksheet.Range(4, 4, 4, 4).Merge();
 
                             // Tiêu đề cột
-                            worksheet.Cell(5, 1).Value = "Mã Người Dùng";
-                            worksheet.Cell(5, 2).Value = "Tên Người Dùng";
-                            worksheet.Cell(5, 3).Value = "Tên Đăng Nhập";
-                            worksheet.Cell(5, 4).Value = "Nhóm Người Dùng";
-                            var headerRange = worksheet.Range(5, 1, 5, 4);
+                            worksheet.Cell(6, 1).Value = "Mã Người Dùng";
+                            worksheet.Cell(6, 2).Value = "Tên Người Dùng";
+                            worksheet.Cell(6, 3).Value = "Tên Đăng Nhập";
+                            worksheet.Cell(6, 4).Value = "Nhóm Người Dùng";
+                            var headerRange = worksheet.Range(6, 1, 6, 4);
                             headerRange.Style.Fill.BackgroundColor = XLColor.FromArgb(146, 208, 80); // Màu xanh nhạt
                             headerRange.Style.Font.Bold = true;
                             headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -256,12 +257,12 @@ namespace Eden
                             // Thêm dữ liệu vào Excel
                             for (int i = 0; i < filteredList.Count; i++)
                             {
-                                worksheet.Cell(i + 6, 1).Value = filteredList[i].MaNguoiDung;
-                                worksheet.Cell(i + 6, 2).Value = filteredList[i].TenNguoiDung;
-                                worksheet.Cell(i + 6, 3).Value = filteredList[i].TenDangNhap;
-                                worksheet.Cell(i + 6, 4).Value = filteredList[i].NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A";
+                                worksheet.Cell(i + 7, 1).Value = filteredList[i].MaNguoiDung;
+                                worksheet.Cell(i + 7, 2).Value = filteredList[i].TenNguoiDung;
+                                worksheet.Cell(i + 7, 3).Value = filteredList[i].TenDangNhap;
+                                worksheet.Cell(i + 7, 4).Value = filteredList[i].NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A";
 
-                                var rowRange = worksheet.Range(i + 6, 1, i + 6, 4);
+                                var rowRange = worksheet.Range(i + 7, 1, i + 7, 4);
                                 rowRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                                 rowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                                 rowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
@@ -271,6 +272,18 @@ namespace Eden
                                     rowRange.Style.Fill.BackgroundColor = XLColor.FromArgb(216, 228, 188);
                                 }
                             }
+
+                            // Thêm thông tin cửa hàng ở dưới cùng
+                            int lastRow = filteredList.Count + 6;
+                            worksheet.Cell(lastRow + 2, 1).Value = "Địa chỉ: Cây nhà lá vườn";
+                            worksheet.Cell(lastRow + 2, 1).Style.Font.Bold = true;
+                            worksheet.Cell(lastRow + 2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            worksheet.Range(lastRow + 2, 1, lastRow + 2, 4).Merge();
+
+                            worksheet.Cell(lastRow + 3, 1).Value = "Sdt: 0909090909";
+                            worksheet.Cell(lastRow + 3, 1).Style.Font.Bold = true;
+                            worksheet.Cell(lastRow + 3, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            worksheet.Range(lastRow + 3, 1, lastRow + 3, 4).Merge();
 
                             worksheet.Column(1).Width = 15;
                             worksheet.Column(2).Width = 25;
@@ -287,7 +300,6 @@ namespace Eden
             {
                 MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
