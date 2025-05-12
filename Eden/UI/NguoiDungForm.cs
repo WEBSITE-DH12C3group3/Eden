@@ -133,6 +133,7 @@ namespace Eden
             form.Dock = DockStyle.Fill;
             this.Controls.Add(form);
             form.Show();
+            LoadData(txtSearch.Text.Trim(), currentPage); // Refresh data after form interaction
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -160,6 +161,7 @@ namespace Eden
             form.Dock = DockStyle.Fill;
             this.Controls.Add(form);
             form.Show();
+            LoadData(txtSearch.Text.Trim(), currentPage); // Refresh data after form interaction
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

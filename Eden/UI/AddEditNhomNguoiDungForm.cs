@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Eden.BLLCustom;
 using Guna.UI2.WinForms;
 using System.Data.Entity.Validation;
-using System.Drawing;
 
 namespace Eden
 {
@@ -78,24 +78,45 @@ namespace Eden
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtTenNhom.Text))
+                // Retrieve input values
+                string tenNhomNguoiDung = txtTenNhom.Text.Trim();
+
+                // Validation
+                if (string.IsNullOrWhiteSpace(tenNhomNguoiDung))
                 {
-                    MessageBox.Show("Tên nhóm không được để trống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Tên nhóm người dùng không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Regex.IsMatch(tenNhomNguoiDung, @"^[\p{L}\s]{1,50}$"))
+                {
+                    MessageBox.Show("Tên nhóm người dùng chỉ được chứa chữ cái và khoảng trắng, tối đa 50 ký tự.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Kiểm tra xem có quyền nào được chọn không
+                // Check uniqueness of TenNhomNguoiDung
+                var allGroups = nhomNguoiDungBll.GetAll();
+                if (nhomNguoiDung == null || tenNhomNguoiDung != nhomNguoiDung.TenNhomNguoiDung)
+                {
+                    if (allGroups.Any(g => g.TenNhomNguoiDung.Equals(tenNhomNguoiDung, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        MessageBox.Show("Tên nhóm người dùng đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                // Check if at least one permission is selected
                 if (selectedPermissions == null || !selectedPermissions.Any())
                 {
-                    MessageBox.Show("Vui lòng chọn ít nhất một quyền cho nhóm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn ít nhất một quyền cho nhóm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                // Prepare data
                 if (nhomNguoiDung == null)
                 {
                     nhomNguoiDung = new NHOMNGUOIDUNG
                     {
-                        TenNhomNguoiDung = txtTenNhom.Text,
+                        TenNhomNguoiDung = tenNhomNguoiDung,
                         MaNhomNguoiDung = $"NND{DateTime.Now.Ticks.ToString().Substring(0, 3)}"
                     };
                     int newGroupId = nhomNguoiDungBll.Add(nhomNguoiDung);
@@ -104,21 +125,20 @@ namespace Eden
                 }
                 else
                 {
-                    nhomNguoiDung.TenNhomNguoiDung = txtTenNhom.Text;
+                    nhomNguoiDung.TenNhomNguoiDung = tenNhomNguoiDung;
                     nhomNguoiDungBll.Update(nhomNguoiDung);
                     nhomNguoiDungBll.UpdatePermissionsForGroup(nhomNguoiDung.id, selectedPermissions);
                     MessageBox.Show("Đã cập nhật nhóm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                //this.DialogResult = DialogResult.OK;
-                //this.Close();
-                NhomNguoiDungForm formAdd = new NhomNguoiDungForm();
+                // Navigate back to NhomNguoiDungForm
+                var form = new NhomNguoiDungForm();
                 this.Controls.Clear();
-                formAdd.TopLevel = false;
-                formAdd.FormBorderStyle = FormBorderStyle.None;
-                formAdd.Dock = DockStyle.Fill;
-                this.Controls.Add(formAdd);
-                formAdd.Show();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
             }
             catch (DbEntityValidationException dbEx)
             {
@@ -140,9 +160,7 @@ namespace Eden
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //this.DialogResult = DialogResult.Cancel;
-            //this.Close();
-            NhomNguoiDungForm form = new NhomNguoiDungForm();
+            var form = new NhomNguoiDungForm();
             this.Controls.Clear();
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;

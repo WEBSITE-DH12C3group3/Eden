@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Eden.BLLCustom;
-using Guna.UI2.WinForms;
 
 namespace Eden
 {
@@ -16,8 +17,6 @@ namespace Eden
         {
             this.nguoiDung = nguoiDung;
             this.nhomNguoiDungList = nhomNguoiDungList;
-            //this.WindowState = FormWindowState.Maximized;
-
             InitializeComponent();
             txtMatKhau.UseSystemPasswordChar = false;
             LoadNhomNguoiDung();
@@ -42,55 +41,86 @@ namespace Eden
             txtTenNguoiDung.Text = nguoiDung.TenNguoiDung;
             txtTenDangNhap.Text = nguoiDung.TenDangNhap;
             txtMatKhau.Text = nguoiDung.MatKhau;
-            //if (nguoiDung.idNhomNguoiDung != null)
-            //{
             cbNhomNguoiDung.SelectedValue = nguoiDung.idNhomNguoiDung;
-            // }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtTenNguoiDung.Text))
+                // Retrieve input values
+                string tenNguoiDung = txtTenNguoiDung.Text.Trim();
+                string tenDangNhap = txtTenDangNhap.Text.Trim();
+                string matKhau = txtMatKhau.Text.Trim();
+                object selectedNhomId = cbNhomNguoiDung.SelectedValue;
+
+                // Validation
+                if (string.IsNullOrWhiteSpace(tenNguoiDung))
                 {
-                    MessageBox.Show("Tên người dùng không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Tên người dùng không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Regex.IsMatch(tenNguoiDung, @"^[\p{L}\s]{1,50}$"))
+                {
+                    MessageBox.Show("Tên người dùng chỉ được chứa chữ cái và khoảng trắng, tối đa 50 ký tự.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+                if (string.IsNullOrWhiteSpace(tenDangNhap))
                 {
-                    MessageBox.Show("Tên đăng nhập không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Tên đăng nhập không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Regex.IsMatch(tenDangNhap, @"^[a-zA-Z0-9]{3,20}$"))
+                {
+                    MessageBox.Show("Tên đăng nhập chỉ được chứa chữ cái và số, từ 3 đến 20 ký tự.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
+                // Check uniqueness of TenDangNhap
+                var allUsers = nguoiDungBll.GetAll();
+                if (nguoiDung == null || tenDangNhap != nguoiDung.TenDangNhap)
                 {
-                    MessageBox.Show("Mật khẩu không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (allUsers.Any(u => u.TenDangNhap.Equals(tenDangNhap, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        MessageBox.Show("Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                if (string.IsNullOrWhiteSpace(matKhau))
+                {
+                    MessageBox.Show("Mật khẩu không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (!Regex.IsMatch(matKhau, @"^(?=.*[a-zA-Z])(?=.*\d).{6,50}$"))
+                {
+                    MessageBox.Show("Mật khẩu phải có ít nhất 6 ký tự, tối đa 50 ký tự, và chứa cả chữ cái và số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                if (cbNhomNguoiDung.SelectedValue == null)
+                if (selectedNhomId == null)
                 {
-                    MessageBox.Show("Vui lòng chọn một nhóm người dùng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vui lòng chọn một nhóm người dùng.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                // Prepare data
                 if (nguoiDung == null)
                 {
                     nguoiDung = new NGUOIDUNG();
                 }
 
-                // Tạo mã người dùng dựa trên số thứ tự
-                var allUsers = nguoiDungBll.GetAll();
-                int nextId = allUsers.Count + 1; // Số thứ tự tiếp theo
+                // Auto-generate MaNguoiDung
+                int nextId = allUsers.Count + 1;
                 nguoiDung.MaNguoiDung = $"ND{nextId.ToString().PadLeft(4, '0')}";
 
-                nguoiDung.TenNguoiDung = txtTenNguoiDung.Text.Trim();
-                nguoiDung.TenDangNhap = txtTenDangNhap.Text.Trim();
-                nguoiDung.MatKhau = txtMatKhau.Text.Trim();
-                nguoiDung.idNhomNguoiDung = Convert.ToInt32(cbNhomNguoiDung.SelectedValue);
+                nguoiDung.TenNguoiDung = tenNguoiDung;
+                nguoiDung.TenDangNhap = tenDangNhap;
+                nguoiDung.MatKhau = matKhau; // Assume hashing in BLL
+                nguoiDung.idNhomNguoiDung = Convert.ToInt32(selectedNhomId);
 
+                // Save data
                 if (nguoiDung.id == 0)
                 {
                     nguoiDungBll.Add(nguoiDung);
@@ -102,15 +132,14 @@ namespace Eden
                     MessageBox.Show("Cập nhật người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                //this.DialogResult = DialogResult.OK;
-                //this.Close();
-                NguoiDungForm formAdd = new NguoiDungForm();
+                // Navigate back to NguoiDungForm
+                var form = new NguoiDungForm();
                 this.Controls.Clear();
-                formAdd.TopLevel = false;
-                formAdd.FormBorderStyle = FormBorderStyle.None;
-                formAdd.Dock = DockStyle.Fill;
-                this.Controls.Add(formAdd);
-                formAdd.Show();
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+                this.Controls.Add(form);
+                form.Show();
             }
             catch (Exception ex)
             {
