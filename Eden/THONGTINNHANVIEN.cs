@@ -12,24 +12,26 @@ namespace Eden
     using System;
     using System.Collections.Generic;
     
-    public partial class PHIEUNHAP
+    public partial class THONGTINNHANVIEN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PHIEUNHAP()
+        public THONGTINNHANVIEN()
         {
-            this.CHITIETPHIEUNHAPs = new HashSet<CHITIETPHIEUNHAP>();
+            this.CHAMCONGs = new HashSet<CHAMCONG>();
+            this.LUONGs = new HashSet<LUONG>();
         }
     
         public int id { get; set; }
-        public string MaPhieuNhap { get; set; }
-        public System.DateTime NgayNhap { get; set; }
-        public Nullable<int> idNhaCungCap { get; set; }
-        public Nullable<int> idNguoiDung { get; set; }
-        public decimal TongTien { get; set; }
+        public string MaNhanVien { get; set; }
+        public int idNguoiDung { get; set; }
+        public decimal LuongCoDinh { get; set; }
+        public System.DateTime NgayBatDauLam { get; set; }
+        public string TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETPHIEUNHAP> CHITIETPHIEUNHAPs { get; set; }
+        public virtual ICollection<CHAMCONG> CHAMCONGs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LUONG> LUONGs { get; set; }
         public virtual NGUOIDUNG NGUOIDUNG { get; set; }
-        public virtual NHACUNGCAP NHACUNGCAP { get; set; }
     }
 }

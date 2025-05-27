@@ -12,15 +12,17 @@ namespace Eden
     using System;
     using System.Collections.Generic;
     
-    public partial class CHITIETPHIEUNHAP
+    public partial class CHAMCONG
     {
-        public int idPhieuNhap { get; set; }
-        public int idSanPham { get; set; }
-        public int SoLuong { get; set; }
-        public decimal DonGia { get; set; }
-        public decimal ThanhTien { get; set; }
+        public int id { get; set; }
+        public string MaChamCong { get; set; }
+        public int idThongTinNhanVien { get; set; }
+        public System.DateTime NgayChamCong { get; set; }
+        public Nullable<System.TimeSpan> GioDangNhap { get; set; }
+        public Nullable<System.TimeSpan> GioDangXuat { get; set; }
+        public int CaLamViec { get; set; }
+        public string TrangThai { get; set; }
     
-        public virtual PHIEUNHAP PHIEUNHAP { get; set; }
-        public virtual SANPHAM SANPHAM { get; set; }
+        public virtual THONGTINNHANVIEN THONGTINNHANVIEN { get; set; }
     }
 }
