@@ -173,7 +173,7 @@ namespace Eden
                     row.Cells["MoTa"].Value = updatedSP.MoTa;
                     row.Cells["Gia"].Value = updatedSP.Gia;
                     row.Cells["SoLuong"].Value = updatedSP.SoLuong;
-                    row.Cells["SoLuongDaBan"].Value = updatedSP.DaBan;
+                    row.Cells["SoLuongDaBan"].Value = updatedSP.SoLuongDaBan;
                     row.Cells["MauSac"].Value = updatedSP.MauSac;
                     row.Cells["AnhChiTiet"].Value = updatedSP.AnhChiTiet;
                     row.Cells["TenLoaiSanPham"].Value = updatedSP.LOAISANPHAM?.TenLoaiSanPham;

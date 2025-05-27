@@ -211,6 +211,12 @@
     <Compile Include="UI\SanPhamFormSua.Designer.cs">
       <DependentUpon>SanPhamFormSua.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ThongTinNhanVienForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ThongTinNhanVienForm.Designer.cs">
+      <DependentUpon>ThongTinNhanVienForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TinhLuongForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -587,6 +593,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\balance-sheet.png" />
+    <None Include="Resources\calendar.png" />
+    <None Include="Resources\information.png" />
     <None Include="Resources\salary.png" />
     <None Include="Resources\ref.png" />
     <None Include="Resources\info.png" />
