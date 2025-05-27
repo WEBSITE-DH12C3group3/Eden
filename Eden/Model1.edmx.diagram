@@ -29,6 +29,12 @@
         <AssociationConnector Association="QLBanHoaModel.FK__PHIEUNHAP__idNha__5441852A" ManuallyRouted="false" />
         <AssociationConnector Association="QLBanHoaModel.FK__SANPHAM__idNhaCu__46E78A0C" ManuallyRouted="false" />
         <AssociationConnector Association="QLBanHoaModel.PHANQUYEN" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QLBanHoaModel.CHAMCONG" Width="1.5" PointX="5.25" PointY="19.125" />
+        <EntityTypeShape EntityType="QLBanHoaModel.LUONG" Width="1.5" PointX="5.25" PointY="14.75" />
+        <EntityTypeShape EntityType="QLBanHoaModel.THONGTINNHANVIEN" Width="1.5" PointX="3" PointY="17" />
+        <AssociationConnector Association="QLBanHoaModel.FK__CHAMCONG__idThon__619B8048" />
+        <AssociationConnector Association="QLBanHoaModel.FK__LUONG__idThongTi__656C112C" />
+        <AssociationConnector Association="QLBanHoaModel.FK__THONGTINN__idNgu__440B1D61" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
