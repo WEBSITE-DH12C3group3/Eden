@@ -19,7 +19,6 @@ namespace Eden
         {
             this.HOADONs = new HashSet<HOADON>();
             this.PHIEUNHAPs = new HashSet<PHIEUNHAP>();
-            this.THONGTINNHANVIENs = new HashSet<THONGTINNHANVIEN>();
         }
     
         public int id { get; set; }
@@ -34,7 +33,5 @@ namespace Eden
         public virtual NHOMNGUOIDUNG NHOMNGUOIDUNG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEUNHAP> PHIEUNHAPs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THONGTINNHANVIEN> THONGTINNHANVIENs { get; set; }
     }
 }

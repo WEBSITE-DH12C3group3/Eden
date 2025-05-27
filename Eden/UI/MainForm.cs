@@ -55,10 +55,6 @@ namespace Eden
                 buttonInfos.Add(("Nhập kho", "btnNK", "ware"));
                 buttonInfos.Add(("Nhà cung cấp", "btnNCC", "cc"));
             }
-            if (CurrentUser.Permissions?.Contains("TDQD") == true)
-            {
-                buttonInfos.Add(("Quản lý lương", "btnS", "salary"));
-            }
 
             foreach (var info in buttonInfos)
             {
@@ -181,12 +177,6 @@ namespace Eden
                                 // Xử lý Nhà cung cấp
                                 pnlMainContent.Controls.Clear();
                                 ShowForm(new NhaCungCapForm());
-                                break;
-
-                            case "btnS":
-                                // Xử lý Quản lý lương
-                                pnlMainContent.Controls.Clear();
-                                ShowForm(new SanPhamForm());
                                 break;
                         }
                     };

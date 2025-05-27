@@ -175,7 +175,7 @@
             this.gbOut.ForeColor = System.Drawing.Color.White;
             this.gbOut.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(125)))), ((int)(((byte)(167)))));
             this.gbOut.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(49)))), ((int)(((byte)(80)))));
-            this.gbOut.HoverState.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbOut.HoverState.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbOut.Location = new System.Drawing.Point(0, 716);
             this.gbOut.Name = "gbOut";
             this.gbOut.Size = new System.Drawing.Size(206, 70);

@@ -135,7 +135,6 @@ namespace Eden
                 selectedRange = "Giá từ 0 đến 100k";  // Giá trị mặc định
             }
         }
-
         private void LoadFilterCriteria()
         {
             cmbFilterCriteria.Items.Clear();
@@ -144,7 +143,6 @@ namespace Eden
             cmbFilterCriteria.Items.Add("Màu Sắc");
             cmbFilterCriteria.Items.Add("Giá");
         }
-
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             // using (SanPhamFormAdd formAdd = new SanPhamFormAdd())
@@ -173,7 +171,7 @@ namespace Eden
                     row.Cells["MoTa"].Value = updatedSP.MoTa;
                     row.Cells["Gia"].Value = updatedSP.Gia;
                     row.Cells["SoLuong"].Value = updatedSP.SoLuong;
-                    row.Cells["SoLuongDaBan"].Value = updatedSP.DaBan;
+                    row.Cells["SoLuongDaBan"].Value = updatedSP.SoLuongDaBan;
                     row.Cells["MauSac"].Value = updatedSP.MauSac;
                     row.Cells["AnhChiTiet"].Value = updatedSP.AnhChiTiet;
                     row.Cells["TenLoaiSanPham"].Value = updatedSP.LOAISANPHAM?.TenLoaiSanPham;
@@ -424,6 +422,7 @@ namespace Eden
             dgvSanPham.DataSource = ketQua;
         }
 
+       
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             cmbFilterValue.Visible = false;
@@ -539,6 +538,7 @@ namespace Eden
 
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
+           
         }
     }
 }
