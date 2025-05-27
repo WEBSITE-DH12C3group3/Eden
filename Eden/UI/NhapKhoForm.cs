@@ -419,24 +419,60 @@ namespace Eden
                     {
                         foreach (var chiTiet in chiTietList)
                         {
-                            var sanPham = sanPHAMBLL.GetById(chiTiet.idSanPham);
-                            if (sanPham == null)
+                            try
                             {
-                                System.Diagnostics.Debug.WriteLine($"Sản phẩm với id {chiTiet.idSanPham} không tìm thấy cho phiếu nhập {pn.MaPhieuNhap}.");
+                                var sanPham = sanPHAMBLL.GetById(chiTiet.idSanPham);
+                                if (sanPham == null)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"Sản phẩm với ID {chiTiet.idSanPham} không tìm thấy cho phiếu nhập {pn.MaPhieuNhap}.");
+                                    dt.Rows.Add(
+                                        pn.MaPhieuNhap,
+                                        pn.NgayNhap.ToString("dd/MM/yyyy"),
+                                        pn.NHACUNGCAP?.MaNhaCungCap ?? "N/A",
+                                        pn.NHACUNGCAP?.TenNhaCungCap ?? "N/A",
+                                        pn.NGUOIDUNG?.TenNguoiDung ?? "N/A",
+                                        pn.TongTien,
+                                        "N/A",
+                                        "N/A",
+                                        chiTiet.SoLuong,
+                                        chiTiet.DonGia,
+                                        chiTiet.ThanhTien
+                                    );
+                                }
+                                else
+                                {
+                                    dt.Rows.Add(
+                                        pn.MaPhieuNhap,
+                                        pn.NgayNhap.ToString("dd/MM/yyyy"),
+                                        pn.NHACUNGCAP?.MaNhaCungCap ?? "N/A",
+                                        pn.NHACUNGCAP?.TenNhaCungCap ?? "N/A",
+                                        pn.NGUOIDUNG?.TenNguoiDung ?? "N/A",
+                                        pn.TongTien,
+                                        sanPham?.MaSanPham ?? "N/A",
+                                        sanPham?.TenSanPham ?? "N/A",
+                                        chiTiet.SoLuong,
+                                        chiTiet.DonGia,
+                                        chiTiet.ThanhTien
+                                    );
+                                }
                             }
-                            dt.Rows.Add(
-                                pn.MaPhieuNhap,
-                                pn.NgayNhap.ToString("dd/MM/yyyy"),
-                                pn.NHACUNGCAP?.MaNhaCungCap ?? "N/A",
-                                pn.NHACUNGCAP?.TenNhaCungCap ?? "N/A",
-                                pn.NGUOIDUNG?.TenNguoiDung ?? "N/A",
-                                pn.TongTien,
-                                sanPham?.MaSanPham ?? "N/A",
-                                sanPham?.TenSanPham ?? "N/A",
-                                chiTiet.SoLuong,
-                                chiTiet.DonGia,
-                                chiTiet.ThanhTien
-                            );
+                            catch (Exception ex)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Lỗi khi lấy sản phẩm ID {chiTiet.idSanPham} cho phiếu nhập {pn.MaPhieuNhap}: {ex.Message}");
+                                dt.Rows.Add(
+                                    pn.MaPhieuNhap,
+                                    pn.NgayNhap.ToString("dd/MM/yyyy"),
+                                    pn.NHACUNGCAP?.MaNhaCungCap ?? "N/A",
+                                    pn.NHACUNGCAP?.TenNhaCungCap ?? "N/A",
+                                    pn.NGUOIDUNG?.TenNguoiDung ?? "N/A",
+                                    pn.TongTien,
+                                    "Lỗi",
+                                    "Lỗi",
+                                    chiTiet.SoLuong,
+                                    chiTiet.DonGia,
+                                    chiTiet.ThanhTien
+                                );
+                            }
                         }
                     }
                     else
@@ -453,57 +489,89 @@ namespace Eden
                     }
                 }
 
-                // Hiển thị SaveFileDialog
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "Excel Workbook|*.xlsx";
-                saveFileDialog.Title = "Lưu file Excel";
-                saveFileDialog.FileName = $"DanhSachPhieuNhap_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+                string userName = "admin"; // Sử dụng tên người dùng hệ thống nếu không có CurrentUser
+                System.Diagnostics.Debug.WriteLine($"[NhapKhoForm] Xuất Excel: CurrentUser.Username is null, sử dụng {userName} at {DateTime.Now}");
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
-                    using (XLWorkbook wb = new XLWorkbook())
+                    saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+                    saveFileDialog.Title = "Lưu file Excel";
+                    saveFileDialog.FileName = $"DanhSachPhieuNhap_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        var ws = wb.Worksheets.Add("PhieuNhap");
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            var ws = wb.Worksheets.Add("PhieuNhap");
+                            ws.PageSetup.PaperSize = XLPaperSize.A4Paper;
+                            ws.PageSetup.Margins.Left = 0.5;
+                            ws.PageSetup.Margins.Right = 0.5;
+                            ws.PageSetup.Margins.Top = 0.75;
+                            ws.PageSetup.Margins.Bottom = 0.75;
+                            ws.PageSetup.CenterHorizontally = true;
+                            ws.PageSetup.PageOrientation = XLPageOrientation.Portrait;
 
-                        ws.Cell(1, 1).Value = "Danh Sách Phiếu Nhập";
-                        ws.Cell(1, 1).Style.Font.Bold = true;
-                        ws.Cell(1, 1).Style.Font.FontSize = 16;
-                        ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                        ws.Range(1, 1, 1, 11).Merge();
+                            ws.Cell(1, 1).Value = "Cửa Hàng Hoa Tươi EDEN";
+                            ws.Cell(1, 1).Style.Font.Bold = true;
+                            ws.Cell(1, 1).Style.Font.FontSize = 18;
+                            ws.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            ws.Range(1, 1, 1, 11).Merge();
 
-                        ws.Cell(2, 1).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
-                        ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-                        ws.Range(2, 1, 2, 11).Merge();
+                            ws.Cell(2, 1).Value = "Danh Sách Phiếu Nhập";
+                            ws.Cell(2, 1).Style.Font.Bold = true;
+                            ws.Cell(2, 1).Style.Font.FontSize = 16;
+                            ws.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            ws.Range(2, 1, 2, 11).Merge();
 
-                        var dataRange = ws.Cell(4, 1).InsertTable(dt.AsEnumerable()).AsRange();
+                            string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                            ws.Cell(3, 9).Value = $"Người xuất: {userName}";
+                            ws.Cell(3, 9).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Cell(3, 9).Style.Font.Bold = true;
+                            ws.Range(3, 9, 3, 11).Merge();
+                            ws.Cell(4, 9).Value = $"Ngày xuất: {exportDateTime}";
+                            ws.Cell(4, 9).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Cell(4, 9).Style.Font.Bold = true;
+                            ws.Range(4, 9, 4, 11).Merge();
 
-                        var headerRow = dataRange.FirstRow();
-                        headerRow.Style.Font.Bold = true;
-                        headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
-                        headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            var dataRange = ws.Cell(6, 1).InsertTable(dt.AsEnumerable()).AsRange();
+                            var headerRow = dataRange.FirstRow();
+                            headerRow.Style.Font.Bold = true;
+                            headerRow.Style.Fill.BackgroundColor = XLColor.LightGray;
+                            headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
-                        var ngayNhapColumn = ws.Column(2);
-                        ngayNhapColumn.Style.DateFormat.Format = "dd/MM/yyyy";
+                            // Đặt màu chữ của dữ liệu về màu đen
+                            dataRange.Rows().Style.Font.FontColor = XLColor.Black;
 
-                        ws.Column(9).Style.NumberFormat.Format = "0";
-                        ws.Column(10).Style.NumberFormat.Format = "0";
-                        ws.Column(11).Style.NumberFormat.Format = "0";
-                        ws.Column(6).Style.NumberFormat.Format = "0";
+                            ws.Column(2).Style.DateFormat.Format = "dd/MM/yyyy";
+                            ws.Column(6).Style.NumberFormat.Format = "#,##0";
+                            ws.Column(9).Style.NumberFormat.Format = "#,##0";
+                            ws.Column(10).Style.NumberFormat.Format = "#,##0";
+                            ws.Column(11).Style.NumberFormat.Format = "#,##0";
 
-                        var lastRow = dataRange.LastRow().RowNumber();
-                        ws.Cell(lastRow + 1, 5).Value = "Tổng cộng:";
-                        ws.Cell(lastRow + 1, 6).Value = filteredPhieuNhap.Sum(pn => pn.TongTien);
-                        ws.Cell(lastRow + 1, 5).Style.Font.Bold = true;
-                        ws.Cell(lastRow + 1, 6).Style.Font.Bold = true;
-                        ws.Cell(lastRow + 1, 6).Style.NumberFormat.Format = "0";
+                            var lastRow = dataRange.LastRow().RowNumber();
+                            ws.Cell(lastRow + 1, 5).Value = "Tổng cộng:";
+                            ws.Cell(lastRow + 1, 6).Value = filteredPhieuNhap.Sum(pn => pn.TongTien);
+                            ws.Cell(lastRow + 1, 5).Style.Font.Bold = true;
+                            ws.Cell(lastRow + 1, 6).Style.Font.Bold = true;
+                            ws.Cell(lastRow + 1, 6).Style.NumberFormat.Format = "#,##0";
 
-                        ws.Columns().AdjustToContents();
+                            ws.Cell(lastRow + 3, 1).Value = "Địa chỉ: Cây nhà lá vườn";
+                            ws.Cell(lastRow + 3, 1).Style.Font.Bold = true;
+                            ws.Cell(lastRow + 3, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            ws.Range(lastRow + 3, 1, lastRow + 3, 11).Merge();
 
-                        dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                        dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Cell(lastRow + 4, 1).Value = "Sdt: 0909090909";
+                            ws.Cell(lastRow + 4, 1).Style.Font.Bold = true;
+                            ws.Cell(lastRow + 4, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                            ws.Range(lastRow + 4, 1, lastRow + 4, 11).Merge();
 
-                        wb.SaveAs(saveFileDialog.FileName);
-                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ws.Columns().AdjustToContents();
+                            dataRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            dataRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+
+                            wb.SaveAs(saveFileDialog.FileName);
+                            MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                 }
             }

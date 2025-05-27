@@ -85,5 +85,10 @@ namespace Eden.UI
             this.Controls.Add(form);
             form.Show();
         }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

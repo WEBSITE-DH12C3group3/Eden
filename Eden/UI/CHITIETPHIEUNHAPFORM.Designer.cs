@@ -42,6 +42,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.dgvChiTiet = new Guna.UI2.WinForms.Guna2DataGridView();
             this.btnQuayLai = new Guna.UI2.WinForms.Guna2Button();
             this.labelTitle = new System.Windows.Forms.Label();
+            this.btnExcel = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiTiet)).BeginInit();
             this.SuspendLayout();
             // 
@@ -145,12 +146,28 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Chi Tiết Phiếu Nhập";
             // 
+            // btnExcel
+            // 
+            this.btnExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExcel.ForeColor = System.Drawing.Color.White;
+            this.btnExcel.Location = new System.Drawing.Point(26, 642);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(180, 45);
+            this.btnExcel.TabIndex = 4;
+            this.btnExcel.Text = "Xuất Excel";
+            this.btnExcel.Click += new System.EventHandler(this.guna2Button2_Click);
+            // 
             // CHITIETPHIEUNHAPFORM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(946, 710);
+            this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.btnQuayLai);
             this.Controls.Add(this.dgvChiTiet);
@@ -174,5 +191,6 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
         private Guna.UI2.WinForms.Guna2DataGridView dgvChiTiet; // Keep name
         private Guna.UI2.WinForms.Guna2Button btnQuayLai; // Keep name
         private System.Windows.Forms.Label labelTitle; // Added
+        private Guna2Button btnExcel;
     }
 }
