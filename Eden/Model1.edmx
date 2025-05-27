@@ -156,7 +156,7 @@
           <Property Name="MoTa" Type="nvarchar(max)" />
           <Property Name="Gia" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="SoLuong" Type="int" Nullable="false" />
-          <Property Name="DaBan" Type="int" />
+          <Property Name="SoLuongDaBan" Type="int" />
           <Property Name="MauSac" Type="nvarchar" MaxLength="50" />
           <Property Name="AnhChiTiet" Type="nvarchar" MaxLength="255" />
           <Property Name="idNhaCungCap" Type="int" />
@@ -629,7 +629,7 @@
           <NavigationProperty Name="CHITIETPHIEUNHAPs" Relationship="Self.FK__CHITIETPH__idSan__59063A47" FromRole="SANPHAM" ToRole="CHITIETPHIEUNHAP" />
           <NavigationProperty Name="LOAISANPHAM" Relationship="Self.FK__SANPHAM__idLoaiS__47DBAE45" FromRole="SANPHAM" ToRole="LOAISANPHAM" />
           <NavigationProperty Name="NHACUNGCAP" Relationship="Self.FK__SANPHAM__idNhaCu__46E78A0C" FromRole="SANPHAM" ToRole="NHACUNGCAP" />
-          <Property Name="DaBan" Type="Int32" />
+          <Property Name="SoLuongDaBan" Type="Int32" />
         </EntityType>
         <EntityType Name="THAMSO">
           <Key>
@@ -1079,7 +1079,7 @@
           <EntitySetMapping Name="SANPHAMs">
             <EntityTypeMapping TypeName="QLBanHoaModel.SANPHAM">
               <MappingFragment StoreEntitySet="SANPHAM">
-                <ScalarProperty Name="DaBan" ColumnName="DaBan" />
+                <ScalarProperty Name="SoLuongDaBan" ColumnName="SoLuongDaBan" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="MaSanPham" ColumnName="MaSanPham" />
                 <ScalarProperty Name="TenSanPham" ColumnName="TenSanPham" />

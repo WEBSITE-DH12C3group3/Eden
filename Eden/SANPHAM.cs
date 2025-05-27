@@ -31,7 +31,7 @@ namespace Eden
         public string AnhChiTiet { get; set; }
         public Nullable<int> idNhaCungCap { get; set; }
         public int idLoaiSanPham { get; set; }
-        public Nullable<int> DaBan { get; set; }
+        public Nullable<int> SoLuongDaBan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIETHOADON> CHITIETHOADONs { get; set; }
