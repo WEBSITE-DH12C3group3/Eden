@@ -118,7 +118,7 @@ namespace Eden
             this.btnPrev.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrev.ForeColor = System.Drawing.Color.White;
-            this.btnPrev.Location = new System.Drawing.Point(356, 400);
+            this.btnPrev.Location = new System.Drawing.Point(356, 405);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnPrev.Size = new System.Drawing.Size(40, 40);
@@ -133,7 +133,7 @@ namespace Eden
             this.btnNext.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(510, 400);
+            this.btnNext.Location = new System.Drawing.Point(510, 405);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(40, 40);
             this.btnNext.TabIndex = 10;
@@ -146,7 +146,7 @@ namespace Eden
             this.lblPage.BackColor = System.Drawing.Color.Transparent;
             this.lblPage.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPage.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPage.Location = new System.Drawing.Point(411, 406);
+            this.lblPage.Location = new System.Drawing.Point(411, 411);
             this.lblPage.Name = "lblPage";
             this.lblPage.Size = new System.Drawing.Size(84, 27);
             this.lblPage.TabIndex = 11;
@@ -371,8 +371,8 @@ namespace Eden
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.Image = global::Eden.Properties.Resources._ref;
             this.guna2Button1.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button1.Location = new System.Drawing.Point(580, 400);
-            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.guna2Button1.Location = new System.Drawing.Point(580, 405);
+            this.guna2Button1.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(146, 40);
             this.guna2Button1.TabIndex = 21;
@@ -397,9 +397,9 @@ namespace Eden
             this.txtSearch.IconLeft = global::Eden.Properties.Resources.seach;
             this.txtSearch.IconLeftOffset = new System.Drawing.Point(10, 0);
             this.txtSearch.Location = new System.Drawing.Point(452, 22);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(4);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtSearch.Padding = new System.Windows.Forms.Padding(2);
             this.txtSearch.PlaceholderForeColor = System.Drawing.Color.LightGray;
             this.txtSearch.PlaceholderText = "Nhập thông tin tìm kiếm";
             this.txtSearch.SelectedText = "";
