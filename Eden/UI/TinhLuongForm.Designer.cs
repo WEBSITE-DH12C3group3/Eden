@@ -39,7 +39,9 @@ namespace Eden.UI
             this.dgvLuong = new Guna.UI2.WinForms.Guna2DataGridView();
             this.labelTitle = new System.Windows.Forms.Label();
             this.btnExcel = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
+            this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvLuong
@@ -72,7 +74,7 @@ namespace Eden.UI
             this.dgvLuong.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvLuong.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvLuong.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.dgvLuong.Location = new System.Drawing.Point(26, 78);
+            this.dgvLuong.Location = new System.Drawing.Point(26, 153);
             this.dgvLuong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvLuong.Name = "dgvLuong";
             this.dgvLuong.ReadOnly = true;
@@ -86,7 +88,7 @@ namespace Eden.UI
             this.dgvLuong.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvLuong.RowHeadersVisible = false;
             this.dgvLuong.RowTemplate.Height = 50;
-            this.dgvLuong.Size = new System.Drawing.Size(748, 300);
+            this.dgvLuong.Size = new System.Drawing.Size(748, 187);
             this.dgvLuong.TabIndex = 0;
             this.dgvLuong.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(75)))));
             this.dgvLuong.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -115,7 +117,7 @@ namespace Eden.UI
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(20, 20);
+            this.labelTitle.Location = new System.Drawing.Point(20, 14);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(209, 32);
             this.labelTitle.TabIndex = 1;
@@ -141,14 +143,23 @@ namespace Eden.UI
             this.btnExcel.TabIndex = 2;
             this.btnExcel.Text = "Xuất Excel";
             // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.Controls.Add(this.labelTitle);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(800, 56);
+            this.guna2Panel1.TabIndex = 3;
+            // 
             // TinhLuongForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(800, 470);
+            this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.btnExcel);
-            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.dgvLuong);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -158,8 +169,9 @@ namespace Eden.UI
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tính Lương";
             ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
+            this.guna2Panel1.ResumeLayout(false);
+            this.guna2Panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -168,5 +180,6 @@ namespace Eden.UI
         private Guna.UI2.WinForms.Guna2DataGridView dgvLuong;
         private System.Windows.Forms.Label labelTitle;
         private Guna.UI2.WinForms.Guna2Button btnExcel;
+        private Guna2Panel guna2Panel1;
     }
 }

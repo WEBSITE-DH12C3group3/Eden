@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Eden.DTO;
 using Eden.BLLCustom;
+using Guna.UI2.WinForms;
 
 namespace Eden.UI
 {
@@ -109,42 +110,101 @@ namespace Eden.UI
 
         private void SetupControls()
         {
-            // Thêm các control để chọn tháng, năm và nhân viên
-            var lblThang = new Label { Text = "Tháng:", Location = new System.Drawing.Point(10, 10), AutoSize = true };
-            var numThang = new NumericUpDown { Name = "numThang", Minimum = 1, Maximum = 12, Value = DateTime.Now.Month, Location = new System.Drawing.Point(80, 10), Width = 50 };
+            // Define spacing and padding
+            int paddingX = 20; // Horizontal padding from the left edge of the form
+            int paddingY = 20; // Vertical padding from the top of the relevant control
+            int controlSpacing = 15; // Space between controls
+            int rowSpacing = 20; // Space between rows of controls
 
-            var lblNam = new Label { Text = "Năm:", Location = new System.Drawing.Point(140, 10), AutoSize = true };
-            var numNam = new NumericUpDown { Name = "numNam", Minimum = 2020, Maximum = 2030, Value = DateTime.Now.Year, Location = new System.Drawing.Point(190, 10), Width = 70 };
+            // Get the bottom position of the existing labelTitle
+            // This assumes labelTitle is the top-most visual element you want to respect.
+            int topControlsY = labelTitle.Bottom + paddingY;
 
-            var lblNguoiDung = new Label { Text = "Nhân viên:", Location = new System.Drawing.Point(270, 10), AutoSize = true };
-            var cmbNguoiDung = new ComboBox { Name = "cmbNguoiDung", Location = new System.Drawing.Point(340, 10), Width = 150 };
+            // Row 1: Month, Year, Employee
+            var lblThang = new Label { Text = "Tháng:", Location = new System.Drawing.Point(paddingX, topControlsY), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
+            var numThang = new NumericUpDown { Name = "numThang", Minimum = 1, Maximum = 12, Value = DateTime.Now.Month, Location = new System.Drawing.Point(lblThang.Right + controlSpacing, topControlsY), Width = 60, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
+
+            var lblNam = new Label { Text = "Năm:", Location = new System.Drawing.Point(numThang.Right + controlSpacing, topControlsY), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
+            var numNam = new NumericUpDown { Name = "numNam", Minimum = 2020, Maximum = 2030, Value = DateTime.Now.Year, Location = new System.Drawing.Point(lblNam.Right + controlSpacing, topControlsY), Width = 80, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
+
+            var lblNguoiDung = new Label { Text = "Nhân viên:", Location = new System.Drawing.Point(numNam.Right + controlSpacing * 2, topControlsY), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
+            var cmbNguoiDung = new ComboBox { Name = "cmbNguoiDung", Location = new System.Drawing.Point(lblNguoiDung.Right + controlSpacing, topControlsY), Width = 180, DropDownStyle = ComboBoxStyle.DropDownList, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
             var nguoiDungList = new NGUOIDUNGBLL().GetAll();
             cmbNguoiDung.DataSource = nguoiDungList;
             cmbNguoiDung.DisplayMember = "TenNguoiDung";
             cmbNguoiDung.ValueMember = "id";
+            // Style for ComboBox to match dark theme
+            cmbNguoiDung.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            cmbNguoiDung.ForeColor = System.Drawing.Color.WhiteSmoke;
+            cmbNguoiDung.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
-            var btnTinhLuong = new Button { Text = "Tính Lương", Location = new System.Drawing.Point(500, 10), Width = 100 };
+            // Row 2: Calculate Button, Search, Pagination
+            int currentRow2Y = lblThang.Bottom + rowSpacing; // Start of the second row of controls
+
+            var btnTinhLuong = new Guna2Button // Using Guna2Button for consistency
+            {
+                Text = "Tính Lương",
+                Location = new System.Drawing.Point(cmbNguoiDung.Right + controlSpacing * 2, topControlsY), // Position relative to cmbNguoiDung or a fixed point
+                Width = 120,
+                Height = 30,
+                FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139))))), // Matching DGV header
+                ForeColor = System.Drawing.Color.White, // White text for contrast
+                BorderRadius = 10 // Apply border radius for Guna button style
+                ,
+                Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
+            };
             btnTinhLuong.Click += BtnTinhLuong_Click;
 
-            var lblSearch = new Label { Text = "Tìm kiếm:", Location = new System.Drawing.Point(10, 40), AutoSize = true };
-            var txtSearch = new TextBox { Name = "txtSearch", Location = new System.Drawing.Point(80, 40), Width = 200 };
+            var lblSearch = new Label { Text = "Tìm kiếm:", Location = new System.Drawing.Point(paddingX, currentRow2Y), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
+            var txtSearch = new TextBox { Name = "txtSearch", Location = new System.Drawing.Point(lblSearch.Right + controlSpacing, currentRow2Y), Width = 200, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
             txtSearch.TextChanged += TxtSearch_TextChanged;
+            // Style for TextBox to match dark theme
+            txtSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
+            txtSearch.ForeColor = System.Drawing.Color.WhiteSmoke;
 
-            var btnPrevious = new Button { Text = "Trang trước", Location = new System.Drawing.Point(300, 40), Width = 100 };
+            var btnPrevious = new Guna2Button // Using Guna2Button for consistency
+            {
+                Text = "Trang trước",
+                Location = new System.Drawing.Point(txtSearch.Right + controlSpacing * 2, currentRow2Y),
+                Width = 100,
+                Height = 30,
+                FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139))))), // Matching DGV header
+                ForeColor = System.Drawing.Color.White,
+                BorderRadius = 10,
+                Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
+            };
             btnPrevious.Click += BtnPrevious_Click;
 
-            var lblPageInfo = new Label { Name = "lblPageInfo", Text = "Trang 1/1", Location = new System.Drawing.Point(410, 40), AutoSize = true };
+            var lblPageInfo = new Label { Name = "lblPageInfo", Text = "Trang 1/1", Location = new System.Drawing.Point(btnPrevious.Right + controlSpacing, currentRow2Y), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0))) };
 
-            var btnNext = new Button { Text = "Trang sau", Location = new System.Drawing.Point(480, 40), Width = 100 };
+            var btnNext = new Guna2Button // Using Guna2Button for consistency
+            {
+                Text = "Trang sau",
+                Location = new System.Drawing.Point(lblPageInfo.Right + controlSpacing, currentRow2Y),
+                Width = 100,
+                Height = 30,
+                FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(63)))), ((int)(((byte)(139))))), // Matching DGV header
+                ForeColor = System.Drawing.Color.White,
+                BorderRadius = 10,
+                Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
+            };
             btnNext.Click += BtnNext_Click;
 
-            this.Controls.AddRange(new Control[] { lblThang, numThang, lblNam, numNam, lblNguoiDung, cmbNguoiDung, btnTinhLuong, lblSearch, txtSearch, btnPrevious, lblPageInfo, btnNext });
+            this.Controls.AddRange(new Control[] {
+                lblThang, numThang, lblNam, numNam, lblNguoiDung, cmbNguoiDung, btnTinhLuong,
+                lblSearch, txtSearch, btnPrevious, lblPageInfo, btnNext
+            });
 
-            // Điều chỉnh vị trí của DataGridView
+            // Adjust the DataGridView position to be below the newly added controls
+            int dgvTopY = Math.Max(btnTinhLuong.Bottom, btnNext.Bottom) + rowSpacing; // Get the max bottom of the last row of controls
+
             if (dgvLuong != null)
             {
-                dgvLuong.Location = new System.Drawing.Point(10, 70);
-                dgvLuong.Size = new System.Drawing.Size(600, 300);
+                dgvLuong.Location = new System.Drawing.Point(paddingX, dgvTopY);
+                // For full screen, ensure it anchors properly
+                dgvLuong.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                // Calculate size based on remaining client area, considering the Excel button at the bottom
+                dgvLuong.Size = new System.Drawing.Size(this.ClientSize.Width - (paddingX * 2), this.ClientSize.Height - dgvTopY - (btnExcel.Height + paddingY)); // Reserve space for btnExcel and bottom padding
             }
         }
 

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -151,6 +150,59 @@ namespace Eden
         public void Dispose()
         {
             db?.Dispose();
+        }
+
+        // New method to update only GioDangNhap
+        public bool UpdateGioDangNhap(int idNguoiDung, DateTime ngayChamCong, TimeSpan? gioDangNhap)
+        {
+            try
+            {
+                // Find the existing attendance record for the specific user and date
+                var attendanceRecord = db.CHAMCONGs
+                                        .FirstOrDefault(cc => cc.idNguoiDung == idNguoiDung &&
+                                                             DbFunctions.TruncateTime(cc.NgayChamCong) == DbFunctions.TruncateTime(ngayChamCong));
+
+                if (attendanceRecord != null)
+                {
+                    attendanceRecord.GioDangNhap = gioDangNhap;
+                    db.Entry(attendanceRecord).State = EntityState.Modified; // Explicitly mark as modified
+                    db.SaveChanges();
+                    return true;
+                }
+                return false; // Record not found
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi cập nhật giờ đăng nhập: " + ex.Message);
+                throw; // Re-throw to allow BLL to handle
+            }
+        }
+
+        public bool UpdateGioDangXuat(int idNguoiDung, DateTime ngayChamCong, TimeSpan? gioDangXuat)
+        {
+            try
+            {
+                // Find the existing attendance record for the specific user and date
+                var attendanceRecord = db.CHAMCONGs
+                                        .FirstOrDefault(cc => cc.idNguoiDung == idNguoiDung &&
+                                                             DbFunctions.TruncateTime(cc.NgayChamCong) == DbFunctions.TruncateTime(ngayChamCong));
+
+                if (attendanceRecord != null)
+                {
+                    attendanceRecord.GioDangXuat = gioDangXuat;
+                    // Cập nhật trạng thái nếu cần, ví dụ: "Đã xong" hoặc "Đủ công"
+                    // attendanceRecord.TrangThai = "Đã xong";
+                    db.Entry(attendanceRecord).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false; // Record not found
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi cập nhật giờ đăng xuất: " + ex.Message);
+                throw; // Re-throw to allow BLL to handle
+            }
         }
     }
 }

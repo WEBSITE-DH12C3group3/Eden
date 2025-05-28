@@ -12,6 +12,7 @@ namespace Eden
     public class LoginBLL
     {
         private readonly LoginDAL loginDAL = new LoginDAL();
+        private readonly ChamCongBLL chamCongBLL = new ChamCongBLL();
 
         public bool ValidateUser(string username, string password)
         {
@@ -73,6 +74,31 @@ namespace Eden
             CurrentUser.Role = user.NHOMNGUOIDUNG?.TenNhomNguoiDung;
             CurrentUser.UserGroupId = user.idNhomNguoiDung;
             CurrentUser.Permissions = loginDAL.GetUserPermissions(user.idNhomNguoiDung).ToList();
+
+            try
+            {
+                DateTime ngayChamCong = DateTime.Today; // Lấy ngày hiện tại (không bao gồm giờ)
+                TimeSpan now = DateTime.Now.TimeOfDay;
+                TimeSpan gioDangNhap = new TimeSpan(now.Hours, now.Minutes, now.Seconds);
+
+                // Gọi ChamCongBLL để cập nhật hoặc tạo mới bản ghi giờ đăng nhập
+                bool success = chamCongBLL.UpdateOrCreateLoginTime(CurrentUser.Id, ngayChamCong, gioDangNhap);
+
+                if (!success)
+                {
+                    // Nếu có lỗi xảy ra trong quá trình cập nhật/tạo giờ đăng nhập
+                    Console.WriteLine($"Không thể cập nhật/tạo giờ đăng nhập cho người dùng {CurrentUser.Username}.");
+                    // Bạn có thể chọn hiển thị MessageBox ở đây hoặc chỉ log lỗi
+                    // MessageBox.Show("Có lỗi khi ghi nhận giờ chấm công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ nếu có lỗi trong quá trình cập nhật giờ đăng nhập
+                Console.WriteLine($"Lỗi không mong muốn khi cập nhật giờ đăng nhập: {ex.Message}");
+                // Bạn có thể chọn hiển thị MessageBox ở đây hoặc chỉ log lỗi
+                // MessageBox.Show($"Lỗi hệ thống khi cập nhật giờ chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             return true;
         }
