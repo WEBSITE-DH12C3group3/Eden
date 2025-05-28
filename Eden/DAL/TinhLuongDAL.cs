@@ -1,32 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using Eden.DTO;
 
 namespace Eden
 {
-    public class TINHLUONGDAL : IDisposable
+    public class TinhLuongDAL : IDisposable
     {
         private readonly QLBanHoaEntities db;
 
-        public TINHLUONGDAL()
+        public TinhLuongDAL()
         {
             db = new QLBanHoaEntities();
         }
 
-        // Lấy danh sách lương dưới dạng DTO
+        // Lấy danh sách lương
+        public List<LUONG> GetAll()
+        {
+            try
+            {
+                return db.LUONGs.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi lấy danh sách lương: " + ex.Message);
+                throw;
+            }
+        }
+
+        // Lấy danh sách lương dưới dạng DTO, loại bỏ admin
         public List<LuongDTO> GetAllDTO()
         {
             try
             {
                 return db.LUONGs
-                    .Include(l => l.NGUOIDUNG)
+                    .Include("NGUOIDUNG")
+                    .Where(l => l.NGUOIDUNG.idNhomNguoiDung != 1) // Loại bỏ admin
                     .Select(l => new LuongDTO
                     {
                         Id = l.id,
                         MaLuong = l.MaLuong,
                         IdNguoiDung = l.idNguoiDung,
+                        MaNguoiDung = l.NGUOIDUNG.MaNguoiDung,
+                        MaNhanVien = l.NGUOIDUNG.MaNhanVien,
                         TenNguoiDung = l.NGUOIDUNG.TenNguoiDung,
                         ThangNam = l.ThangNam,
                         LuongCoDinh = l.LuongCoDinh,
@@ -37,8 +56,7 @@ namespace Eden
                         Thuong = l.Thuong ?? 0,
                         TongLuong = l.TongLuong,
                         NgayTinhLuong = l.NgayTinhLuong,
-                        GhiChu = l.GhiChu,
-                        MaNhanVien = l.NGUOIDUNG.MaNhanVien
+                        GhiChu = l.GhiChu
                     })
                     .ToList();
             }
@@ -49,78 +67,128 @@ namespace Eden
             }
         }
 
-        // Tính lương cho một nhân viên dựa trên tháng/năm và dữ liệu chấm công
-        public LuongDTO CalculateSalary(int idNguoiDung, int thang, int nam)
+        // Lấy danh sách lương phân trang
+        public (List<LuongDTO> Data, int TotalRecords) GetPaged(int page, int pageSize)
         {
             try
             {
-                // Lấy thông tin nhân viên từ NGUOIDUNG
-                var nguoiDung = db.NGUOIDUNGs
-                    .FirstOrDefault(n => n.id == idNguoiDung);
-                if (nguoiDung == null)
+                int skip = (page - 1) * pageSize;
+
+                var data = db.LUONGs
+                    .Include("NGUOIDUNG")
+                    .Where(l => l.NGUOIDUNG.idNhomNguoiDung != 1) // Loại bỏ admin
+                    .OrderBy(l => l.MaLuong)
+                    .Skip(skip)
+                    .Take(pageSize)
+                    .Select(l => new LuongDTO
+                    {
+                        Id = l.id,
+                        MaLuong = l.MaLuong,
+                        IdNguoiDung = l.idNguoiDung,
+                        MaNguoiDung = l.NGUOIDUNG.MaNguoiDung,
+                        MaNhanVien = l.NGUOIDUNG.MaNhanVien,
+                        TenNguoiDung = l.NGUOIDUNG.TenNguoiDung,
+                        ThangNam = l.ThangNam,
+                        LuongCoDinh = l.LuongCoDinh,
+                        TongDoanhSo = l.TongDoanhSo,
+                        PhatDiMuon = l.PhatDiMuon ?? 0,
+                        PhatNghiBuoi = l.PhatNghiBuoi ?? 0,
+                        TroCap = l.TroCap ?? 0,
+                        Thuong = l.Thuong ?? 0,
+                        TongLuong = l.TongLuong,
+                        NgayTinhLuong = l.NgayTinhLuong,
+                        GhiChu = l.GhiChu
+                    })
+                    .ToList();
+
+                int totalRecords = db.LUONGs.Count(l => l.NGUOIDUNG.idNhomNguoiDung != 1);
+                return (data, totalRecords);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi lấy dữ liệu lương phân trang: " + ex.Message);
+                throw;
+            }
+        }
+
+        // Thêm bản ghi lương
+        public void Add(LUONG luong)
+        {
+            try
+            {
+                db.LUONGs.Add(luong);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi thêm lương: " + ex.Message);
+                throw;
+            }
+        }
+
+        // Cập nhật bản ghi lương
+        public void Update(LUONG luong)
+        {
+            try
+            {
+                var existingLuong = db.LUONGs.Find(luong.id);
+                if (existingLuong != null)
                 {
-                    throw new Exception("Không tìm thấy thông tin người dùng.");
+                    db.Entry(existingLuong).CurrentValues.SetValues(luong);
+                    db.SaveChanges();
                 }
-
-                // Tính lương cố định (lấy từ NGUOIDUNG)
-                decimal luongCoDinh = nguoiDung.LuongCoDinh ?? 0; // Sử dụng giá trị từ NGUOIDUNG, mặc định 0 nếu NULL
-
-                // Tính tổng doanh số từ bảng HOADON
-                decimal tongDoanhSo = db.HOADONs
-                    .Where(h => h.idNguoiDung == idNguoiDung &&
-                               h.NgayLap.Month == thang &&
-                               h.NgayLap.Year == nam)
-                    .Sum(h => (decimal?)h.TongTien) ?? 0;
-
-                // Tính phạt đi muộn từ bảng CHAMCONG
-                decimal phatDiMuon = db.CHAMCONGs
-                    .Where(c => c.idNguoiDung == idNguoiDung &&
-                               c.NgayChamCong.Month == thang &&
-                               c.NgayChamCong.Year == nam &&
-                               c.TrangThai == "Đi muộn")
-                    .Count() * 50000; // Giả định phạt 50,000 VNĐ mỗi lần đi muộn
-
-                // Tính phạt nghỉ buổi từ bảng CHAMCONG
-                decimal phatNghiBuoi = db.CHAMCONGs
-                    .Where(c => c.idNguoiDung == idNguoiDung &&
-                               c.NgayChamCong.Month == thang &&
-                               c.NgayChamCong.Year == nam &&
-                               c.GioDangNhap == null && c.GioDangXuat == null)
-                    .Count() * 100000; // Giả định phạt 100,000 VNĐ mỗi buổi nghỉ
-
-                // Tính trợ cấp (giả định cố định, có thể lấy từ THAMSO nếu cần)
-                decimal troCap = 500000; // Giá trị mặc định
-
-                // Tính thưởng (giả định 1% doanh số)
-                decimal thuong = tongDoanhSo * 0.01m;
-
-                // Tính tổng lương
-                decimal tongLuong = luongCoDinh + tongDoanhSo + troCap + thuong - (phatDiMuon + phatNghiBuoi);
-
-                // Tạo mã lương (định dạng: "L" + id + thang + nam)
-                string maLuong = $"L{idNguoiDung}{thang:D2}{nam}";
-
-                // Tạo đối tượng LuongDTO
-                var luongDTO = new LuongDTO
+                else
                 {
-                    Id = 0, // ID sẽ được tạo tự động khi lưu vào DB
-                    MaLuong = maLuong,
-                    IdNguoiDung = idNguoiDung,
-                    TenNguoiDung = nguoiDung.TenNguoiDung,
-                    ThangNam = $"{thang}/{nam}",
-                    LuongCoDinh = luongCoDinh,
-                    TongDoanhSo = tongDoanhSo,
-                    PhatDiMuon = phatDiMuon,
-                    PhatNghiBuoi = phatNghiBuoi,
-                    TroCap = troCap,
-                    Thuong = thuong,
-                    TongLuong = tongLuong,
-                    NgayTinhLuong = DateTime.Now,
-                    GhiChu = $"Tính lương tự động ngày {DateTime.Now:dd/MM/yyyy}",
-                    MaNhanVien = nguoiDung.MaNhanVien
+                    throw new Exception("Bản ghi lương không tồn tại.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi cập nhật lương: " + ex.Message);
+                throw;
+            }
+        }
+
+        // Xóa bản ghi lương
+        public void Delete(int id)
+        {
+            try
+            {
+                var luong = db.LUONGs.Find(id);
+                if (luong != null)
+                {
+                    db.LUONGs.Remove(luong);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Bản ghi lương không tồn tại.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi xóa lương: " + ex.Message);
+                throw;
+            }
+        }
+
+        // Tính lương bằng stored procedure
+        public List<LuongDTO> CalculateSalary(int? idNguoiDung, int thang, int nam)
+        {
+            try
+            {
+                var parameters = new[]
+                {
+                    new SqlParameter("@ThangNam", $"{thang:D2}{nam}"),
+                    idNguoiDung.HasValue ? new SqlParameter("@idNguoiDung", idNguoiDung.Value) : new SqlParameter("@idNguoiDung", DBNull.Value)
                 };
 
-                return luongDTO;
+                var data = db.Database.SqlQuery<LuongDTO>(
+                    "EXEC TinhLuong @ThangNam, @idNguoiDung",
+                    parameters
+                ).ToList();
+
+                return data;
             }
             catch (Exception ex)
             {
@@ -136,7 +204,6 @@ namespace Eden
             {
                 var luong = new LUONG
                 {
-                    MaLuong = luongDTO.MaLuong,
                     idNguoiDung = luongDTO.IdNguoiDung,
                     ThangNam = luongDTO.ThangNam,
                     LuongCoDinh = luongDTO.LuongCoDinh,

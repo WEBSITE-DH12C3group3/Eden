@@ -38,12 +38,10 @@ namespace Eden.UI
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvLuong = new Guna.UI2.WinForms.Guna2DataGridView();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.btnExcel = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
             this.guna2Panel1.SuspendLayout();
-            this.guna2Panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvLuong
@@ -76,7 +74,7 @@ namespace Eden.UI
             this.dgvLuong.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvLuong.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvLuong.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(45)))), ((int)(((byte)(86)))));
-            this.dgvLuong.Location = new System.Drawing.Point(26, 74);
+            this.dgvLuong.Location = new System.Drawing.Point(26, 224);
             this.dgvLuong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvLuong.Name = "dgvLuong";
             this.dgvLuong.ReadOnly = true;
@@ -91,7 +89,7 @@ namespace Eden.UI
             this.dgvLuong.RowHeadersVisible = false;
             this.dgvLuong.RowTemplate.DefaultCellStyle.NullValue = null;
             this.dgvLuong.RowTemplate.Height = 50;
-            this.dgvLuong.Size = new System.Drawing.Size(894, 545);
+            this.dgvLuong.Size = new System.Drawing.Size(894, 395);
             this.dgvLuong.TabIndex = 0;
             this.dgvLuong.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(39)))), ((int)(((byte)(75)))));
             this.dgvLuong.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -117,34 +115,16 @@ namespace Eden.UI
             // 
             // labelTitle
             // 
+            this.labelTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelTitle.Location = new System.Drawing.Point(20, 14);
+            this.labelTitle.Location = new System.Drawing.Point(397, 24);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(209, 32);
             this.labelTitle.TabIndex = 1;
             this.labelTitle.Text = "Bảng Tính Lương";
-            // 
-            // btnExcel
-            // 
-            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExcel.BorderRadius = 10;
-            this.btnExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnExcel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnExcel.FillColor = System.Drawing.Color.Green;
-            this.btnExcel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExcel.ForeColor = System.Drawing.Color.White;
-            this.btnExcel.Image = global::Eden.Properties.Resources.exel;
-            this.btnExcel.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnExcel.Location = new System.Drawing.Point(26, 14);
-            this.btnExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(180, 45);
-            this.btnExcel.TabIndex = 2;
-            this.btnExcel.Text = "Xuất Excel";
             // 
             // guna2Panel1
             // 
@@ -157,7 +137,6 @@ namespace Eden.UI
             // 
             // guna2Panel2
             // 
-            this.guna2Panel2.Controls.Add(this.btnExcel);
             this.guna2Panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.guna2Panel2.Location = new System.Drawing.Point(0, 635);
             this.guna2Panel2.Name = "guna2Panel2";
@@ -183,7 +162,6 @@ namespace Eden.UI
             ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
-            this.guna2Panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -192,7 +170,6 @@ namespace Eden.UI
 
         private Guna.UI2.WinForms.Guna2DataGridView dgvLuong;
         private System.Windows.Forms.Label labelTitle;
-        private Guna.UI2.WinForms.Guna2Button btnExcel;
         private Guna2Panel guna2Panel1;
         private Guna2Panel guna2Panel2;
     }
