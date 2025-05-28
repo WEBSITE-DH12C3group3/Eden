@@ -167,14 +167,19 @@
     <Compile Include="BLL\PHIEUNHAPBLL.cs" />
     <Compile Include="BLL\SANPHAMBLL.cs" />
     <Compile Include="BLL\NGUOIDUNGBLL.cs" />
+    <Compile Include="BLL\THONGTINNVBLL.cs" />
+    <Compile Include="BLL\TINHLUONGBLL.cs" />
     <Compile Include="CHAMCONG.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ChamCongDAL.cs" />
-    <Compile Include="DAL\TinhLuongDAL.cs" />
+    <Compile Include="DAL\THONGTINNVDAL.cs" />
+    <Compile Include="DAL\TINHLUONGDAL.cs" />
     <Compile Include="DTO\ChamCongDTO.cs" />
     <Compile Include="DTO\LoaiSanPhamDTO .cs" />
+    <Compile Include="DTO\LuongDTO.cs" />
     <Compile Include="DTO\SanPhamDTO.cs" />
+    <Compile Include="DTO\ThongTinNhanVienDTO.cs" />
     <Compile Include="LUONG.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -514,6 +519,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\ThongKeForm.resx">
       <DependentUpon>ThongKeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ThongTinNhanVienForm.resx">
+      <DependentUpon>ThongTinNhanVienForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TinhLuongForm.resx">
+      <DependentUpon>TinhLuongForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <EntityDeploy Include="Model1.edmx">

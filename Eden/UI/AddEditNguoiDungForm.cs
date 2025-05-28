@@ -12,6 +12,7 @@ namespace Eden
         private NGUOIDUNG nguoiDung;
         private List<NHOMNGUOIDUNG> nhomNguoiDungList;
         private NGUOIDUNGBLL nguoiDungBll = new NGUOIDUNGBLL();
+        private List<string> caLamViecList = new List<string> { "Ca 1: 7h-12h", "Ca 2: 12h-17h", "Ca 3: 17h-22h" };
 
         public AddEditNguoiDungForm(NGUOIDUNG nguoiDung, List<NHOMNGUOIDUNG> nhomNguoiDungList)
         {
@@ -20,7 +21,11 @@ namespace Eden
             InitializeComponent();
             txtMatKhau.UseSystemPasswordChar = false;
             LoadNhomNguoiDung();
-            if (nguoiDung != null)
+            if (nguoiDung == null)
+            {
+                LoadCaLamViec();
+            }
+            else
             {
                 LoadData();
             }
@@ -33,6 +38,14 @@ namespace Eden
                 cbNhomNguoiDung.DataSource = nhomNguoiDungList;
                 cbNhomNguoiDung.DisplayMember = "TenNhomNguoiDung";
                 cbNhomNguoiDung.ValueMember = "id";
+            }
+        }
+
+        private void LoadCaLamViec()
+        {
+            if (cbCaLamViec != null)
+            {
+                cbCaLamViec.DataSource = caLamViecList;
             }
         }
 
@@ -53,6 +66,7 @@ namespace Eden
                 string tenDangNhap = txtTenDangNhap.Text.Trim();
                 string matKhau = txtMatKhau.Text.Trim();
                 object selectedNhomId = cbNhomNguoiDung.SelectedValue;
+                string selectedCaLamViec = nguoiDung == null ? cbCaLamViec?.SelectedItem?.ToString() : null;
 
                 // Validation
                 if (string.IsNullOrWhiteSpace(tenNguoiDung))
@@ -105,6 +119,12 @@ namespace Eden
                     return;
                 }
 
+                if (nguoiDung == null && string.IsNullOrEmpty(selectedCaLamViec))
+                {
+                    MessageBox.Show("Vui lòng chọn một ca làm việc khi thêm người dùng mới.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 // Prepare data
                 if (nguoiDung == null)
                 {
@@ -119,7 +139,6 @@ namespace Eden
                 nguoiDung.TenDangNhap = tenDangNhap;
                 nguoiDung.MatKhau = matKhau; // Assume hashing in BLL
                 nguoiDung.idNhomNguoiDung = Convert.ToInt32(selectedNhomId);
-
                 // Save data
                 if (nguoiDung.id == 0)
                 {

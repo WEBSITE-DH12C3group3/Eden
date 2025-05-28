@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Eden; // Thêm namespace để sử dụng CHITIETHOADONBLL
-using ClosedXML.Excel;
 
 
 namespace Eden.UI

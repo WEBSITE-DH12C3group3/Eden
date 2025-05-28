@@ -1,4 +1,6 @@
-﻿namespace Eden
+﻿using System;
+
+namespace Eden
 {
     partial class AddEditNguoiDungForm
     {
@@ -7,7 +9,9 @@
         private Guna.UI2.WinForms.Guna2TextBox txtTenDangNhap;
         private Guna.UI2.WinForms.Guna2TextBox txtMatKhau;
         private Guna.UI2.WinForms.Guna2ComboBox cbNhomNguoiDung;
-        private System.Windows.Forms.Label labelTitle; // Added title label
+        private Guna.UI2.WinForms.Guna2ComboBox cbCaLamViec; // Declared but added dynamically
+        private System.Windows.Forms.Label labelTitle;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6; // Declared but added dynamically
 
         protected override void Dispose(bool disposing)
         {
@@ -24,7 +28,9 @@
             this.txtTenDangNhap = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtMatKhau = new Guna.UI2.WinForms.Guna2TextBox();
             this.cbNhomNguoiDung = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cbCaLamViec = new Guna.UI2.WinForms.Guna2ComboBox();
             this.labelTitle = new System.Windows.Forms.Label();
+            this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
@@ -133,6 +139,25 @@
             this.cbNhomNguoiDung.Size = new System.Drawing.Size(366, 36);
             this.cbNhomNguoiDung.TabIndex = 4;
             // 
+            // cbCaLamViec
+            // 
+            this.cbCaLamViec.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.cbCaLamViec.BackColor = System.Drawing.Color.Transparent;
+            this.cbCaLamViec.BorderColor = System.Drawing.Color.WhiteSmoke;
+            this.cbCaLamViec.BorderRadius = 10;
+            this.cbCaLamViec.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbCaLamViec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCaLamViec.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(28)))), ((int)(((byte)(63)))));
+            this.cbCaLamViec.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.cbCaLamViec.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(117)))), ((int)(((byte)(173)))));
+            this.cbCaLamViec.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCaLamViec.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.cbCaLamViec.ItemHeight = 30;
+            this.cbCaLamViec.Location = new System.Drawing.Point(33, 512);
+            this.cbCaLamViec.Name = "cbCaLamViec";
+            this.cbCaLamViec.Size = new System.Drawing.Size(366, 36);
+            this.cbCaLamViec.TabIndex = 5;
+            // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
@@ -143,6 +168,18 @@
             this.labelTitle.Size = new System.Drawing.Size(279, 32);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Thông Tin Người Dùng";
+            // 
+            // guna2HtmlLabel6
+            // 
+            this.guna2HtmlLabel6.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel6.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.guna2HtmlLabel6.Location = new System.Drawing.Point(160, 516);
+            this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
+            this.guna2HtmlLabel6.Size = new System.Drawing.Size(93, 27);
+            this.guna2HtmlLabel6.TabIndex = 11;
+            this.guna2HtmlLabel6.Text = "Ca Làm Việc:";
             // 
             // btnSave
             // 
@@ -300,13 +337,13 @@
             this.Name = "AddEditNguoiDungForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Thêm/Chỉnh sửa Người dùng";
+            this.Load += new System.EventHandler(this.AddEditNguoiDungForm_Load);
             this.guna2Panel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             this.guna2Panel4.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         private Guna.UI2.WinForms.Guna2Button btnCancel;
@@ -319,5 +356,15 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+
+        private void AddEditNguoiDungForm_Load(object sender, EventArgs e)
+        {
+            if (nguoiDung == null)
+            {
+                // Add shift controls only in add mode
+                guna2Panel4.Controls.Add(this.cbCaLamViec);
+                guna2Panel1.Controls.Add(this.guna2HtmlLabel6);
+            }
+        }
     }
 }
