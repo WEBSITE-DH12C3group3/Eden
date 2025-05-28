@@ -41,17 +41,11 @@ CREATE TABLE NGUOIDUNG (
     TenNguoiDung NVARCHAR(255) NOT NULL,
     TenDangNhap VARCHAR(100) UNIQUE NOT NULL,
     MatKhau VARCHAR(255) NOT NULL,
-    idNhomNguoiDung INT REFERENCES NHOMNGUOIDUNG(id) ON DELETE CASCADE NOT NULL
-);
-GO
-
--- Bảng Thông Tin Nhân Viên
-CREATE TABLE THONGTINNHANVIEN (
-    id INT IDENTITY(1,1) PRIMARY KEY,
+    idNhomNguoiDung INT REFERENCES NHOMNGUOIDUNG(id) ON DELETE CASCADE NOT NULL,
+    CaLamViec NVARCHAR(50),
     MaNhanVien AS CAST('NV' + RIGHT('0000' + CAST(id AS VARCHAR(4)), 4) AS CHAR(6)) PERSISTED,
-    idNguoiDung INT FOREIGN KEY REFERENCES NGUOIDUNG(id) ON DELETE CASCADE NOT NULL UNIQUE,
-    LuongCoDinh DECIMAL(10,2) NOT NULL,
-    NgayBatDauLam DATETIME NOT NULL,
+    LuongCoDinh DECIMAL(10,2),
+    NgayBatDauLam DATETIME,
     TrangThai NVARCHAR(50) DEFAULT N'Đang làm'
 );
 GO
@@ -83,7 +77,7 @@ CREATE TABLE SANPHAM (
     MoTa NVARCHAR(MAX),
     Gia DECIMAL(10,2) NOT NULL,
     SoLuong INT NOT NULL,
-    SoLuongDaBan INT DEFAULT 0,
+    DaBan INT DEFAULT 0, -- Số lượng đã bán
     MauSac NVARCHAR(50),
     AnhChiTiet NVARCHAR(255),
     idNhaCungCap INT REFERENCES NHACUNGCAP(id) ON DELETE CASCADE,
@@ -108,7 +102,7 @@ CREATE TABLE HOADON (
     MaHoaDon AS CAST('HD' + RIGHT('0000' + CAST(id AS VARCHAR(10)), 4) AS CHAR(6)) PERSISTED,
     NgayLap DATETIME NOT NULL,
     idKhachHang INT REFERENCES KHACHHANG(id) ON DELETE CASCADE, 
-    idNguoiDung INT REFERENCES NGUOIDUNG(id) ON DELETE CASCADE,
+    idNguoiDung INT REFERENCES NGUOIDUNG(id) ON DELETE CASCADE, -- Người lập hóa đơn
     TongTien DECIMAL(10,2) NOT NULL
 );
 GO
@@ -150,11 +144,11 @@ GO
 CREATE TABLE CHAMCONG (
     id INT IDENTITY(1,1) PRIMARY KEY,
     MaChamCong AS CAST('CC' + RIGHT('0000' + CAST(id AS VARCHAR(4)), 4) AS CHAR(6)) PERSISTED,
-    idThongTinNhanVien INT FOREIGN KEY REFERENCES THONGTINNHANVIEN(id) ON DELETE CASCADE NOT NULL,
+    idNguoiDung INT FOREIGN KEY REFERENCES NGUOIDUNG(id) ON DELETE CASCADE NOT NULL,
     NgayChamCong DATE NOT NULL,
     GioDangNhap TIME,
     GioDangXuat TIME,
-    CaLamViec INT NOT NULL,
+    CaLamViec NVARCHAR(50),
     TrangThai NVARCHAR(50) DEFAULT N'Đi làm'
 );
 GO
@@ -163,7 +157,7 @@ GO
 CREATE TABLE LUONG (
     id INT IDENTITY(1,1) PRIMARY KEY,
     MaLuong AS CAST('L' + RIGHT('0000' + CAST(id AS VARCHAR(4)), 4) AS CHAR(6)) PERSISTED,
-    idThongTinNhanVien INT FOREIGN KEY REFERENCES THONGTINNHANVIEN(id) ON DELETE CASCADE NOT NULL,
+    idNguoiDung INT FOREIGN KEY REFERENCES NGUOIDUNG(id) ON DELETE CASCADE NOT NULL,
     ThangNam VARCHAR(6) NOT NULL,
     LuongCoDinh DECIMAL(10,2) NOT NULL,
     TongDoanhSo DECIMAL(12,2) NOT NULL,
@@ -180,13 +174,10 @@ GO
 -- Bảng Tham Số (Cấu hình hệ thống)
 CREATE TABLE THAMSO (
     id INT IDENTITY(1,1) PRIMARY KEY,
-    SoLuongTonToiThieu INT NOT NULL,
-    MucGiamGia DECIMAL(5,2) DEFAULT 0,
-    ThoiGianBaoHanh INT DEFAULT 0
+    SoLuongTonToiThieu INT NOT NULL, -- Số lượng tối thiểu trong kho
+    MucGiamGia DECIMAL(5,2) DEFAULT 0, -- Mức giảm giá mặc định
+    ThoiGianBaoHanh INT DEFAULT 0 -- Thời gian bảo hành nếu có
 );
-GO
-
-USE QLBanHoa;
 GO
 
 -- Thêm dữ liệu vào bảng NHOMNGUOIDUNG
@@ -212,34 +203,26 @@ GO
 -- Thêm dữ liệu vào bảng PHANQUYEN
 INSERT INTO PHANQUYEN (idNhomNguoiDung, idChucNang)
 VALUES 
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (1, 4),
-    (1, 5),
+    (1, 1), -- Quản trị viên có quyền quản lý người dùng
+    (1, 2), -- Quản trị viên có quyền quản lý sản phẩm
+    (1, 3), -- Quản trị viên có quyền quản lý hóa đơn
+    (1, 4), -- Quản trị viên có quyền quản lý nhập hàng
+    (1, 5), -- Quản trị viên có quyền quản lý khách hàng
     (1, 6),
     (1, 7),
-    (2, 2),
-    (2, 3),
-    (2, 5),
-    (3, 4),
+    (2, 2), -- Nhân viên bán hàng có quyền quản lý sản phẩm
+    (2, 3), -- Nhân viên bán hàng có quyền quản lý hóa đơn
+    (2, 5), -- Nhân viên bán hàng có quyền quản lý khách hàng
+    (3, 4), -- Quản lý kho có quyền quản lý nhập hàng
     (3, 6);
 GO
 
 -- Thêm dữ liệu vào bảng NGUOIDUNG
-INSERT INTO NGUOIDUNG (TenNguoiDung, TenDangNhap, MatKhau, idNhomNguoiDung)
+INSERT INTO NGUOIDUNG (TenNguoiDung, TenDangNhap, MatKhau, idNhomNguoiDung, CaLamViec, LuongCoDinh, NgayBatDauLam, TrangThai)
 VALUES 
-    (N'Admin', 'admin', '123456', 1),
-    (N'Nhân viên 1', 'nvien', '1', 2),
-    (N'Quản lý kho 1', 'ql', '1', 3);
-GO
-
--- Thêm dữ liệu vào bảng THONGTINNHANVIEN
-INSERT INTO THONGTINNHANVIEN (idNguoiDung, LuongCoDinh, NgayBatDauLam, TrangThai)
-VALUES 
-    (1, 5000000, '2023-01-01', N'Đang làm'),
-    (2, 3500000, '2023-02-01', N'Đang làm'),
-    (3, 5000000, '2023-03-01', N'Đang làm');
+    (N'Admin', 'admin', '123456', 1, 'Ca 1: 7h-12h', 5000000, '2023-01-01', N'Đang làm'),
+    (N'Nhân viên 1', 'nvien', '1', 2, 'Ca 1: 7h-12h', 3500000, '2023-02-01', N'Đang làm'),
+    (N'Quản lý kho 1', 'ql', '1', 3, 'Ca 2: 12h-17h', 5000000, '2023-03-01', N'Đang làm');
 GO
 
 -- Thêm dữ liệu vào bảng LOAISANPHAM
@@ -353,36 +336,34 @@ VALUES
 GO
 
 -- Thêm dữ liệu vào bảng CHAMCONG
-INSERT INTO CHAMCONG (idThongTinNhanVien, NgayChamCong, GioDangNhap, GioDangXuat, CaLamViec, TrangThai)
+INSERT INTO CHAMCONG (idNguoiDung, NgayChamCong, GioDangNhap, GioDangXuat, CaLamViec, TrangThai)
 VALUES 
-    (1, '2025-05-26', '07:10', '12:00', 1, N'Đi muộn'),
-    (1, '2025-05-27', '07:00', '12:00', 1, N'Đi làm'),
-    (2, '2025-05-26', '07:15', '12:00', 1, N'Đi muộn'),
-    (2, '2025-05-27', NULL, NULL, 1, N'Nghỉ phép');
+    (1, '2025-05-26', '07:10', '12:00', 'Ca 1: 7h-12h', N'Đi muộn'),
+    (1, '2025-05-27', '07:00', '12:00', 'Ca 1: 7h-12h', N'Đi làm'),
+    (2, '2025-05-26', '07:15', '12:00', 'Ca 1: 7h-12h', N'Đi muộn'),
+    (2, '2025-05-27', NULL, NULL, 'Ca 1: 7h-12h', N'Nghỉ phép');
 GO
 
 -- Thêm dữ liệu vào bảng LUONG
-INSERT INTO LUONG (idThongTinNhanVien, ThangNam, LuongCoDinh, TongDoanhSo, PhatDiMuon, PhatNghiBuoi, TroCap, Thuong, TongLuong, NgayTinhLuong, GhiChu)
+INSERT INTO LUONG (idNguoiDung, ThangNam, LuongCoDinh, TongDoanhSo, PhatDiMuon, PhatNghiBuoi, TroCap, Thuong, TongLuong, NgayTinhLuong, GhiChu)
 VALUES 
     (1, '052025',
-     (SELECT LuongCoDinh FROM THONGTINNHANVIEN WHERE id = 1),
+     (SELECT LuongCoDinh FROM NGUOIDUNG WHERE id = 1),
      (SELECT COALESCE(SUM(TongTien), 0) FROM HOADON WHERE idNguoiDung = 1 AND NgayLap BETWEEN '2025-05-01' AND '2025-05-27'),
      20,
      0,
      500000,
      (SELECT COALESCE(SUM(TongTien) * 0.01, 0) FROM HOADON WHERE idNguoiDung = 1 AND NgayLap BETWEEN '2025-05-01' AND '2025-05-27'),
-     (SELECT (LuongCoDinh - 20 - 0 + 500000 + COALESCE(SUM(TongTien) * 0.01, 0)) FROM THONGTINNHANVIEN WHERE id = 1 
-      UNION ALL SELECT COALESCE(SUM(TongTien), 0) FROM HOADON WHERE idNguoiDung = 1 AND NgayLap BETWEEN '2025-05-01' AND '2025-05-27'),
+     (SELECT LuongCoDinh - 20 + 500000 + COALESCE(SUM(TongTien) * 0.01, 0) FROM NGUOIDUNG nd LEFT JOIN HOADON hd ON hd.idNguoiDung = nd.id AND hd.NgayLap BETWEEN '2025-05-01' AND '2025-05-27' WHERE nd.id = 1 GROUP BY LuongCoDinh),
      '2025-05-27 14:49:00', N'Lương tháng 5/2025'),
     (2, '052025',
-     (SELECT LuongCoDinh FROM THONGTINNHANVIEN WHERE id = 2),
+     (SELECT LuongCoDinh FROM NGUOIDUNG WHERE id = 2),
      (SELECT COALESCE(SUM(TongTien), 0) FROM HOADON WHERE idNguoiDung = 2 AND NgayLap BETWEEN '2025-05-01' AND '2025-05-27'),
      20,
      100,
      0,
      (SELECT COALESCE(SUM(TongTien) * 0.01, 0) FROM HOADON WHERE idNguoiDung = 2 AND NgayLap BETWEEN '2025-05-01' AND '2025-05-27'),
-     (SELECT (LuongCoDinh - 20 - 100 + COALESCE(SUM(TongTien) * 0.01, 0)) FROM THONGTINNHANVIEN WHERE id = 2 
-      UNION ALL SELECT COALESCE(SUM(TongTien), 0) FROM HOADON WHERE idNguoiDung = 2 AND NgayLap BETWEEN '2025-05-01' AND '2025-05-27'),
+     (SELECT LuongCoDinh - 20 - 100 + COALESCE(SUM(TongTien) * 0.01, 0) FROM NGUOIDUNG nd LEFT JOIN HOADON hd ON hd.idNguoiDung = nd.id AND hd.NgayLap BETWEEN '2025-05-01' AND '2025-05-27' WHERE nd.id = 2 GROUP BY LuongCoDinh),
      '2025-05-27 14:49:00', N'Lương tháng 5/2025');
 GO
 

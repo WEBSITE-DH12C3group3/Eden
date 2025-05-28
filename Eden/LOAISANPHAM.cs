@@ -21,8 +21,8 @@ namespace Eden
         }
     
         public int id { get; set; }
-        public string TenLoaiSanPham { get; set; }
         public string MaLoaiSanPham { get; set; }
+        public string TenLoaiSanPham { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SANPHAM> SANPHAMs { get; set; }

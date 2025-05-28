@@ -25,20 +25,19 @@ namespace Eden
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CHAMCONG> CHAMCONGs { get; set; }
         public virtual DbSet<CHITIETHOADON> CHITIETHOADONs { get; set; }
         public virtual DbSet<CHITIETPHIEUNHAP> CHITIETPHIEUNHAPs { get; set; }
         public virtual DbSet<CHUCNANG> CHUCNANGs { get; set; }
         public virtual DbSet<HOADON> HOADONs { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
         public virtual DbSet<LOAISANPHAM> LOAISANPHAMs { get; set; }
+        public virtual DbSet<LUONG> LUONGs { get; set; }
         public virtual DbSet<NGUOIDUNG> NGUOIDUNGs { get; set; }
         public virtual DbSet<NHACUNGCAP> NHACUNGCAPs { get; set; }
         public virtual DbSet<NHOMNGUOIDUNG> NHOMNGUOIDUNGs { get; set; }
         public virtual DbSet<PHIEUNHAP> PHIEUNHAPs { get; set; }
         public virtual DbSet<SANPHAM> SANPHAMs { get; set; }
         public virtual DbSet<THAMSO> THAMSOes { get; set; }
-        public virtual DbSet<CHAMCONG> CHAMCONGs { get; set; }
-        public virtual DbSet<LUONG> LUONGs { get; set; }
-        public virtual DbSet<THONGTINNHANVIEN> THONGTINNHANVIENs { get; set; }
     }
 }

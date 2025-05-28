@@ -95,6 +95,8 @@ namespace Eden.BLLCustom
                 if (nguoiDung.idNhomNguoiDung == 0)
                     throw new Exception("Nhóm người dùng không được để trống.");
 
+               
+
                 nguoiDungDal.Update(nguoiDung);
             }
             catch (Exception ex)

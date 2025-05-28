@@ -16,7 +16,7 @@ namespace Eden
     {
         public int id { get; set; }
         public string MaLuong { get; set; }
-        public int idThongTinNhanVien { get; set; }
+        public int idNguoiDung { get; set; }
         public string ThangNam { get; set; }
         public decimal LuongCoDinh { get; set; }
         public decimal TongDoanhSo { get; set; }
@@ -28,6 +28,6 @@ namespace Eden
         public System.DateTime NgayTinhLuong { get; set; }
         public string GhiChu { get; set; }
     
-        public virtual THONGTINNHANVIEN THONGTINNHANVIEN { get; set; }
+        public virtual NGUOIDUNG NGUOIDUNG { get; set; }
     }
 }

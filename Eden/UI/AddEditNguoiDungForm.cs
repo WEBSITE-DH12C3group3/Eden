@@ -137,8 +137,34 @@ namespace Eden
 
                 nguoiDung.TenNguoiDung = tenNguoiDung;
                 nguoiDung.TenDangNhap = tenDangNhap;
-                nguoiDung.MatKhau = matKhau; // Assume hashing in BLL
+                nguoiDung.MatKhau = matKhau;
                 nguoiDung.idNhomNguoiDung = Convert.ToInt32(selectedNhomId);
+
+                // Gán giá trị CaLamViec khi thêm người dùng mới
+                if (nguoiDung.id == 0 && !string.IsNullOrEmpty(selectedCaLamViec))
+                {
+                    nguoiDung.CaLamViec = selectedCaLamViec;
+                }
+
+                // Áp dụng logic mới khi tạo người dùng mới
+                if (nguoiDung.id == 0)
+                {
+                    nguoiDung.NgayBatDauLam = DateTime.Now; // Ngày bắt đầu đi làm là ngày tạo tài khoản
+                    nguoiDung.TrangThai = "Đang làm"; // Trạng thái mặc định
+
+                    // Gán lương cố định dựa trên nhóm người dùng
+                    int nhomId = Convert.ToInt32(selectedNhomId);
+                    if (nhomId == 2) // Nhân viên
+                    {
+                        nguoiDung.LuongCoDinh = 3500000m; // 3,5 triệu
+                    }
+                    else if (nhomId == 3) // Quản lý
+                    {
+                        nguoiDung.LuongCoDinh = 5000000m; // 5 triệu
+                    }
+                    // Nếu là nhóm khác (ví dụ: Admin, id = 1), để NULL hoặc 0
+                }
+
                 // Save data
                 if (nguoiDung.id == 0)
                 {

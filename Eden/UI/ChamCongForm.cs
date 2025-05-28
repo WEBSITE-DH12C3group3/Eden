@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,11 +28,16 @@ namespace Eden.UI
                 DataPropertyName = "MaChamCong",
                 HeaderText = "Mã chấm công"
             });
-            //dataGridViewChamCong.Columns.Add(new DataGridViewTextBoxColumn
-            //{
-            //    DataPropertyName = "idThongTinNhanVien",
-            //    HeaderText = "Id nhân viên"
-            //});
+            dataGridViewChamCong.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaNhanVien",
+                HeaderText = "Mã nhân viên"
+            });
+            dataGridViewChamCong.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenNguoiDung",
+                HeaderText = "Tên người dùng"
+            });
             dataGridViewChamCong.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "NgayChamCong",
@@ -66,7 +72,7 @@ namespace Eden.UI
             try
             {
                 var (data, totalRecords) = chamCongBLL.GetPagedChamCong(1, 10); // Trang 1, 10 bản ghi
-                if (dataGridViewChamCong != null) // Sử dụng dataGridViewChamCong
+                if (dataGridViewChamCong != null)
                 {
                     dataGridViewChamCong.DataSource = data;
                     //dataGridViewChamCong.Columns["id"].Visible = false; // Ẩn cột id nếu không cần
@@ -80,7 +86,7 @@ namespace Eden.UI
 
         private void ChamCongForm_Load(object sender, EventArgs e)
         {
-            if (dataGridViewChamCong == null) // Khởi tạo Guna2DataGridView
+            if (dataGridViewChamCong == null)
             {
                 dataGridViewChamCong = new Guna2DataGridView
                 {

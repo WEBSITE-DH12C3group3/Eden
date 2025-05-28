@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -28,13 +29,13 @@ namespace Eden
             try
             {
                 return db.CHAMCONGs
-                    .Include(cc => cc.THONGTINNHANVIEN.NGUOIDUNG)
+                    .Include(cc => cc.NGUOIDUNG)
                     .Select(cc => new ChamCongDTO
                     {
                         id = cc.id,
                         MaChamCong = cc.MaChamCong,
-                        MaNhanVien = cc.THONGTINNHANVIEN.MaNhanVien,
-                        TenNguoiDung = cc.THONGTINNHANVIEN.NGUOIDUNG.TenNguoiDung,
+                        MaNhanVien = cc.NGUOIDUNG.MaNhanVien,
+                        TenNguoiDung = cc.NGUOIDUNG.TenNguoiDung,
                         NgayChamCong = cc.NgayChamCong,
                         GioDangNhap = cc.GioDangNhap,
                         GioDangXuat = cc.GioDangXuat,
@@ -58,7 +59,7 @@ namespace Eden
                 int skip = (page - 1) * pageSize;
 
                 var data = db.CHAMCONGs
-                    .Include(cc => cc.THONGTINNHANVIEN.NGUOIDUNG)
+                    .Include(cc => cc.NGUOIDUNG)
                     .OrderBy(cc => cc.MaChamCong)
                     .Skip(skip)
                     .Take(pageSize)
@@ -66,8 +67,8 @@ namespace Eden
                     {
                         id = cc.id,
                         MaChamCong = cc.MaChamCong,
-                        MaNhanVien = cc.THONGTINNHANVIEN.MaNhanVien,
-                        TenNguoiDung = cc.THONGTINNHANVIEN.NGUOIDUNG.TenNguoiDung,
+                        MaNhanVien = cc.NGUOIDUNG.MaNhanVien,
+                        TenNguoiDung = cc.NGUOIDUNG.TenNguoiDung,
                         NgayChamCong = cc.NgayChamCong,
                         GioDangNhap = cc.GioDangNhap,
                         GioDangXuat = cc.GioDangXuat,

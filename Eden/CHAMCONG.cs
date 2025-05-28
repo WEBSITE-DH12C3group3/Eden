@@ -16,13 +16,13 @@ namespace Eden
     {
         public int id { get; set; }
         public string MaChamCong { get; set; }
-        public int idThongTinNhanVien { get; set; }
+        public int idNguoiDung { get; set; }
         public System.DateTime NgayChamCong { get; set; }
         public Nullable<System.TimeSpan> GioDangNhap { get; set; }
         public Nullable<System.TimeSpan> GioDangXuat { get; set; }
-        public int CaLamViec { get; set; }
+        public string CaLamViec { get; set; }
         public string TrangThai { get; set; }
     
-        public virtual THONGTINNHANVIEN THONGTINNHANVIEN { get; set; }
+        public virtual NGUOIDUNG NGUOIDUNG { get; set; }
     }
 }

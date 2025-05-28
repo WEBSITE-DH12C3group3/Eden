@@ -82,13 +82,13 @@ namespace Eden
         }
 
         // Lấy thời gian bắt đầu của ca làm việc
-        private TimeSpan GetStartTimeOfShift(int caLamViec)
+        private TimeSpan GetStartTimeOfShift(string caLamViec)
         {
             switch (caLamViec)
             {
-                case 1: return new TimeSpan(7, 0, 0);  // Ca 1: 7h-12h
-                case 2: return new TimeSpan(12, 0, 0); // Ca 2: 12h-17h
-                case 3: return new TimeSpan(17, 0, 0); // Ca 3: 17h-22h
+                case "Ca 1: 7h-12h": return new TimeSpan(7, 0, 0);  // Ca 1: 7h-12h
+                case "Ca 2: 12h-17h": return new TimeSpan(12, 0, 0); // Ca 2: 12h-17h
+                case "Ca 3: 17h-22h": return new TimeSpan(17, 0, 0); // Ca 3: 17h-22h
                 default: throw new ArgumentException("Ca làm việc không hợp lệ!");
             }
         }

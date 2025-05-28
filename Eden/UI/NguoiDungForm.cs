@@ -48,6 +48,37 @@ namespace Eden
                 HeaderText = "Nhóm Người Dùng",
                 Name = "NhomNguoiDung"
             });
+            // Thêm các cột mới
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaNhanVien",
+                HeaderText = "Mã Nhân Viên",
+                Name = "MaNhanVien"
+            });
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "CaLamViec",
+                HeaderText = "Ca Làm Việc",
+                Name = "CaLamViec"
+            });
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "LuongCoDinh",
+                HeaderText = "Lương Cố Định",
+                Name = "LuongCoDinh"
+            });
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "NgayBatDauLam",
+                HeaderText = "Ngày Bắt Đầu Làm",
+                Name = "NgayBatDauLam"
+            });
+            dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TrangThai",
+                HeaderText = "Trạng Thái",
+                Name = "TrangThai"
+            });
 
             LoadData();
             txtSearch.TextChanged += new EventHandler(txtSearch_TextChanged);
@@ -76,7 +107,10 @@ namespace Eden
                     .Where(nd => string.IsNullOrEmpty(searchTerm) ||
                                 nd.TenNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
                                 nd.MaNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
-                                nd.TenDangNhap.ToLower().Contains(searchTerm.ToLower()))
+                                nd.TenDangNhap.ToLower().Contains(searchTerm.ToLower()) ||
+                                nd.MaNhanVien.ToLower().Contains(searchTerm.ToLower()) || // Thêm tìm kiếm theo MaNhanVien
+                                (nd.CaLamViec != null && nd.CaLamViec.ToLower().Contains(searchTerm.ToLower())) ||
+                                (nd.TrangThai != null && nd.TrangThai.ToLower().Contains(searchTerm.ToLower())))
                     .ToList();
 
                 int totalItems = filteredList.Count;
@@ -91,7 +125,12 @@ namespace Eden
                         MaNguoiDung = nd.MaNguoiDung,
                         TenNguoiDung = nd.TenNguoiDung,
                         TenDangNhap = nd.TenDangNhap,
-                        NhomNguoiDung = nd.NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A"
+                        NhomNguoiDung = nd.NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A",
+                        MaNhanVien = nd.MaNhanVien, // Thêm trường mới
+                        CaLamViec = nd.CaLamViec, // Thêm trường mới
+                        LuongCoDinh = nd.LuongCoDinh, // Thêm trường mới
+                        NgayBatDauLam = nd.NgayBatDauLam?.ToString("dd/MM/yyyy"), // Thêm trường mới, định dạng ngày
+                        TrangThai = nd.TrangThai // Thêm trường mới
                     })
                     .ToList();
 
@@ -216,31 +255,36 @@ namespace Eden
                             worksheet.Cell(1, 1).Style.Font.Bold = true;
                             worksheet.Cell(1, 1).Style.Font.FontSize = 18;
                             worksheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-                            worksheet.Range(1, 1, 1, 4).Merge();
+                            worksheet.Range(1, 1, 1, 9).Merge(); // Cập nhật merge để phù hợp số cột mới
 
                             // Tiêu đề chính
                             worksheet.Cell(2, 1).Value = "Danh Sách Người Dùng";
                             worksheet.Cell(2, 1).Style.Font.Bold = true;
                             worksheet.Cell(2, 1).Style.Font.FontSize = 16;
-                            worksheet.Range(2, 1, 2, 4).Merge();
+                            worksheet.Range(2, 1, 2, 9).Merge();
                             worksheet.Cell(2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
 
                             // Thông tin người xuất và ngày xuất (căn phải)
                             string userName = CurrentUser.Username ?? "Không xác định";
                             string exportDateTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                            worksheet.Cell(3, 4).Value = $"Người xuất: {userName}";
-                            worksheet.Cell(3, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-                            worksheet.Range(3, 4, 3, 4).Merge();
-                            worksheet.Cell(4, 4).Value = $"Ngày xuất: {exportDateTime}";
-                            worksheet.Cell(4, 4).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-                            worksheet.Range(4, 4, 4, 4).Merge();
+                            worksheet.Cell(3, 9).Value = $"Người xuất: {userName}";
+                            worksheet.Cell(3, 9).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            worksheet.Range(3, 9, 3, 9).Merge();
+                            worksheet.Cell(4, 9).Value = $"Ngày xuất: {exportDateTime}";
+                            worksheet.Cell(4, 9).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            worksheet.Range(4, 9, 4, 9).Merge();
 
                             // Tiêu đề cột
                             worksheet.Cell(6, 1).Value = "Mã Người Dùng";
                             worksheet.Cell(6, 2).Value = "Tên Người Dùng";
                             worksheet.Cell(6, 3).Value = "Tên Đăng Nhập";
                             worksheet.Cell(6, 4).Value = "Nhóm Người Dùng";
-                            var headerRange = worksheet.Range(6, 1, 6, 4);
+                            worksheet.Cell(6, 5).Value = "Mã Nhân Viên";
+                            worksheet.Cell(6, 6).Value = "Ca Làm Việc";
+                            worksheet.Cell(6, 7).Value = "Lương Cố Định";
+                            worksheet.Cell(6, 8).Value = "Ngày Bắt Đầu Làm";
+                            worksheet.Cell(6, 9).Value = "Trạng Thái";
+                            var headerRange = worksheet.Range(6, 1, 6, 9);
                             headerRange.Style.Fill.BackgroundColor = XLColor.FromArgb(146, 208, 80); // Màu xanh nhạt
                             headerRange.Style.Font.Bold = true;
                             headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -253,7 +297,10 @@ namespace Eden
                                 .Where(nd => string.IsNullOrEmpty(txtSearch.Text.Trim()) ||
                                             nd.TenNguoiDung.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
                                             nd.MaNguoiDung.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
-                                            nd.TenDangNhap.ToLower().Contains(txtSearch.Text.Trim().ToLower()))
+                                            nd.TenDangNhap.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
+                                            nd.MaNhanVien.ToLower().Contains(txtSearch.Text.Trim().ToLower()) ||
+                                            (nd.CaLamViec != null && nd.CaLamViec.ToLower().Contains(txtSearch.Text.Trim().ToLower())) ||
+                                            (nd.TrangThai != null && nd.TrangThai.ToLower().Contains(txtSearch.Text.Trim().ToLower())))
                                 .ToList();
 
                             // Thêm dữ liệu vào Excel
@@ -263,8 +310,13 @@ namespace Eden
                                 worksheet.Cell(i + 7, 2).Value = filteredList[i].TenNguoiDung;
                                 worksheet.Cell(i + 7, 3).Value = filteredList[i].TenDangNhap;
                                 worksheet.Cell(i + 7, 4).Value = filteredList[i].NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A";
+                                worksheet.Cell(i + 7, 5).Value = filteredList[i].MaNhanVien;
+                                worksheet.Cell(i + 7, 6).Value = filteredList[i].CaLamViec;
+                                worksheet.Cell(i + 7, 7).Value = filteredList[i].LuongCoDinh;
+                                worksheet.Cell(i + 7, 8).Value = filteredList[i].NgayBatDauLam?.ToString("dd/MM/yyyy");
+                                worksheet.Cell(i + 7, 9).Value = filteredList[i].TrangThai;
 
-                                var rowRange = worksheet.Range(i + 7, 1, i + 7, 4);
+                                var rowRange = worksheet.Range(i + 7, 1, i + 7, 9);
                                 rowRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                                 rowRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                                 rowRange.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
@@ -280,17 +332,23 @@ namespace Eden
                             worksheet.Cell(lastRow + 2, 1).Value = "Địa chỉ: Cây nhà lá vườn";
                             worksheet.Cell(lastRow + 2, 1).Style.Font.Bold = true;
                             worksheet.Cell(lastRow + 2, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-                            worksheet.Range(lastRow + 2, 1, lastRow + 2, 4).Merge();
+                            worksheet.Range(lastRow + 2, 1, lastRow + 2, 9).Merge();
 
                             worksheet.Cell(lastRow + 3, 1).Value = "Sdt: 0909090909";
                             worksheet.Cell(lastRow + 3, 1).Style.Font.Bold = true;
                             worksheet.Cell(lastRow + 3, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-                            worksheet.Range(lastRow + 3, 1, lastRow + 3, 4).Merge();
+                            worksheet.Range(lastRow + 3, 1, lastRow + 3, 9).Merge();
 
-                            worksheet.Column(1).Width = 15;
-                            worksheet.Column(2).Width = 25;
-                            worksheet.Column(3).Width = 20;
-                            worksheet.Column(4).Width = 25;
+                            // Điều chỉnh độ rộng cột
+                            worksheet.Column(1).Width = 15; // MaNguoiDung
+                            worksheet.Column(2).Width = 25; // TenNguoiDung
+                            worksheet.Column(3).Width = 20; // TenDangNhap
+                            worksheet.Column(4).Width = 25; // NhomNguoiDung
+                            worksheet.Column(5).Width = 15; // MaNhanVien
+                            worksheet.Column(6).Width = 20; // CaLamViec
+                            worksheet.Column(7).Width = 15; // LuongCoDinh
+                            worksheet.Column(8).Width = 20; // NgayBatDauLam
+                            worksheet.Column(9).Width = 15; // TrangThai
 
                             workbook.SaveAs(sfd.FileName);
                         }

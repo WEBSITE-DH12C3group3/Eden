@@ -87,6 +87,11 @@ namespace Eden.DALCustom
                     existingUser.TenDangNhap = nguoiDung.TenDangNhap;
                     existingUser.MatKhau = nguoiDung.MatKhau;
                     existingUser.idNhomNguoiDung = nguoiDung.idNhomNguoiDung;
+                    existingUser.CaLamViec = nguoiDung.CaLamViec; // Thêm trường mới
+                    existingUser.MaNhanVien = nguoiDung.MaNhanVien; // Thêm trường mới
+                    existingUser.LuongCoDinh = nguoiDung.LuongCoDinh; // Thêm trường mới
+                    existingUser.NgayBatDauLam = nguoiDung.NgayBatDauLam; // Thêm trường mới
+                    existingUser.TrangThai = nguoiDung.TrangThai; // Thêm trường mới
                     context.SaveChanges();
                 }
                 catch (DbEntityValidationException dbEx)

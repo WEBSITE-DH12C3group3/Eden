@@ -17,9 +17,10 @@ namespace Eden
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NGUOIDUNG()
         {
+            this.CHAMCONGs = new HashSet<CHAMCONG>();
             this.HOADONs = new HashSet<HOADON>();
+            this.LUONGs = new HashSet<LUONG>();
             this.PHIEUNHAPs = new HashSet<PHIEUNHAP>();
-            this.THONGTINNHANVIENs = new HashSet<THONGTINNHANVIEN>();
         }
     
         public int id { get; set; }
@@ -28,13 +29,20 @@ namespace Eden
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }
         public int idNhomNguoiDung { get; set; }
+        public string CaLamViec { get; set; }
+        public string MaNhanVien { get; set; }
+        public Nullable<decimal> LuongCoDinh { get; set; }
+        public Nullable<System.DateTime> NgayBatDauLam { get; set; }
+        public string TrangThai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHAMCONG> CHAMCONGs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADONs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LUONG> LUONGs { get; set; }
         public virtual NHOMNGUOIDUNG NHOMNGUOIDUNG { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHIEUNHAP> PHIEUNHAPs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<THONGTINNHANVIEN> THONGTINNHANVIENs { get; set; }
     }
 }
