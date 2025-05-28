@@ -48,7 +48,6 @@ namespace Eden
                 HeaderText = "Nhóm Người Dùng",
                 Name = "NhomNguoiDung"
             });
-            // Thêm các cột mới
             dgvNguoiDung.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "MaNhanVien",
@@ -108,7 +107,7 @@ namespace Eden
                                 nd.TenNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
                                 nd.MaNguoiDung.ToLower().Contains(searchTerm.ToLower()) ||
                                 nd.TenDangNhap.ToLower().Contains(searchTerm.ToLower()) ||
-                                nd.MaNhanVien.ToLower().Contains(searchTerm.ToLower()) || // Thêm tìm kiếm theo MaNhanVien
+                                nd.MaNhanVien.ToLower().Contains(searchTerm.ToLower()) ||
                                 (nd.CaLamViec != null && nd.CaLamViec.ToLower().Contains(searchTerm.ToLower())) ||
                                 (nd.TrangThai != null && nd.TrangThai.ToLower().Contains(searchTerm.ToLower())))
                     .ToList();
@@ -126,11 +125,11 @@ namespace Eden
                         TenNguoiDung = nd.TenNguoiDung,
                         TenDangNhap = nd.TenDangNhap,
                         NhomNguoiDung = nd.NHOMNGUOIDUNG?.TenNhomNguoiDung ?? "N/A",
-                        MaNhanVien = nd.MaNhanVien, // Thêm trường mới
-                        CaLamViec = nd.CaLamViec, // Thêm trường mới
-                        LuongCoDinh = nd.LuongCoDinh, // Thêm trường mới
-                        NgayBatDauLam = nd.NgayBatDauLam?.ToString("dd/MM/yyyy"), // Thêm trường mới, định dạng ngày
-                        TrangThai = nd.TrangThai // Thêm trường mới
+                        MaNhanVien = nd.MaNhanVien,
+                        CaLamViec = nd.CaLamViec,
+                        LuongCoDinh = nd.LuongCoDinh,
+                        NgayBatDauLam = nd.NgayBatDauLam?.ToString("dd/MM/yyyy"),
+                        TrangThai = nd.TrangThai
                     })
                     .ToList();
 
@@ -172,7 +171,7 @@ namespace Eden
             form.Dock = DockStyle.Fill;
             this.Controls.Add(form);
             form.Show();
-            LoadData(txtSearch.Text.Trim(), currentPage); // Refresh data after form interaction
+            LoadData(txtSearch.Text.Trim(), currentPage);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -200,7 +199,7 @@ namespace Eden
             form.Dock = DockStyle.Fill;
             this.Controls.Add(form);
             form.Show();
-            LoadData(txtSearch.Text.Trim(), currentPage); // Refresh data after form interaction
+            LoadData(txtSearch.Text.Trim(), currentPage);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -211,28 +210,35 @@ namespace Eden
                 return;
             }
 
-            if (MessageBox.Show("Bạn có chắc chắn muốn xóa người dùng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            try
             {
-                try
+                string selectedMaNguoiDung = dgvNguoiDung.SelectedRows[0].Cells["MaNguoiDung"].Value.ToString();
+                var nguoiDungList = nguoiDungBll.GetAll();
+                var nguoiDung = nguoiDungList.FirstOrDefault(nd => nd.MaNguoiDung == selectedMaNguoiDung);
+
+                if (nguoiDung == null)
                 {
-                    string selectedMaNguoiDung = dgvNguoiDung.SelectedRows[0].Cells["MaNguoiDung"].Value.ToString();
-                    var nguoiDungList = nguoiDungBll.GetAll();
-                    var nguoiDung = nguoiDungList.FirstOrDefault(nd => nd.MaNguoiDung == selectedMaNguoiDung);
+                    MessageBox.Show("Không tìm thấy người dùng với mã này.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    if (nguoiDung == null)
-                    {
-                        MessageBox.Show("Không tìm thấy người dùng với mã này.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                // Kiểm tra nếu người dùng đang đăng nhập
+                if (CurrentUser.Id != 0 && nguoiDung.id == CurrentUser.Id)
+                {
+                    MessageBox.Show("Không thể xóa tài khoản đang đăng nhập.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                if (MessageBox.Show("Bạn có chắc chắn muốn xóa người dùng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
                     nguoiDungBll.Delete(nguoiDung.id);
                     MessageBox.Show("Xóa người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadData(txtSearch.Text.Trim(), currentPage);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi khi xóa người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xóa người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -255,7 +261,7 @@ namespace Eden
                             worksheet.Cell(1, 1).Style.Font.Bold = true;
                             worksheet.Cell(1, 1).Style.Font.FontSize = 18;
                             worksheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-                            worksheet.Range(1, 1, 1, 9).Merge(); // Cập nhật merge để phù hợp số cột mới
+                            worksheet.Range(1, 1, 1, 9).Merge();
 
                             // Tiêu đề chính
                             worksheet.Cell(2, 1).Value = "Danh Sách Người Dùng";
@@ -285,7 +291,7 @@ namespace Eden
                             worksheet.Cell(6, 8).Value = "Ngày Bắt Đầu Làm";
                             worksheet.Cell(6, 9).Value = "Trạng Thái";
                             var headerRange = worksheet.Range(6, 1, 6, 9);
-                            headerRange.Style.Fill.BackgroundColor = XLColor.FromArgb(146, 208, 80); // Màu xanh nhạt
+                            headerRange.Style.Fill.BackgroundColor = XLColor.FromArgb(146, 208, 80);
                             headerRange.Style.Font.Bold = true;
                             headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                             headerRange.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
@@ -340,15 +346,15 @@ namespace Eden
                             worksheet.Range(lastRow + 3, 1, lastRow + 3, 9).Merge();
 
                             // Điều chỉnh độ rộng cột
-                            worksheet.Column(1).Width = 15; // MaNguoiDung
-                            worksheet.Column(2).Width = 25; // TenNguoiDung
-                            worksheet.Column(3).Width = 20; // TenDangNhap
-                            worksheet.Column(4).Width = 25; // NhomNguoiDung
-                            worksheet.Column(5).Width = 15; // MaNhanVien
-                            worksheet.Column(6).Width = 20; // CaLamViec
-                            worksheet.Column(7).Width = 15; // LuongCoDinh
-                            worksheet.Column(8).Width = 20; // NgayBatDauLam
-                            worksheet.Column(9).Width = 15; // TrangThai
+                            worksheet.Column(1).Width = 15;
+                            worksheet.Column(2).Width = 25;
+                            worksheet.Column(3).Width = 20;
+                            worksheet.Column(4).Width = 25;
+                            worksheet.Column(5).Width = 15;
+                            worksheet.Column(6).Width = 20;
+                            worksheet.Column(7).Width = 15;
+                            worksheet.Column(8).Width = 20;
+                            worksheet.Column(9).Width = 15;
 
                             workbook.SaveAs(sfd.FileName);
                         }

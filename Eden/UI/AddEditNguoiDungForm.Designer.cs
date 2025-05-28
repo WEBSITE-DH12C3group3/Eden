@@ -9,9 +9,9 @@ namespace Eden
         private Guna.UI2.WinForms.Guna2TextBox txtTenDangNhap;
         private Guna.UI2.WinForms.Guna2TextBox txtMatKhau;
         private Guna.UI2.WinForms.Guna2ComboBox cbNhomNguoiDung;
-        private Guna.UI2.WinForms.Guna2ComboBox cbCaLamViec; // Declared but added dynamically
+        private Guna.UI2.WinForms.Guna2ComboBox cbCaLamViec;
         private System.Windows.Forms.Label labelTitle;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6; // Declared but added dynamically
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
 
         protected override void Dispose(bool disposing)
         {
@@ -118,7 +118,6 @@ namespace Eden
             this.txtMatKhau.SelectedText = "";
             this.txtMatKhau.Size = new System.Drawing.Size(366, 40);
             this.txtMatKhau.TabIndex = 3;
-            this.txtMatKhau.UseSystemPasswordChar = true;
             // 
             // cbNhomNguoiDung
             // 
@@ -255,6 +254,7 @@ namespace Eden
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel2);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel5);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel4);
+            this.guna2Panel1.Controls.Add(this.guna2HtmlLabel6); // Thêm nhãn Ca Làm Việc vào giao diện
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Panel1.Location = new System.Drawing.Point(3, 3);
@@ -316,6 +316,7 @@ namespace Eden
             this.guna2Panel4.Controls.Add(this.txtTenDangNhap);
             this.guna2Panel4.Controls.Add(this.cbNhomNguoiDung);
             this.guna2Panel4.Controls.Add(this.txtMatKhau);
+            this.guna2Panel4.Controls.Add(this.cbCaLamViec); // Thêm combobox Ca Làm Việc vào giao diện
             this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel4.Location = new System.Drawing.Point(390, 3);
             this.guna2Panel4.Name = "guna2Panel4";
@@ -359,12 +360,7 @@ namespace Eden
 
         private void AddEditNguoiDungForm_Load(object sender, EventArgs e)
         {
-            if (nguoiDung == null)
-            {
-                // Add shift controls only in add mode
-                guna2Panel4.Controls.Add(this.cbCaLamViec);
-                guna2Panel1.Controls.Add(this.guna2HtmlLabel6);
-            }
+            // Không cần thêm điều khiển động nữa vì đã thêm trực tiếp trong InitializeComponent
         }
     }
 }

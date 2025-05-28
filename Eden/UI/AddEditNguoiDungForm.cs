@@ -19,16 +19,16 @@ namespace Eden
             this.nguoiDung = nguoiDung;
             this.nhomNguoiDungList = nhomNguoiDungList;
             InitializeComponent();
-            txtMatKhau.UseSystemPasswordChar = false;
             LoadNhomNguoiDung();
-            if (nguoiDung == null)
-            {
-                LoadCaLamViec();
-            }
-            else
+            LoadCaLamViec();
+            if (nguoiDung != null)
             {
                 LoadData();
             }
+            // Set initial visibility of CaLamViec based on selected group
+            UpdateCaLamViecVisibility();
+            // Add event handler for group selection change
+            cbNhomNguoiDung.SelectedIndexChanged += cbNhomNguoiDung_SelectedIndexChanged;
         }
 
         private void LoadNhomNguoiDung()
@@ -55,6 +55,32 @@ namespace Eden
             txtTenDangNhap.Text = nguoiDung.TenDangNhap;
             txtMatKhau.Text = nguoiDung.MatKhau;
             cbNhomNguoiDung.SelectedValue = nguoiDung.idNhomNguoiDung;
+            if (!string.IsNullOrEmpty(nguoiDung.CaLamViec))
+            {
+                cbCaLamViec.SelectedItem = nguoiDung.CaLamViec;
+            }
+        }
+
+        private void UpdateCaLamViecVisibility()
+        {
+            if (cbNhomNguoiDung.SelectedValue != null)
+            {
+                int selectedNhomId = Convert.ToInt32(cbNhomNguoiDung.SelectedValue);
+                bool isAdmin = selectedNhomId == 1; // Assuming Admin has id = 1
+                if (cbCaLamViec != null)
+                {
+                    cbCaLamViec.Visible = !isAdmin;
+                }
+                if (guna2HtmlLabel6 != null)
+                {
+                    guna2HtmlLabel6.Visible = !isAdmin; // Updated to use correct label name
+                }
+            }
+        }
+
+        private void cbNhomNguoiDung_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateCaLamViecVisibility();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -66,7 +92,7 @@ namespace Eden
                 string tenDangNhap = txtTenDangNhap.Text.Trim();
                 string matKhau = txtMatKhau.Text.Trim();
                 object selectedNhomId = cbNhomNguoiDung.SelectedValue;
-                string selectedCaLamViec = nguoiDung == null ? cbCaLamViec?.SelectedItem?.ToString() : null;
+                string selectedCaLamViec = cbCaLamViec?.SelectedItem?.ToString();
 
                 // Validation
                 if (string.IsNullOrWhiteSpace(tenNguoiDung))
@@ -119,9 +145,10 @@ namespace Eden
                     return;
                 }
 
-                if (nguoiDung == null && string.IsNullOrEmpty(selectedCaLamViec))
+                int nhomId = Convert.ToInt32(selectedNhomId);
+                if (nhomId != 1 && string.IsNullOrEmpty(selectedCaLamViec)) // Skip CaLamViec validation for Admin
                 {
-                    MessageBox.Show("Vui lòng chọn một ca làm việc khi thêm người dùng mới.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn một ca làm việc.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -138,31 +165,25 @@ namespace Eden
                 nguoiDung.TenNguoiDung = tenNguoiDung;
                 nguoiDung.TenDangNhap = tenDangNhap;
                 nguoiDung.MatKhau = matKhau;
-                nguoiDung.idNhomNguoiDung = Convert.ToInt32(selectedNhomId);
+                nguoiDung.idNhomNguoiDung = nhomId;
+                nguoiDung.CaLamViec = nhomId == 1 ? null : selectedCaLamViec; // Set CaLamViec to null for Admin
 
-                // Gán giá trị CaLamViec khi thêm người dùng mới
-                if (nguoiDung.id == 0 && !string.IsNullOrEmpty(selectedCaLamViec))
-                {
-                    nguoiDung.CaLamViec = selectedCaLamViec;
-                }
-
-                // Áp dụng logic mới khi tạo người dùng mới
+                // Apply logic for new users
                 if (nguoiDung.id == 0)
                 {
-                    nguoiDung.NgayBatDauLam = DateTime.Now; // Ngày bắt đầu đi làm là ngày tạo tài khoản
-                    nguoiDung.TrangThai = "Đang làm"; // Trạng thái mặc định
+                    nguoiDung.NgayBatDauLam = DateTime.Now; // Start date for new users
+                    nguoiDung.TrangThai = "Đang làm"; // Default status
 
-                    // Gán lương cố định dựa trên nhóm người dùng
-                    int nhomId = Convert.ToInt32(selectedNhomId);
+                    // Assign fixed salary based on user group
                     if (nhomId == 2) // Nhân viên
                     {
-                        nguoiDung.LuongCoDinh = 3500000m; // 3,5 triệu
+                        nguoiDung.LuongCoDinh = 3500000m; // 3.5 million
                     }
                     else if (nhomId == 3) // Quản lý
                     {
-                        nguoiDung.LuongCoDinh = 5000000m; // 5 triệu
+                        nguoiDung.LuongCoDinh = 5000000m; // 5 million
                     }
-                    // Nếu là nhóm khác (ví dụ: Admin, id = 1), để NULL hoặc 0
+                    // Admin (id = 1) or other groups have NULL or 0 salary
                 }
 
                 // Save data
