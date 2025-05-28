@@ -72,6 +72,7 @@ namespace Eden
             CurrentUser.Id = user.id;
             CurrentUser.Username = user.TenNguoiDung;
             CurrentUser.Role = user.NHOMNGUOIDUNG?.TenNhomNguoiDung;
+            CurrentUser.Pharse = user.CaLamViec;
             CurrentUser.UserGroupId = user.idNhomNguoiDung;
             CurrentUser.Permissions = loginDAL.GetUserPermissions(user.idNhomNguoiDung).ToList();
 

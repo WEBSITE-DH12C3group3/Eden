@@ -13,6 +13,7 @@ namespace Eden
         public static int Id { get; set; }
         public static string Username { get; set; }
         public static string Role { get; set; }
+        public static string Pharse { get; set; }
         public static int UserGroupId { get; set; }
         public static List<string> Permissions { get; set; } = new List<string>();
 
@@ -46,6 +47,7 @@ namespace Eden
             Username = null;
             Role = null;
             UserGroupId = 0;
+            Pharse = null;
             Permissions.Clear();
             // Xóa tất cả các nút sidebar
             foreach (var btn in sidebarButtons)

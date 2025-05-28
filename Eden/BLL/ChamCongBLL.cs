@@ -22,7 +22,46 @@ namespace Eden
             {
                 // Thử cập nhật giờ đăng nhập cho bản ghi đã tồn tại
                 bool updated = chamCongDAL.UpdateGioDangNhap(idNguoiDung, ngayChamCong, gioDangNhap);
+                string status;
+                switch (CurrentUser.Pharse)
+                {
+                    case "Ca 1: 7h-12h":
+                        if (gioDangNhap > new TimeSpan(7, 0, 1))
+                        {
+                            status = "Đi muộn"; // Nếu giờ đăng nhập không trong khoảng ca 1
+                        }
+                        else
+                        {
+                            status = "Đi làm"; // Nếu giờ đăng nhập trong khoảng ca 1
+                        }
+                        break;
 
+                    case "Ca 2: 12h-17h":
+                        if (gioDangNhap > new TimeSpan(12, 0, 1))
+                        {
+                            status = "Đi muộn"; // Nếu giờ đăng nhập không trong khoảng ca 2
+                        }
+                        else
+                        {
+                            status = "Đi làm"; // Nếu giờ đăng nhập trong khoảng ca 2
+                        }
+                        break;
+
+                    case "Ca 3: 17h-22h":
+                        if (gioDangNhap > new TimeSpan(17, 0, 1))
+                        {
+                            status = "Đi muộn"; // Nếu giờ đăng nhập không trong khoảng ca 3
+                        }
+                        else
+                        {
+                            status = "Đi làm"; // Nếu giờ đăng nhập trong khoảng ca 3
+                        }
+                        break;
+
+                    default:
+                        status = "Lỗi"; // Hoặc một giá trị mặc định khác tùy thuộc vào logic của bạn
+                        break;
+                }
                 if (!updated)
                 {
                     // Nếu không tìm thấy bản ghi để cập nhật (chưa chấm công ngày hôm đó)
@@ -36,8 +75,8 @@ namespace Eden
                         NgayChamCong = ngayChamCong,
                         GioDangNhap = gioDangNhap,
                         GioDangXuat = null, // Giờ đăng xuất ban đầu là null
-                        CaLamViec = "Ca hành chính", // Đặt giá trị mặc định hoặc xác định từ logic
-                        TrangThai = "idk" // Trạng thái mặc định khi mới đăng nhập
+                        CaLamViec = CurrentUser.Pharse,  // Đặt giá trị mặc định hoặc xác định từ logic
+                        TrangThai = status // Trạng thái mặc định khi mới đăng nhập
                     };
                     chamCongDAL.Add(newChamCong); // Sử dụng phương thức Add từ ChamCongDAL
                     return true;
@@ -49,6 +88,36 @@ namespace Eden
                 // Log lỗi hoặc hiển thị thông báo
                 MessageBox.Show($"Lỗi BLL khi cập nhật/tạo giờ đăng nhập: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+            }
+        }
+
+        private string GetShiftByTime(TimeSpan loginTime)
+        {
+            TimeSpan ca1Start = new TimeSpan(7, 0, 0);  // 7:00:00
+            TimeSpan ca1End = new TimeSpan(12, 0, 0);   // 12:00:00
+
+            TimeSpan ca2Start = new TimeSpan(12, 0, 1); // 12:00:01 (để tránh trùng lặp với Ca 1 kết thúc)
+            TimeSpan ca2End = new TimeSpan(17, 0, 0);   // 17:00:00
+
+            TimeSpan ca3Start = new TimeSpan(17, 0, 1); // 17:00:01
+            TimeSpan ca3End = new TimeSpan(22, 0, 0);   // 22:00:00
+
+            if (loginTime >= ca1Start && loginTime <= ca1End)
+            {
+                return "Ca 1: 7h-12h";
+            }
+            else if (loginTime >= ca2Start && loginTime <= ca2End)
+            {
+                return "Ca 2: 12h-17h";
+            }
+            else if (loginTime >= ca3Start && loginTime <= ca3End)
+            {
+                return "Ca 3: 17h-22h";
+            }
+            else
+            {
+                // Nếu giờ đăng nhập không nằm trong bất kỳ ca nào đã định nghĩa
+                return "Ca ngoài giờ"; // Hoặc một giá trị mặc định khác tùy thuộc vào logic của bạn
             }
         }
 

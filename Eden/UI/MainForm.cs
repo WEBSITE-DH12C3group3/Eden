@@ -76,19 +76,19 @@ namespace Eden
                     salaryMenu.ImageScalingSize = new Size(24, 24);
                     // Tạo các item
                     var item1 = new ToolStripMenuItem("Tính lương", Properties.Resources.balance_sheet);
-                    var item2 = new ToolStripMenuItem("Thông tin nhân viên", Properties.Resources.information);
+                    //var item2 = new ToolStripMenuItem("Thông tin nhân viên", Properties.Resources.information);
                     var item3 = new ToolStripMenuItem("Chấm công", Properties.Resources.calendar);
 
                     item1.Padding = new Padding(5);
-                    item2.Padding = new Padding(5);
+                    //item2.Padding = new Padding(5);
                     item3.Padding = new Padding(5);
                     // Gán sự kiện click
                     item1.Click += (s, e) => ShowForm(new TinhLuongForm());
                     item3.Click += (s, e) => ShowForm(new ChamCongForm());
-                    item2.Click += (s, e) => ShowForm(new ThongTinNhanVienForm());
+                    //item2.Click += (s, e) => ShowForm(new ThongTinNhanVienForm());
 
                     // Thêm vào menu
-                    salaryMenu.Items.AddRange(new ToolStripItem[] { item1, item2, item3 });
+                    salaryMenu.Items.AddRange(new ToolStripItem[] { item1, item3 });
                 }
 
                 yPosition += 65;

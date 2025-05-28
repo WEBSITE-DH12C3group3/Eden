@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,7 +35,8 @@ namespace Eden.UI
             dataGridViewChamCong.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "TenNguoiDung",
-                HeaderText = "Tên người dùng"
+                HeaderText = "Tên người dùng",
+                Name = "TenNguoiDung"
             });
             dataGridViewChamCong.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -94,6 +94,26 @@ namespace Eden.UI
                     AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
                 };
                 this.Controls.Add(dataGridViewChamCong);
+            }
+        }
+
+        private void dataGridViewChamCong_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            // Kiểm tra xem người dùng hiện tại có phải là Admin hay không
+            if (CurrentUser.UserGroupId == 1)
+            {
+                foreach (DataGridViewRow row in dataGridViewChamCong.Rows)
+                {
+                    // Lấy tên người dùng từ hàng hiện tại
+                    // Đảm bảo "TenNguoiDung" là DataPropertyName hoặc Name của cột tên người dùng
+                    string tenNguoiDungTrongHang = row.Cells["TenNguoiDung"].Value?.ToString();
+
+                    // Nếu tên người dùng trong hàng khớp với tên người dùng Admin đang đăng nhập
+                    if (tenNguoiDungTrongHang == CurrentUser.Username)
+                    {
+                        row.Visible = false; // Ẩn hàng đó đi
+                    }
+                }
             }
         }
     }
