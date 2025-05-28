@@ -52,7 +52,6 @@ namespace Eden.UI
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //this.Close();
             NhaCungCapForm form = new NhaCungCapForm();
             this.Controls.Clear();
             form.TopLevel = false;
@@ -67,9 +66,25 @@ namespace Eden.UI
             try
             {
                 // Kiểm tra dữ liệu đầu vào
-                if (string.IsNullOrWhiteSpace(txtMaNhaCungCap.Text) || string.IsNullOrWhiteSpace(txtTenNhaCungCap.Text))
+                if (string.IsNullOrWhiteSpace(txtMaNhaCungCap.Text) || string.IsNullOrWhiteSpace(txtTenNhaCungCap.Text) ||
+                    string.IsNullOrWhiteSpace(txtDiaChi.Text) || string.IsNullOrWhiteSpace(txtSoDienThoai.Text) ||
+                    string.IsNullOrWhiteSpace(txtEmail.Text))
                 {
-                    MessageBox.Show("Mã và tên nhà cung cấp không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Tất cả các trường (Mã, Tên, Địa chỉ, Số điện thoại, Email) không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Kiểm tra định dạng số điện thoại (ví dụ: chỉ chứa số và độ dài hợp lệ)
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtSoDienThoai.Text.Trim(), @"^\d{10}$"))
+                {
+                    MessageBox.Show("Số điện thoại phải là 10 chữ số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Kiểm tra định dạng email (cơ bản)
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    MessageBox.Show("Email không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -92,8 +107,6 @@ namespace Eden.UI
 
                 nhaCungCapBLL.Add(ncc);
                 MessageBox.Show("Thêm nhà cung cấp thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //DialogResult = DialogResult.OK; // Báo hiệu thêm thành công
-                //Close();
                 NhaCungCapForm formAdd = new NhaCungCapForm();
                 this.Controls.Clear();
                 formAdd.TopLevel = false;
