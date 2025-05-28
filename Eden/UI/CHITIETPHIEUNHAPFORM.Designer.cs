@@ -148,6 +148,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             // 
             // btnExcel
             // 
+            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnExcel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnExcel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnExcel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -159,7 +160,7 @@ namespace Eden.UI // Note: This file is in the Eden.UI namespace
             this.btnExcel.Size = new System.Drawing.Size(180, 45);
             this.btnExcel.TabIndex = 4;
             this.btnExcel.Text = "Xuất Excel";
-            this.btnExcel.Click += new System.EventHandler(this.guna2Button2_Click);
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // CHITIETPHIEUNHAPFORM
             // 
