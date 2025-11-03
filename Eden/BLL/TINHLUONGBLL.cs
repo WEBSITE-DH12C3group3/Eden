@@ -62,23 +62,25 @@ namespace Eden
         }
 
         // Tính lương cho nhân viên
-        public bool CalculateAndSaveSalary(int? idNguoiDung, int thang, int nam)
+        public bool CalculateAndSaveSalary(int? idNguoiDung, int thang, int nam, string ghiChu)
         {
             try
             {
                 string thangNam = $"{thang:D2}{nam}";
                 var existingLuong = tinhLuongDAL.GetAllDTO()
-                    .FirstOrDefault(l => l.IdNguoiDung == idNguoiDung && l.ThangNam == thangNam);
+                    .FirstOrDefault(l => l.IdNguoiDung == idNguoiDung && l.ThangNam == thangNam && l.GhiChu == ghiChu);
 
                 if (existingLuong != null)
                 {
-                    MessageBox.Show($"Lương của nhân viên này trong tháng {thang:D2}/{nam} đã được tính.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"Bản ghi lương với ghi chú '{ghiChu}' của nhân viên này trong tháng {thang:D2}/{nam} đã được tính.",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
 
-                var luongDTOs = tinhLuongDAL.CalculateSalary(idNguoiDung, thang, nam);
+                var luongDTOs = tinhLuongDAL.CalculateSalary(idNguoiDung, thang, nam, ghiChu);
                 foreach (var luongDTO in luongDTOs)
                 {
+                    luongDTO.GhiChu = ghiChu;
                     tinhLuongDAL.SaveSalary(luongDTO);
                 }
                 return luongDTOs.Any();
@@ -89,7 +91,6 @@ namespace Eden
                 return false;
             }
         }
-
         // Thêm bản ghi lương với logic kiểm tra
         public void AddLuong(LUONG luong)
         {

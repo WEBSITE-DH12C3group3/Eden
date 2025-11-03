@@ -173,18 +173,19 @@ namespace Eden
         }
 
         // Tính lương bằng stored procedure
-        public List<LuongDTO> CalculateSalary(int? idNguoiDung, int thang, int nam)
+        public List<LuongDTO> CalculateSalary(int? idNguoiDung, int thang, int nam, string ghiChu)
         {
             try
             {
                 var parameters = new[]
                 {
-                    new SqlParameter("@ThangNam", $"{thang:D2}{nam}"),
-                    idNguoiDung.HasValue ? new SqlParameter("@idNguoiDung", idNguoiDung.Value) : new SqlParameter("@idNguoiDung", DBNull.Value)
-                };
+            new SqlParameter("@ThangNam", $"{thang:D2}{nam}"),
+            idNguoiDung.HasValue ? new SqlParameter("@idNguoiDung", idNguoiDung.Value) : new SqlParameter("@idNguoiDung", DBNull.Value),
+            new SqlParameter("@GhiChu", ghiChu)
+        };
 
                 var data = db.Database.SqlQuery<LuongDTO>(
-                    "EXEC TinhLuong @ThangNam, @idNguoiDung",
+                    "EXEC TinhLuong @ThangNam, @idNguoiDung, @GhiChu",
                     parameters
                 ).ToList();
 
@@ -196,7 +197,6 @@ namespace Eden
                 throw;
             }
         }
-
         // Lưu lương vào cơ sở dữ liệu
         public void SaveSalary(LuongDTO luongDTO)
         {

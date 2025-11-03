@@ -70,13 +70,15 @@ namespace Eden.UI
             var labelTitle = this.Controls.OfType<Label>().FirstOrDefault(l => l.Name == "labelTitle") ?? new Label { Top = 0, Height = 30 };
             int topControlsY = labelTitle.Bottom + paddingY + 10;
 
-            var lblThang = new Label { Text = "Tháng:", Location = new System.Drawing.Point(paddingX, topControlsY), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F) };
-            var numThang = new NumericUpDown { Name = "numThang", Minimum = 1, Maximum = 12, Value = DateTime.Now.Month, Location = new System.Drawing.Point(lblThang.Right + controlSpacing, topControlsY), Width = 60, Font = new System.Drawing.Font("Segoe UI", 12F) };
-
-            var lblNam = new Label { Text = "Năm:", Location = new System.Drawing.Point(numThang.Right + controlSpacing, topControlsY), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F) };
-            var numNam = new NumericUpDown { Name = "numNam", Minimum = 2020, Maximum = 2030, Value = DateTime.Now.Year, Location = new System.Drawing.Point(lblNam.Right + controlSpacing, topControlsY), Width = 80, Font = new System.Drawing.Font("Segoe UI", 12F) };
-
-            var lblNguoiDung = new Label { Text = "Nhân viên:", Location = new System.Drawing.Point(numNam.Right + controlSpacing * 2, topControlsY), AutoSize = true, ForeColor = System.Drawing.Color.WhiteSmoke, Font = new System.Drawing.Font("Segoe UI", 12F) };
+            // Xóa lblThang, numThang, lblNam, numNam
+            var lblNguoiDung = new Label
+            {
+                Text = "Nhân viên:",
+                Location = new System.Drawing.Point(paddingX, topControlsY),
+                AutoSize = true,
+                ForeColor = System.Drawing.Color.WhiteSmoke,
+                Font = new System.Drawing.Font("Segoe UI", 12F)
+            };
             var cmbNguoiDung = new ComboBox
             {
                 Name = "cmbNguoiDung",
@@ -126,7 +128,7 @@ namespace Eden.UI
             btnDelete.Click += BtnDelete_Click;
 
             // Hàng 2: Nhóm nút phân trang
-            int currentRow2Y = lblThang.Bottom + rowSpacing;
+            int currentRow2Y = lblNguoiDung.Bottom + rowSpacing;
             var btnPrevious = new Guna2Button
             {
                 Text = "Trang trước",
@@ -163,14 +165,13 @@ namespace Eden.UI
             };
             btnNext.Click += BtnNext_Click;
 
-            // Thêm nút Xuất Excel
             var btnExportExcel = new Guna2Button
             {
                 Text = "Xuất Excel",
                 Location = new System.Drawing.Point(btnNext.Right + controlSpacing, currentRow2Y),
                 Width = 120,
                 Height = 30,
-                FillColor = System.Drawing.Color.FromArgb(34, 139, 34), // Màu xanh lá cây
+                FillColor = System.Drawing.Color.FromArgb(34, 139, 34),
                 ForeColor = System.Drawing.Color.White,
                 BorderRadius = 10,
                 Font = new System.Drawing.Font("Segoe UI", 12F)
@@ -179,8 +180,8 @@ namespace Eden.UI
 
             this.Controls.AddRange(new Control[]
             {
-                lblThang, numThang, lblNam, numNam, lblNguoiDung, cmbNguoiDung, btnTinhLuong, btnDelete,
-                btnPrevious, lblPageInfo, btnNext, btnExportExcel
+        lblNguoiDung, cmbNguoiDung, btnTinhLuong, btnDelete,
+        btnPrevious, lblPageInfo, btnNext, btnExportExcel
             });
 
             int dgvTopY = btnNext.Bottom + rowSpacing;
@@ -191,7 +192,6 @@ namespace Eden.UI
                 dgvLuong.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             }
         }
-
         private void LoadLuongData()
         {
             try
@@ -258,24 +258,17 @@ namespace Eden.UI
         {
             try
             {
-                var numThang = this.Controls.OfType<NumericUpDown>().FirstOrDefault(n => n.Name == "numThang");
-                var numNam = this.Controls.OfType<NumericUpDown>().FirstOrDefault(n => n.Name == "numNam");
                 var cmbNguoiDung = this.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name == "cmbNguoiDung");
 
-                if (numThang == null || numNam == null || cmbNguoiDung == null)
+                if (cmbNguoiDung == null)
                 {
-                    MessageBox.Show("Không tìm thấy điều khiển cần thiết.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy điều khiển chọn nhân viên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                int thang = (int)numThang.Value;
-                int nam = (int)numNam.Value;
-
-                if (thang < 1 || thang > 12 || nam < 2020 || nam > 2030)
-                {
-                    MessageBox.Show("Tháng hoặc năm không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                // Lấy tháng và năm hiện tại từ thời gian thực
+                int thang = DateTime.Now.Month;
+                int nam = DateTime.Now.Year;
 
                 int? idNguoiDung = null;
                 if (cmbNguoiDung.SelectedValue != null && int.TryParse(cmbNguoiDung.SelectedValue.ToString(), out int id))
@@ -283,11 +276,19 @@ namespace Eden.UI
                     idNguoiDung = id;
                 }
 
-                bool success = tinhLuongBLL.CalculateAndSaveSalary(idNguoiDung, thang, nam);
-                if (success)
+                // Tạo bản ghi lương thứ nhất (Lương cố định)
+                bool success1 = tinhLuongBLL.CalculateAndSaveSalary(idNguoiDung, thang, nam, $"Lương cố định tháng {thang:D2}{nam}");
+                // Tạo bản ghi lương thứ hai (Thưởng)
+                bool success2 = tinhLuongBLL.CalculateAndSaveSalary(idNguoiDung, thang, nam, $"Thưởng tháng {thang:D2}{nam}");
+
+                if (success1 || success2)
                 {
                     LoadLuongData();
-                    MessageBox.Show($"Tính lương thành công cho tháng {thang:D2}/{nam}!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string message = $"Tính lương thành công cho tháng {thang:D2}/{nam}!" +
+                                    (success1 && success2 ? " (2 bản ghi: Lương cố định và Thưởng)" :
+                                     success1 ? " (1 bản ghi: Lương cố định)" :
+                                     " (1 bản ghi: Thưởng)");
+                    MessageBox.Show(message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -299,7 +300,6 @@ namespace Eden.UI
                 MessageBox.Show($"Lỗi khi tính lương: {ex.Message}\n{ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void BtnPrevious_Click(object sender, EventArgs e)
         {
             if (currentPage > 1)

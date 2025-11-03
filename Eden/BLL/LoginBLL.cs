@@ -27,7 +27,7 @@ namespace Eden
             }
 
             // 2. Kiểm tra độ dài
-            if (username.Length < 4 || username.Length > 20)
+            if (username.Length < 3 || username.Length > 20)
             {
                 MessageBox.Show("Tên đăng nhập phải từ 4 đến 20 ký tự!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
